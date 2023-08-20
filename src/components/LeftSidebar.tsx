@@ -25,7 +25,7 @@ const BottomSideBar = () => {
           );
         })}
       </div>
-      <div className="flex px-6 py-2 bg-gray-500">
+      <div className="flex px-6 py-2 mb-4">
         <TbLogout2 className="text-2xl mx-2" />
         <p className="ml-2 max-lg:hidden">Logout</p>
       </div>
