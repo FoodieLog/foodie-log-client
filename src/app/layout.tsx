@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import LeftSidebar from "../components/LeftSidebar";
 import Bottombar from "../components/Bottombar";
+import Topbar from '../components/Topbar';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,10 +18,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className={inter.className}>
         <div className="flex">
           <LeftSidebar />
+          <div className='flex flex-col'>
+          <Topbar />
           {children}
+          </div>
         </div>
+        <Bottombar />
       </body>
-      <Bottombar />
     </html>
   );
 }

@@ -4,6 +4,8 @@ import { sidebarLinks } from "../constants";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { TbLogout2 } from "react-icons/tb";
+import { Logo } from '@/public/images';
+import Image from 'next/image';
 
 const BottomSideBar = () => {
   const router = useRouter();
@@ -11,7 +13,8 @@ const BottomSideBar = () => {
 
   return (
     <section className="flex flex-col h-screen border-r-[1px] border-solid max-sm:hidden ">
-      <div className="flex w-full flex-1 flex-col gap-12 px-6 mt-[100px] ">
+      <div className="flex w-full flex-1 flex-col gap-12 px-6 mt-6 ">
+        <Image src={Logo} alt="logo" className="w-[126px] ml-2 max-lg:hidden" />
         {sidebarLinks.map((link) => {
           const isActive = (pathname.includes(link.route) && link.route.length > 1) || pathname === link.route;
           const IconComponent = link.icon;

@@ -9,3 +9,9 @@
   LogoNext
 }; 
 */
+
+import Logo from "./Logo_example.png"
+
+export {
+  Logo,
+}
