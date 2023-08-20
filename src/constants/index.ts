@@ -7,7 +7,7 @@ export const sidebarLinks = [
   {
     icon: HiOutlineHome,
     label: "Home",
-    route: "/",
+    route: "/home",
   },
   {
     icon: FiMapPin,

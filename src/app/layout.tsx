@@ -15,12 +15,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="ko">
       <body className={inter.className}>
-        <main className="flex ">
+        <div className="flex">
           <LeftSidebar />
           {children}
-        </main>
-        <Bottombar />
+        </div>
       </body>
+      <Bottombar />
     </html>
   );
 }
