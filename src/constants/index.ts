@@ -1,11 +1,11 @@
-import { HiHome } from "react-icons/hi";
+import { HiOutlineHome } from "react-icons/hi";
 import { FiMapPin, FiThumbsUp } from "react-icons/fi";
 import { BiSmile } from "react-icons/bi";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 
 export const sidebarLinks = [
   {
-    icon: HiHome,
+    icon: HiOutlineHome,
     label: "Home",
     route: "/",
   },

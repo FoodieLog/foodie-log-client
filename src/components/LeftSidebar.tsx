@@ -19,13 +19,13 @@ const BottomSideBar = () => {
             <Link href={link.route} key={link.route} className={`py-2 ${isActive && "bg-sunflower-light rounded-lg"}`}>
               <div className="flex items-center">
                 <IconComponent className="text-2xl mx-2" />
-                <p className="ml-2 max-lg:hidden">{link.label}</p>
+                <p className="ml-2 mr-2 max-lg:hidden">{link.label}</p>
               </div>
             </Link>
           );
         })}
       </div>
-      <div className="flex px-6 py-2 bg-gray-500">
+      <div className="flex px-6 py-2 mb-4">
         <TbLogout2 className="text-2xl mx-2" />
         <p className="ml-2 max-lg:hidden">Logout</p>
       </div>
