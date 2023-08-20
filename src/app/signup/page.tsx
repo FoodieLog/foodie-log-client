@@ -13,13 +13,13 @@ function SignUp() {
           <input type="text" placeholder="이메일" />
           <input type="text" placeholder="비밀번호" />
           <input type="text" placeholder="비밀번호 확인" />
-          <Button label={"회원가입"} onClick={handleClick} />
+          <Button label={"회원가입"} />
           <div>
             <div></div>
             <div>또는</div>
             <div></div>
           </div>
-          <Button label={"카카오 로그인"} onClick={handleClick} />
+          <Button label={"카카오 로그인"} />
         </form>
       </div>
     </>
