@@ -10,7 +10,7 @@ const BottomSideBar = () => {
   const pathname = usePathname();
 
   return (
-    <section className="flex flex-col h-screen border-r-2 border-solid max-sm:hidden ">
+    <section className="flex flex-col h-screen border-r-[1px] border-solid max-sm:hidden ">
       <div className="flex w-full flex-1 flex-col gap-12 px-6 mt-[100px] ">
         {sidebarLinks.map((link) => {
           const isActive = (pathname.includes(link.route) && link.route.length > 1) || pathname === link.route;
