@@ -14,7 +14,7 @@ const Topbar = () => {
           <IoIosSearch className="mr-3 my-2 cursor-pointer " />
         </Link>
         <Link href="/notification">
-        <IoMdNotificationsOutline className="my-2 cursor-pointer" />
+          <IoMdNotificationsOutline className="my-2 cursor-pointer" />
         </Link>
       </div>
     </section>
