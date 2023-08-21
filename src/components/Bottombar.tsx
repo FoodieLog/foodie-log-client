@@ -9,7 +9,9 @@ const Bottombar = () => {
   return (
     <section className="bottombar fixed bottom-0 w-full z-10 py-2 border-t-[1px] border-solid sm:hidden">
       <div className="bottombar_container flex justify-around ">
-        {sidebarLinks.map((link) => {
+        {sidebarLinks.filter(
+          link => link.label !== 'Search' && link.label !== 'Notification')
+          .map((link) => {
           const isActive = (pathname.includes(link.route) && link.route.length > 1) || pathname === link.route;
           const IconComponent = link.icon;
           return (
