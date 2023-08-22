@@ -17,7 +17,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className={inter.className}>
         <div className="flex w-full">
           <LeftSidebar />
-          {children}
+          <div className="w-screen h-screen flex justify-center sm:mt-10">{children}</div>
         </div>
         <Bottombar />
       </body>
