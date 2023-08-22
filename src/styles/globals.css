@@ -4,9 +4,24 @@
 
 @layer base {
   h2 {
-    @apply text-xl;
+    @apply mt-3 text-3xl font-semibold text-slate-900;
   }
-  input {
-    @apply mb-2.5 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500;
+}
+
+@layer components {
+  .auth {
+    @apply relative w-4/5 h-4/5 flex flex-col justify-evenly sm:max-w-[500px] sm:border border-gray-500 sm:px-10;
+  }
+  .title {
+    @apply flex flex-col  items-center justify-center mb-20 max-sm:mt-28;
+  }
+  .input {
+    @apply h-[45px] w-full appearance-none border-2 border-gray-200 rounded  py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500;
+  }
+  .checkbox {
+    @apply h-4 w-4 rounded border-gray-300;
+  }
+  .code {
+    @apply h-10 w-10 rounded border-0 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600;
   }
 }
