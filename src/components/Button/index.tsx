@@ -1,16 +1,20 @@
 import React from "react";
 interface IButtonProps {
   label: string;
+  onClick: React.MouseEventHandler<HTMLButtonElement>;
 }
 
-function Button({ label }: IButtonProps) {
+function Button({ label, onClick }: IButtonProps) {
   return (
-    <button
-      type="button"
-      className={"w-80 mx-2 my-2.5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg"}
-    >
-      {label}
-    </button>
+    <div>
+      <button
+        type="button"
+        onClick={onClick}
+        className={"w-full h-[45px] bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mt-1 rounded-lg "}
+      >
+        {label}
+      </button>
+    </div>
   );
 }
 
