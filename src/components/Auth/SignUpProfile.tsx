@@ -29,28 +29,32 @@ const SignUpProfile = () => {
         <div className="title">
           <h2>프로필설정</h2>
         </div>
-        <div
-          onClick={() => fileInput?.current?.click()}
-          className="relative w-[200px] h-[200px] border border-gray-300 rounded-full cursor-pointer"
-        >
-          <Image src={selectedFile} alt="프로필 사진" width={200} height={200} />
-          <div onClick={() => fileInput?.current?.click()} className="absolute bottom-0 right-0 cursor-pointer">
-            <MdAddPhotoAlternate size="2rem" className="text-gray-600 z-10" />
+        <div className="relative">
+          <div
+            onClick={() => fileInput?.current?.click()}
+            className=" w-[200px] h-[200px] border border-gray-400 rounded-full overflow-hidden cursor-pointer"
+          >
+            <Image src={selectedFile} alt="프로필 사진" width={200} height={200} />
+            <input type="file" ref={fileInput} onChange={addImageToPost} hidden></input>
           </div>
-          <input type="file" ref={fileInput} onChange={addImageToPost} hidden></input>
+          <div onClick={() => fileInput?.current?.click()} className="absolute bottom-5 right-0 cursor-pointer">
+            <MdAddPhotoAlternate size="2.5rem" className="text-gray-400" />
+          </div>
         </div>
       </div>
 
-      <label>
-        <p className="mb-1">
-          닉네임(계정아이디)<span className="text-red-500">*</span>
-        </p>
-        <input type="text" className="input" />
-      </label>
-      <label>
-        <p className="mb-1">자기소개</p>
-        <input type="text" className="input" />
-      </label>
+      <div className="flex flex-col space-y-4">
+        <label>
+          <p className="mb-1">
+            닉네임(계정아이디)<span className="text-red-500">*</span>
+          </p>
+          <input type="text" className="input" />
+        </label>
+        <label>
+          <p className="mb-1">자기소개</p>
+          <input type="text" className="input" />
+        </label>
+      </div>
 
       <Button label="가입완료" onClick={onClick} />
     </section>
