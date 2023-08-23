@@ -8,36 +8,36 @@ export const sidebarLinks = [
   {
     icon: HiOutlineHome,
     label: "Home",
-    route: "/home",
+    route: "/main/home",
   },
   {
     icon: FiMapPin,
     label: "Maps",
-    route: "/maps",
+    route: "/main/maps",
   },
   {
     icon: AiOutlinePlusCircle,
     label: "Feed",
-    route: "/feed",
+    route: "/main/feed",
   },
   {
     icon: FiThumbsUp,
     label: "Recommend",
-    route: "/recommend",
+    route: "/main/recommend",
   },
   {
     icon: BiSmile,
     label: "User",
-    route: "/user",
+    route: "/main/user",
   },
   {
     icon: IoIosSearch,
     label: "Search",
-    route: "/search",
+    route: "/main/search",
   },
   {
     icon: IoMdNotificationsOutline,
     label: "Notification",
-    route: "/notification",
+    route: "/main/notification",
   },
 ];
