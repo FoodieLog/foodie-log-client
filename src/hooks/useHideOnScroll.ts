@@ -7,8 +7,13 @@ const useHideOnScroll = () => {
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollPos = window.scrollY;
-      setIsVisible(prevScrollPos > currentScrollPos || currentScrollPos < 10);
-      setPrevScrollPos(currentScrollPos);
+      const difference = Math.abs(prevScrollPos - currentScrollPos);
+
+      // 차이가 10px 이상일 때만 isVisible 상태를 업데이트
+      if (difference > 30) {
+        setIsVisible(prevScrollPos > currentScrollPos || currentScrollPos < 10);
+        setPrevScrollPos(currentScrollPos);
+      }
     };
 
     window.addEventListener("scroll", handleScroll);
