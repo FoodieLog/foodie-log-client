@@ -72,8 +72,8 @@ const AreaSelector: React.FC<AreaSelectorProps> = ({ onSelectedAreaChange }) => 
   }, [selectedRegion, selectedDo, selectedSiGunGu, onSelectedAreaChange]);
 
   return (
-    <div className="flex flex-col items-center justify-between flex-wrap border border-gray-300 rounded-md p-1 m-4 max-w-[640px]">
-      <div className="flex items-center justify-between w-full">
+    <div className=" w-full item-center border border-gray-300 rounded-md p-1 m-4 max-w-[480px]">
+      <div className="flex items-center justify-evenly w-full">
         <select
           value={selectedRegion}
           onChange={(e) => setSelectedRegion(e.target.value)}
@@ -134,7 +134,7 @@ const AreaSelector: React.FC<AreaSelectorProps> = ({ onSelectedAreaChange }) => 
           <GrPowerReset />
         </button>
       </div>
-      {message && <div className="text-black mt-2">{message}</div>}
+      {message && <div className="text-black text-center mt-2">{message}</div>}
     </div>
   );
 };

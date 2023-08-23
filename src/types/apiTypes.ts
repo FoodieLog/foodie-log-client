@@ -23,3 +23,16 @@ export type FeedData = {
   isFollowed: boolean;
   isLiked: boolean;
 };
+
+export type FeedThumbnail = {
+  id: number;
+  thumbnailUrl: string;
+};
+
+export type ShopThumbData = {
+  id: number;
+  name: string;
+  category: string;
+  roadAddress: string;
+  feedList: FeedThumbnail[];
+};
