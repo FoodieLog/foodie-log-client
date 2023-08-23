@@ -6,6 +6,9 @@
   h2 {
     @apply mt-3 text-3xl font-semibold text-slate-900;
   }
+  h3 {
+    @apply mt-3 text-lg font-semibold text-slate-900;
+  }
 }
 
 @layer components {
