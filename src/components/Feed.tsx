@@ -15,7 +15,7 @@ const Feed: React.FC<FeedData> = ({ feed, restaurant, isFollowed, isLiked }) => 
   const [Like, setLike] = useState<boolean>(isLiked);
 
   return (
-    <div className="mt-2 w-full max-w-[640px] bg-mint-light border rounded-sm">
+    <div className="mt-2 w-full max-w-[640px] bg-mint-light border rounded-sm px-2">
       {/* Header */}
       <div className="flex items-center p-3">
         <img
