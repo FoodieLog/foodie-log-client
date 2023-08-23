@@ -1,6 +1,11 @@
+"use client"
+import AreaSelector from '@/src/components/AreaSelector'
+
 const Recommend = () => {
   return (
-    <div>Recommend</div>
+    <div>
+      <AreaSelector />
+    </div>
   )
 }
 
