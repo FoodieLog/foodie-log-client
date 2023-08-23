@@ -7,12 +7,18 @@ import dayjs from "dayjs";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { FaRegCommentDots } from "react-icons/fa";
 import { FiShare2 } from "react-icons/fi";
+import Button from './Button';
 
 const Feed: React.FC<FeedData> = ({ feed, restaurant, isFollowed, isLiked }) => {
   const timeDifference = getTimeDiff(dayjs(feed.createdAt));
 
   const [Follow, setFollow] = useState<boolean>(isFollowed);
   const [Like, setLike] = useState<boolean>(isLiked);
+
+  const handleButtonClick = () => {
+    setFollow(!Follow);
+  };
+
 
   return (
     <div className="mt-2 w-full max-w-[640px] bg-mint-light border rounded-sm px-2">
@@ -28,10 +34,13 @@ const Feed: React.FC<FeedData> = ({ feed, restaurant, isFollowed, isLiked }) => 
           <p className="text-sm">{timeDifference}</p>
         </div>
         {/* isFollowed 가 true 면 버튼 label이 "팔로잉", 아니면 "팔로우" */}
-        <button className="w-30 h-9 py-2 mr-4 px-4 text-white font-bold rounded-2xl bg-green-400 hover:bg-green-500 border-0">
+        {/* <button className="w-30 h-9 py-2 mr-4 px-4 text-white font-bold rounded-2xl bg-green-400 hover:bg-green-500 border-0">
           {Follow ? "팔로잉" : "팔로우"}
-        </button>
-        <BsThreeDotsVertical className="cursor-pointer" />
+        </button> */}
+        <Button variant={"primary"} size={"w-30 h-9"} onClick={handleButtonClick}>
+          {Follow ? "팔로잉" : "팔로우"}
+        </Button>
+        <BsThreeDotsVertical className="cursor-pointer ml-2" />
       </div>
       {/* image */}
       <ImageSlide images={feed.feedImages} />
