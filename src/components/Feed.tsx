@@ -34,12 +34,13 @@ const Feed: React.FC<FeedData> = ({ feed, restaurant, isFollowed, isLiked }) => 
           <p className="text-sm">{timeDifference}</p>
         </div>
         {/* isFollowed 가 true 면 버튼 label이 "팔로잉", 아니면 "팔로우" */}
-        {/* <button className="w-30 h-9 py-2 mr-4 px-4 text-white font-bold rounded-2xl bg-green-400 hover:bg-green-500 border-0">
+        <button className="w-30 h-9 py-2 mr-4 px-4 text-white font-bold rounded-2xl 
+        bg-green-400 hover:bg-green-500 border-0" onClick={handleButtonClick}>
           {Follow ? "팔로잉" : "팔로우"}
-        </button> */}
-        <Button variant={"primary"} size={"w-30 h-9"} onClick={handleButtonClick}>
+        </button>
+        {/* <Button variant={"primary"} size={"w-30 h-9"} onClick={handleButtonClick}>
           {Follow ? "팔로잉" : "팔로우"}
-        </Button>
+        </Button> */}
         <BsThreeDotsVertical className="cursor-pointer ml-2" />
       </div>
       {/* image */}
