@@ -4,25 +4,12 @@ import { Logo } from "@/public/images";
 import { IoIosSearch, IoMdNotificationsOutline } from "react-icons/io";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import useHideOnScroll from '../hooks/useHideOnScroll';
 
 const Topbar = () => {
-  const [prevScrollPos, setPrevScrollPos] = useState(0);
-  const [isVisible, setIsVisible] = useState(true);
+  const isVisible = useHideOnScroll();
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollPos = window.scrollY;
-      setIsVisible(prevScrollPos > currentScrollPos || currentScrollPos < 10);
-      setPrevScrollPos(currentScrollPos);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [prevScrollPos]);
-
-  return (
+    return (
     // <section className="flex justify-between items-center max-w-[640px] px-4 bg-cyan-500">
     <section
       className={`z-20 flex justify-between items-center max-w-[640px] px-4 bg-cyan-500 
