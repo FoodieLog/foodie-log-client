@@ -4,6 +4,9 @@ import Button from "@/src/components/Button";
 import BackButton from "@/src/components/Button/BackButton";
 
 const FindPassword = () => {
+  const onClick = () => {
+    console.log("onClick");
+  };
   return (
     <section className="auth">
       <BackButton />
@@ -11,9 +14,7 @@ const FindPassword = () => {
         <h2>인증코드</h2>
         <form className="w-full flex flex-col  gap-4 mt-10">
           <input className="input" placeholder="비밀번호 확인" />
-          <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
-            인증코드 보내기
-          </button>
+          <Button variant={"secondary"}>인증코드 보내기</Button>
         </form>
         <div className="mt-20">
           <p>
@@ -29,11 +30,11 @@ const FindPassword = () => {
       </div>
       <div>
         <div className="flex justify-center mb-2">
-          <button type="button" className="">
-            코드 재전송
-          </button>
+          <Button variant={"text"}>코드 재전송</Button>
         </div>
-        <Button label="이메일인증" onClick={() => console.log("다음")} />
+        <Button variant={"primary"} onClick={onClick}>
+          이메일 인증
+        </Button>
       </div>
       <div className="w-full flex items-center justify-center space-x-2">
         <div className="h-[0.8px] w-full bg-slate-400" />
@@ -41,9 +42,7 @@ const FindPassword = () => {
         <div className="h-[0.8px] w-full bg-slate-400" />
       </div>
       <div className="flex justify-center mb-2">
-        <button type="button" className="">
-          새 계정 만들기
-        </button>
+        <Button variant={"text"}>새 계정 만들기</Button>
       </div>
     </section>
   );

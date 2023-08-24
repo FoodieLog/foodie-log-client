@@ -56,7 +56,7 @@ const SignUpProfile = () => {
         </label>
       </div>
 
-      <Button label="가입완료" onClick={onClick} />
+      <Button variant={"primary"}>가입완료</Button>
     </section>
   );
 };
