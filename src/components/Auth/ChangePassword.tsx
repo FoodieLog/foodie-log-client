@@ -14,7 +14,9 @@ function ChangePassword() {
           <input className="input" placeholder="비밀번호" />
           <input className="input" placeholder="비밀번호 확인" />
           <div className="mt-20">
-            <Button label={"비밀번호 변경"} onClick={(e) => console.log(e)} />
+            <Button variant={"primary"} onClick={(e) => console.log(e)}>
+              비밀번호 변경
+            </Button>
           </div>
         </form>
       </div>

@@ -21,11 +21,9 @@ const SignUpCode = () => {
       </div>
       <div>
         <div className="flex justify-center mb-2">
-          <button type="button" className="">
-            코드 재전송
-          </button>
+          <Button variant={"text"}>코드 재전송</Button>
         </div>
-        <Button label="다음" onClick={() => console.log("다음")} />
+        <Button variant={"primary"}>다음</Button>
       </div>
     </section>
   );

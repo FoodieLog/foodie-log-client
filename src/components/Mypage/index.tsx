@@ -14,6 +14,7 @@ function MyPageForm() {
   const onClick = () => {
     console.log("onClick");
   };
+
   return (
     <section className="w-full max-sm:text-base">
       <main>
@@ -47,7 +48,9 @@ function MyPageForm() {
           <h1>바이오 소개글 가나다라마다하바히ㅏㅇ ㅣ아 미답 ㅣㅏㅓ 시ㅏ 미알 미ㅁㅇㅁ;ㅣㅏ어ㅣ망ㄹ미어ㅣ </h1>
         </div>
         <div>
-          <Button label="프로필 수정" onClick={onClick} />
+          <Button variant={"primary"} onClick={onClick}>
+            프로필 수정
+          </Button>
         </div>
         <div className="flex justify-around w-full mt-3 py-3 border">
           <Link href={"#"}>

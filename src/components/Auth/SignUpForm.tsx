@@ -18,7 +18,7 @@ function SignUpForm() {
         <input className="input" type="text" placeholder="이메일" />
         <input className="input" placeholder="비밀번호" />
         <input className="input" placeholder="비밀번호 확인" />
-        <Button label={"회원가입"} onClick={(e) => console.log(e)} />
+        <Button variant={"primary"}>회원가입</Button>
       </form>
       <div className="w-full flex items-center justify-center my-10 space-x-2">
         <div className="h-[0.8px] w-full bg-slate-400" />

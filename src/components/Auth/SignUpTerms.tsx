@@ -4,6 +4,9 @@ import BackButton from "@/src/components/Button/BackButton";
 import React from "react";
 
 function SignUpTerms() {
+  const onClick = () => {
+    console.log("onClick");
+  };
   return (
     <section className="auth">
       <BackButton />
@@ -20,7 +23,9 @@ function SignUpTerms() {
         </div>
         <p>더 알아보기</p>
       </div>
-      <Button label="다음" onClick={() => console.log("다음")} />
+      <Button variant={"primary"} onClick={onClick}>
+        다음
+      </Button>
     </section>
   );
 }
