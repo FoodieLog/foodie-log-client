@@ -1,11 +1,24 @@
 import { ShopThumbData } from "../types/apiTypes";
+import { getIcon } from "../utils/iconUtils";
+import ShopCard from './ShopCard';
 
 const ShopThumb: React.FC<ShopThumbData> = ({ id, name, category, roadAddress, feedList }) => {
-  console.log(feedList[0].thumbnailUrl);
+  const shopCategoryIcon = `/images/foodCategoryIcons/${getIcon(category)}`;
+
   return (
     <div className="mt-2 w-full max-w-[640px] bg-gray-100 border rounded-sm px-1">
-      <p className="font-bold text-base p-1">{name}</p>
-      <p className="text-base p-1">{roadAddress}</p>
+      
+      <ShopCard name={name} category={category} roadAddress={roadAddress} />
+
+      {/* <div className="flex items-center">
+        <img src={shopCategoryIcon} alt="음식점 썸네일" className="w-12 h-12 border p-1 rounded-full cursor-pointer" />
+        <div className="flex flex-col items-start p-1">
+          <p className="font-bold text-base cursor-pointer">{name}</p>
+          <p className="text-sm cursor-pointer">{roadAddress}</p>
+        </div>
+      </div> */}
+      
+      
       {/* <p className="text-sm p-1">{category}</p> */}
 
       <div className="flex gap-1">
