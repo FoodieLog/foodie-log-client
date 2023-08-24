@@ -7,7 +7,9 @@ import dayjs from "dayjs";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { FaRegCommentDots } from "react-icons/fa";
 import { FiShare2 } from "react-icons/fi";
+import { getIcon } from "../utils/iconUtils";
 import Button from './Button';
+
 
 const Feed: React.FC<FeedData> = ({ feed, restaurant, isFollowed, isLiked }) => {
   const timeDifference = getTimeDiff(dayjs(feed.createdAt));
@@ -15,9 +17,14 @@ const Feed: React.FC<FeedData> = ({ feed, restaurant, isFollowed, isLiked }) => 
   const [Follow, setFollow] = useState<boolean>(isFollowed);
   const [Like, setLike] = useState<boolean>(isLiked);
 
+  // 주의 : 이미지 경로를 /public/images/... 로 시작하면 안된다.
+  // 대부분의 프론트엔드 프레임워크나 빌드 도구에서는 public 디렉토리의 내용이 빌드 시 루트 경로(/)에 배포된다고 한다.
+  const shopCategoryIcon = `/images/foodCategoryIcons/${getIcon(restaurant.category)}`
+  
   const handleButtonClick = () => {
     setFollow(!Follow);
   };
+
 
 
   return (
@@ -26,7 +33,7 @@ const Feed: React.FC<FeedData> = ({ feed, restaurant, isFollowed, isLiked }) => 
       <div className="flex items-center p-3">
         <img
           src={feed.profileImageUrl}
-          alt="userProfile"
+          alt="사용자 썸네일"
           className="w-12 h-12 border p-1 mr-3 rounded-full cursor-pointer"
         />
         <div className="flex flex-1 flex-col">
@@ -46,9 +53,16 @@ const Feed: React.FC<FeedData> = ({ feed, restaurant, isFollowed, isLiked }) => 
       {/* image */}
       <ImageSlide images={feed.feedImages} />
       {/* restaurant */}
+      <div className='flex items-center'>
+      <img
+          src={shopCategoryIcon}
+          alt="음식점 썸네일"
+          className="w-12 h-12 border p-1 rounded-full cursor-pointer"
+        />
       <div className="flex flex-col items-start p-3">
         <p className="font-bold cursor-pointer">{restaurant.name}</p>
         <p className="text-sm cursor-pointer">{restaurant.roadAddress}</p>
+      </div>
       </div>
       {/* content */}
       <p className="p-1">{feed.content}</p>
