@@ -7,7 +7,7 @@ const Bottombar = () => {
   const pathname = usePathname();
 
   return (
-    <section className="bottombar fixed bottom-0 w-full z-10 py-2 border-t-[1px] bg-white border-solid sm:hidden">
+    <section className="bottombar fixed bottom-0 w-full max-w-screen-sm mx-auto z-10 py-2 border-t-[1px] bg-white border-solid sm:hidden">
       <div className="bottombar_container flex justify-around ">
         {sidebarLinks
           .filter((link) => link.label !== "Search" && link.label !== "Notification")
