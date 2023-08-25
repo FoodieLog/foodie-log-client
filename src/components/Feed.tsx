@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { useState } from "react";
 import { FeedData } from "../types/apiTypes";
 import { BsThreeDotsVertical } from "react-icons/bs";
@@ -9,7 +10,7 @@ import { FaRegCommentDots } from "react-icons/fa";
 import { FiShare2 } from "react-icons/fi";
 import { getIcon } from "../utils/iconUtils";
 import Button from "./Button";
-import ShopCard from './ShopCard';
+import ShopCard from "./ShopCard";
 
 const Feed: React.FC<FeedData> = ({ feed, restaurant, isFollowed, isLiked }) => {
   const timeDifference = getTimeDiff(dayjs(feed.createdAt));
@@ -29,12 +30,16 @@ const Feed: React.FC<FeedData> = ({ feed, restaurant, isFollowed, isLiked }) => 
     <div className="mt-2 w-full max-w-[640px] bg-mint-light border rounded-sm px-2">
       {/* Header */}
       <div className="flex items-center p-3">
-        <img
-          src={feed.profileImageUrl}
-          alt="사용자 썸네일"
-          className="w-12 h-12 border p-1 mr-3 rounded-full cursor-pointer"
-        />
-        <div className="flex flex-1 flex-col">
+        <div className="relative w-12 h-12">
+          <Image
+            fill={true}
+            src={feed.profileImageUrl}
+            alt="사용자 썸네일"
+            sizes="(max-width: 48px) 48px, 48px"
+            className="w-12 h-12 border p-1 rounded-full cursor-pointer"
+          />
+        </div>
+        <div className="flex flex-1 flex-col ml-3">
           <p className="font-bold  cursor-pointer">{feed.nickName}</p>
           <p className="text-sm">{timeDifference}</p>
         </div>
@@ -55,6 +60,7 @@ const Feed: React.FC<FeedData> = ({ feed, restaurant, isFollowed, isLiked }) => 
       <ImageSlide images={feed.feedImages} />
       {/* restaurant */}
       <ShopCard
+        id={restaurant.id}
         name={restaurant.name}
         category={restaurant.category}
         roadAddress={restaurant.roadAddress}
