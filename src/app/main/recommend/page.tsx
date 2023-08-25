@@ -1,4 +1,3 @@
-"use client"
 import AreaSelector from '@/src/components/AreaSelector'
 import Bottombar from '@/src/components/Bottombar'
 import ShopThumbList from '@/src/components/ShopThumbList'
