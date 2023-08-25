@@ -1,3 +1,4 @@
+"use client"
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { area } from "@/src/constants";
@@ -75,7 +76,7 @@ const AreaSelector: React.FC<AreaSelectorProps> = ({ onSelectedAreaChange }) => 
   }, [selectedRegion, selectedDo, selectedSiGunGu, onSelectedAreaChange]);
 
   return (
-    <div className={`w-full sticky border-b border-solid item-center 
+    <div className={`z-20 w-full sticky border-b border-solid item-center 
      bg-white border border-gray-300 sm:rounded-md p-1 m-0 sm:m-4 sm:w-[480px]
      ${isVisible ? "top-0" : "-top-16"} transition-top duration-300`}>
       <div className="flex items-center justify-evenly w-full">

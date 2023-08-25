@@ -1,9 +1,8 @@
-"use client";
+"use client"
 import Image from "next/image";
 import { Logo } from "@/public/images";
 import { IoIosSearch, IoMdNotificationsOutline } from "react-icons/io";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import useHideOnScroll from '../hooks/useHideOnScroll';
 
 const Topbar = () => {
