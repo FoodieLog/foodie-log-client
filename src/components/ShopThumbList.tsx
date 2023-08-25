@@ -1,32 +1,14 @@
+"use client"
 import ShopThumb from './ShopThumb';
 import { useState, useEffect } from 'react';
 import { faker } from "@faker-js/faker";
+import { generateShopDummyData } from '../utils/dummyDataUtils';
 
 const ShopThumbList = () => {
   const [dummyShopData, setDummyShopData] = useState<any[]>([]);
 
   useEffect(() => {
-    const DUMMY_DATA = [...Array(10)].map((_, i) => ({
-      id: faker.number.int({ max: 1000000 }),
-      name: faker.company.name(),
-      category: faker.commerce.department(),
-      roadAddress: faker.location.streetAddress(),
-      feedList: [
-        {
-          id: faker.number.int({ max: 1000000 }),
-          thumbnailUrl: faker.image.urlPicsumPhotos(),
-        },
-        {
-          id: faker.number.int({ max: 1000000 }),
-          thumbnailUrl: faker.image.urlPicsumPhotos(),
-        },
-        {
-          id: faker.number.int({ max: 1000000 }),
-          thumbnailUrl: faker.image.urlPicsumPhotos(),
-        },
-      ]
-    }));
-
+    const DUMMY_DATA = generateShopDummyData()
     setDummyShopData(DUMMY_DATA);
   }, []);
 
