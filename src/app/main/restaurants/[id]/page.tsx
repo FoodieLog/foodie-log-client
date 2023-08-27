@@ -6,12 +6,13 @@ interface RestaurantProps {
   };
 }
 
-const restaurant = (props : RestaurantProps) => {
-  const restaurantId = (props.params.id);
+// props : {params : {id} } : RestaurantProps
+const restaurant = ({params : {id} } : RestaurantProps) => {
+
 
   return (
     <div className="w-full bg-orange-500 flex justify-center">
-      <RestaurantDetail Id={restaurantId} />
+      <RestaurantDetail Id={id} />
     </div>
   );
 };
