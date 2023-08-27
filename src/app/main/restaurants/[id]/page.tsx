@@ -1,11 +1,19 @@
-import RestaurantDetail from '@/src/components/RestaurantDetail'
+import RestaurantDetail from "@/src/components/RestaurantDetail";
 
-const restaurant = () => {
-  return (
-    <div className='w-full bg-orange-500 flex justify-center'>
-      <RestaurantDetail />
-    </div>
-  )
+interface RestaurantProps {
+  params: {
+    id: string;
+  };
 }
 
-export default restaurant
+const restaurant = (props : RestaurantProps) => {
+  const restaurantId = (props.params.id);
+
+  return (
+    <div className="w-full bg-orange-500 flex justify-center">
+      <RestaurantDetail Id={restaurantId} />
+    </div>
+  );
+};
+
+export default restaurant;
