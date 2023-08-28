@@ -1,30 +1,20 @@
-// interface IButtonProps {
-//   label: string;
-//   onClick: React.MouseEventHandler<HTMLButtonElement>;
-// }
-
-// function Button({ label, onClick }: IButtonProps) {
-//   return (
-//     <div>
-//       <button
-//         type="button"
-//         onClick={onClick}
-//         className={"w-full h-[45px] bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mt-1 rounded-lg "}
-//       >
-//         {label}
-//       </button>
-//     </div>
-//   );
-// }
-
 type ButtonProps = {
+  type: "button" | "submit" | "reset" | undefined;
   variant?: "primary" | "secondary" | "text";
   size?: string;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  disabled?: boolean;
   children: React.ReactNode;
 };
 
-const Button: React.FC<ButtonProps> = ({ variant = "primary", size = "py-2", onClick, children }: ButtonProps) => {
+const Button: React.FC<ButtonProps> = ({
+  type = "button",
+  variant = "primary",
+  size = "py-2",
+  onClick,
+  disabled = false,
+  children,
+}: ButtonProps) => {
   let variantStyles = "";
 
   switch (variant) {
@@ -41,7 +31,7 @@ const Button: React.FC<ButtonProps> = ({ variant = "primary", size = "py-2", onC
   }
 
   return (
-    <button className={`${variantStyles} ${size}`} onClick={onClick}>
+    <button type={type} className={`${variantStyles} ${size}`} onClick={onClick} disabled={disabled}>
       {children}
     </button>
   );
