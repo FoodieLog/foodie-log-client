@@ -1,3 +1,38 @@
+// 회원가입
+
+export interface SignUpBody {
+  content: ContentBody;
+  file?: string;
+}
+
+export interface ContentBody {
+  email: string;
+  password: string;
+  nickName: string;
+  aboutMe?: string;
+}
+
+export interface SignUpForm extends ContentBody {
+  passwordCheck: string;
+}
+
+// 로그인
+export interface LogInBody {
+  email: string;
+  password: string;
+}
+
+//비밀번호 재설정
+export interface ResetPasswordBody {
+  oldPassword: string;
+  newPassword: string;
+}
+
+export interface ResetPasswordForm extends ResetPasswordBody {
+  newPasswordCheck: string;
+}
+
+// FEED
 export type FeedData = {
   feed: {
     id: number;

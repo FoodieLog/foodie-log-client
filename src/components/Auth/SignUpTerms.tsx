@@ -1,12 +1,25 @@
 "use client";
+
 import Button from "@/src/components/Button";
 import BackButton from "@/src/components/Button/BackButton";
-import React from "react";
+import useSignUpStore from "@/src/store/useSignUpStore";
 
 function SignUpTerms() {
-  const onClick = () => {
-    console.log("onClick");
+  const isChecked = useSignUpStore((state) => state.isChecked);
+  const setIsChecked = useSignUpStore((state) => state.setIsChecked);
+  const setNextComponent = useSignUpStore((state) => state.setNextComponent);
+
+  const handleChange = () => {
+    setIsChecked(!isChecked);
   };
+
+  const handleClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (isChecked) {
+      setNextComponent("SignUpProfile");
+    }
+  };
+
   return (
     <section className="auth">
       <BackButton />
@@ -19,11 +32,11 @@ function SignUpTerms() {
         </p>
         <div className="flex items-center gap-x-3">
           <label htmlFor="agree">이용약관(필수)</label>
-          <input className="checkbox" id="agree" type="checkbox" />
+          <input className="checkbox" id="agree" type="checkbox" checked={isChecked} onChange={handleChange} />
         </div>
         <p>더 알아보기</p>
       </div>
-      <Button variant={"primary"} onClick={onClick}>
+      <Button type="button" variant={"primary"} onClick={handleClick}>
         다음
       </Button>
     </section>
