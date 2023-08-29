@@ -4,7 +4,7 @@ import { BiSmile } from "react-icons/bi";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import { IoIosSearch, IoMdNotificationsOutline } from "react-icons/io";
 
-// 회원가입 유효성 검사
+// 이메일, 비밀번호 유효성 검사
 export const emailValidation = {
   required: "이메일은 필수 입력입니다.",
   pattern: {
@@ -12,7 +12,6 @@ export const emailValidation = {
     message: "이메일 형식에 맞지 않습니다.",
   },
 };
-
 export const passwordValidation = {
   required: "비밀번호는 필수 입력입니다.",
   pattern: {

@@ -1,10 +1,4 @@
 // 회원가입
-
-export interface SignUpBody {
-  content: ContentBody;
-  file?: string;
-}
-
 export interface ContentBody {
   email: string;
   password: string;

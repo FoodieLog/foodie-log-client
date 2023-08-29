@@ -1,6 +1,6 @@
 import axios, { AxiosRequestConfig } from "axios";
 
-const BASE_URL = "http://15.165.93.123:8080";
+const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 const axiosConfig: AxiosRequestConfig = {
   baseURL: BASE_URL,
@@ -11,9 +11,6 @@ const axiosConfig: AxiosRequestConfig = {
 
 const multipartConfig: AxiosRequestConfig = {
   baseURL: BASE_URL,
-  headers: {
-    "Content-Type": "multipart/form-data",
-  },
 };
 
 const axiosRequest = axios.create(axiosConfig);

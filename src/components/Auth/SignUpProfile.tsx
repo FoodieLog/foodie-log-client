@@ -1,60 +1,95 @@
 "use client";
-import React, { useRef, useState } from "react";
-import Image from "next/image";
+import { useRef, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { MdAddPhotoAlternate } from "react-icons/md";
+import { signUp } from "@/src/services/auth";
+import { profileSetting } from "@/src/services/kakao";
+import Image from "next/image";
 import BackButton from "../Button/BackButton";
 import Button from "../Button";
-import { signUp } from "@/src/services/auth";
+
 import useSignUpStore from "@/src/store/useSignUpStore";
+import useKakaoStore from "@/src/store/useKakaoStore";
 
 function SignUpProfile() {
   const [previewImage, setPreviewImage] = useState("");
-  const [profileImage, setProfileImage] = useState("");
+  const [profileImage, setProfileImage] = useState<File>();
   const [profile, setProfile] = useState({
     nickName: "",
     aboutMe: "",
   });
+  const params = useSearchParams();
+  const code = params.get("code");
+
   const user = useSignUpStore((state) => state.user);
 
   const fileInput = useRef<HTMLInputElement>(null);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  // 회원가입 api
+  const SignUpSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("요청데이터", {
-      content: { email: user.email, password: user.password, nickName: profile.nickName, aboutMe: profile.aboutMe },
-      file: profileImage,
-    });
 
-    await signUp({
-      content: { email: user.email, password: user.password, nickName: profile.nickName, aboutMe: profile.aboutMe },
-      file: profileImage,
-    })
-      .then((res) => console.log("회원가입 성공", res))
-      .catch((err) => console.log("회원가입 에러", err));
+    const formData = new FormData();
+
+    const userData = {
+      email: user.email,
+      password: user.password,
+      nickName: profile.nickName,
+      aboutMe: profile.aboutMe,
+    };
+
+    const blob = new Blob([JSON.stringify(userData)], { type: "application/json" });
+    formData.append("content", blob);
+    formData.append("file", profileImage as File);
+
+    await signUp(formData).then((res) => console.log("회원가입 성공", res));
   };
 
+  // 카카오 로그인 시 프로필 설정 api
+  const ProfileSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+
+    const userData = {
+      nickName: profile.nickName,
+      aboutMe: profile.aboutMe,
+    };
+
+    const blob = new Blob([JSON.stringify(userData)], { type: "application/json" });
+    formData.append("content", blob);
+    formData.append("file", profileImage as File);
+
+    await profileSetting(formData)
+      .then((res) => console.log("프로필 성공", res))
+      .catch((err) => console.log("프로필 에러", err));
+  };
+
+  // ref 클릭
   const pickImageHandler = () => {
     if (fileInput.current) {
       fileInput.current.click();
     }
   };
 
-  const handleProfileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  // 이미지 파일 입력
+  const ProfileChangehandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
     const fileSizeInMB = file.size / (1024 * 1024);
-    if (fileSizeInMB > 5) {
-      alert("파일 크기가 5MB를 초과합니다. 5MB 이하의 파일을 선택해주세요.");
+    if (fileSizeInMB > 3) {
+      alert("파일 크기가 3MB를 초과합니다. 3MB 이하의 파일을 선택해주세요.");
       return;
     }
 
     const reader = new FileReader();
-    reader.readAsDataURL(file);
+
     reader.onload = (e) => {
-      setProfileImage(reader?.result as string);
+      setProfileImage(file);
       setPreviewImage(e.target?.result as string);
     };
+    reader.readAsDataURL(file);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -63,7 +98,7 @@ function SignUpProfile() {
   };
 
   return (
-    <form className="auth" encType="multipart/form-data" method="post" onSubmit={handleSubmit}>
+    <form id="formElem" className="auth" method="post" onSubmit={code ? ProfileSubmit : SignUpSubmit}>
       <BackButton />
       <div className=" flex flex-col items-center justify-center">
         <div className="title">
@@ -78,7 +113,7 @@ function SignUpProfile() {
             <input
               type="file"
               ref={fileInput}
-              onChange={handleProfileChange}
+              onChange={ProfileChangehandler}
               hidden
               accept="image/*,audio/*,video/mp4,video/x-m4v,application/pdf,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation,.csv"
             ></input>
@@ -102,7 +137,7 @@ function SignUpProfile() {
         </label>
       </div>
       <Button type="submit" variant={"primary"}>
-        가입완료
+        {code ? "프로필 설정" : "가입완료"}
       </Button>
     </form>
   );
