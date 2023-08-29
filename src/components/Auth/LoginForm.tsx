@@ -6,17 +6,31 @@ import kakao from "@/public/images/kakao_login_medium_wide.png";
 import Line from "../Line";
 import { logIn } from "@/src/services/auth";
 import Link from "next/link";
+import { ApiResponse } from '@/src/types/apiTypes'; 
+import { useUserStore } from '@/src/store/useUserStore';
+import { useRouter } from 'next/navigation';
 
 function LogInForm() {
   const [logInData, setLogInData] = useState({
     email: "",
     password: "",
   });
+  
+  const router = useRouter();
+
+  const loginSuccess = (response: ApiResponse["response"]) => {
+    useUserStore.getState().setUser(response); // Zustand에 유저 정보를 저장
+    router.push('/main/home'); 
+  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     await logIn({ email: logInData.email, password: logInData.password })
-      .then((res) => console.log("로그인 성공", res))
+      .then((res) => {
+        console.log("로그인 성공", res)
+        const { response } = res.data as ApiResponse;
+        loginSuccess(response); 
+      })
       .catch((err) => console.log("로그인 실패", err));
   };
 
