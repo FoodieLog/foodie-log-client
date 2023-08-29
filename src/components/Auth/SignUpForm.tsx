@@ -5,6 +5,7 @@ import Button from "@/src/components/Button";
 import kakao from "@/public/images/kakao_login_medium_wide.png";
 import { useForm } from "react-hook-form";
 import { duplicateCheck, sendEmailCode } from "@/src/services/auth";
+import { kakaoLogin } from "@/src/services/kakao";
 import { SignUpForm } from "@/src/types/apiTypes";
 import { emailValidation, passwordValidation } from "@/src/constants";
 import SignUpTerms from "./SignUpTerms";
@@ -27,7 +28,6 @@ function SignUpForm() {
   } = useForm<SignUpForm>({
     mode: "onChange",
   });
-
   const { user, setUser, isChecked, nextComponent, setNextComponent } = useSignUpStore();
 
   const handleBlur: React.FocusEventHandler<HTMLInputElement> = async (event) => {
@@ -51,14 +51,11 @@ function SignUpForm() {
     setNextComponent("SignUpCode");
     setUser({ ...user, email, password });
   };
-  console.log("zus", user);
 
   if (nextComponent === "SignUpTerms") {
     return <SignUpTerms />;
   } else if (nextComponent === "SignUpCode") {
     return <SignUpCode />;
-  } else if (nextComponent === "SignUpProfile") {
-    return <SignUpProfile />;
   }
 
   return (
@@ -126,7 +123,7 @@ function SignUpForm() {
         <span className="w-10 flex-shrink-0 font-semibold text-gray-600 text-center text-sm">또는</span>
         <div className="h-[0.8px] w-full bg-slate-400" />
       </div>
-      <button type="button" className="">
+      <button type="button" className="" onClick={() => kakaoLogin()}>
         <Image src={kakao} alt="카카오 로그인 버튼" />
       </button>
     </section>
