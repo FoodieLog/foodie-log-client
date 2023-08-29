@@ -1,24 +1,55 @@
 "use client";
-
+import { useSearchParams } from "next/navigation";
+import { sendKakaoCode } from "@/src/services/kakao";
 import Button from "@/src/components/Button";
 import BackButton from "@/src/components/Button/BackButton";
 import useSignUpStore from "@/src/store/useSignUpStore";
+import useKakaoStore from "@/src/store/useKakaoStore";
+import SignUpProfile from "./SignUpProfile";
+import { useEffect } from "react";
 
 function SignUpTerms() {
   const isChecked = useSignUpStore((state) => state.isChecked);
   const setIsChecked = useSignUpStore((state) => state.setIsChecked);
+  const nextComponent = useSignUpStore((state) => state.nextComponent);
   const setNextComponent = useSignUpStore((state) => state.setNextComponent);
+  const setCode = useKakaoStore((state) => state.setCode);
+  const params = useSearchParams();
+  const code = params.get("code");
+
+  useEffect(() => {
+    setCode(code);
+  }, []);
 
   const handleChange = () => {
     setIsChecked(!isChecked);
   };
 
-  const handleClick = (e: React.MouseEvent) => {
+  const handleClick = async (e: React.MouseEvent) => {
     e.preventDefault();
     if (isChecked) {
+      console.log("Please");
       setNextComponent("SignUpProfile");
+      return;
     }
   };
+
+  const kaKaoClick = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (!code) return;
+    console.log("Click", code);
+    await sendKakaoCode(code)
+      .then((res) => {
+        setNextComponent("SignUpProfile");
+        console.log(code);
+        console.log("카카오 코드 전송 성공", res);
+      })
+      .catch((err) => console.log("Error", err));
+  };
+
+  if (nextComponent === "SignUpProfile") {
+    return <SignUpProfile />;
+  }
 
   return (
     <section className="auth">
@@ -36,8 +67,8 @@ function SignUpTerms() {
         </div>
         <p>더 알아보기</p>
       </div>
-      <Button type="button" variant={"primary"} onClick={handleClick}>
-        다음
+      <Button type="button" variant={"primary"} onClick={code ? kaKaoClick : handleClick}>
+        {code ? "가입완료" : "다음"}
       </Button>
     </section>
   );
