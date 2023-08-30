@@ -8,6 +8,7 @@ export const signUp = async (body: FormData) => {
       "Content-Type": "multipart/form-data",
     },
   });
+
   console.log("회원가입 서버 응답데이터", res);
   return res;
 };
@@ -20,14 +21,15 @@ export const duplicateCheck = async (email: string) => {
 };
 
 // 로그인
-export const logIn = async ({ email, password }: LogInBody) => {
-  const res = await axiosRequest.post("/auth/login", { email, password });
+export const logIn = async (body: LogInBody) => {
+  const res = await axiosRequest.post("/auth/login", body);
   return res;
 };
 
 // 비밀번호 재설정
-export const getEmailCode = async (email: string) => {
-  const res = await axiosRequest.get(`/auth/email/code-requests/password?email=${email}`);
+export const getPasswordCode = (email: string) => {
+  const res = axiosRequest.get(`/auth/email/code-requests/password?email=${email}`);
+  console.log("비밀번호재설정", res);
   return res;
 };
 
