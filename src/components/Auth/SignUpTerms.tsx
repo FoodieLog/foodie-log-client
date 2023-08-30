@@ -14,12 +14,9 @@ function SignUpTerms() {
   const nextComponent = useSignUpStore((state) => state.nextComponent);
   const setNextComponent = useSignUpStore((state) => state.setNextComponent);
   const setCode = useKakaoStore((state) => state.setCode);
+
   const params = useSearchParams();
   const code = params.get("code");
-
-  useEffect(() => {
-    setCode(code);
-  }, []);
 
   const handleChange = () => {
     setIsChecked(!isChecked);
@@ -28,24 +25,22 @@ function SignUpTerms() {
   const handleClick = async (e: React.MouseEvent) => {
     e.preventDefault();
     if (isChecked) {
-      console.log("Please");
       setNextComponent("SignUpProfile");
-      return;
     }
   };
 
-  const kaKaoClick = async (e: React.MouseEvent) => {
-    e.preventDefault();
-    if (!code) return;
-    console.log("Click", code);
-    await sendKakaoCode(code)
-      .then((res) => {
-        setNextComponent("SignUpProfile");
-        console.log(code);
-        console.log("카카오 코드 전송 성공", res);
-      })
-      .catch((err) => console.log("Error", err));
-  };
+  // const kaKaoClick = async (e: React.MouseEvent) => {
+  //   e.preventDefault();
+  //   if (!code) return;
+  //   console.log("Click", code);
+  //   await sendKakaoCode(code)
+  //     .then((res) => {
+  //       setNextComponent("SignUpProfile");
+  //       console.log(code);
+  //       console.log("카카오 코드 전송 성공", res);
+  //     })
+  //     .catch((err) => console.log("Error", err));
+  // };
 
   if (nextComponent === "SignUpProfile") {
     return <SignUpProfile />;
@@ -67,7 +62,7 @@ function SignUpTerms() {
         </div>
         <p>더 알아보기</p>
       </div>
-      <Button type="button" variant={"primary"} onClick={code ? kaKaoClick : handleClick}>
+      <Button type="button" variant={"primary"} onClick={handleClick}>
         {code ? "가입완료" : "다음"}
       </Button>
     </section>
