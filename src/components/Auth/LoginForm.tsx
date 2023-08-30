@@ -1,10 +1,11 @@
 "use client";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { logIn } from "@/src/services/auth";
 import Image from "next/image";
 import Button from "@/src/components/Button";
 import kakao from "@/public/images/kakao_login_medium_wide.png";
 import Line from "../Line";
-import { logIn } from "@/src/services/auth";
 import Link from "next/link";
 import { ApiResponse } from '@/src/types/apiTypes'; 
 import { useUserStore } from '@/src/store/useUserStore';
@@ -23,34 +24,40 @@ function LogInForm() {
     router.push('/main/home'); 
   };
 
+  const router = useRouter();
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    await logIn({ email: logInData.email, password: logInData.password })
-      .then((res) => {
-        console.log("로그인 성공", res)
-        const { response } = res.data as ApiResponse;
-        loginSuccess(response); 
-      })
-      .catch((err) => console.log("로그인 실패", err));
+
+    const body = { email: logInData.email, password: logInData.password };
+
+    try {
+      const res = await logIn(body);
+      console.log("로그인 성공", res);
+      // router.replace("/main/home");
+    } catch (err) {
+      console.log("로그인 실패", err);
+    }
+
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setLogInData({ ...logInData, [name]: value });
   };
+
+  console.log({ logInData });
   const handleClick = () => {
     console.log("onClick");
   };
+
   return (
-    <section
-      onSubmit={handleSubmit}
-      className="flex flex-col items-center justify-center p-10 h-4/5 sm:w-[600px] sm:border border-gray-300"
-    >
+    <section className="flex flex-col items-center justify-center p-10 h-4/5 sm:w-[600px] sm:border border-gray-300">
       <div className="title">
         <h2>로그인</h2>
         <p>Foodie-Log에 오신 걸 환영합니다!</p>
       </div>
-      <form className="w-full flex flex-col  gap-4 mt-10">
+      <form onSubmit={handleSubmit} className="w-full flex flex-col  gap-4 mt-10">
         <input
           type="text"
           name="email"

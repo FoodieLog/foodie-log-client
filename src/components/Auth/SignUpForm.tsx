@@ -42,13 +42,15 @@ function SignUpForm() {
       }
     }
   };
+
   const onSubmit = async ({ email, password }: SighUpInput) => {
     await sendEmailCode(email)
       .then((res) => {
+        setNextComponent("SignUpCode");
         console.log("이메일코드 전송성공", res);
       })
       .catch((err) => console.log("이메일코드 전송실패", err));
-    setNextComponent("SignUpCode");
+
     setUser({ ...user, email, password });
   };
 
@@ -56,6 +58,8 @@ function SignUpForm() {
     return <SignUpTerms />;
   } else if (nextComponent === "SignUpCode") {
     return <SignUpCode />;
+  } else if (nextComponent === "SignUpProfile") {
+    return <SignUpProfile />;
   }
 
   return (
