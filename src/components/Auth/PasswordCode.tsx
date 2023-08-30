@@ -2,14 +2,13 @@
 import { useState } from "react";
 import Button from "@/src/components/Button";
 import BackButton from "@/src/components/Button/BackButton";
-import Line from "../Line";
 import Link from "next/link";
-import { getEmailCode, getVerificationEmail } from "@/src/services/auth";
+import { getPasswordCode, getVerificationEmail } from "@/src/services/auth";
 import useSignUpStore from "@/src/store/useSignUpStore";
 import ChangePassword from "./ChangePassword";
 
 const FindPassword = () => {
-  const [showCodeInput, setShowCodeInput] = useState(false);
+  const [showCodeInput, setShowCodeInput] = useState(true);
   const [codeData, setCodeData] = useState({
     email: "",
     firstCode: "",
@@ -17,11 +16,13 @@ const FindPassword = () => {
     thirdCode: "",
     fourthCode: "",
   });
+
   const nextComponent = useSignUpStore((state) => state.nextComponent);
   const setNextComponent = useSignUpStore((state) => state.setNextComponent);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    await getEmailCode(codeData.email)
+  const sendPasswordCodeHandler = async (e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>) => {
+    console.log("Sending password code", codeData.email);
+    await getPasswordCode(codeData.email)
       .then((res) => {
         setShowCodeInput(true);
         console.log("이메일 코드 성공", res);
@@ -32,15 +33,6 @@ const FindPassword = () => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setCodeData({ ...codeData, [name]: value });
-  };
-
-  const handleResendClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    await getEmailCode(codeData.email)
-      .then((res) => {
-        console.log("이메일 코드 재전송", res);
-      })
-      .catch((err) => console.log("이메일 코드 재전송 실패", err));
   };
 
   const handleVerificationClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -57,13 +49,14 @@ const FindPassword = () => {
   if (nextComponent === "ChangePassword") {
     return <ChangePassword />;
   }
+
   return (
     <section className="auth">
       <BackButton />
       <div className="title">
         <h2>비밀번호 재설정</h2>
         <h4>가입한 이메일로 인증코드 보내세요!</h4>
-        <form onSubmit={handleSubmit} className="w-full flex flex-col  gap-4 mt-10">
+        <form onSubmit={sendPasswordCodeHandler} className="w-full flex flex-col  gap-4 mt-10">
           <input
             name="email"
             value={codeData.email}
@@ -74,6 +67,9 @@ const FindPassword = () => {
           <Button type="submit" variant={"secondary"}>
             인증코드 보내기
           </Button>
+          <Link href={"/accounts/signup"} className="mb-10 flex justify-center underline underline-offset-1">
+            새 계정 만들기
+          </Link>
         </form>
       </div>
       {showCodeInput && (
@@ -89,7 +85,7 @@ const FindPassword = () => {
           </div>
           <div>
             <div className="flex justify-center mb-2">
-              <Button type="button" variant={"text"} onClick={handleResendClick}>
+              <Button type="button" variant={"text"} onClick={sendPasswordCodeHandler}>
                 코드 재전송
               </Button>
             </div>
@@ -97,10 +93,6 @@ const FindPassword = () => {
               이메일 인증
             </Button>
           </div>
-          <Line />
-          <Link href={"/accounts/signup"} className="mb-10 flex justify-center underline underline-offset-1">
-            새 계정 만들기
-          </Link>
         </>
       )}
     </section>
