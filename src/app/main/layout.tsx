@@ -1,6 +1,7 @@
 import LeftSidebar from "../../components/LeftSidebar";
 import Bottombar from "../../components/Bottombar";
 import Script from "next/script";
+
 const NEXT_PUBLIC_KAKAO_MAP_API_KEY = process.env.NEXT_PUBLIC_KAKAO_MAP_API_KEY;
 
 export default function MainLayout({ children }: { children: React.ReactNode }) {

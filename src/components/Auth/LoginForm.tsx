@@ -7,12 +7,22 @@ import Button from "@/src/components/Button";
 import kakao from "@/public/images/kakao_login_medium_wide.png";
 import Line from "../Line";
 import Link from "next/link";
+import { ApiResponse } from '@/src/types/apiTypes'; 
+import { useUserStore } from '@/src/store/useUserStore';
+import { useRouter } from 'next/navigation';
 
 function LogInForm() {
   const [logInData, setLogInData] = useState({
     email: "",
     password: "",
   });
+  
+  const router = useRouter();
+
+  const loginSuccess = (response: ApiResponse["response"]) => {
+    useUserStore.getState().setUser(response); // Zustand에 유저 정보를 저장
+    router.push('/main/home'); 
+  };
 
   const router = useRouter();
 
@@ -28,6 +38,7 @@ function LogInForm() {
     } catch (err) {
       console.log("로그인 실패", err);
     }
+
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

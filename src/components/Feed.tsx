@@ -27,7 +27,7 @@ const Feed: React.FC<FeedData> = ({ feed, restaurant, isFollowed, isLiked }) => 
   };
 
   return (
-    <div className="mt-2 w-full max-w-[640px] bg-mint-light border rounded-sm px-2">
+    <div className="mt-2 w-full max-w-[640px] bg-mint-light rounded-sm">
       {/* Header */}
       <div className="flex items-center p-3">
         <div className="relative w-12 h-12">
@@ -66,7 +66,7 @@ const Feed: React.FC<FeedData> = ({ feed, restaurant, isFollowed, isLiked }) => 
         roadAddress={restaurant.roadAddress}
       />
       {/* content */}
-      <p className="p-1">{feed.content}</p>
+      <p className="p-3">{feed.content}</p>
       <div className="flex flex-between gap-2 items-center text-[18px] p-3">
         <button className="text-[24px]" onClick={() => setLike(!Like)}>
           {Like ? <AiFillHeart /> : <AiOutlineHeart />}

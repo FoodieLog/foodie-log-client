@@ -11,8 +11,8 @@ const BackButtonMain = () => {
   };
 
   return (
-    <div className="mb-2 sm:hidden">
-      <button type="button" className="w-20 pl-4" onClick={goBack}>
+    <div className=" sm:hidden">
+      <button type="button" className="w-4 pl-4 my-1 align-middle " onClick={goBack}>
         <LiaAngleLeftSolid size="1.7rem" className="hover:text-orange-600" />
       </button>
     </div>

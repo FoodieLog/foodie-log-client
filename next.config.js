@@ -4,6 +4,9 @@ const nextConfig = {
     appDir: true,
   },
   images: {
+    // loader : "custom",
+    // loaderFile : "./my/image/loader.js"
+    // unoptimized: true,
     remotePatterns: [
       {
         protocol: 'https',

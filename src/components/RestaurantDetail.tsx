@@ -7,14 +7,21 @@ import ShopCard from "./ShopCard";
 import Feeds from "./Feeds";
 import { generateRestaurantDetailDummyData } from "../utils/dummyDataUtils";
 
-const RestaurantDetail = () => {
+interface RestaurantDetailProps {
+  Id: string;
+}
+
+const RestaurantDetail = ({ Id }: RestaurantDetailProps) => {
   const [restaurantDetail, setRestaurantDetail] = useState<any>();
-  const pathname = usePathname();
 
-  const restaurantIdMatch = pathname.match(/restaurants\/(\d+)/);
-  // FIXME: restaurantIdMatch가 null일 경우를 처리해야 함. 현재는 1로 지정함.
-  const restaurantId = restaurantIdMatch ? parseInt(restaurantIdMatch[1], 10) : 1;
+  // [id] dynamic routing 사용하지 않는 경우에 pathname 사용하여 id 가져오는 방법
+  // const pathname = usePathname();
+  // const restaurantIdMatch = pathname.match(/restaurants\/(\d+)/);
+  // // FIXME: restaurantIdMatch가 null일 경우를 처리해야 함. 현재는 1로 지정함.
+  // const restaurantId = restaurantIdMatch ? parseInt(restaurantIdMatch[1], 10) : 1;
+  // const restaurantId = parseInt(Id)
 
+  const restaurantId = parseInt(Id, 10);
   useEffect(() => {
     const data = generateRestaurantDetailDummyData();
     setRestaurantDetail(data);
@@ -23,13 +30,9 @@ const RestaurantDetail = () => {
   if (!restaurantDetail) return <div>Loading...</div>;
 
   return (
-
     <div className="w-full flex flex-col justify-center max-w-screen-sm mx-auto">
       <BackButtonMain />
-      <KakaoMap 
-        latitude={restaurantDetail.location.mapx}
-        longitude={restaurantDetail.location.mapy}  
-      />
+      <KakaoMap latitude={restaurantDetail.location.mapx} longitude={restaurantDetail.location.mapy} />
       <ShopCard
         id={restaurantId}
         name={restaurantDetail.name}

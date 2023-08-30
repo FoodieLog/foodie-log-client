@@ -65,3 +65,16 @@ export type ShopThumbData = {
   roadAddress: string;
   feedList: FeedThumbnail[];
 };
+
+export type UserResponse = {
+  id: number;
+  nickName: string;
+  profileImageUrl: string | null;
+  accessToken: string;
+};
+
+export type ApiResponse = {
+  status: number;
+  response: UserResponse;
+  error: string | null;
+};

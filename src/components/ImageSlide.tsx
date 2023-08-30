@@ -39,7 +39,7 @@ const ImageSlide: React.FC<ImageSlideProps> = ({ images }) => {
       <div className="hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] right-5 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer">
         <BsChevronCompactRight onClick={nextSlide} size={30} />
       </div>
-      <div className="flex absolute bottom-0 left-[50%] transform -translate-x-[50%] translate-y-[30px] justify-center bg-transparent">
+      <div className="flex absolute bottom-0 left-[50%] transform -translate-x-[50%] translate-y-[18px] justify-center bg-transparent">
         {images.map((image, slideIndex) => (
           <div key={slideIndex} onClick={() => goToSlide(slideIndex)} className="text-xl sm:text-2xl cursor-pointer">
             <RxDotFilled className={slideIndex === currentIndex ? "text-black scale-125" : "text-gray-500"} />
