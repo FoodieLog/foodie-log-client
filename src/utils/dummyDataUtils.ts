@@ -3,7 +3,7 @@ import { faker } from "@faker-js/faker";
 export const generateFeedDummyData = () => {
   return [...Array(10)].map((_, i) => ({
     feed: {
-      id: faker.number.int({ max: 1000000 }),
+      id: faker.number.int({ max: 5 }),
       nickName: faker.person.firstName(),
       profileImageUrl: faker.image.avatar(),
       createdAt: faker.date.recent(),
@@ -25,7 +25,7 @@ export const generateFeedDummyData = () => {
       share: "URL",
     },
     restaurant: {
-      id: faker.number.int({ max: 1000 }),
+      id: faker.number.int({ max: 5 }),
       name: faker.company.name(),
       category: faker.commerce.department(),
       link: faker.internet.url(),
@@ -39,7 +39,7 @@ export const generateFeedDummyData = () => {
 
 export const generateShopDummyData = () => {
   return [...Array(10)].map((_, i) => ({
-    id: faker.number.int({ max: 1000000 }),
+    id: faker.number.int({ max: 5 }),
     name: faker.company.name(),
     category: faker.commerce.department(),
     roadAddress: faker.location.streetAddress(),
