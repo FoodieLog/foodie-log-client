@@ -8,7 +8,7 @@ import Link from "next/link";
 import { ApiResponse } from "@/src/types/apiTypes";
 import { useUserStore } from "@/src/store/useUserStore";
 import { useRouter } from "next/navigation";
-import { useState } from 'react';
+import { useState } from "react";
 
 function LogInForm() {
   const [logInData, setLogInData] = useState({
@@ -17,6 +17,13 @@ function LogInForm() {
   });
 
   const router = useRouter();
+  const setUser = useUserStore((state) => state.setUser);
+  const user = useUserStore((state) => state.user);
+
+  const loginSuccess = (response: ApiResponse["response"]) => {
+    setUser(response);
+    console.log("[userData] :", user);
+  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -25,7 +32,9 @@ function LogInForm() {
 
     try {
       const res = await logIn(body);
-      console.log("로그인 성공", res);
+      console.log("로그인 성공");
+      loginSuccess(res.data.response);
+
       // router.replace("/main/home");
     } catch (err) {
       console.log("로그인 실패", err);
