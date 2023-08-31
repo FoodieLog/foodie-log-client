@@ -60,10 +60,8 @@ export const makeFetchRequest = async <T>(
   method: "GET" | "POST" | "PUT" | "DELETE" = "GET",
   body?: any
 ): Promise<APIResponse> => {
-  // const accessToken = useUserStore.getState().accessToken;
-  // FIXME : 토큰 하드코딩 부분 수정해야 함.
-  const accessToken = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJib281QGdtYWlsLmNvbSIsImV4cCI6MTY5MzQ3NjkyMSwiaWQiOjUsInJvbGUiOiJVU0VSIn0.oBlH35vHp4d4ldf2QQy1xS_DmBlXWY-VtDymdqjvP-A"
-  
+  const accessToken = useUserStore.getState().user.accessToken;
+ 
   try {
     const response = await fetch(`${BASE_URL}${endpoint}`, {
       method,
