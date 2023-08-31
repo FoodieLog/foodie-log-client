@@ -22,7 +22,7 @@ export const duplicateCheck = async (email: string) => {
 
 // 로그인
 export const logIn = async (body: LogInBody) => {
-  const res = await axiosRequest.post("/auth/login", body);
+  const res = await axiosRequest.post("/auth/login", body,{ withCredentials: true });
   return res;
 };
 

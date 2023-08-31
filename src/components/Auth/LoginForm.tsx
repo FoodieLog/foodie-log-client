@@ -1,30 +1,29 @@
 "use client";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { logIn } from "@/src/services/auth";
 import Image from "next/image";
 import Button from "@/src/components/Button";
 import kakao from "@/public/images/kakao_login_medium_wide.png";
 import Line from "../Line";
 import Link from "next/link";
-import { ApiResponse } from '@/src/types/apiTypes'; 
-import { useUserStore } from '@/src/store/useUserStore';
-import { useRouter } from 'next/navigation';
+import { ApiResponse } from "@/src/types/apiTypes";
+import { useUserStore } from "@/src/store/useUserStore";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 function LogInForm() {
   const [logInData, setLogInData] = useState({
     email: "",
     password: "",
   });
-  
+
   const router = useRouter();
 
-  const loginSuccess = (response: ApiResponse["response"]) => {
-    useUserStore.getState().setUser(response); // Zustand에 유저 정보를 저장
-    router.push('/main/home'); 
+  const setUser = useUserStore((state) => state.setUser);
+  const user = useUserStore((state) => state.user);
+
+  const saveUserOnLoginSuccess = (response: ApiResponse["response"]) => {
+    setUser(response);
   };
-
-  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -33,12 +32,13 @@ function LogInForm() {
 
     try {
       const res = await logIn(body);
-      console.log("로그인 성공", res);
+      console.log("로그인 성공");
+      saveUserOnLoginSuccess(res.data.response);
+
       // router.replace("/main/home");
     } catch (err) {
       console.log("로그인 실패", err);
     }
-
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

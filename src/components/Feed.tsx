@@ -1,13 +1,14 @@
 import Image from "next/image";
 import { useState } from "react";
 import { FeedData } from "../types/apiTypes";
-import { BsThreeDotsVertical } from "react-icons/bs";
 import ImageSlide from "./ImageSlide";
 import { getTimeDiff } from "../utils/date";
 import dayjs from "dayjs";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
+import { BsThreeDotsVertical } from "react-icons/bs";
 import { FaRegCommentDots } from "react-icons/fa";
 import { FiShare2 } from "react-icons/fi";
+import { PiUserCircleBold } from "react-icons/pi";
 import { getIcon } from "../utils/iconUtils";
 import Button from "./Button";
 import ShopCard from "./ShopCard";
@@ -31,13 +32,18 @@ const Feed: React.FC<FeedData> = ({ feed, restaurant, isFollowed, isLiked }) => 
       {/* Header */}
       <div className="flex items-center p-3">
         <div className="relative w-12 h-12">
-          <Image
-            fill={true}
-            src={feed.profileImageUrl}
-            alt="사용자 썸네일"
-            sizes="(max-width: 48px) 48px, 48px"
-            className="w-12 h-12 border p-1 rounded-full cursor-pointer"
-          />
+          {feed.profileImageUrl ? (
+            <Image
+              fill={true}
+              src={feed.profileImageUrl}
+              alt="사용자 썸네일"
+              sizes="(max-width: 48px) 48px, 48px"
+              className="w-12 h-12 border p-1 rounded-full cursor-pointer"
+            />
+          ) : (
+            // 기본 이미지 또는 대체 컴포넌트를 표시
+            <div className=""><PiUserCircleBold className = "w-12 h-12 text-zinc-500" /></div>
+          )}
         </div>
         <div className="flex flex-1 flex-col ml-3">
           <p className="font-bold  cursor-pointer">{feed.nickName}</p>

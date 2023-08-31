@@ -29,7 +29,7 @@ export interface ResetPasswordForm extends ResetPasswordBody {
 // FEED
 export type FeedData = {
   feed: {
-    id: number;
+    feedId: number;
     nickName: string;
     profileImageUrl: string;
     createdAt: Date;

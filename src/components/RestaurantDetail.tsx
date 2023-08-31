@@ -6,13 +6,15 @@ import KakaoMap from "./KakaoMap";
 import ShopCard from "./ShopCard";
 import Feeds from "./Feeds";
 import { generateRestaurantDetailDummyData } from "../utils/dummyDataUtils";
-
+import { getRestaurantDetail } from "../services/apiRestaurant";
+import Feed from './Feed';
 interface RestaurantDetailProps {
   Id: string;
 }
 
 const RestaurantDetail = ({ Id }: RestaurantDetailProps) => {
   const [restaurantDetail, setRestaurantDetail] = useState<any>();
+  const [feedList, setFeedList] = useState<any>();
 
   // [id] dynamic routing 사용하지 않는 경우에 pathname 사용하여 id 가져오는 방법
   // const pathname = usePathname();
@@ -23,25 +25,41 @@ const RestaurantDetail = ({ Id }: RestaurantDetailProps) => {
 
   const restaurantId = parseInt(Id, 10);
   useEffect(() => {
-    const data = generateRestaurantDetailDummyData();
-    setRestaurantDetail(data);
-  }, []);
+    // const data = generateRestaurantDetailDummyData();
+    const fetchData = async () => {
+      const data = await getRestaurantDetail(restaurantId);
+      console.log("[getRestaurant] : ", data.response);
+      setRestaurantDetail(data.response.restaurantInfo);
+      setFeedList(data.response.content);
+      console.log("[setFeedList] : ", data.response.content);
+    };
+
+    fetchData();
+  }, [restaurantId]);
 
   if (!restaurantDetail) return <div>Loading...</div>;
 
   return (
     <div className="w-full flex flex-col justify-center max-w-screen-sm mx-auto">
       <BackButtonMain />
-      <KakaoMap latitude={restaurantDetail.location.mapx} longitude={restaurantDetail.location.mapy} />
+      <KakaoMap latitude={restaurantDetail.restaurant.mapY} longitude={restaurantDetail.restaurant.mapX} />
       <ShopCard
         id={restaurantId}
-        name={restaurantDetail.name}
-        category={restaurantDetail.category}
-        roadAddress={restaurantDetail.roadAddress}
-        isLiked={restaurantDetail.isLiked}
-        shopUrl={restaurantDetail.link}
+        name={restaurantDetail.restaurant.name}
+        category={restaurantDetail.restaurant.category}
+        roadAddress={restaurantDetail.restaurant.roadAddress}
+        isLiked={restaurantDetail.isLiked.liked}
+        shopUrl={restaurantDetail.restaurant.link}
       />
-      <Feeds />
+      {feedList && feedList.map((feedItem: any, index: number) => (
+        <Feed
+          key={index}
+          feed={feedItem.feed}
+          restaurant={feedItem.restaurant}
+          isFollowed={feedItem.followed}
+          isLiked={feedItem.liked}
+        />
+      ))}
     </div>
   );
 };
