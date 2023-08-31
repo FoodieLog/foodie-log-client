@@ -3,7 +3,7 @@ import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
 import { RxDotFilled } from "react-icons/rx";
 
 interface ImageSlideProps {
-  images: { ImageUrl: string }[];
+  images: { imageUrl: string }[];
 }
 
 const ImageSlide: React.FC<ImageSlideProps> = ({ images }) => {
@@ -29,7 +29,7 @@ const ImageSlide: React.FC<ImageSlideProps> = ({ images }) => {
     <div className="w-full max-w-[640px] relative group">
       <div className="relative pb-[100%]">
         <div
-          style={{ backgroundImage: `url(${images[currentIndex].ImageUrl})` }}
+          style={{ backgroundImage: `url(${images[currentIndex].imageUrl})` }}
           className="absolute inset-0 bg-center bg-cover duration-500"
         ></div>
       </div>
