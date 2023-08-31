@@ -19,6 +19,7 @@ function LogInForm() {
 
   const setUser = useUserStore((state) => state.setUser);
   const user = useUserStore((state) => state.user);
+  const setTokenExpiry = useUserStore((state) => state.setTokenExpiry);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -26,9 +27,13 @@ function LogInForm() {
     try {
       const body = { email: logInData.email, password: logInData.password };
       const res = await logIn(body);
+      console.log("로그인 성공");
       setUser(res.data.response);
+      const oneDayInMilliseconds = 1000 * 60 * 60 * 24;
+      const expiryTime = Date.now() + oneDayInMilliseconds; // 현재 시간에 24시간을 더함
+      setTokenExpiry(expiryTime); // 만료 시간 설정
+
       router.replace("/main/home");
-      console.log("로그인 성공", res);
     } catch (err) {
       console.log("로그인 실패", err);
     }
