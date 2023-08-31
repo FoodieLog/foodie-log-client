@@ -6,11 +6,13 @@ type User = {
   nickName?: string;
   profileImageUrl?: string | null;
   accessToken?: string;
+  tokenExpiry?: number; // 유닉스 타임스탬프로 만료 시간 저장
 };
 
 type UserState = {
   user: User;
   setUser: (user: User) => void;
+  setTokenExpiry: (expiry: number) => void;
   clearUser: () => void;
 };
 
@@ -22,15 +24,22 @@ export const useUserStore = create<UserState>()(
         nickName: undefined,
         profileImageUrl: undefined,
         accessToken: undefined,
+        tokenExpiry: undefined, // 초기 만료 시간은 undefined로 설정
       },
       setUser: (user: User) =>
         set(prevState => ({
           ...prevState,
           user: {
-            id: user.id,
-            nickName: user.nickName,
-            profileImageUrl: user.profileImageUrl,
-            accessToken: user.accessToken,
+            ...prevState.user,
+            ...user
+          }
+        })),
+      setTokenExpiry: (expiry: number) =>
+        set(prevState => ({
+          ...prevState,
+          user: {
+            ...prevState.user,
+            tokenExpiry: expiry
           }
         })),
       clearUser: () => 
@@ -41,6 +50,7 @@ export const useUserStore = create<UserState>()(
             nickName: undefined,
             profileImageUrl: undefined,
             accessToken: undefined,
+            tokenExpiry: undefined,
           }
         }))
     }),
@@ -50,4 +60,3 @@ export const useUserStore = create<UserState>()(
     }
   )
 );
-
