@@ -12,6 +12,7 @@ interface SignUpData {
   email: string;
   password: string;
 }
+
 const useSignUpStore = create<SignUpStore>((set) => ({
   user: {
     email: "",

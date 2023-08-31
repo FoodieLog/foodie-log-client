@@ -1,26 +1,30 @@
 "use client";
-import React from "react";
-import Button from "@/src/components/Button";
 import { useForm } from "react-hook-form";
 import { resetPassword } from "@/src/services/auth";
-import { ResetPasswordBody, ResetPasswordForm } from "@/src/types/apiTypes";
+import { ChangePassword } from "@/src/types/apiTypes";
 import { passwordValidation } from "@/src/constants";
+import { useRouter } from "next/navigation";
+import Button from "@/src/components/Button";
 
-function ChangePassword() {
+function ChangePassword({ email }: ChangePassword) {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
     watch,
-    reset,
-  } = useForm<ResetPasswordForm>({
+  } = useForm<ChangePassword>({
     mode: "onChange",
   });
 
-  const onSubmit = async ({ oldPassword, newPassword }: ResetPasswordBody) => {
-    await resetPassword({ oldPassword, newPassword })
-      .then((res) => console.log("비밀번호 재설정", res))
-      .catch((res) => console.log("비밀번호 재설정 실패", res));
+  const onSubmit = async ({ password }: ChangePassword) => {
+    try {
+      const res = await resetPassword({ email, password });
+      router.replace("/account/login");
+      console.log("비밀번호 재설정", res);
+    } catch (err) {
+      console.log("비밀번호 재설정 실패", err);
+    }
   };
 
   return (
@@ -28,18 +32,9 @@ function ChangePassword() {
       <div className="title">
         <h2>비밀번호 재설정</h2>
         <form onSubmit={handleSubmit(onSubmit)} className="w-full flex flex-col  gap-4 mt-10">
-          <p>(회원이메일)</p>
           <label>
-            <p>기존 비밀번호</p>
-            <input
-              type="password"
-              className="input"
-              placeholder="기존 비밀번호"
-              maxLength={16}
-              autoComplete="current-password"
-              {...register("oldPassword", passwordValidation)}
-            />
-            {errors?.oldPassword && <span>{errors.oldPassword.message}</span>}
+            <p>회원이메일</p>
+            <input type="text" className="input" value={email} disabled />
           </label>
           <label>
             <p>변경할 비밀번호</p>
@@ -49,9 +44,9 @@ function ChangePassword() {
               placeholder="변경할 비밀번호"
               maxLength={16}
               autoComplete="new-password"
-              {...register("newPassword", passwordValidation)}
+              {...register("password", passwordValidation)}
             />
-            {errors?.newPassword && <span>{errors.newPassword.message}</span>}
+            {errors?.password && <span>{errors.password.message}</span>}
           </label>
           <label>
             <p>변경할 비밀번호 확인</p>
@@ -66,7 +61,7 @@ function ChangePassword() {
                 required: "비밀번호는 필수 입력입니다.",
                 validate: {
                   value: (val: string | undefined) => {
-                    if (watch("newPassword") !== val) return "비밀번호가 일치하지 않습니다.";
+                    if (watch("password") !== val) return "비밀번호가 일치하지 않습니다.";
                   },
                 },
               })}
@@ -74,7 +69,7 @@ function ChangePassword() {
             {errors?.newPasswordCheck && <span>{errors.newPasswordCheck.message}</span>}
           </label>
           <div className="mt-20">
-            <Button type="submit" variant={"primary"}>
+            <Button type="submit" variant={"primary"} disabled={isSubmitting}>
               비밀번호 변경
             </Button>
           </div>

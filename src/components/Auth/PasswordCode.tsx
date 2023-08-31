@@ -8,7 +8,7 @@ import useSignUpStore from "@/src/store/useSignUpStore";
 import ChangePassword from "./ChangePassword";
 
 const FindPassword = () => {
-  const [showCodeInput, setShowCodeInput] = useState(true);
+  const [showCodeInput, setShowCodeInput] = useState(false);
   const [codeData, setCodeData] = useState({
     email: "",
     firstCode: "",
@@ -21,13 +21,15 @@ const FindPassword = () => {
   const setNextComponent = useSignUpStore((state) => state.setNextComponent);
 
   const sendPasswordCodeHandler = async (e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>) => {
-    console.log("Sending password code", codeData.email);
-    await getPasswordCode(codeData.email)
-      .then((res) => {
-        setShowCodeInput(true);
-        console.log("이메일 코드 성공", res);
-      })
-      .catch((err) => console.log("이메일 코드 실패", err));
+    e.preventDefault();
+    try {
+      const res = await getPasswordCode(codeData.email);
+      setShowCodeInput(true);
+      console.log("이메일 코드 성공", res);
+      showCodeInput && setCodeData({ ...codeData, firstCode: "", secondCode: "", thirdCode: "", fourthCode: "" });
+    } catch (err) {
+      console.log("이메일 코드 실패", err);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -37,17 +39,20 @@ const FindPassword = () => {
 
   const handleVerificationClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    const code = codeData.firstCode + codeData.secondCode + codeData.thirdCode + codeData.fourthCode;
-    await getVerificationEmail(codeData.email, code)
-      .then((res) => {
-        setNextComponent("ChangePassword");
-        console.log("이메일 인증 성공", res);
-      })
-      .catch((err) => console.log("이메일 인증 실패", err));
+    try {
+      const code = codeData.firstCode + codeData.secondCode + codeData.thirdCode + codeData.fourthCode;
+      const res = await getVerificationEmail(codeData.email, code);
+      setNextComponent("ChangePassword");
+      console.log("이메일 인증 성공", res);
+    } catch (err) {
+      console.log("이메일 인증 실패", err);
+    } finally {
+      showCodeInput && setCodeData({ ...codeData, firstCode: "", secondCode: "", thirdCode: "", fourthCode: "" });
+    }
   };
 
   if (nextComponent === "ChangePassword") {
-    return <ChangePassword />;
+    return <ChangePassword email={codeData.email} />;
   }
 
   return (
