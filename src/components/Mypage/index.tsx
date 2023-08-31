@@ -1,15 +1,17 @@
 "use client";
 import React, { useState } from "react";
-import Image from "next/image";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { BiPhotoAlbum } from "react-icons/bi";
 import { CgFlagAlt } from "react-icons/cg";
+import { useUserStore } from "@/src/store/useUserStore";
+import Image from "next/image";
 import Link from "next/link";
 import logo from "@/public/images/Logo_example.png";
 import Button from "../Button";
 
 function MyPageForm() {
   const [selectedFile, setSelectedFile] = useState("");
+  const user = useUserStore((state) => state.user);
 
   const onClick = () => {
     console.log("onClick");
@@ -25,7 +27,7 @@ function MyPageForm() {
               <input type="file" hidden></input>
             </div>
             <div>
-              <h3 className="px-3">회원 계정 아이디</h3>
+              <h3 className="px-3">{user.nickName}</h3>
               <ul className="flex justify-between mt-1">
                 <li className="px-3 flex flex-col items-center justify-center">
                   <p>게시물</p>
@@ -45,10 +47,10 @@ function MyPageForm() {
           </section>
         </header>
         <div className="px-10">
-          <h1>바이오 소개글 가나다라마다하바히ㅏㅇ ㅣ아 미답 ㅣㅏㅓ 시ㅏ 미알 미ㅁㅇㅁ;ㅣㅏ어ㅣ망ㄹ미어ㅣ </h1>
+          <h1></h1>
         </div>
         <div>
-          <Button variant={"primary"} onClick={onClick}>
+          <Button type="button" variant={"primary"} onClick={onClick}>
             프로필 수정
           </Button>
         </div>
