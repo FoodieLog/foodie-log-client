@@ -17,10 +17,10 @@ export interface LogInBody {
 }
 
 //비밀번호 재설정
-export interface ResetPasswordBody {
+export type ResetPasswordBody = {
   email: string;
   password: string;
-}
+};
 
 export interface ResetPasswordForm extends ResetPasswordBody {
   newPasswordCheck: string;
