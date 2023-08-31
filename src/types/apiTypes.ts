@@ -18,12 +18,16 @@ export interface LogInBody {
 
 //비밀번호 재설정
 export interface ResetPasswordBody {
-  oldPassword: string;
-  newPassword: string;
+  email: string;
+  password: string;
 }
 
 export interface ResetPasswordForm extends ResetPasswordBody {
   newPasswordCheck: string;
+}
+
+export interface ChangePassword {
+  [key: string]: string;
 }
 
 // FEED

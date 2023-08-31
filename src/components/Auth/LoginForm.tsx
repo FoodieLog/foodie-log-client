@@ -33,9 +33,11 @@ function LogInForm() {
     try {
       const res = await logIn(body);
       console.log("로그인 성공");
-      saveUserOnLoginSuccess(res.data.response);
+      saveUserOnLoginSuccess(res.data.response.data.response);
 
-      // router.replace("/main/home");
+      localStorage.setItem("accessToken", res.data.response.accessToken);
+
+      router.replace("/main/home");
     } catch (err) {
       console.log("로그인 실패", err);
     }
@@ -46,7 +48,6 @@ function LogInForm() {
     setLogInData({ ...logInData, [name]: value });
   };
 
-  console.log({ logInData });
   const handleClick = () => {
     console.log("onClick");
   };
