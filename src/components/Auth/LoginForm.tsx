@@ -17,12 +17,12 @@ function LogInForm() {
   });
 
   const router = useRouter();
+
   const setUser = useUserStore((state) => state.setUser);
   const user = useUserStore((state) => state.user);
 
-  const loginSuccess = (response: ApiResponse["response"]) => {
+  const saveUserOnLoginSuccess = (response: ApiResponse["response"]) => {
     setUser(response);
-    console.log("[userData] :", user);
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -33,7 +33,7 @@ function LogInForm() {
     try {
       const res = await logIn(body);
       console.log("로그인 성공");
-      loginSuccess(res.data.response);
+      saveUserOnLoginSuccess(res.data.response);
 
       // router.replace("/main/home");
     } catch (err) {
