@@ -1,12 +1,16 @@
 "use client";
-import Link from "next/link";
+import { useState } from "react";
 import { sidebarLinks } from "../constants";
 import { usePathname } from "next/navigation";
 import { useUserStore } from "../store/useUserStore";
-
+import Link from "next/link";
 const Bottombar = () => {
+  const [isClient, setIsClient] = useState();
   const pathname = usePathname();
-  const { id } = useUserStore((state) => state.user);
+
+  if (!isClient) {
+    return null;
+  }
 
   return (
     <section className="bottombar fixed bottom-0 w-full max-w-screen-sm mx-auto z-10 py-2 border-t-[1px] bg-white border-solid sm:hidden">
@@ -17,11 +21,7 @@ const Bottombar = () => {
             const isActive = (pathname.includes(link.route) && link.route.length > 1) || pathname === link.route;
             const IconComponent = link.icon;
             return (
-              <Link
-                href={link.label === "User" ? `/main/${id}` : link.route}
-                key={link.route}
-                className={`py-2 ${isActive && "bg-mint rounded-lg"}`}
-              >
+              <Link href={link.route} key={link.route} className={`py-2 ${isActive && "bg-mint rounded-lg"}`}>
                 <div className="flex items-center">
                   <IconComponent className="text-2xl mx-2" />
                 </div>
