@@ -21,7 +21,7 @@ function LogInForm() {
   const user = useUserStore((state) => state.user);
   const setTokenExpiry = useUserStore((state) => state.setTokenExpiry);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
@@ -39,12 +39,12 @@ function LogInForm() {
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setLogInData({ ...logInData, [name]: value });
   };
 
-  const handleClick = () => {
+  const onClickHandler = () => {
     console.log("onClick");
   };
 
@@ -54,12 +54,12 @@ function LogInForm() {
         <h2>로그인</h2>
         <p>Foodie-Log에 오신 걸 환영합니다!</p>
       </div>
-      <form onSubmit={handleSubmit} className="w-full flex flex-col  gap-4 mt-10">
+      <form onSubmit={onSubmit} className="w-full flex flex-col  gap-4 mt-10">
         <input
           type="text"
           name="email"
           value={logInData.email}
-          onChange={handleChange}
+          onChange={onChangeHandler}
           className="input"
           placeholder="이메일"
         />
@@ -67,7 +67,7 @@ function LogInForm() {
           type="password"
           name="password"
           value={logInData.password}
-          onChange={handleChange}
+          onChange={onChangeHandler}
           className="input"
           placeholder="비밀번호"
           autoComplete="off"
@@ -86,7 +86,7 @@ function LogInForm() {
         </div>
       </form>
       <Line />
-      <Button type="button" variant={"text"} size={""} onClick={handleClick}>
+      <Button type="button" variant={"text"} size={""} onClick={onClickHandler}>
         <Image src={kakao} alt="카카오 로그인 버튼" />
       </Button>
       <div className="flex justify-center my-10">

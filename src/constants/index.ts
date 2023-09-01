@@ -39,7 +39,7 @@ export const sidebarLinks = [
   {
     icon: AiOutlinePlusCircle,
     label: "Feed",
-    route: "/main/feed",
+    route: "/main/post",
   },
   {
     icon: FiThumbsUp,
@@ -49,7 +49,7 @@ export const sidebarLinks = [
   {
     icon: BiSmile,
     label: "User",
-    route: "/main/user",
+    route: "/main/mypage",
   },
   {
     icon: IoIosSearch,

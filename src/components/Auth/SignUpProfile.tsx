@@ -92,7 +92,7 @@ function SignUpProfile() {
     reader.readAsDataURL(file);
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setProfile({ ...profile, [name]: value });
   };
@@ -129,11 +129,11 @@ function SignUpProfile() {
           <p className="mb-1">
             닉네임(계정아이디)<span className="text-red-500">*</span>
           </p>
-          <input type="text" name="nickName" value={profile.nickName} className="input" onChange={handleChange} />
+          <input type="text" name="nickName" value={profile.nickName} className="input" onChange={onChangeHandler} />
         </label>
         <label>
           <p className="mb-1">자기소개</p>
-          <input type="text" name="aboutMe" value={profile.aboutMe} className="input" onChange={handleChange} />
+          <input type="text" name="aboutMe" value={profile.aboutMe} className="input" onChange={onChangeHandler} />
         </label>
       </div>
       <Button type="submit" variant={"primary"}>
