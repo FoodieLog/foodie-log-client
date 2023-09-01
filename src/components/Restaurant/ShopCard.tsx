@@ -1,9 +1,9 @@
 import Link from "next/link";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
-import { getIcon } from "../utils/iconUtils";
+import { getIcon } from "../../utils/iconUtils";
 import { FiExternalLink } from "react-icons/fi";
 import { useState } from "react";
-import Image from 'next/image';
+import Image from "next/image";
 
 interface ShopCardProps {
   id: number;
@@ -19,17 +19,19 @@ const ShopCard: React.FC<ShopCardProps> = ({ id, name, category, roadAddress, is
   const [like, setLike] = useState(isLiked);
 
   return (
-    <div className="flex items-center justify-between px-4 py-2"> {/* Change flex layout to justify-between */}
+    <div className="flex items-center justify-between px-4 py-2">
+      {" "}
+      {/* Change flex layout to justify-between */}
       <div className="flex items-center">
         <Link href={`/main/restaurants/${id}`}>
-        <div className="relative w-12 h-12">
-          <Image
-            fill
-            src={shopCategoryIcon}
-            alt="음식점 썸네일"
-            sizes="(max-width: 48px) 48px, 48px"
-            className="w-12 h-12 border rounded-full cursor-pointer"
-          />
+          <div className="relative w-12 h-12">
+            <Image
+              fill
+              src={shopCategoryIcon}
+              alt="음식점 썸네일"
+              sizes="(max-width: 48px) 48px, 48px"
+              className="w-12 h-12 border rounded-full cursor-pointer"
+            />
           </div>
         </Link>
         <div className="flex flex-col items-start p- ml-3">
@@ -42,9 +44,11 @@ const ShopCard: React.FC<ShopCardProps> = ({ id, name, category, roadAddress, is
         </div>
       </div>
       {(isLiked !== undefined || shopUrl) && ( // Adjust this condition to show the right section only when needed
-        <div className="flex items-center"> 
+        <div className="flex items-center">
           {isLiked !== undefined && (
-            <button className="text-[24px] mr-2" onClick={() => setLike(!like)}> {/* Add a margin for spacing */}
+            <button className="text-[24px] mr-2" onClick={() => setLike(!like)}>
+              {" "}
+              {/* Add a margin for spacing */}
               {like ? <AiFillHeart /> : <AiOutlineHeart />}
             </button>
           )}
@@ -58,6 +62,5 @@ const ShopCard: React.FC<ShopCardProps> = ({ id, name, category, roadAddress, is
     </div>
   );
 };
-
 
 export default ShopCard;

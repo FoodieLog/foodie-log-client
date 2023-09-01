@@ -1,14 +1,14 @@
-"use client"
+"use client";
 import Image from "next/image";
 import { Logo } from "@/public/images";
 import { IoIosSearch, IoMdNotificationsOutline } from "react-icons/io";
 import Link from "next/link";
-import useHideOnScroll from '../hooks/useHideOnScroll';
+import useHideOnScroll from "../../hooks/useHideOnScroll";
 
 const Topbar = () => {
   const isVisible = useHideOnScroll();
 
-    return (
+  return (
     // <section className="flex justify-between items-center max-w-[640px] px-4 bg-cyan-500">
     <section
       className={`z-20 flex justify-between items-center max-w-[640px] px-4 bg-cyan-500 

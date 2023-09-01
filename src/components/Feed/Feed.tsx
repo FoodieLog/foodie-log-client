@@ -1,17 +1,17 @@
 import Image from "next/image";
 import { useState } from "react";
-import { FeedData } from "../types/apiTypes";
+import { FeedData } from "../../types/apiTypes";
 import ImageSlide from "./ImageSlide";
-import { getTimeDiff } from "../utils/date";
+import { getTimeDiff } from "../../utils/date";
 import dayjs from "dayjs";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { FaRegCommentDots } from "react-icons/fa";
 import { FiShare2 } from "react-icons/fi";
 import { PiUserCircleBold } from "react-icons/pi";
-import { getIcon } from "../utils/iconUtils";
-import Button from "./Button";
-import ShopCard from "./ShopCard";
+import { getIcon } from "../../utils/iconUtils";
+import Button from "../Button";
+import ShopCard from "../Restaurant/ShopCard";
 
 const Feed: React.FC<FeedData> = ({ feed, restaurant, isFollowed, isLiked }) => {
   const timeDifference = getTimeDiff(dayjs(feed.createdAt));
@@ -42,7 +42,9 @@ const Feed: React.FC<FeedData> = ({ feed, restaurant, isFollowed, isLiked }) => 
             />
           ) : (
             // 기본 이미지 또는 대체 컴포넌트를 표시
-            <div className=""><PiUserCircleBold className = "w-12 h-12 text-zinc-500" /></div>
+            <div className="">
+              <PiUserCircleBold className="w-12 h-12 text-zinc-500" />
+            </div>
           )}
         </div>
         <div className="flex flex-1 flex-col ml-3">
