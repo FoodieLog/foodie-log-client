@@ -1,22 +1,39 @@
 "use client";
 
-import { faker } from "@faker-js/faker";
 import Feed from "./Feed";
 import { useEffect, useState } from "react";
-import { FeedData } from "../../types/apiTypes";
-import { generateFeedDummyData } from "../../utils/dummyDataUtils";
+import { getFeedList, Content } from "@/src/services/apiFeed";
 
 const Feeds = () => {
-  const [dummyFeedsData, setDummyFeedsData] = useState<FeedData[]>([]);
+  const [feedsData, setFeedsData] = useState<Content[]>([]);
+
   useEffect(() => {
-    const DUMMY_DATA = generateFeedDummyData();
-    setDummyFeedsData(DUMMY_DATA);
+    async function fetchData() {
+      try {
+        const response = await getFeedList(0, 15, 0); // You can change these values as per your needs
+        console.log("response", response);
+        if (response.status === 200) {
+          console.log("response.response.content", response.response.content);
+          setFeedsData(response.response.content);
+        }
+      } catch (error) {
+        console.error("Failed to fetch feed data:", error);
+      }
+    }
+
+    fetchData();
   }, []);
 
   return (
     <div className="flex flex-col items-center">
-      {dummyFeedsData.map((feedData, index) => (
-        <Feed key={index} {...feedData} />
+      {feedsData.map((content, index) => (
+        <Feed
+          key={index}
+          feed={content.feed}
+          restaurant={content.restaurant}
+          isFollowed={content.followed}
+          isLiked={content.liked}
+        />
       ))}
     </div>
   );
