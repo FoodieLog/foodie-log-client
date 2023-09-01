@@ -5,7 +5,7 @@ import BackButton from "@/src/components/Button/BackButton";
 import useSignUpStore from "@/src/store/useSignUpStore";
 import { sendEmailCode, getVerificationEmail } from "@/src/services/auth";
 
-const SignUpCode = () => {
+function SignUpCode() {
   const setNextComponent = useSignUpStore((state) => state.setNextComponent);
   const email = useSignUpStore((state) => state.user.email);
   const [codeData, setCodeData] = useState({
@@ -32,7 +32,7 @@ const SignUpCode = () => {
       .catch((err) => console.log("코드 인증 실패", err));
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setCodeData({ ...codeData, [name]: value });
   };
@@ -45,10 +45,22 @@ const SignUpCode = () => {
           <span>(회원님)</span>로 전송된 인증코드를 입력해주세요!
         </p>
         <div className="flex justify-center gap-2 mt-10">
-          <input name="firstCode" value={codeData.firstCode} onChange={handleChange} type="text" className="code" />
-          <input name="secondCode" value={codeData.secondCode} onChange={handleChange} type="text" className="code" />
-          <input name="thirdCode" value={codeData.thirdCode} onChange={handleChange} type="text" className="code" />
-          <input name="fourthCode" value={codeData.fourthCode} onChange={handleChange} type="text" className="code" />
+          <input name="firstCode" value={codeData.firstCode} onChange={onChangeHandler} type="text" className="code" />
+          <input
+            name="secondCode"
+            value={codeData.secondCode}
+            onChange={onChangeHandler}
+            type="text"
+            className="code"
+          />
+          <input name="thirdCode" value={codeData.thirdCode} onChange={onChangeHandler} type="text" className="code" />
+          <input
+            name="fourthCode"
+            value={codeData.fourthCode}
+            onChange={onChangeHandler}
+            type="text"
+            className="code"
+          />
         </div>
       </div>
       <div>
@@ -63,6 +75,6 @@ const SignUpCode = () => {
       </div>
     </section>
   );
-};
+}
 
 export default SignUpCode;

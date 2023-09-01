@@ -1,6 +1,5 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
-import defaultImage from "@/public/images/logo_icon_only_example.png";
 
 type User = {
   id?: number;
