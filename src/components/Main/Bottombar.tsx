@@ -1,8 +1,8 @@
 "use client";
 import Link from "next/link";
-import { sidebarLinks } from "../constants";
+import { sidebarLinks } from "../../constants";
 import { usePathname } from "next/navigation";
-import { useUserStore } from "../store/useUserStore";
+import { useUserStore } from "../../store/useUserStore";
 
 const Bottombar = () => {
   const pathname = usePathname();

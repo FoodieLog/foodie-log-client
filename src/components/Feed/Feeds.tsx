@@ -3,8 +3,8 @@
 import { faker } from "@faker-js/faker";
 import Feed from "./Feed";
 import { useEffect, useState } from "react";
-import { FeedData } from '../types/apiTypes';
-import { generateFeedDummyData } from '../utils/dummyDataUtils';
+import { FeedData } from "../../types/apiTypes";
+import { generateFeedDummyData } from "../../utils/dummyDataUtils";
 
 const Feeds = () => {
   const [dummyFeedsData, setDummyFeedsData] = useState<FeedData[]>([]);

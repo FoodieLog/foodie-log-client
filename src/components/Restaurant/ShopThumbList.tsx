@@ -1,14 +1,14 @@
-"use client"
-import ShopThumb from './ShopThumb';
-import { useState, useEffect } from 'react';
+"use client";
+import ShopThumb from "./ShopThumb";
+import { useState, useEffect } from "react";
 import { faker } from "@faker-js/faker";
-import { generateShopDummyData } from '../utils/dummyDataUtils';
+import { generateShopDummyData } from "../../utils/dummyDataUtils";
 
 const ShopThumbList = () => {
   const [dummyShopData, setDummyShopData] = useState<any[]>([]);
 
   useEffect(() => {
-    const DUMMY_DATA = generateShopDummyData()
+    const DUMMY_DATA = generateShopDummyData();
     setDummyShopData(DUMMY_DATA);
   }, []);
 

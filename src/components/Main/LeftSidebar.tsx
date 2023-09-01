@@ -1,11 +1,11 @@
 "use client";
 
-import { sidebarLinks } from "../constants";
+import { sidebarLinks } from "../../constants";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { TbLogout2 } from "react-icons/tb";
-import { Logo, LogoIcon } from '@/public/images';
-import Image from 'next/image';
+import { Logo, LogoIcon } from "@/public/images";
+import Image from "next/image";
 
 const BottomSideBar = () => {
   const router = useRouter();
