@@ -1,5 +1,6 @@
-import { create } from 'zustand';
-import { persist, createJSONStorage } from 'zustand/middleware';
+import { create } from "zustand";
+import { persist, createJSONStorage } from "zustand/middleware";
+import defaultImage from "@/public/images/logo_icon_only_example.png";
 
 type User = {
   id?: number;
@@ -27,23 +28,23 @@ export const useUserStore = create<UserState>()(
         tokenExpiry: undefined, // 초기 만료 시간은 undefined로 설정
       },
       setUser: (user: User) =>
-        set(prevState => ({
+        set((prevState) => ({
           ...prevState,
           user: {
             ...prevState.user,
-            ...user
-          }
+            ...user,
+          },
         })),
       setTokenExpiry: (expiry: number) =>
-        set(prevState => ({
+        set((prevState) => ({
           ...prevState,
           user: {
             ...prevState.user,
-            tokenExpiry: expiry
-          }
+            tokenExpiry: expiry,
+          },
         })),
-      clearUser: () => 
-        set(prevState => ({
+      clearUser: () =>
+        set((prevState) => ({
           ...prevState,
           user: {
             id: undefined,
@@ -51,12 +52,12 @@ export const useUserStore = create<UserState>()(
             profileImageUrl: undefined,
             accessToken: undefined,
             tokenExpiry: undefined,
-          }
-        }))
+          },
+        })),
     }),
     {
-      name: 'user-storage',
-      storage: createJSONStorage(() => localStorage), 
+      name: "user-storage",
+      storage: createJSONStorage(() => localStorage),
     }
   )
 );
