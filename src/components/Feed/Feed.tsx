@@ -12,20 +12,46 @@ import { PiUserCircleBold } from "react-icons/pi";
 import { getIcon } from "../../utils/iconUtils";
 import Button from "../Button";
 import ShopCard from "../Restaurant/ShopCard";
+import { likeFeed, unlikeFeed } from '@/src/services/apiFeed';
 
 const Feed: React.FC<FeedData> = ({ feed, restaurant, isFollowed, isLiked }) => {
   const timeDifference = getTimeDiff(dayjs(feed.createdAt));
 
   const [Follow, setFollow] = useState<boolean>(isFollowed);
   const [Like, setLike] = useState<boolean>(isLiked);
+  const [likeCount, setLikeCount] = useState<number>(feed.likeCount);
 
   // 주의 : 이미지 경로를 /public/images/... 로 시작하면 안된다.
   // 대부분의 프론트엔드 프레임워크나 빌드 도구에서는 public 디렉토리의 내용이 빌드 시 루트 경로(/)에 배포된다고 한다.
   const shopCategoryIcon = `/images/foodCategoryIcons/${getIcon(restaurant.category)}`;
 
-  const handleButtonClick = () => {
+
+
+  const handleFollowButtonClick = () => {
     setFollow(!Follow);
   };
+
+  const handleLikeClick = async () => {
+    try {
+      if (Like) {
+        const response = await unlikeFeed(feed.feedId);
+        if (response.status === 200) {
+          setLike(false);
+          setLikeCount(prevCount => prevCount - 1);
+        }
+      } else {
+        const response = await likeFeed(feed.feedId);
+        if (response.status === 201) {
+          setLike(true);
+          setLikeCount(prevCount => prevCount + 1);
+          
+        }
+      }
+    } catch (error) {
+      console.error("Failed to update like:", error);
+    }
+  };
+  
 
   return (
     <div className="mt-2 w-full max-w-[640px] bg-mint-light rounded-sm">
@@ -55,7 +81,7 @@ const Feed: React.FC<FeedData> = ({ feed, restaurant, isFollowed, isLiked }) => 
         <button
           className="w-30 h-9 py-2 mr-4 px-4 text-white font-bold rounded-2xl 
         bg-green-400 hover:bg-green-500 border-0"
-          onClick={handleButtonClick}
+          onClick={handleFollowButtonClick}
         >
           {Follow ? "팔로잉" : "팔로우"}
         </button>
@@ -76,10 +102,10 @@ const Feed: React.FC<FeedData> = ({ feed, restaurant, isFollowed, isLiked }) => 
       {/* content */}
       <p className="p-3">{feed.content}</p>
       <div className="flex flex-between gap-2 items-center text-[18px] p-3">
-        <button className="text-[24px]" onClick={() => setLike(!Like)}>
+        <button className="text-[24px]" onClick={handleLikeClick}>
           {Like ? <AiFillHeart /> : <AiOutlineHeart />}
         </button>
-        <p>{feed.likeCount}</p>
+        <p>{likeCount}</p>
         <FaRegCommentDots className="text-[24px] cursor-pointer" />
         <p className="flex-1">{feed.replyCount}</p>
         <FiShare2 className="text-[24px] cursor-pointer" />
