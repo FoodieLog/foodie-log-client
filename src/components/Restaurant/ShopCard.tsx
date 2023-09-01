@@ -14,7 +14,14 @@ interface ShopCardProps {
   shopUrl?: string;
 }
 
-const ShopCard: React.FC<ShopCardProps> = ({ id, name, category, roadAddress, isLiked, shopUrl }) => {
+const ShopCard: React.FC<ShopCardProps> = ({
+  id = 0,
+  name = "홍길동",
+  category = "카페",
+  roadAddress = false,
+  isLiked = false,
+  shopUrl = "",
+}) => {
   const shopCategoryIcon = `/images/foodCategoryIcons/${getIcon(category)}`;
   const [like, setLike] = useState(isLiked);
 

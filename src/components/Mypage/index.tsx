@@ -21,7 +21,7 @@ function MyPageForm() {
     const checkThumbnails = async () => {
       try {
         if (user.id) {
-          // const res = await getThumbnails(user.id);
+          // const res = await getThumbnails(user.id, feedId);
           // console.log("썸네일 성공", res);
         }
       } catch (error) {
