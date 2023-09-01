@@ -3,14 +3,12 @@ import { usePathname, useRouter } from "next/navigation";
 import { TbLogout2 } from "react-icons/tb";
 import { Logo, LogoIcon } from "@/public/images";
 import { sidebarLinks } from "../constants";
-import { useUserStore } from "../store/useUserStore";
 import Link from "next/link";
 import Image from "next/image";
 
 const BottomSideBar = () => {
   const router = useRouter();
   const pathname = usePathname();
-  const { id } = useUserStore((state) => state.user);
 
   return (
     <section className="flex flex-col h-screen border-r-[1px] border-solid sticky top-0 max-sm:hidden ">
@@ -21,11 +19,7 @@ const BottomSideBar = () => {
           const isActive = (pathname.includes(link.route) && link.route.length > 1) || pathname === link.route;
           const IconComponent = link.icon;
           return (
-            <Link
-              href={link.label === "User" ? `/main/${id}` : link.route}
-              key={link.route}
-              className={`py-2 ${isActive && "bg-sunflower-light rounded-lg"}`}
-            >
+            <Link href={link.route} key={link.route} className={`py-2 ${isActive && "bg-sunflower-light rounded-lg"}`}>
               <div className="flex items-center">
                 <IconComponent className="text-2xl mx-2" />
                 <p className="ml-2 mr-2 max-lg:hidden">{link.label}</p>
