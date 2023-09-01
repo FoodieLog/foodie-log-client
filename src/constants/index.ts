@@ -49,7 +49,7 @@ export const sidebarLinks = [
   {
     icon: BiSmile,
     label: "User",
-    route: "/main/user",
+    route: "/main/[id]",
   },
   {
     icon: IoIosSearch,
