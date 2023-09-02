@@ -3,9 +3,9 @@
 import { sidebarLinks } from "../../constants";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { TbLogout2 } from "react-icons/tb";
 import { Logo, LogoIcon } from "@/public/images";
 import Image from "next/image";
+import Logout from './Logout';
 
 const BottomSideBar = () => {
   const router = useRouter();
@@ -30,8 +30,7 @@ const BottomSideBar = () => {
         })}
       </div>
       <div className="flex px-6 py-2 mb-4">
-        <TbLogout2 className="text-2xl mx-2" />
-        <p className="ml-2 max-lg:hidden">Logout</p>
+        <Logout />
       </div>
     </section>
   );
