@@ -12,7 +12,7 @@ import { PiUserCircleBold } from "react-icons/pi";
 import { getIcon } from "../../utils/iconUtils";
 import Button from "../Button";
 import ShopCard from "../Restaurant/ShopCard";
-import { likeFeed, unlikeFeed } from '@/src/services/apiFeed';
+import { followUser, likeFeed, unfollowUser, unlikeFeed } from '@/src/services/apiFeed';
 
 const Feed: React.FC<FeedData> = ({ feed, restaurant, isFollowed, isLiked }) => {
   const timeDifference = getTimeDiff(dayjs(feed.createdAt));
@@ -24,12 +24,6 @@ const Feed: React.FC<FeedData> = ({ feed, restaurant, isFollowed, isLiked }) => 
   // 주의 : 이미지 경로를 /public/images/... 로 시작하면 안된다.
   // 대부분의 프론트엔드 프레임워크나 빌드 도구에서는 public 디렉토리의 내용이 빌드 시 루트 경로(/)에 배포된다고 한다.
   const shopCategoryIcon = `/images/foodCategoryIcons/${getIcon(restaurant.category)}`;
-
-
-
-  const handleFollowButtonClick = () => {
-    setFollow(!Follow);
-  };
 
   const handleLikeClick = async () => {
     try {
@@ -52,6 +46,23 @@ const Feed: React.FC<FeedData> = ({ feed, restaurant, isFollowed, isLiked }) => 
     }
   };
   
+  const handleFollowButtonClick = async () => {
+    try {
+      if (Follow) {
+        const response = await unfollowUser(feed.feedId); 
+        if (response.status === 200) {
+          setFollow(false);
+        }
+      } else {
+        const response = await followUser(feed.feedId); 
+        if (response.status === 201) {
+          setFollow(true);
+        }
+      }
+    } catch (error) {
+      console.error("Failed to update follow state:", error);
+    }
+  };
 
   return (
     <div className="mt-2 w-full max-w-[640px] bg-mint-light rounded-sm">
