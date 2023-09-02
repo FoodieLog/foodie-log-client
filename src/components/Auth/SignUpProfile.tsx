@@ -116,7 +116,7 @@ function SignUpProfile() {
               onChange={ProfileChangehandler}
               hidden
               accept="image/*,audio/*,video/mp4,video/x-m4v,application/pdf,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation,.csv"
-            ></input>
+            />
           </div>
           <div onClick={pickImageHandler} className="absolute bottom-5 right-0 cursor-pointer">
             <MdAddPhotoAlternate size="2.5rem" className="text-gray-400" />
