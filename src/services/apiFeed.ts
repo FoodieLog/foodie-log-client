@@ -2,7 +2,7 @@
 
 import { useUserStore } from "../store/useUserStore";
 
-const BASE_URL = "http://15.165.93.123:8080/api/feed";
+const BASE_URL = "http://15.165.93.123:8080/api";
 
 export type APIFeedResponse = {
   status: number;
@@ -79,13 +79,22 @@ export const makeFeedFetchRequest = async (
 };
 
 export const getFeedList = (feedId: number, pageSize: number, pageNumber: number): Promise<APIFeedResponse> => {
-  return makeFeedFetchRequest(`/list?feedId=${feedId}&pageSize=${pageSize}&pageNumber=${pageNumber}`);
+  return makeFeedFetchRequest(`/feed/list?feedId=${feedId}&pageSize=${pageSize}&pageNumber=${pageNumber}`);
 };
 
 export const likeFeed = async (feedId: number): Promise<APIFeedResponse> => {
-  return await makeFeedFetchRequest("/like", "POST", { feedId });
+  return await makeFeedFetchRequest("/feed/like", "POST", { feedId });
 };
 
 export const unlikeFeed = async (feedId: number): Promise<APIFeedResponse> => {
-  return await makeFeedFetchRequest(`/unlike?feedId=${feedId}`, "DELETE");
+  return await makeFeedFetchRequest(`/feed/unlike?feedId=${feedId}`, "DELETE");
 };
+
+export const followUser = async (userId: number): Promise<APIFeedResponse> => {
+  return await makeFeedFetchRequest(`/user/follow?followedId=${userId}`, "POST");
+};
+
+export const unfollowUser = async (userId: number): Promise<APIFeedResponse> => {
+  return await makeFeedFetchRequest(`/user/unfollow?followedId=${userId}`, "DELETE");
+};
+

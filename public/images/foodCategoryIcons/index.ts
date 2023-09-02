@@ -6,7 +6,7 @@ export type IconMapping = {
 
 const icons: { [key: string]: string } = {
   한식: "korean.png",
-  까페: "cafe.png",
+  카페: "cafe.png",
   간식: "dessert.png",
   분식: "dessert.png",
   아시안: "asian.png",
