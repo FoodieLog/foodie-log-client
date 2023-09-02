@@ -14,9 +14,12 @@ const multipartConfig: AxiosRequestConfig = {
   baseURL: BASE_URL,
 };
 
+const accessToken = useUserStore.getState().user.accessToken;
+
 const PostConfig: AxiosRequestConfig = {
+
   baseURL: BASE_URL,
-  headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+  headers: { Authorization: `Bearer ${accessToken}` },
 };
 
 const axiosRequest = axios.create(axiosConfig);
