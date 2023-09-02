@@ -18,10 +18,10 @@ const Topbar = () => {
         <Image src={Logo} alt="logo" className="w-[96px] h-[36px] my-2 sm:hidden cursor-pointer" />
       </div>
       <div className="flex text-3xl sm:hidden">
-        <Link href="/search">
+        <Link href="/main/search">
           <IoIosSearch className="mr-3 my-2 cursor-pointer " />
         </Link>
-        <Link href="/notification">
+        <Link href="/main/notification">
           <IoMdNotificationsOutline className="my-2 cursor-pointer" />
         </Link>
       </div>
