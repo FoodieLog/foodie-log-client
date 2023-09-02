@@ -1,11 +1,12 @@
+import { useUserStore } from '../store/useUserStore';
 import { postRequest } from "./index";
 
 // Fetch 기본 설정
 const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
-const token = localStorage.getItem("token");
+const accessToken = useUserStore.getState().user.accessToken;
 const headers = {
   "content-type": "application/json",
-  Authorization: `Bearer ${localStorage.getItem("token")}`,
+  Authorization: `Bearer ${accessToken}`,
 };
 
 // 피드 등록 (axios)
@@ -13,7 +14,7 @@ export const postFeed = async (body: FormData) => {
   const res = await postRequest.post("/api/feed/save", body, {
     headers: {
       "Content-Type": "multipart/form-data",
-      Authorization: `Bearer ${localStorage.getItem("token")}`
+      Authorization: `Bearer ${accessToken}`
     },
   });
   console.log("feed 등록 서버 응답데이터", res);
