@@ -35,6 +35,21 @@ export type Content = {
   liked: boolean;
 };
 
+export type APIUserSearchResponse = {
+  status: number;
+  response: {
+    content: [
+      {
+        id: number;
+        nickName: string;
+        profileImageUrl: string | null;
+        aboutMe: string | null;
+      }
+    ];
+  };
+  error: any;
+};
+
 export type APIReplyListResponse = {
   status: number;
   response: {
@@ -69,7 +84,7 @@ export const makeFeedFetchRequest = async <T>(
   endpoint: string,
   method: "GET" | "POST" | "PUT" | "DELETE" = "GET",
   body?: any
-): Promise<T>=> {
+): Promise<T> => {
   const accessToken = useUserStore.getState().user.accessToken;
 
   try {
@@ -95,10 +110,10 @@ export const makeFeedFetchRequest = async <T>(
       return {
         status: 200,
         response: {
-            content: []
+          content: [],
         },
-        error: null
-    } as unknown as T;
+        error: null,
+      } as unknown as T;
     }
 
     return JSON.parse(responseText);
@@ -144,5 +159,6 @@ export const reportReply = (replyId: number, reportReason: string): Promise<any>
   return makeFeedFetchRequest(`/reply/report`, "POST", { replyId, reportReason });
 };
 
-
-
+export const searchUser = async (keyword: string): Promise<APIUserSearchResponse> => {
+  return await makeFeedFetchRequest(`/user/search?keyword=${keyword}`);
+};
