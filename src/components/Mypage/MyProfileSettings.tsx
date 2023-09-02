@@ -1,53 +1,24 @@
 "use client";
 import React from "react";
 import { useRef, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
 import { MdAddPhotoAlternate } from "react-icons/md";
-import { signUp } from "@/src/services/auth";
-import { profileSetting } from "@/src/services/kakao";
+import { profileSetting } from "@/src/services/mypage";
 import Image from "next/image";
 import BackButton from "../Button/BackButton";
 import Button from "../Button";
-
-import useSignUpStore from "@/src/store/useSignUpStore";
-import useKakaoStore from "@/src/store/useKakaoStore";
 import { useUserStore } from "@/src/store/useUserStore";
 
-function SignUpProfile() {
+function MyProfileSettings() {
+  const user = useUserStore((state) => state.user);
   const [previewImage, setPreviewImage] = useState("");
   const [profileImage, setProfileImage] = useState<File>();
   const [profile, setProfile] = useState({
-    nickName: "",
+    nickName: user.nickName,
     aboutMe: "",
   });
-  const params = useSearchParams();
-  const code = params.get("code");
-
-  const user = useSignUpStore((state) => state.user);
-
   const fileInput = useRef<HTMLInputElement>(null);
 
-  // 회원가입 api
-  const SignUpSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    const formData = new FormData();
-
-    const userData = {
-      email: user.email,
-      password: user.password,
-      nickName: profile.nickName,
-      aboutMe: profile.aboutMe,
-    };
-
-    const blob = new Blob([JSON.stringify(userData)], { type: "application/json" });
-    formData.append("content", blob);
-    formData.append("file", profileImage as File);
-
-    await signUp(formData).then((res) => console.log("회원가입 성공", res));
-  };
-
-  // 카카오 로그인 시 프로필 설정 api
+  // 프로필 설정 api
   const ProfileSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -100,7 +71,7 @@ function SignUpProfile() {
   };
 
   return (
-    <form id="formElem" className="auth" method="post" onSubmit={code ? ProfileSubmit : SignUpSubmit}>
+    <form id="formElem" className="auth" method="post" onSubmit={ProfileSubmit}>
       <BackButton />
       <div className=" flex flex-col items-center justify-center">
         <div className="title">
@@ -111,7 +82,12 @@ function SignUpProfile() {
             onClick={pickImageHandler}
             className="flex justify-center items-center w-[200px] h-[200px] border border-gray-400 rounded-full overflow-hidden cursor-pointer"
           >
-            <Image src={previewImage} alt="프로필 사진" width={200} height={200} />
+            <Image
+              src={user.profileImageUrl ? user.profileImageUrl : previewImage}
+              alt="프로필 사진"
+              width={200}
+              height={200}
+            />
             <input
               type="file"
               ref={fileInput}
@@ -138,11 +114,13 @@ function SignUpProfile() {
           <input type="text" name="aboutMe" value={profile.aboutMe} className="input" onChange={onChangeHandler} />
         </label>
       </div>
-      <Button type="submit" variant={"primary"}>
-        {code ? "프로필 설정" : "가입완료"}
-      </Button>
+      <div className="my-10">
+        <Button type="submit" variant={"primary"}>
+          프로필 설정
+        </Button>
+      </div>
     </form>
   );
 }
 
-export default SignUpProfile;
+export default MyProfileSettings;

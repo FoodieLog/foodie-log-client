@@ -1,11 +1,11 @@
 "use client";
-
+import React from "react";
 import { sidebarLinks } from "../../constants";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { Logo, LogoIcon } from "@/public/images";
 import Image from "next/image";
-import Logout from './Logout';
+// import Logout from "./Logout";
 
 const BottomSideBar = () => {
   const router = useRouter();
@@ -29,9 +29,7 @@ const BottomSideBar = () => {
           );
         })}
       </div>
-      <div className="flex px-6 py-2 mb-4">
-        <Logout />
-      </div>
+      <div className="flex px-6 py-2 mb-4">{/* <Logout /> */}</div>
     </section>
   );
 };

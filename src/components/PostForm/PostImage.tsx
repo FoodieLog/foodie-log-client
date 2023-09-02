@@ -1,5 +1,5 @@
 "use client";
-import { useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { LiaAngleLeftSolid } from "react-icons/lia";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import Image from "next/image";

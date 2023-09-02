@@ -1,3 +1,4 @@
+import React from "react";
 import LeftSidebar from "../../components/Main/LeftSidebar";
 import Bottombar from "../../components/Main/Bottombar";
 import Script from "next/script";
@@ -12,7 +13,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
 
   return (
     <>
-      <AuthCheck />
+      {/* <AuthCheck /> */}
       <Script
         src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${NEXT_PUBLIC_KAKAO_MAP_API_KEY}&libraries=services,clusterer&autoload=false`}
         strategy="beforeInteractive"

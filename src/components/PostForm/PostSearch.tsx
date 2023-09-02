@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import React, { useState } from "react";
 import { searchShop } from "@/src/services/post";
 import { AiOutlineSearch } from "react-icons/ai";
 import PostListItem from "./PostShopItem";

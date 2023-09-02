@@ -1,3 +1,4 @@
+import React from "react";
 import AreaSelector from "@/src/components/Restaurant/AreaSelector";
 import Bottombar from "@/src/components/Main/Bottombar";
 import ShopThumbList from "@/src/components/Restaurant/ShopThumbList";
