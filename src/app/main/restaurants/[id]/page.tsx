@@ -1,3 +1,4 @@
+import React from "react";
 import RestaurantDetail from "@/src/components/Restaurant/RestaurantDetail";
 
 interface RestaurantProps {

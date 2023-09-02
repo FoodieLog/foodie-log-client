@@ -1,3 +1,4 @@
+import React from "react";
 import SignUpCode from "@/src/components/Auth/SignUpCode";
 
 function EmailCode() {

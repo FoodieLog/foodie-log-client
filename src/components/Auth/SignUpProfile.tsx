@@ -1,6 +1,7 @@
 "use client";
+import React from "react";
 import { useRef, useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { MdAddPhotoAlternate } from "react-icons/md";
 import { signUp } from "@/src/services/auth";
 import { profileSetting } from "@/src/services/kakao";
@@ -10,6 +11,7 @@ import Button from "../Button";
 
 import useSignUpStore from "@/src/store/useSignUpStore";
 import useKakaoStore from "@/src/store/useKakaoStore";
+import { useUserStore } from "@/src/store/useUserStore";
 
 function SignUpProfile() {
   const [previewImage, setPreviewImage] = useState("");
@@ -107,7 +109,7 @@ function SignUpProfile() {
         <div className="relative">
           <div
             onClick={pickImageHandler}
-            className=" w-[200px] h-[200px] border border-gray-400 rounded-full overflow-hidden cursor-pointer"
+            className="flex justify-center items-center w-[200px] h-[200px] border border-gray-400 rounded-full overflow-hidden cursor-pointer"
           >
             <Image src={previewImage} alt="프로필 사진" width={200} height={200} />
             <input

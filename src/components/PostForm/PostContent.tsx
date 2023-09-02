@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { postFeed } from "@/src/services/post";
 import { usePostStore } from "@/src/store/usePostStore";
 import { LiaAngleLeftSolid } from "react-icons/lia";

@@ -1,3 +1,4 @@
+import React from "react";
 import { usePostStore } from "@/src/store/usePostStore";
 import { LiaExchangeAltSolid } from "react-icons/lia";
 import useSignUpStore from "@/src/store/useSignUpStore";

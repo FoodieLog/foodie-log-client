@@ -1,4 +1,5 @@
 "use client";
+import React, { useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import { sendKakaoCode } from "@/src/services/kakao";
 import Button from "@/src/components/Button";
@@ -6,7 +7,6 @@ import BackButton from "@/src/components/Button/BackButton";
 import useSignUpStore from "@/src/store/useSignUpStore";
 import useKakaoStore from "@/src/store/useKakaoStore";
 import SignUpProfile from "./SignUpProfile";
-import { useEffect } from "react";
 
 function SignUpTerms() {
   const isChecked = useSignUpStore((state) => state.isChecked);

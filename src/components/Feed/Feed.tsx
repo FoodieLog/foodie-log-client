@@ -1,6 +1,6 @@
 import Image from "next/image";
-import { useRouter } from 'next/navigation';  
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+import React, { useState } from "react";
 import { FeedData } from "../../types/apiTypes";
 import ImageSlide from "./ImageSlide";
 import { getTimeDiff } from "../../utils/date";
@@ -13,7 +13,7 @@ import { PiUserCircleBold } from "react-icons/pi";
 import { getIcon } from "../../utils/iconUtils";
 import Button from "../Button";
 import ShopCard from "../Restaurant/ShopCard";
-import { followUser, likeFeed, unfollowUser, unlikeFeed } from '@/src/services/apiFeed';
+import { followUser, likeFeed, unfollowUser, unlikeFeed } from "@/src/services/apiFeed";
 
 const Feed: React.FC<FeedData> = ({ feed, restaurant, isFollowed, isLiked }) => {
   const timeDifference = getTimeDiff(dayjs(feed.createdAt));
@@ -33,30 +33,29 @@ const Feed: React.FC<FeedData> = ({ feed, restaurant, isFollowed, isLiked }) => 
         const response = await unlikeFeed(feed.feedId);
         if (response.status === 200) {
           setLike(false);
-          setLikeCount(prevCount => prevCount - 1);
+          setLikeCount((prevCount) => prevCount - 1);
         }
       } else {
         const response = await likeFeed(feed.feedId);
         if (response.status === 201) {
           setLike(true);
-          setLikeCount(prevCount => prevCount + 1);
-          
+          setLikeCount((prevCount) => prevCount + 1);
         }
       }
     } catch (error) {
       console.error("Failed to update like:", error);
     }
   };
-  
+
   const handleFollowButtonClick = async () => {
     try {
       if (Follow) {
-        const response = await unfollowUser(feed.feedId); 
+        const response = await unfollowUser(feed.feedId);
         if (response.status === 200) {
           setFollow(false);
         }
       } else {
-        const response = await followUser(feed.feedId); 
+        const response = await followUser(feed.feedId);
         if (response.status === 201) {
           setFollow(true);
         }
@@ -118,7 +117,7 @@ const Feed: React.FC<FeedData> = ({ feed, restaurant, isFollowed, isLiked }) => 
       />
       {/* content */}
       <p className="p-3">{feed.content}</p>
-       <div className="flex flex-between gap-2 items-center text-[18px] p-3">
+      <div className="flex flex-between gap-2 items-center text-[18px] p-3">
         <button className="text-[24px]" onClick={handleLikeClick}>
           {Like ? <AiFillHeart /> : <AiOutlineHeart />}
         </button>
