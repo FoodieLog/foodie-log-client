@@ -8,6 +8,7 @@ import Button from "@/src/components/Button";
 import kakao from "@/public/images/kakao_login_medium_wide.png";
 import Line from "../Line";
 import Link from "next/link";
+import { initializePushNotifications } from '../Notification/PushNotification';
 
 function LogInForm() {
   const [logInData, setLogInData] = useState({
@@ -32,6 +33,8 @@ function LogInForm() {
       const oneDayInMilliseconds = 1000 * 60 * 60 * 24;
       const expiryTime = Date.now() + oneDayInMilliseconds; // 현재 시간에 24시간을 더함
       setTokenExpiry(expiryTime); // 만료 시간 설정
+
+      initializePushNotifications()
 
       router.replace("/main/home");
     } catch (err) {
