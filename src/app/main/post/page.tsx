@@ -1,8 +1,8 @@
-import PostForm from "@/src/components/PostForm";
+import PostSearch from "@/src/components/PostForm/PostSearch";
 import React from "react";
 
 function Post() {
-  return <PostForm />;
+  return <PostSearch />;
 }
 
 export default Post;
