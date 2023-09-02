@@ -1,9 +1,12 @@
-"use client";
-import React from "react";
-import { useRef, useEffect, useState } from "react";
+"use client"
 import { Map, MapMarker } from "react-kakao-maps-sdk";
 
-const KakaoMap = ({ latitude, longitude }) => {
+import React from "react";
+import { useRef, useEffect, useState } from "react";
+
+
+
+const KakaoMap: React.FC<{ latitude: string; longitude: string }> = ({ latitude, longitude }) => {
   const mapRef = useRef();
   const level = 3;
   const [mapSize, setMapSize] = useState({

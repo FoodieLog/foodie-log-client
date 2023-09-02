@@ -97,7 +97,7 @@ function MyPageForm() {
         <header className="mx-3 my-5 ">
           <section className="flex items-center justify-around space-x-5">
             <div className=" w-[150px] h-[150px] border border-gray-400 rounded-full overflow-hidden cursor-pointer">
-              <img src={myProfile.profileImageUrl ? myProfile.profileImageUrl : defaultImage} alt="프로필 사진" />
+            <img src={myProfile.profileImageUrl || "/images/logo_icon_only_example.png"} alt="프로필 사진" />
               <input type="file" hidden></input>
             </div>
             <div>
@@ -117,7 +117,7 @@ function MyPageForm() {
                 </li>
               </ul>
             </div>
-            <DropDown name={user.nickName} menuList={["설정 및 개인정보"]} />
+            <DropDown name={user.nickName || "defaultName"} menuList={["설정 및 개인정보"]} />
           </section>
         </header>
         <div className="px-10">
