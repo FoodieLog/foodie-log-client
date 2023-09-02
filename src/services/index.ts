@@ -3,8 +3,6 @@ import { useUserStore } from "../store/useUserStore";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
-const accessToken = useUserStore.getState().user.accessToken;
-
 const axiosConfig: AxiosRequestConfig = {
   baseURL: BASE_URL,
   headers: {
@@ -16,16 +14,13 @@ const multipartConfig: AxiosRequestConfig = {
   baseURL: BASE_URL,
 };
 
-const userConfig: AxiosRequestConfig = {
+const PostConfig: AxiosRequestConfig = {
   baseURL: BASE_URL,
-  headers: {
-    "Content-Type": "application/json",
-    Authorization: `Bearer ${accessToken}`,
-  },
+  headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
 };
 
 const axiosRequest = axios.create(axiosConfig);
 const multipartrequest = axios.create(multipartConfig);
-const userRequest = axios.create(userConfig);
+const postRequest = axios.create(PostConfig);
 
-export { axiosRequest, multipartrequest, userRequest };
+export { axiosRequest, multipartrequest, postRequest };
