@@ -26,6 +26,6 @@
       "kakao.maps.d.ts"
     ]
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "public/firebase-messaging-sw.js"],
   "exclude": ["node_modules"],
 }
