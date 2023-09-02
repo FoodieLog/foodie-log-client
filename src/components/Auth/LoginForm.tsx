@@ -30,7 +30,6 @@ function LogInForm() {
       const body = { email: logInData.email, password: logInData.password };
       const res = await logIn(body);
       console.log("로그인 성공");
-      localStorage.setItem("token", res.data.response.accessToken);
       setUser(res.data.response);
       const oneDayInMilliseconds = 1000 * 60 * 60 * 24;
       const expiryTime = Date.now() + oneDayInMilliseconds; // 현재 시간에 24시간을 더함
