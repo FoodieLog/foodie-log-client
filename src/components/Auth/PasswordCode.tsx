@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import React, { useState } from "react";
 import Button from "@/src/components/Button";
 import BackButton from "@/src/components/Button/BackButton";
 import Link from "next/link";
@@ -7,7 +7,7 @@ import { getPasswordCode, getVerificationEmail } from "@/src/services/auth";
 import useSignUpStore from "@/src/store/useSignUpStore";
 import ChangePassword from "./ChangePassword";
 
-const FindPassword = () => {
+function FindPassword() {
   const [showCodeInput, setShowCodeInput] = useState(false);
   const [codeData, setCodeData] = useState({
     email: "",
@@ -32,12 +32,12 @@ const FindPassword = () => {
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setCodeData({ ...codeData, [name]: value });
   };
 
-  const handleVerificationClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
+  const onVerificationClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     try {
       const code = codeData.firstCode + codeData.secondCode + codeData.thirdCode + codeData.fourthCode;
@@ -65,7 +65,7 @@ const FindPassword = () => {
           <input
             name="email"
             value={codeData.email}
-            onChange={handleChange}
+            onChange={onChangeHandler}
             className="input"
             placeholder="이메일 확인"
           />
@@ -83,10 +83,34 @@ const FindPassword = () => {
             <p>{codeData.email}로 전송된 인증코드를 입력해주세요!</p>
           </div>
           <div className="flex justify-center gap-2 mt-10">
-            <input name="firstCode" value={codeData.firstCode} onChange={handleChange} type="text" className="code" />
-            <input name="secondCode" value={codeData.secondCode} onChange={handleChange} type="text" className="code" />
-            <input name="thirdCode" value={codeData.thirdCode} onChange={handleChange} type="text" className="code" />
-            <input name="fourthCode" value={codeData.fourthCode} onChange={handleChange} type="text" className="code" />
+            <input
+              name="firstCode"
+              value={codeData.firstCode}
+              onChange={onChangeHandler}
+              type="text"
+              className="code"
+            />
+            <input
+              name="secondCode"
+              value={codeData.secondCode}
+              onChange={onChangeHandler}
+              type="text"
+              className="code"
+            />
+            <input
+              name="thirdCode"
+              value={codeData.thirdCode}
+              onChange={onChangeHandler}
+              type="text"
+              className="code"
+            />
+            <input
+              name="fourthCode"
+              value={codeData.fourthCode}
+              onChange={onChangeHandler}
+              type="text"
+              className="code"
+            />
           </div>
           <div>
             <div className="flex justify-center mb-2">
@@ -94,7 +118,7 @@ const FindPassword = () => {
                 코드 재전송
               </Button>
             </div>
-            <Button type="button" variant={"primary"} onClick={handleVerificationClick}>
+            <Button type="button" variant={"primary"} onClick={onVerificationClick}>
               이메일 인증
             </Button>
           </div>
@@ -102,6 +126,6 @@ const FindPassword = () => {
       )}
     </section>
   );
-};
+}
 
 export default FindPassword;

@@ -1,10 +1,10 @@
-"use client"
+"use client";
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { area } from "@/src/constants";
 import { BiSearch } from "react-icons/bi";
 import { GrPowerReset } from "react-icons/gr";
-import useHideOnScroll from '../hooks/useHideOnScroll';
+import useHideOnScroll from "../../hooks/useHideOnScroll";
 
 type AreaType = {
   [key: string]: {
@@ -42,8 +42,14 @@ const AreaSelector: React.FC<AreaSelectorProps> = ({ onSelectedAreaChange }) => 
 
   // 모든 값이 선택되었는지 확인하는 함수
   const allValuesSelected = () => {
-    return selectedRegion && selectedDo && selectedSiGunGu &&
-      selectedRegion !== "선택" && selectedDo !== "선택" && selectedSiGunGu !== "";
+    return (
+      selectedRegion &&
+      selectedDo &&
+      selectedSiGunGu &&
+      selectedRegion !== "선택" &&
+      selectedDo !== "선택" &&
+      selectedSiGunGu !== ""
+    );
   };
 
   useEffect(() => {
@@ -76,9 +82,11 @@ const AreaSelector: React.FC<AreaSelectorProps> = ({ onSelectedAreaChange }) => 
   }, [selectedRegion, selectedDo, selectedSiGunGu, onSelectedAreaChange]);
 
   return (
-    <div className={`z-20 w-full sticky border-b border-solid item-center 
+    <div
+      className={`z-20 w-full sticky border-b border-solid item-center 
      bg-white border border-gray-300 sm:rounded-md p-1 m-0 sm:m-4 sm:w-[480px]
-     ${isVisible ? "top-0" : "-top-16"} transition-top duration-300`}>
+     ${isVisible ? "top-0" : "-top-16"} transition-top duration-300`}
+    >
       <div className="flex items-center justify-evenly w-full">
         <select
           value={selectedRegion}

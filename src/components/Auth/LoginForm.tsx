@@ -1,4 +1,5 @@
 "use client";
+import React from "react";
 import { logIn } from "@/src/services/auth";
 import { useUserStore } from "@/src/store/useUserStore";
 import { useRouter } from "next/navigation";
@@ -8,6 +9,7 @@ import Button from "@/src/components/Button";
 import kakao from "@/public/images/kakao_login_medium_wide.png";
 import Line from "../Line";
 import Link from "next/link";
+// import { initializePushNotifications } from "../Notification/PushNotification";
 
 function LogInForm() {
   const [logInData, setLogInData] = useState({
@@ -21,17 +23,20 @@ function LogInForm() {
   const user = useUserStore((state) => state.user);
   const setTokenExpiry = useUserStore((state) => state.setTokenExpiry);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
       const body = { email: logInData.email, password: logInData.password };
       const res = await logIn(body);
       console.log("로그인 성공");
+      localStorage.setItem("token", res.data.response.accessToken);
       setUser(res.data.response);
       const oneDayInMilliseconds = 1000 * 60 * 60 * 24;
       const expiryTime = Date.now() + oneDayInMilliseconds; // 현재 시간에 24시간을 더함
       setTokenExpiry(expiryTime); // 만료 시간 설정
+
+      // initializePushNotifications();
 
       router.replace("/main/home");
     } catch (err) {
@@ -39,12 +44,12 @@ function LogInForm() {
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setLogInData({ ...logInData, [name]: value });
   };
 
-  const handleClick = () => {
+  const onClickHandler = () => {
     console.log("onClick");
   };
 
@@ -54,12 +59,12 @@ function LogInForm() {
         <h2>로그인</h2>
         <p>Foodie-Log에 오신 걸 환영합니다!</p>
       </div>
-      <form onSubmit={handleSubmit} className="w-full flex flex-col  gap-4 mt-10">
+      <form onSubmit={onSubmit} className="w-full flex flex-col  gap-4 mt-10">
         <input
           type="text"
           name="email"
           value={logInData.email}
-          onChange={handleChange}
+          onChange={onChangeHandler}
           className="input"
           placeholder="이메일"
         />
@@ -67,7 +72,7 @@ function LogInForm() {
           type="password"
           name="password"
           value={logInData.password}
-          onChange={handleChange}
+          onChange={onChangeHandler}
           className="input"
           placeholder="비밀번호"
           autoComplete="off"
@@ -86,7 +91,7 @@ function LogInForm() {
         </div>
       </form>
       <Line />
-      <Button type="button" variant={"text"} size={""} onClick={handleClick}>
+      <Button type="button" variant={"text"} size={""} onClick={onClickHandler}>
         <Image src={kakao} alt="카카오 로그인 버튼" />
       </Button>
       <div className="flex justify-center my-10">

@@ -1,4 +1,5 @@
 "use client";
+import React, { useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import { sendKakaoCode } from "@/src/services/kakao";
 import Button from "@/src/components/Button";
@@ -6,7 +7,6 @@ import BackButton from "@/src/components/Button/BackButton";
 import useSignUpStore from "@/src/store/useSignUpStore";
 import useKakaoStore from "@/src/store/useKakaoStore";
 import SignUpProfile from "./SignUpProfile";
-import { useEffect } from "react";
 
 function SignUpTerms() {
   const isChecked = useSignUpStore((state) => state.isChecked);
@@ -18,11 +18,11 @@ function SignUpTerms() {
   const params = useSearchParams();
   const code = params.get("code");
 
-  const handleChange = () => {
+  const onChangeHandler = () => {
     setIsChecked(!isChecked);
   };
 
-  const handleClick = async (e: React.MouseEvent) => {
+  const onClickHandler = async (e: React.MouseEvent) => {
     e.preventDefault();
     if (isChecked) {
       setNextComponent("SignUpProfile");
@@ -58,11 +58,11 @@ function SignUpTerms() {
         </p>
         <div className="flex items-center gap-x-3">
           <label htmlFor="agree">이용약관(필수)</label>
-          <input className="checkbox" id="agree" type="checkbox" checked={isChecked} onChange={handleChange} />
+          <input className="checkbox" id="agree" type="checkbox" checked={isChecked} onChange={onChangeHandler} />
         </div>
         <p>더 알아보기</p>
       </div>
-      <Button type="button" variant={"primary"} onClick={handleClick}>
+      <Button type="button" variant={"primary"} onClick={onClickHandler}>
         {code ? "가입완료" : "다음"}
       </Button>
     </section>

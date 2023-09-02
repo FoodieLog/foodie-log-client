@@ -1,4 +1,5 @@
 "use client";
+import React from "react";
 import { useState } from "react";
 import Image from "next/image";
 import Button from "@/src/components/Button";
@@ -30,7 +31,7 @@ function SignUpForm() {
   });
   const { user, setUser, isChecked, nextComponent, setNextComponent } = useSignUpStore();
 
-  const handleBlur: React.FocusEventHandler<HTMLInputElement> = async (event) => {
+  const onBlurHandler: React.FocusEventHandler<HTMLInputElement> = async (event) => {
     const email = event?.target.value;
     if (!errors?.email && email.trim() !== "") {
       try {
@@ -77,7 +78,7 @@ function SignUpForm() {
             placeholder="이메일"
             autoComplete="off"
             {...register("email", emailValidation)}
-            onBlur={handleBlur}
+            onBlur={onBlurHandler}
           />
           {errors?.email ? (
             <p>{errors.email.message}</p>

@@ -1,30 +1,72 @@
 import Image from "next/image";
-import { useState } from "react";
-import { FeedData } from "../types/apiTypes";
+import { useRouter } from "next/navigation";
+import React, { useState } from "react";
+import { FeedData } from "../../types/apiTypes";
 import ImageSlide from "./ImageSlide";
-import { getTimeDiff } from "../utils/date";
+import { getTimeDiff } from "../../utils/date";
 import dayjs from "dayjs";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { FaRegCommentDots } from "react-icons/fa";
 import { FiShare2 } from "react-icons/fi";
 import { PiUserCircleBold } from "react-icons/pi";
-import { getIcon } from "../utils/iconUtils";
-import Button from "./Button";
-import ShopCard from "./ShopCard";
+import { getIcon } from "../../utils/iconUtils";
+import Button from "../Button";
+import ShopCard from "../Restaurant/ShopCard";
+import { followUser, likeFeed, unfollowUser, unlikeFeed } from "@/src/services/apiFeed";
 
 const Feed: React.FC<FeedData> = ({ feed, restaurant, isFollowed, isLiked }) => {
   const timeDifference = getTimeDiff(dayjs(feed.createdAt));
+  const router = useRouter();
 
   const [Follow, setFollow] = useState<boolean>(isFollowed);
   const [Like, setLike] = useState<boolean>(isLiked);
+  const [likeCount, setLikeCount] = useState<number>(feed.likeCount);
 
   // 주의 : 이미지 경로를 /public/images/... 로 시작하면 안된다.
   // 대부분의 프론트엔드 프레임워크나 빌드 도구에서는 public 디렉토리의 내용이 빌드 시 루트 경로(/)에 배포된다고 한다.
   const shopCategoryIcon = `/images/foodCategoryIcons/${getIcon(restaurant.category)}`;
 
-  const handleButtonClick = () => {
-    setFollow(!Follow);
+  const handleLikeClick = async () => {
+    try {
+      if (Like) {
+        const response = await unlikeFeed(feed.feedId);
+        if (response.status === 200) {
+          setLike(false);
+          setLikeCount((prevCount) => prevCount - 1);
+        }
+      } else {
+        const response = await likeFeed(feed.feedId);
+        if (response.status === 201) {
+          setLike(true);
+          setLikeCount((prevCount) => prevCount + 1);
+        }
+      }
+    } catch (error) {
+      console.error("Failed to update like:", error);
+    }
+  };
+
+  const handleFollowButtonClick = async () => {
+    try {
+      if (Follow) {
+        const response = await unfollowUser(feed.feedId);
+        if (response.status === 200) {
+          setFollow(false);
+        }
+      } else {
+        const response = await followUser(feed.feedId);
+        if (response.status === 201) {
+          setFollow(true);
+        }
+      }
+    } catch (error) {
+      console.error("Failed to update follow state:", error);
+    }
+  };
+
+  const handleReplyIconClick = () => {
+    router.push(`/main/reply/${feed.feedId}`);
   };
 
   return (
@@ -42,7 +84,9 @@ const Feed: React.FC<FeedData> = ({ feed, restaurant, isFollowed, isLiked }) => 
             />
           ) : (
             // 기본 이미지 또는 대체 컴포넌트를 표시
-            <div className=""><PiUserCircleBold className = "w-12 h-12 text-zinc-500" /></div>
+            <div className="">
+              <PiUserCircleBold className="w-12 h-12 text-zinc-500" />
+            </div>
           )}
         </div>
         <div className="flex flex-1 flex-col ml-3">
@@ -53,7 +97,7 @@ const Feed: React.FC<FeedData> = ({ feed, restaurant, isFollowed, isLiked }) => 
         <button
           className="w-30 h-9 py-2 mr-4 px-4 text-white font-bold rounded-2xl 
         bg-green-400 hover:bg-green-500 border-0"
-          onClick={handleButtonClick}
+          onClick={handleFollowButtonClick}
         >
           {Follow ? "팔로잉" : "팔로우"}
         </button>
@@ -74,11 +118,11 @@ const Feed: React.FC<FeedData> = ({ feed, restaurant, isFollowed, isLiked }) => 
       {/* content */}
       <p className="p-3">{feed.content}</p>
       <div className="flex flex-between gap-2 items-center text-[18px] p-3">
-        <button className="text-[24px]" onClick={() => setLike(!Like)}>
+        <button className="text-[24px]" onClick={handleLikeClick}>
           {Like ? <AiFillHeart /> : <AiOutlineHeart />}
         </button>
-        <p>{feed.likeCount}</p>
-        <FaRegCommentDots className="text-[24px] cursor-pointer" />
+        <p>{likeCount}</p>
+        <FaRegCommentDots className="text-[24px] cursor-pointer" onClick={handleReplyIconClick} />
         <p className="flex-1">{feed.replyCount}</p>
         <FiShare2 className="text-[24px] cursor-pointer" />
       </div>

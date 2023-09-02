@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { ShopThumbData } from "../types/apiTypes";
-import { getIcon } from "../utils/iconUtils";
+import { ShopThumbData } from "../../types/apiTypes";
+import { getIcon } from "../../utils/iconUtils";
 import ShopCard from "./ShopCard";
 import Image from "next/image";
 
@@ -17,13 +17,11 @@ const ShopThumb: React.FC<ShopThumbData> = ({ id, name, category, roadAddress, f
             <Link href={`/main/restaurants/${id}`}>
               {/* {console.log(feed.thumbnailUrl)} */}
               {/* FIXME : img 를 Image 컴포넌트로 바꾸기 */}
-                <img
-                  
-                  src={feed.thumbnailUrl}
-                  alt="Feed thumbnail"
-                  className="w-full h-full object-cover border rounded cursor-pointer"
-                />
-              
+              <img
+                src={feed.thumbnailUrl}
+                alt="Feed thumbnail"
+                className="w-full h-full object-cover border rounded cursor-pointer"
+              />
             </Link>
           </div>
         ))}

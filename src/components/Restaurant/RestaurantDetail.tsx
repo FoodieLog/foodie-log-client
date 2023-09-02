@@ -1,13 +1,13 @@
 "use client";
 import { useRouter, usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import BackButtonMain from "./Button/BackButtonMain";
-import KakaoMap from "./KakaoMap";
+import BackButtonMain from "../Button/BackButtonMain";
+import KakaoMap from "../Map/KakaoMap";
 import ShopCard from "./ShopCard";
-import Feeds from "./Feeds";
-import { generateRestaurantDetailDummyData } from "../utils/dummyDataUtils";
-import { getRestaurantDetail } from "../services/apiRestaurant";
-import Feed from './Feed';
+import Feeds from "../Feed/Feeds";
+import { generateRestaurantDetailDummyData } from "../../utils/dummyDataUtils";
+import { getRestaurantDetail } from "../../services/apiRestaurant";
+import Feed from "../Feed/Feed";
 interface RestaurantDetailProps {
   Id: string;
 }
@@ -51,15 +51,16 @@ const RestaurantDetail = ({ Id }: RestaurantDetailProps) => {
         isLiked={restaurantDetail.isLiked.liked}
         shopUrl={restaurantDetail.restaurant.link}
       />
-      {feedList && feedList.map((feedItem: any, index: number) => (
-        <Feed
-          key={index}
-          feed={feedItem.feed}
-          restaurant={feedItem.restaurant}
-          isFollowed={feedItem.followed}
-          isLiked={feedItem.liked}
-        />
-      ))}
+      {feedList &&
+        feedList.map((feedItem: any, index: number) => (
+          <Feed
+            key={index}
+            feed={feedItem.feed}
+            restaurant={feedItem.restaurant}
+            isFollowed={feedItem.followed}
+            isLiked={feedItem.liked}
+          />
+        ))}
     </div>
   );
 };

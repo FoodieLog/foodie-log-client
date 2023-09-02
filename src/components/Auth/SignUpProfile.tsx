@@ -1,6 +1,7 @@
 "use client";
+import React from "react";
 import { useRef, useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { MdAddPhotoAlternate } from "react-icons/md";
 import { signUp } from "@/src/services/auth";
 import { profileSetting } from "@/src/services/kakao";
@@ -10,6 +11,7 @@ import Button from "../Button";
 
 import useSignUpStore from "@/src/store/useSignUpStore";
 import useKakaoStore from "@/src/store/useKakaoStore";
+import { useUserStore } from "@/src/store/useUserStore";
 
 function SignUpProfile() {
   const [previewImage, setPreviewImage] = useState("");
@@ -92,7 +94,7 @@ function SignUpProfile() {
     reader.readAsDataURL(file);
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setProfile({ ...profile, [name]: value });
   };
@@ -107,7 +109,7 @@ function SignUpProfile() {
         <div className="relative">
           <div
             onClick={pickImageHandler}
-            className=" w-[200px] h-[200px] border border-gray-400 rounded-full overflow-hidden cursor-pointer"
+            className="flex justify-center items-center w-[200px] h-[200px] border border-gray-400 rounded-full overflow-hidden cursor-pointer"
           >
             <Image src={previewImage} alt="프로필 사진" width={200} height={200} />
             <input
@@ -116,7 +118,7 @@ function SignUpProfile() {
               onChange={ProfileChangehandler}
               hidden
               accept="image/*,audio/*,video/mp4,video/x-m4v,application/pdf,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation,.csv"
-            ></input>
+            />
           </div>
           <div onClick={pickImageHandler} className="absolute bottom-5 right-0 cursor-pointer">
             <MdAddPhotoAlternate size="2.5rem" className="text-gray-400" />
@@ -129,11 +131,11 @@ function SignUpProfile() {
           <p className="mb-1">
             닉네임(계정아이디)<span className="text-red-500">*</span>
           </p>
-          <input type="text" name="nickName" value={profile.nickName} className="input" onChange={handleChange} />
+          <input type="text" name="nickName" value={profile.nickName} className="input" onChange={onChangeHandler} />
         </label>
         <label>
           <p className="mb-1">자기소개</p>
-          <input type="text" name="aboutMe" value={profile.aboutMe} className="input" onChange={handleChange} />
+          <input type="text" name="aboutMe" value={profile.aboutMe} className="input" onChange={onChangeHandler} />
         </label>
       </div>
       <Button type="submit" variant={"primary"}>

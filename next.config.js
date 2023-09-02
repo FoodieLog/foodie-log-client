@@ -7,24 +7,33 @@ const nextConfig = {
     // loader : "custom",
     // loaderFile : "./my/image/loader.js"
     // unoptimized: true,
+
+    domains: ["https://foodielog-bucket.s3.ap-northeast-2.amazonaws.com/b65a31fc-9942-4117-9b3c-c8cd674bb88e.jpeg"],
+
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'avatars.githubusercontent.com',
-        port: '',
-        pathname: '/**',
+        protocol: "https",
+        hostname: "foodielog-bucket.s3.ap-northeast-2.amazonaws.com",
+        port: "",
+        pathname: "/b65a31fc-9942-4117-9b3c-c8cd674bb88e.jpeg",
       },
       {
-        protocol: 'https',
-        hostname: 'cloudflare-ipfs.com',
-        port: '',
-        pathname: '/ipfs/**',
+        protocol: "https",
+        hostname: "avatars.githubusercontent.com",
+        port: "",
+        pathname: "/**",
       },
       {
-        protocol: 'https',
-        hostname: 'picsum.photos',
-        port: '',
-        pathname: '/seed/**',
+        protocol: "https",
+        hostname: "cloudflare-ipfs.com",
+        port: "",
+        pathname: "/ipfs/**",
+      },
+      {
+        protocol: "https",
+        hostname: "picsum.photos",
+        port: "",
+        pathname: "/seed/**",
       },
     ],
   },

@@ -1,3 +1,4 @@
+import React from "react";
 import LogInForm from "@/src/components/Auth/LoginForm";
 
 function LogIn() {

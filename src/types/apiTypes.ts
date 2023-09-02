@@ -35,17 +35,16 @@ export type FeedData = {
   feed: {
     feedId: number;
     nickName: string;
-    profileImageUrl: string;
-    createdAt: Date;
-    updateAt: Date;
+    profileImageUrl: string | null;
+    createdAt: Date | string;
+    updatedAt: Date | string;
     feedImages: {
-      ImageUrl: string;
+      imageUrl: string;
     }[];
     content: string;
     likeCount: number;
     replyCount: number;
-    share: string;
-  };
+   };
   restaurant: {
     id: number;
     name: string;
