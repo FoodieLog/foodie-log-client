@@ -1,12 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: ["class"],
-  content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
-	],
+  content: ["./pages/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./app/**/*.{ts,tsx}", "./src/**/*.{ts,tsx}"],
   theme: {
     container: {
       center: true,
@@ -30,7 +25,37 @@ module.exports = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
+      colors: {
+        coral: {
+          DEFAULT: "#FF6D60",
+          dark: "#CC594F",
+          light: "#FF8E7D",
+          sat: "#FF473A",
+          desat: "#FFA699",
+        },
+        sunflower: {
+          DEFAULT: "#F7D160",
+          dark: "#C7A74B",
+          light: "#FFE37A",
+          sat: "#FFC800",
+          desat: "#FFE8AA",
+        },
+        cream: {
+          DEFAULT: "#F3EAA0",
+          dark: "#C0B680",
+          light: "#FFF3BB",
+          sat: "#FFF86C",
+          desat: "#FFF5C7",
+        },
+        mint: {
+          DEFAULT: "#99D9AC",
+          dark: "#7FB28C",
+          light: "#B3E3C5",
+          sat: "#66D977",
+          desat: "#CCE9D0",
+        },
+      },
     },
   },
-  plugins: [require("tailwindcss-animate")],
-}
+  plugins: [require("tailwindcss-animate"), require("@tailwindcss/aspect-ratio")],
+};
