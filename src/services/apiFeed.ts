@@ -35,11 +35,41 @@ export type Content = {
   liked: boolean;
 };
 
-export const makeFeedFetchRequest = async (
+export type APIReplyListResponse = {
+  status: number;
+  response: {
+    nickName: string;
+    profileImageUrl: string | null;
+    content: string;
+    createdAt: string;
+    replyList: {
+      id: number;
+      nickName: string;
+      profileImageUrl: string | null;
+      content: string;
+      createdAt: string;
+    }[];
+  };
+  error: any;
+};
+
+export type APIReplyPostResponse = {
+  status: number;
+  response: {
+    id: number;
+    nickName: string;
+    content: string;
+    profileImageUrl: string | null;
+    createdAt: string;
+  };
+  error: any;
+};
+
+export const makeFeedFetchRequest = async <T>(
   endpoint: string,
   method: "GET" | "POST" | "PUT" | "DELETE" = "GET",
   body?: any
-): Promise<APIFeedResponse> => {
+): Promise<T>=> {
   const accessToken = useUserStore.getState().user.accessToken;
 
   try {
@@ -68,7 +98,7 @@ export const makeFeedFetchRequest = async (
             content: []
         },
         error: null
-    };
+    } as unknown as T;
     }
 
     return JSON.parse(responseText);
@@ -97,4 +127,22 @@ export const followUser = async (userId: number): Promise<APIFeedResponse> => {
 export const unfollowUser = async (userId: number): Promise<APIFeedResponse> => {
   return await makeFeedFetchRequest(`/user/unfollow?followedId=${userId}`, "DELETE");
 };
+
+export const getReplyList = async (feedId: number, replyId: number = 0): Promise<APIReplyListResponse> => {
+  return makeFeedFetchRequest(`/reply/${feedId}?replyId=${replyId}`);
+};
+
+export const saveReply = async (feedId: number, content: string): Promise<APIReplyPostResponse> => {
+  return makeFeedFetchRequest(`/reply/${feedId}`, "POST", { content });
+};
+
+export const deleteReply = (feedId: number): Promise<any> => {
+  return makeFeedFetchRequest(`/reply/${feedId}`, "DELETE");
+};
+
+export const reportReply = (replyId: number, reportReason: string): Promise<any> => {
+  return makeFeedFetchRequest(`/reply/report`, "POST", { replyId, reportReason });
+};
+
+
 

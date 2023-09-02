@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { useRouter } from 'next/navigation';  
 import { useState } from "react";
 import { FeedData } from "../../types/apiTypes";
 import ImageSlide from "./ImageSlide";
@@ -16,6 +17,7 @@ import { followUser, likeFeed, unfollowUser, unlikeFeed } from '@/src/services/a
 
 const Feed: React.FC<FeedData> = ({ feed, restaurant, isFollowed, isLiked }) => {
   const timeDifference = getTimeDiff(dayjs(feed.createdAt));
+  const router = useRouter();
 
   const [Follow, setFollow] = useState<boolean>(isFollowed);
   const [Like, setLike] = useState<boolean>(isLiked);
@@ -62,6 +64,10 @@ const Feed: React.FC<FeedData> = ({ feed, restaurant, isFollowed, isLiked }) => 
     } catch (error) {
       console.error("Failed to update follow state:", error);
     }
+  };
+
+  const handleReplyIconClick = () => {
+    router.push(`/main/reply/${feed.feedId}`);
   };
 
   return (
@@ -112,12 +118,12 @@ const Feed: React.FC<FeedData> = ({ feed, restaurant, isFollowed, isLiked }) => 
       />
       {/* content */}
       <p className="p-3">{feed.content}</p>
-      <div className="flex flex-between gap-2 items-center text-[18px] p-3">
+       <div className="flex flex-between gap-2 items-center text-[18px] p-3">
         <button className="text-[24px]" onClick={handleLikeClick}>
           {Like ? <AiFillHeart /> : <AiOutlineHeart />}
         </button>
         <p>{likeCount}</p>
-        <FaRegCommentDots className="text-[24px] cursor-pointer" />
+        <FaRegCommentDots className="text-[24px] cursor-pointer" onClick={handleReplyIconClick} />
         <p className="flex-1">{feed.replyCount}</p>
         <FiShare2 className="text-[24px] cursor-pointer" />
       </div>
