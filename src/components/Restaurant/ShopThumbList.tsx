@@ -14,8 +14,8 @@ const ShopThumbList = () => {
 
   return (
     <div className="w-full flex flex-col items-center p-1 max-w-[640px]">
-      {dummyShopData.map((shopData) => (
-        <ShopThumb key={shopData.id} {...shopData} />
+      {dummyShopData.map((shopData,index) => (
+        <ShopThumb key={index} {...shopData} />
       ))}
     </div>
   );
