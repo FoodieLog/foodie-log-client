@@ -18,11 +18,13 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
         src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${NEXT_PUBLIC_KAKAO_MAP_API_KEY}&libraries=services,clusterer&autoload=false`}
         strategy="beforeInteractive"
       />
-      <div className="flex mx-auto">
+      <div className="flex min-h-screen mx-auto">
         <LeftSidebar />
-        <div className="w-full h-full flex justify-center">{children}</div>
+        <div className="flex flex-col flex-1 items-center justify-center overflow-hidden">
+          <div className='w-full h-full overflow-y-auto'>{children}</div>
+          <Bottombar />
+        </div>
       </div>
-      <Bottombar />
     </>
   );
 }
