@@ -166,3 +166,13 @@ export const reportReply = (replyId: number, reportReason: string): Promise<any>
 export const searchUser = async (keyword: string): Promise<APIUserSearchResponse> => {
   return await makeFeedFetchRequest(`/user/search?keyword=${keyword}`);
 };
+
+
+interface SettingPassword {
+  oldPassword: string;
+  newPassword: string;
+}
+
+export const FatchChangePassword = async ({ oldPassword, newPassword }: SettingPassword) => {
+  return await makeFeedFetchRequest("/user/setting/password", "PUT", { oldPassword, newPassword });
+};
