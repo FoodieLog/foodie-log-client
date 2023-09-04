@@ -1,3 +1,4 @@
+import React from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -5,17 +6,20 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from "../../../components/ui/dropdown-menu";
 import { BsThreeDotsVertical } from "react-icons/bs";
+import { useRouter } from "next/navigation";
 
 interface MenuProps {
   name: string;
   menuList: string[];
 }
+
 function DropDown({ name, menuList }: MenuProps) {
+  const router = useRouter();
+
   const onClickHandler = () => {
-    if (menuList.length > 1) {
-    }
+    router.push("/main/settings");
   };
   return (
     <DropdownMenu>
@@ -26,7 +30,7 @@ function DropDown({ name, menuList }: MenuProps) {
         <DropdownMenuLabel>{name}</DropdownMenuLabel>
         <DropdownMenuSeparator />
         {menuList.map((item, i) => (
-          <DropdownMenuItem key={i} onClick={onClickHandler}>
+          <DropdownMenuItem key={i} onClick={onClickHandler} className="cursor-pointer">
             {item}
           </DropdownMenuItem>
         ))}

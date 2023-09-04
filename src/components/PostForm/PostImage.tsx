@@ -58,6 +58,7 @@ function PostImage() {
     newPreviews.splice(index, 1);
 
     setFiles(newImages);
+    setPreviewImage(newPreviews);
     setPreviews(newPreviews);
   };
 
@@ -75,7 +76,7 @@ function PostImage() {
         <button type="button" onClick={pickImageHandler} className="">
           사진 추가
         </button>
-        <ul className="mt-5 w-full grid grid-cols-3 border rounded-lg border-dashed border-gray-700 cursor-pointer ">
+        <ul className="grid grid-cols-3">
           {!previews.length ? (
             <p className="text-center">
               이미지를 선택하세요!
@@ -86,7 +87,7 @@ function PostImage() {
             <>
               {previews?.map((preview, index) => (
                 <li className="relative" key={index}>
-                  <div className="">
+                  <div>
                     <Image src={preview} width={200} height={200} alt={`사진${index}`} />
                   </div>
                   <AiOutlineCloseCircle

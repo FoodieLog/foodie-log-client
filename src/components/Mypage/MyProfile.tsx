@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 import { useState, useEffect } from "react";
-
 import { BiPhotoAlbum } from "react-icons/bi";
 import { CgFlagAlt } from "react-icons/cg";
 import { useUserStore } from "../../store/useUserStore";
@@ -97,7 +96,7 @@ function MyPageForm() {
         <header className="mx-3 my-5 ">
           <section className="flex items-center justify-around space-x-5">
             <div className=" w-[150px] h-[150px] border border-gray-400 rounded-full overflow-hidden cursor-pointer">
-            <img src={myProfile.profileImageUrl || "/images/logo_icon_only_example.png"} alt="프로필 사진" />
+              <img src={myProfile.profileImageUrl || "/images/logo_icon_only_example.png"} alt="프로필 사진" />
               <input type="file" hidden></input>
             </div>
             <div>
@@ -144,7 +143,7 @@ function MyPageForm() {
                 className="w-full h-full relative after:content-[''] after:block after:pb-[100%] border border-gray-300"
               >
                 <Link href={"/"} className="w-full h-full absolute flex items-center justify-center">
-                  <img src={thumbnail.thumbnailUrl} alt={`썸네일${thumbnail.id}`}></img>
+                  <img src={thumbnail.thumbnailUrl} alt={`썸네일${thumbnail.id}`} />
                 </Link>
               </li>
             ))}

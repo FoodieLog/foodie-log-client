@@ -1,5 +1,5 @@
 import React from "react";
-import MyPageForm from "@/src/components/Mypage";
+import MyPageForm from "../../../components/Mypage/MyProfile";
 
 function MyPage() {
   return <MyPageForm />;
