@@ -127,6 +127,10 @@ export const getFeedList = (feedId: number, pageSize: number, pageNumber: number
   return makeFeedFetchRequest(`/feed/list?feedId=${feedId}&pageSize=${pageSize}&pageNumber=${pageNumber}`);
 };
 
+export const getFeedListByUserId = (userId: number, feedId: number, pageSize: number, pageNumber: number): Promise<APIFeedResponse> => {
+  return makeFeedFetchRequest(`user/${userId}/feed/list?feedId=${feedId}&pageSize=${pageSize}&pageNumber=${pageNumber}`);
+};
+
 export const likeFeed = async (feedId: number): Promise<APIFeedResponse> => {
   return await makeFeedFetchRequest("/feed/like", "POST", { feedId });
 };
