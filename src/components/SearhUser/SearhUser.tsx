@@ -25,7 +25,7 @@ const SearchUser: React.FC = () => {
       if (value) {
         searchUser(value).then((response) => {
           setSearchResults(response.response.content);
-          console.log("[serchResult resopnse] : ",response.response.content);
+          console.log("[serchResult resopnse] : ", response.response.content);
         });
       } else {
         setSearchResults([]); // 검색어가 비었을 때는 결과를 비웁니다.
@@ -45,27 +45,25 @@ const SearchUser: React.FC = () => {
         />
         {searchTerm && <SlClose className="mr-4 cursor-pointer text-2xl text-slate-400" onClick={handleClearInput} />}
       </div>
-      <div className="w-full px-6 mt-4">
+      <div className="w-full px-5 mt-4">
         {searchResults.map((user) => (
-          <div key={user.id} className="flex items-center mt-2">
-            <div className="relative w-12 h-12 mr-2">
+          <div key={user.id} className="w-full flex items-center mt-2">
+            <div className="flex w-12 h-12 flex-shrink-0">
               {user.profileImageUrl ? (
                 <Image
-                  fill={true}
                   src={user.profileImageUrl}
                   alt="사용자 썸네일"
-                  sizes="(max-width: 48px) 48px, 48px"
-                  className="w-12 h-12 border p-1 rounded-full cursor-pointer"
+                  width={48}
+                  height={48}
+                  className="border rounded-full cursor-pointer"
                 />
               ) : (
-                <div className="">
-                  <PiUserCircleBold className="w-12 h-12 text-zinc-500" />
-                </div>
+                <PiUserCircleBold className="w-12 h-12 text-zinc-500" />
               )}
             </div>
-            <div className="flex flex-col">
-              <span>{user.nickName}</span>
-              <span>{user.aboutMe}</span>
+            <div className="relative flex flex-col pl-2 flex-grow">
+              <span className="font-bold overflow-ellipsis overflow-hidden">{user.nickName}</span>
+              <span className="text-sm overflow-ellipsis overflow-hidden">{user.aboutMe}</span> {/* w-[500px] 제거 */}
             </div>
           </div>
         ))}

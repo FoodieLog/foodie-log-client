@@ -10,8 +10,12 @@ const Feeds = () => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await getFeedList(0, 15, 0); // You can change these values as per your needs
-        console.log("response", response);
+        const feedId = 0
+        const pageSize = 15
+        const pageNumber= 0
+        const response = await getFeedList(feedId, pageSize, pageNumber); 
+        
+        console.log("[getFeedList]: ", response);
         if (response.status === 200) {
           console.log("response.response.content", response.response.content);
           setFeedsData(response.response.content);

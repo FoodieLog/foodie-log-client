@@ -6,6 +6,7 @@ import { ChangePassword } from "../../types/apiTypes";
 import { passwordValidation } from "../../constants";
 import { useRouter } from "next/navigation";
 import Button from "../Button";
+import { FatchChangePassword } from '@/src/services/apiFeed';
 
 function SettingPassword({ email }: ChangePassword) {
   const router = useRouter();
@@ -20,8 +21,9 @@ function SettingPassword({ email }: ChangePassword) {
 
   const onSubmit = async ({ oldPassword, newPassword }: ChangePassword) => {
     try {
-      const res = await changePassword({ oldPassword, newPassword });
+      // const res = await changePassword({ oldPassword, newPassword });
       // router.replace("/account/login");
+       const res = await FatchChangePassword({oldPassword, newPassword});
       console.log("비밀번호 재설정", res);
     } catch (err) {
       console.log("비밀번호 재설정 실패", err);

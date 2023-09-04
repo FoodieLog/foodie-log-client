@@ -9,7 +9,7 @@ interface ReplyProps {
 
 const reply = ({ params: { id } }: ReplyProps) => {
   return (
-    <div>
+    <div className='w-full flex flex-col justify-center max-w-screen-sm mx-auto'>
       <BackButtonMain />
       <ReplyList id={id} />
     </div>

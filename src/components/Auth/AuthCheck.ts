@@ -10,9 +10,7 @@ const AuthCheck: React.FC = () => {
   useEffect(() => {
     const isTokenExpired = tokenExpiry ? Date.now() > tokenExpiry : true;
 
-    if (accessToken && !isTokenExpired) {
-      router.replace("/main/home");
-    } else {
+    if (accessToken === null || accessToken === "" || isTokenExpired) {
       router.replace("/accounts/login");
     }
   }, [accessToken, tokenExpiry, router]);
