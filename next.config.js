@@ -13,9 +13,15 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
+        hostname: "foodie-log-bucket.s3.ap-northeast-2.amazonaws.com",
+        port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
         hostname: "foodielog-bucket.s3.ap-northeast-2.amazonaws.com",
         port: "",
-        pathname: "/b65a31fc-9942-4117-9b3c-c8cd674bb88e.jpeg",
+        pathname: "/**",
       },
       {
         protocol: "https",
