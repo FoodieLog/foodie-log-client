@@ -12,9 +12,11 @@ import { Input } from "../../../components/ui/input";
 import Button from "../Button";
 import { fetchWithdraw } from "../../services/settings";
 import { SettingModalProps } from "../../types/user";
+import { useUserStore } from "@/src/store/useUserStore";
 
 function SettingModal({ children }: SettingModalProps) {
   const [withdrawReason, setWithdrawReason] = useState("");
+  const email = useUserStore((state) => state.user.email);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setWithdrawReason(e.target.value);
@@ -56,7 +58,7 @@ function SettingModal({ children }: SettingModalProps) {
             <label htmlFor="name" className="text-right">
               이메일
             </label>
-            <Input id="name" value="Pedro Duarte" className="col-span-3" />
+            <Input id="name" value={email} className="col-span-3" />
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
             <label htmlFor="username" className="text-right">
