@@ -14,14 +14,14 @@ export const kakaoLogin = async () => {
 // 카카오 코드 전송
 export const sendKakaoCode = (code: string) => {
   console.log(`sendKakaoCode`, code);
-  const res = axiosRequest.get(`/auth/login/kakao?code=${code}`);
+  const res = axiosRequest.get(`/api/auth/login/kakao?code=${code}`);
   console.log("카카오 코드 응답데이터", res);
   return res;
 };
 
 // 프로필 설정
 export const profileSetting = async (body: FormData) => {
-  const res = await multipartrequest.post("​/api​/user​/setting​/profile", body, {
+  const res = await multipartrequest.post("​api/auth/​/user​/setting​/profile", body, {
     headers: {
       "Content-Type": "multipart/form-data",
     },

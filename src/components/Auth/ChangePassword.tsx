@@ -21,7 +21,7 @@ function ChangePassword({ email }: ChangePassword) {
   const onSubmit = async ({ password }: ChangePassword) => {
     try {
       const res = await resetPassword({ email, password });
-      router.replace("/account/login");
+      router.replace("/accounts/login");
       console.log("비밀번호 재설정", res);
     } catch (err) {
       console.log("비밀번호 재설정 실패", err);

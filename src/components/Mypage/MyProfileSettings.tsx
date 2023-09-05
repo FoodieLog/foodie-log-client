@@ -2,7 +2,7 @@
 import React from "react";
 import { useRef, useState } from "react";
 import { MdAddPhotoAlternate } from "react-icons/md";
-import { profileSetting } from "@/src/services/mypage";
+import { settingProfile } from "@/src/services/mypage";
 import Image from "next/image";
 import BackButton from "../Button/BackButton";
 import Button from "../Button";
@@ -16,6 +16,7 @@ function MyProfileSettings() {
     nickName: user.nickName,
     aboutMe: "",
   });
+
   const fileInput = useRef<HTMLInputElement>(null);
 
   // 프로필 설정 api
@@ -32,10 +33,13 @@ function MyProfileSettings() {
     const blob = new Blob([JSON.stringify(userData)], { type: "application/json" });
     formData.append("content", blob);
     formData.append("file", profileImage as File);
-
-    await profileSetting(formData)
-      .then((res) => console.log("프로필 성공", res))
-      .catch((err) => console.log("프로필 에러", err));
+    console.log("폼데이터", formData);
+    try {
+      const res = settingProfile(formData);
+      console.log("프로필 설정 성공", res);
+    } catch (error) {
+      console.log("프로필 설정 에러", error);
+    }
   };
 
   // ref 클릭

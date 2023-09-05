@@ -39,6 +39,7 @@ function SignUpForm() {
         console.log("이메일 중복 체크", res);
         setAvailableEmail(res.data.status);
       } catch (err) {
+        setAvailableEmail(409);
         console.log("이메일 중복 에러", err);
       }
     }

@@ -33,12 +33,13 @@ function MySettings() {
     }
     try {
       const res = await logOut();
-      router.replace("/account/login");
+      router.replace("/accounts/login");
       console.log("로그아웃 성공", res);
     } catch (error) {
       console.log("로그아웃 실패", error);
     }
   };
+
   return (
     <div className=" h-3/5 absolute left-1/2 z-10 mt-5 flex w-screen max-w-max -translate-x-1/2 px-4">
       <div className="flex flex-col justify-between w-screen max-w-md flex-auto overflow-hidden rounded-3xl bg-white text-sm leading-6 shadow-lg ring-1 ring-gray-900/5">

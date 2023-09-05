@@ -5,9 +5,11 @@ import { FatchChangePassword } from "../../services/settings";
 import { ChangePassword } from "../../types/apiTypes";
 import { passwordValidation } from "../../constants";
 import { useRouter } from "next/navigation";
+import { useUserStore } from "../../store/useUserStore";
 import Button from "../Button";
 
-function SettingPassword({ email }: ChangePassword) {
+function SettingPassword() {
+  const email = useUserStore((state) => state.user.email);
   const router = useRouter();
   const {
     register,
@@ -21,7 +23,7 @@ function SettingPassword({ email }: ChangePassword) {
   const onSubmit = async ({ oldPassword, newPassword }: ChangePassword) => {
     try {
       const res = await FatchChangePassword({ oldPassword, newPassword });
-      router.replace("/account/login");
+      router.replace("/accounts/login");
       console.log("비밀번호 재설정", res);
     } catch (err) {
       console.log("비밀번호 재설정 실패", err);

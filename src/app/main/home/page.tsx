@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import Feeds from "@/src/components/Feed/Feeds"
-import Topbar from "@/src/components/Main/Topbar"
+import Feeds from "@/src/components/Feed/Feeds";
+import Topbar from "@/src/components/Main/Topbar";
 
 const Home = () => {
   return (
