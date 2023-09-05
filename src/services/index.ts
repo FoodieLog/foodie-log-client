@@ -17,15 +17,19 @@ const multipartConfig: AxiosRequestConfig = {
 
 const accessToken = useUserStore.getState().user.accessToken;
 
-const PostConfig: AxiosRequestConfig = {
+const userConfig: AxiosRequestConfig = {
   baseURL: BASE_URL,
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${accessToken}`,
+  },
 };
 
 const axiosRequest = axios.create(axiosConfig);
 const multipartrequest = axios.create(multipartConfig);
-const postRequest = axios.create(PostConfig);
+const userRequest = axios.create(userConfig);
 
 // axios 인스턴스 headers - 토큰 설정
-postRequest.defaults.headers.common["Authorization"] = AUTH_TOKEN;
+// userRequest.defaults.headers.common["Authorization"] = AUTH_TOKEN;
 
-export { axiosRequest, multipartrequest, postRequest };
+export { axiosRequest, multipartrequest, userRequest };

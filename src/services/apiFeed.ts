@@ -154,8 +154,15 @@ export const getFeedList = (feedId: number, pageSize: number, pageNumber: number
   return makeFeedFetchRequest(`/feed/list?feedId=${feedId}&pageSize=${pageSize}&pageNumber=${pageNumber}`);
 };
 
-export const getFeedListByUserId = (userId: number, feedId: number, pageSize: number, pageNumber: number): Promise<APIFeedResponse> => {
-  return makeFeedFetchRequest(`user/${userId}/feed/list?feedId=${feedId}&pageSize=${pageSize}&pageNumber=${pageNumber}`);
+export const getFeedListByUserId = (
+  userId: number,
+  feedId: number,
+  pageSize: number,
+  pageNumber: number
+): Promise<APIFeedResponse> => {
+  return makeFeedFetchRequest(
+    `user/${userId}/feed/list?feedId=${feedId}&pageSize=${pageSize}&pageNumber=${pageNumber}`
+  );
 };
 
 export const getFeedShared = (feedId: number): Promise<GetFeedSharedResponse> => {
@@ -196,14 +203,4 @@ export const reportReply = (replyId: number, reportReason: string): Promise<any>
 
 export const searchUser = async (keyword: string): Promise<APIUserSearchResponse> => {
   return await makeFeedFetchRequest(`/user/search?keyword=${keyword}`);
-};
-
-
-interface SettingPassword {
-  oldPassword: string;
-  newPassword: string;
-}
-
-export const FatchChangePassword = async ({ oldPassword, newPassword }: SettingPassword) => {
-  return await makeFeedFetchRequest("/user/setting/password", "PUT", { oldPassword, newPassword });
 };
