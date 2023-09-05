@@ -2,6 +2,7 @@ import axios, { AxiosRequestConfig } from "axios";
 import { useUserStore } from "../store/useUserStore";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+const AUTH_TOKEN = useUserStore.getState().user.accessToken;
 
 const axiosConfig: AxiosRequestConfig = {
   baseURL: BASE_URL,
@@ -16,14 +17,19 @@ const multipartConfig: AxiosRequestConfig = {
 
 const accessToken = useUserStore.getState().user.accessToken;
 
-const PostConfig: AxiosRequestConfig = {
-
+const userConfig: AxiosRequestConfig = {
   baseURL: BASE_URL,
-  headers: { Authorization: `Bearer ${accessToken}` },
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${accessToken}`,
+  },
 };
 
 const axiosRequest = axios.create(axiosConfig);
 const multipartrequest = axios.create(multipartConfig);
-const postRequest = axios.create(PostConfig);
+const userRequest = axios.create(userConfig);
 
-export { axiosRequest, multipartrequest, postRequest };
+// axios 인스턴스 headers - 토큰 설정
+// userRequest.defaults.headers.common["Authorization"] = AUTH_TOKEN;
+
+export { axiosRequest, multipartrequest, userRequest };

@@ -8,7 +8,6 @@ const Recommend = () => {
     <div className="recommend_container w-full flex flex-col justify-center items-center max-w-6xl mx-auto bg-orange-500">
       <AreaSelector />
       <ShopThumbList />
-      <Bottombar />
     </div>
   );
 };

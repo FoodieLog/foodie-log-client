@@ -43,9 +43,11 @@ function PostShopItem({ type, item }: ShopProps) {
         {/* <Image src={"#"} alt="식당 썸네일" width={40} height={40} /> */}
       </div>
       <div>
-        <strong>{item.place_name}</strong>
-        <p>{item.road_address_name}</p>
-        <p>{item.category_name}</p>
+        <div key={item.id}>
+          <strong>{item.place_name}</strong>
+          <p>{item.road_address_name}</p>
+          <p>{item.category_name}</p>
+        </div>
       </div>
       {type === "selected" && (
         <LiaExchangeAltSolid className="w-5 h-5 cursor-pointer hover:text-red-500" onClick={resetShop} />

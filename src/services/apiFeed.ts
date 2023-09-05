@@ -2,7 +2,7 @@
 
 import { useUserStore } from "../store/useUserStore";
 
-const BASE_URL = "http://15.165.93.123:8080/api";
+const BASE_URL = "https://api.foodielog-server.monster/api";
 
 export type APIFeedResponse = {
   status: number;
@@ -80,6 +80,33 @@ export type APIReplyPostResponse = {
   error: any;
 };
 
+export type GetFeedSharedResponse = {
+  status: number;
+  response: FeedShared;
+  error: any;
+};
+
+export type FeedShared = {
+  nickName: string;
+  profileImageUrl: string | null;
+  feedId: number;
+  createdAt: string;
+  updatedAt: string;
+  feedImages: {
+    imageUrl: string;
+  }[];
+  restaurant: {
+    id: number;
+    name: string;
+    category: string;
+    link: string;
+    roadAddress: string;
+  };
+  content: string;
+  likeCount: number;
+  replyCount: number;
+};
+
 export const makeFeedFetchRequest = async <T>(
   endpoint: string,
   method: "GET" | "POST" | "PUT" | "DELETE" = "GET",
@@ -125,6 +152,21 @@ export const makeFeedFetchRequest = async <T>(
 
 export const getFeedList = (feedId: number, pageSize: number, pageNumber: number): Promise<APIFeedResponse> => {
   return makeFeedFetchRequest(`/feed/list?feedId=${feedId}&pageSize=${pageSize}&pageNumber=${pageNumber}`);
+};
+
+export const getFeedListByUserId = (
+  userId: number,
+  feedId: number,
+  pageSize: number,
+  pageNumber: number
+): Promise<APIFeedResponse> => {
+  return makeFeedFetchRequest(
+    `user/${userId}/feed/list?feedId=${feedId}&pageSize=${pageSize}&pageNumber=${pageNumber}`
+  );
+};
+
+export const getFeedShared = (feedId: number): Promise<GetFeedSharedResponse> => {
+  return makeFeedFetchRequest<GetFeedSharedResponse>(`/feed/detail?feedId=${feedId}`);
 };
 
 export const likeFeed = async (feedId: number): Promise<APIFeedResponse> => {

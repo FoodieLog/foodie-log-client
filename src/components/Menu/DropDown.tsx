@@ -1,3 +1,4 @@
+import React from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -5,18 +6,26 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from "../../../components/ui/dropdown-menu";
 import { BsThreeDotsVertical } from "react-icons/bs";
+import { useRouter } from "next/navigation";
 
 interface MenuProps {
   name: string;
-  menuList: string[];
+  option: string;
 }
-function DropDown({ name, menuList }: MenuProps) {
+
+function DropDown({ name, option }: MenuProps) {
+  const router = useRouter();
+
   const onClickHandler = () => {
-    if (menuList.length > 1) {
+    if (option === "설정 및 개인정보") {
+      router.push("/main/settings");
+      return;
+    } else if (option === "신고") {
     }
   };
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
@@ -25,11 +34,9 @@ function DropDown({ name, menuList }: MenuProps) {
       <DropdownMenuContent>
         <DropdownMenuLabel>{name}</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        {menuList.map((item, i) => (
-          <DropdownMenuItem key={i} onClick={onClickHandler}>
-            {item}
-          </DropdownMenuItem>
-        ))}
+        <DropdownMenuItem onClick={onClickHandler} className="cursor-pointer">
+          {option}
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );

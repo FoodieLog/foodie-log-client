@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 import { useState, useEffect } from "react";
-
 import { BiPhotoAlbum } from "react-icons/bi";
 import { CgFlagAlt } from "react-icons/cg";
 import { useUserStore } from "../../store/useUserStore";
@@ -9,7 +8,7 @@ import { getThumbnails } from "../../services/mypage";
 import { getMyProfile } from "@/src/services/mypage";
 import Link from "next/link";
 import Button from "../Button";
-import defaultImage from "@/public/images/logo_icon_only_example.png";
+import defaultImage from "@/public/images/userImage.png";
 import useSignUpStore from "@/src/store/useSignUpStore";
 import MyProfileSettings from "./MyProfileSettings";
 import DropDown from "../Menu/DropDown";
@@ -28,7 +27,7 @@ interface myProfile {
   userId: number;
 }
 
-function MyPageForm() {
+function MyPageForm({ userId, option }: { userId: number; option: string }) {
   const [isClient, setIsClient] = useState(false);
   const [thumbnails, setThumbnails] = useState<Thumbnail[]>([]);
   const [myProfile, setMyProfile] = useState<myProfile>({
@@ -36,7 +35,7 @@ function MyPageForm() {
     feedCount: 0,
     follower: 0,
     following: 0,
-    profileImageUrl: "",
+    profileImageUrl: "/images/userImage.png",
     userId: 0,
   });
   const [showDropdown, setShowDropdown] = useState(false);
@@ -48,12 +47,12 @@ function MyPageForm() {
     setIsClient(true);
     checkThumbnails();
     checkMyProfile();
-  }, [user.id]);
+  }, [userId]);
 
   const checkThumbnails = async () => {
     try {
-      if (user.id) {
-        const { response } = await getThumbnails(user.id, 0);
+      if (userId) {
+        const { response } = await getThumbnails(userId, 0);
         setThumbnails(response.content);
         console.log("썸네일 성공", response.content);
       }
@@ -64,18 +63,14 @@ function MyPageForm() {
 
   const checkMyProfile = async () => {
     try {
-      if (user.id) {
-        const { response } = await getMyProfile(user.id);
+      if (userId) {
+        const { response } = await getMyProfile(userId);
         setMyProfile(response);
         console.log("마이프로필 성공", response);
       }
     } catch (error) {
       console.log("마이프로필 실패", error);
     }
-  };
-
-  const onClickSettings = () => {
-    setShowDropdown(!showDropdown);
   };
 
   const onClick = () => {
@@ -97,7 +92,7 @@ function MyPageForm() {
         <header className="mx-3 my-5 ">
           <section className="flex items-center justify-around space-x-5">
             <div className=" w-[150px] h-[150px] border border-gray-400 rounded-full overflow-hidden cursor-pointer">
-            <img src={myProfile.profileImageUrl || "/images/logo_icon_only_example.png"} alt="프로필 사진" />
+              <img src={myProfile.profileImageUrl || "/images/userImage.png"} alt="프로필 사진" />
               <input type="file" hidden></input>
             </div>
             <div>
@@ -117,7 +112,7 @@ function MyPageForm() {
                 </li>
               </ul>
             </div>
-            <DropDown name={user.nickName || "defaultName"} menuList={["설정 및 개인정보"]} />
+            <DropDown name={user.nickName || "defaultName"} option={option} />
           </section>
         </header>
         <div className="px-10">
@@ -132,7 +127,7 @@ function MyPageForm() {
           <Link href={"/main/mypage"}>
             <BiPhotoAlbum size="1.6rem" />
           </Link>
-          <Link href={"/main/mypage/map"}>
+          <Link href={option === "신고" ? `/main/map/${userId}` : "/main/mypage/map"}>
             <CgFlagAlt size="1.6rem" />
           </Link>
         </div>
@@ -144,7 +139,7 @@ function MyPageForm() {
                 className="w-full h-full relative after:content-[''] after:block after:pb-[100%] border border-gray-300"
               >
                 <Link href={"/"} className="w-full h-full absolute flex items-center justify-center">
-                  <img src={thumbnail.thumbnailUrl} alt={`썸네일${thumbnail.id}`}></img>
+                  <img src={thumbnail.thumbnailUrl} alt={`썸네일${thumbnail.id}`} />
                 </Link>
               </li>
             ))}
