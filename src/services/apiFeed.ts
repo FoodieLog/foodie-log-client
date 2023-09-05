@@ -2,7 +2,7 @@
 
 import { useUserStore } from "../store/useUserStore";
 
-const BASE_URL = "http://15.165.93.123:8080/api";
+const BASE_URL = "https://api.foodielog-server.monster/api";
 
 export type APIFeedResponse = {
   status: number;
