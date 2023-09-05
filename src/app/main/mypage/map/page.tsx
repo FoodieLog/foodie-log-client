@@ -1,8 +1,16 @@
+"use client";
 import React from "react";
-import MyMap from "@/src/components/Mypage/MyMap";
+import MyMap from "../../../../components/Mypage/MyMap";
+import { useUserStore } from "@/src/store/useUserStore";
 
 function Map() {
-  return <MyMap />;
+  const userId = useUserStore((state) => state.user.id);
+  if (!userId) return;
+  return (
+    <>
+      <MyMap userId={userId} />
+    </>
+  );
 }
 
 export default Map;
