@@ -1,5 +1,5 @@
 import { axiosRequest, multipartrequest } from "./index";
-import { LogInBody, ResetPasswordBody } from "@/src/types/apiTypes";
+import { LogInBody, ResetPasswordBody } from "../types/apiTypes";
 
 //회원가입
 export const signUp = async (body: FormData) => {
@@ -22,7 +22,7 @@ export const duplicateCheck = async (email: string) => {
 
 // 로그인
 export const logIn = async (body: LogInBody) => {
-  const res = await axiosRequest.post("/auth/login", body,{ withCredentials: true });
+  const res = await axiosRequest.post("/auth/login", body, { withCredentials: true });
   return res;
 };
 
