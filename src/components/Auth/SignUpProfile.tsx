@@ -14,7 +14,7 @@ import useKakaoStore from "@/src/store/useKakaoStore";
 import { useUserStore } from "@/src/store/useUserStore";
 
 function SignUpProfile() {
-  const [previewImage, setPreviewImage] = useState("");
+  const [previewImage, setPreviewImage] = useState("/images/userImage.png");
   const [profileImage, setProfileImage] = useState<File>();
   const [profile, setProfile] = useState({
     nickName: "",
