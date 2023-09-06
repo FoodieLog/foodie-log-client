@@ -2,7 +2,7 @@
 import React from "react";
 import { useState } from "react";
 import Image from "next/image";
-import Button from "@/src/components/Button";
+import Button from "@/src/components/Common/Button";
 import kakao from "@/public/images/kakao_login_medium_wide.png";
 import { useForm } from "react-hook-form";
 import { duplicateCheck, sendEmailCode } from "@/src/services/auth";
