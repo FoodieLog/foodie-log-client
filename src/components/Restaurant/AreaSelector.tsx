@@ -1,4 +1,3 @@
-"use client";
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { area } from "@/src/constants";
@@ -13,11 +12,7 @@ type AreaType = {
 };
 
 interface AreaSelectorProps {
-  onSelectedAreaChange?: (selectedArea: {
-    selectedRegion: string;
-    selectedDo: string;
-    selectedSiGunGu: string;
-  }) => void;
+  onSelectedAreaChange?: (searchQuery: string) => void;
 }
 
 const AreaSelector: React.FC<AreaSelectorProps> = ({ onSelectedAreaChange }) => {
@@ -28,58 +23,29 @@ const AreaSelector: React.FC<AreaSelectorProps> = ({ onSelectedAreaChange }) => 
   const [doOptions, setDoOptions] = useState<string[]>([]);
   const [siGunGuOptions, setSiGunGuOptions] = useState<string[]>([]);
 
-  const [message, setMessage] = useState<string>("");
-
   const isVisible = useHideOnScroll();
 
   useEffect(() => {
-    if (selectedDo && selectedSiGunGu) {
-      setMessage(`${selectedDo} ${selectedSiGunGu} 맛집을 검색해 볼까요?`);
-    } else {
-      setMessage("");
-    }
-  }, [selectedDo, selectedSiGunGu]);
-
-  // 모든 값이 선택되었는지 확인하는 함수
-  const allValuesSelected = () => {
-    return (
-      selectedRegion &&
-      selectedDo &&
-      selectedSiGunGu &&
-      selectedRegion !== "선택" &&
-      selectedDo !== "선택" &&
-      selectedSiGunGu !== ""
-    );
-  };
-
-  useEffect(() => {
-    if (selectedRegion && (area as AreaType)[selectedRegion]) {
-      setDoOptions(Object.keys((area as AreaType)[selectedRegion]));
-    } else {
-      setDoOptions([]);
-      setSelectedDo("");
-      setSelectedSiGunGu("");
-    }
+    setDoOptions(selectedRegion ? Object.keys((area as AreaType)[selectedRegion]) : []);
   }, [selectedRegion]);
 
   useEffect(() => {
-    if (selectedDo && (area as AreaType)[selectedRegion] && (area as AreaType)[selectedRegion][selectedDo]) {
-      setSiGunGuOptions((area as AreaType)[selectedRegion][selectedDo]);
-    } else {
-      setSiGunGuOptions([]);
-      setSelectedSiGunGu("");
-    }
+    const selectedOptions = selectedDo && (area as AreaType)[selectedRegion] 
+      ? (area as AreaType)[selectedRegion][selectedDo] 
+      : [];
+    setSiGunGuOptions(selectedOptions || []);
   }, [selectedDo, selectedRegion]);
 
-  useEffect(() => {
+  const allValuesSelected = () => {
+    return selectedRegion && selectedDo;
+  };
+
+  const handleSearch = () => {
     if (onSelectedAreaChange) {
-      onSelectedAreaChange({
-        selectedRegion,
-        selectedDo,
-        selectedSiGunGu,
-      });
+      const searchQuery = selectedSiGunGu ? `${selectedDo} ${selectedSiGunGu}` : selectedDo;
+      onSelectedAreaChange(searchQuery);
     }
-  }, [selectedRegion, selectedDo, selectedSiGunGu, onSelectedAreaChange]);
+  };
 
   return (
     <div
@@ -129,9 +95,7 @@ const AreaSelector: React.FC<AreaSelectorProps> = ({ onSelectedAreaChange }) => 
 
         <button
           className={`ml-2 px-2 py-1 text-lg ${allValuesSelected() ? "text-blue-500" : ""}`}
-          onClick={() => {
-            // 검색 로직 추가
-          }}
+          onClick={handleSearch}
           disabled={!allValuesSelected()}
         >
           <BiSearch />
@@ -140,15 +104,14 @@ const AreaSelector: React.FC<AreaSelectorProps> = ({ onSelectedAreaChange }) => 
         <button
           className="px-2 py-1 text-lg "
           onClick={() => {
-            setSelectedRegion("선택");
-            setSelectedDo("선택");
-            setSelectedSiGunGu("선택");
+            setSelectedRegion("");
+            setSelectedDo("");
+            setSelectedSiGunGu("");
           }}
         >
           <GrPowerReset />
         </button>
       </div>
-      {message && <div className="text-black text-center mt-2">{message}</div>}
     </div>
   );
 };
