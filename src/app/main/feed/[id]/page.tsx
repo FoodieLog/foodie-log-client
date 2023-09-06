@@ -1,6 +1,20 @@
-import React from "react";
-const Feed = () => {
-  return <div>Feed</div>;
-};
+import BackButtonMain from '@/src/components/Button/BackButtonMain';
+import Feeds from '@/src/components/Feed/Feeds';
 
-export default Feed;
+interface userFeedListProps {
+  params: {
+    id: string;
+  };
+}
+
+const userFeedList = ({ params: { id } }: userFeedListProps) => {
+  const userId = id
+  return (
+    <div>
+      <BackButtonMain />
+      <Feeds id={userId} />
+    </div>
+  )
+}
+
+export default userFeedList

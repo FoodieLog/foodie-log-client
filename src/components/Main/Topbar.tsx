@@ -12,7 +12,7 @@ const Topbar = () => {
   return (
     // <section className="flex justify-between items-center max-w-[640px] px-4 bg-cyan-500">
     <section
-      className={`z-20 flex justify-between items-center max-w-[640px] px-4 py-2 bg-white
+      className={`z-20 flex justify-between items-center max-w-[640px] px-4 
     ${isVisible ? "top-0" : "-top-16"} sticky transition-top duration-300`}
     >
       <div>

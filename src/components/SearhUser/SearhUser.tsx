@@ -4,6 +4,7 @@ import { searchUser, APIUserSearchResponse } from "@/src/services/apiFeed";
 import Image from "next/image";
 import { PiUserCircleBold } from "react-icons/pi";
 import { SlClose } from "react-icons/sl";
+import Link from "next/link";
 
 const SearchUser: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -48,7 +49,7 @@ const SearchUser: React.FC = () => {
       <div className="w-full px-5 mt-4">
         {searchResults.map((user) => (
           <div key={user.id} className="w-full flex items-center mt-2">
-            <div className="flex w-12 h-12 flex-shrink-0">
+            <Link href={`/main/${user.id}`} className="flex w-12 h-12 flex-shrink-0">
               {user.profileImageUrl ? (
                 <Image
                   src={user.profileImageUrl}
@@ -58,12 +59,23 @@ const SearchUser: React.FC = () => {
                   className="border rounded-full cursor-pointer"
                 />
               ) : (
-                <PiUserCircleBold className="w-12 h-12 text-zinc-500" />
+                <Image
+                  src="/images/userImage.png"
+                  alt="사용자 썸네일"
+                  width={48}
+                  height={48}
+                  className="w-12 h-12 border p-1 rounded-full cursor-pointer"
+                />
               )}
-            </div>
+            </Link>
+
             <div className="relative flex flex-col pl-2 flex-grow">
-              <span className="font-bold overflow-ellipsis overflow-hidden">{user.nickName}</span>
-              <span className="text-sm overflow-ellipsis overflow-hidden">{user.aboutMe}</span> {/* w-[500px] 제거 */}
+              <Link href={`/main/${user.id}`}>
+                <span className="font-bold overflow-ellipsis overflow-hidden">{user.nickName}</span>
+              </Link>
+              <Link href={`/main/${user.id}`}>
+                <span className="text-sm overflow-ellipsis overflow-hidden">{user.aboutMe}</span>
+              </Link>
             </div>
           </div>
         ))}

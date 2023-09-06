@@ -138,7 +138,7 @@ function MyPageForm({ userId, option }: { userId: number; option: string }) {
                 key={thumbnail.id}
                 className="w-full h-full relative after:content-[''] after:block after:pb-[100%] border border-gray-300 overflow-hidden"
               >
-                <Link href={"/"} className="w-full h-full absolute flex items-center justify-center">
+                <Link href={`/main/feed/${userId}`} className="w-full h-full absolute flex items-center justify-center">
                   <img src={thumbnail.thumbnailUrl} alt={`썸네일${thumbnail.id}`} />
                 </Link>
               </li>

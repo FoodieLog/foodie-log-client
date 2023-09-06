@@ -161,7 +161,7 @@ export const getFeedListByUserId = (
   pageNumber: number
 ): Promise<APIFeedResponse> => {
   return makeFeedFetchRequest(
-    `user/${userId}/feed/list?feedId=${feedId}&pageSize=${pageSize}&pageNumber=${pageNumber}`
+    `/user/${userId}/feed/list?feedId=${feedId}&pageSize=${pageSize}&pageNumber=${pageNumber}`
   );
 };
 
