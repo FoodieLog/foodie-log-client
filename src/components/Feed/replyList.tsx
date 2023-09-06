@@ -18,6 +18,7 @@ interface ReplyListProps {
 
 const Reply: React.FC<ReplyListProps> = ({ id: feedId }) => {
   const initialAuthorState: APIReplyListResponse["response"] = {
+    userId : 0,
     nickName: "",
     profileImageUrl: null,
     content: "",
@@ -44,8 +45,8 @@ const Reply: React.FC<ReplyListProps> = ({ id: feedId }) => {
   const handleSubmitReply = () => {
     if (newReply) {
       saveReply(Number(feedId), newReply).then((data) => {
-        // Update the replies state with the new reply
-        setReplies((prevReplies) => [...prevReplies, data.response]);
+        // FIXME : saveReply 응답값에 userId가 없어서 임시로 0으로 설정
+        setReplies((prevReplies) => [...prevReplies, {...data.response, userId:0}]);
         setNewReply(""); // Clear the input
       });
     }
@@ -65,7 +66,7 @@ const Reply: React.FC<ReplyListProps> = ({ id: feedId }) => {
       <div className="p-4">
         <div className="flex items-center justify-between mb-6 pb-3 border-b">
           <div className="flex items-center">
-            <Link href={`/main/${reply.id}`} className="flex w-12 h-12 flex-shrink-0">
+            <Link href={`/main/${author.userId}`} className="flex w-12 h-12 flex-shrink-0">
               {author.profileImageUrl ? (
                 <Image
                   src={author.profileImageUrl}
