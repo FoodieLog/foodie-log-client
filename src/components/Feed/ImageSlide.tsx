@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
 import { RxDotFilled } from "react-icons/rx";
 
@@ -8,6 +8,9 @@ interface ImageSlideProps {
 
 const ImageSlide: React.FC<ImageSlideProps> = ({ images }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const slideRef = useRef(null); // 슬라이드 div 참조
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(0);
 
   const prevSlide = () => {
     const isFirstSlide = currentIndex === 0;
@@ -25,9 +28,51 @@ const ImageSlide: React.FC<ImageSlideProps> = ({ images }) => {
     setCurrentIndex(slideIndex);
   };
 
+  const handleMouseDown = (e: React.MouseEvent) => {
+    setIsDragging(true);
+    setStartX(e.clientX);
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging) return;
+    if (e.clientX - startX > 100) {
+      prevSlide();
+      setIsDragging(false);
+    } else if (startX - e.clientX > 100) {
+      nextSlide();
+      setIsDragging(false);
+    }
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    const touch = e.touches[0];
+    setStartX(touch.clientX);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    const touch = e.touches[0];
+    if (touch.clientX - startX > 100) {
+      prevSlide();
+    } else if (startX - touch.clientX > 100) {
+      nextSlide();
+    }
+  };
+
   return (
     <div className="w-full max-w-[640px] relative group">
-      <div className="relative pb-[100%]">
+      <div 
+        className="relative pb-[100%]"
+        ref={slideRef}
+        onMouseDown={handleMouseDown}
+        onMouseMove={handleMouseMove}
+        onMouseUp={handleMouseUp}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+      >
         <div
           style={{ backgroundImage: `url(${images[currentIndex]?.imageUrl})` }}
           className="absolute inset-0 bg-center bg-cover duration-500"

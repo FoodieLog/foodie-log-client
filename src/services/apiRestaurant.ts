@@ -3,7 +3,7 @@ import { useUserStore } from '../store/useUserStore';
 
 const BASE_URL = "https://api.foodielog-server.monster/api/restaurant";
 
-type APIResponse = {
+export type APIResponse = {
   status: number;
   response: {
     restaurantInfo: {
@@ -15,7 +15,7 @@ type APIResponse = {
   error: any;  
 };
 
-type Restaurant = {
+export type Restaurant = {
   name: string;
   category: string;
   link: string;
@@ -24,7 +24,7 @@ type Restaurant = {
   mapY: string;
 };
 
-type IsLiked = {
+export type IsLiked = {
   id: number | null;
   liked: boolean;
 };
@@ -33,7 +33,7 @@ type FeedImage = {
   imageUrl: string;
 };
 
-type Feed = {
+export type Feed = {
   feedId: number;
   nickName: string;
   profileImageUrl: string | null;
@@ -46,7 +46,7 @@ type Feed = {
   share: any;  
 };
 
-type Content = {
+export type Content = {
   feed: Feed;
   restaurant: Restaurant & { id: number };
   followed: boolean;
@@ -59,7 +59,7 @@ export const makeFetchRequest = async <T>(
   endpoint: string,
   method: "GET" | "POST" | "PUT" | "DELETE" = "GET",
   body?: any
-): Promise<APIResponse> => {
+): Promise<T> => {
   const accessToken = useUserStore.getState().user.accessToken;
  
   try {
@@ -85,6 +85,31 @@ export const makeFetchRequest = async <T>(
 export const getRestaurantDetail = (restaurantId: number): Promise<APIResponse> => {
   return makeFetchRequest(`/${restaurantId}`);
 };
+
+
+export type RecommendedRestaurant = {
+  restaurantId: number;
+  name: string;
+  roadAddress: string;
+  feedList: {
+    feedId: number;
+    thumbnailUrl: string;
+  }[];
+};
+
+export type APIRecommendedResponse = {
+  status: number;
+  response: {
+    restaurantList: RecommendedRestaurant[];
+  };
+  error: any;  
+};
+
+export const getRestaurantRecommended = async (region: string): Promise<APIRecommendedResponse> => {
+  return makeFetchRequest<APIRecommendedResponse>(`/recommended?address=${region}`);
+};
+
+
 
 // export const likeRestaurant = (data: LikeRestaurantBody): Promise<APIResponse> => {
 //   return makeFetchRequest(`/like`, "POST", data);
