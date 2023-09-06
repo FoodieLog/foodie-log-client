@@ -11,6 +11,7 @@ import Button from "../Button";
 import useSignUpStore from "@/src/store/useSignUpStore";
 import MyProfileSettings from "./MyProfileSettings";
 import DropDown from "../Menu/DropDown";
+import Image from "next/image";
 
 interface Thumbnail {
   id: number;
@@ -89,7 +90,7 @@ function MyPageForm({ userId, option }: { userId: number; option: string }) {
       <main>
         <header className="mx-3 my-5 flex items-center max-sm:justify-around sm:justify-center sm:gap-10">
           <div className=" w-[70px] h-[70px] border border-gray-400 rounded-full overflow-hidden cursor-pointer">
-            <img src={myProfile.profileImageUrl || "/images/userImage.png"} alt="프로필 사진" />
+            <Image width={70} height={70} src={myProfile?.profileImageUrl || "/images/userImage.png"} alt="프로필 사진" />
             <input type="file" hidden></input>
           </div>
           <div>
@@ -100,21 +101,21 @@ function MyPageForm({ userId, option }: { userId: number; option: string }) {
             <ul className="flex gap-x-2 mt-1">
               <li className=" flex flex-col items-center justify-center">
                 <p>게시물</p>
-                <p>{myProfile.feedCount}</p>
+                <p>{myProfile?.feedCount}</p>
               </li>
               <li className="flex flex-col items-center justify-center">
                 <p>팔로워</p>
-                <p>{myProfile.follower}</p>
+                <p>{myProfile?.follower}</p>
               </li>
               <li className="flex flex-col items-center justify-center">
                 <p>팔로우</p>
-                <p>{myProfile.following}</p>
+                <p>{myProfile?.following}</p>
               </li>
             </ul>
           </div>
         </header>
         <div className="px-10">
-          <p>{myProfile.aboutMe}</p>
+          <p>{myProfile?.aboutMe}</p>
         </div>
         <div>
           <Button type="button" variant={"primary"} onClick={onClickProfileEdit}>
@@ -137,7 +138,7 @@ function MyPageForm({ userId, option }: { userId: number; option: string }) {
                 className="w-full h-full relative after:content-[''] after:block after:pb-[100%]  overflow-hidden"
               >
                 <Link href={`/main/feed/${userId}`} className="w-full h-full absolute flex items-center justify-center">
-                  <img src={thumbnail.thumbnailUrl} alt={`썸네일${thumbnail.id}`} />
+                  <Image width={70} height={70} src={thumbnail?.thumbnailUrl} alt={`썸네일${thumbnail.id}`} />
                 </Link>
               </li>
             ))}
