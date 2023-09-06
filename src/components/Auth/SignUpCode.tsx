@@ -1,11 +1,10 @@
 "use client";
 import React from "react";
 import { useState } from "react";
-import Button from "@/src/components/Button";
-import BackButton from "@/src/components/Button/BackButton";
+import Button from "@/src/components/Common/Button";
 import useSignUpStore from "@/src/store/useSignUpStore";
 import { sendEmailCode, getVerificationEmail } from "@/src/services/auth";
-
+import AuthHeader from "../Common/Header/Auth";
 function SignUpCode() {
   const setNextComponent = useSignUpStore((state) => state.setNextComponent);
   const email = useSignUpStore((state) => state.user.email);
@@ -39,7 +38,7 @@ function SignUpCode() {
   };
   return (
     <section className="auth">
-      <BackButton />
+      <AuthHeader />
       <div className="title">
         <h2>인증코드</h2>
         <p>

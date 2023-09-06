@@ -7,10 +7,11 @@ import { useUserStore } from "../../store/useUserStore";
 import { getThumbnails } from "../../services/mypage";
 import { getMyProfile } from "@/src/services/mypage";
 import Link from "next/link";
-import Button from "../Button";
+import Button from "../Common/Button";
 import useSignUpStore from "@/src/store/useSignUpStore";
 import MyProfileSettings from "./MyProfileSettings";
-import DropDown from "../Menu/DropDown";
+import DropDown from "../Common/Menu/DropDown";
+import Header from "../Common/Header";
 
 interface Thumbnail {
   id: number;
@@ -86,6 +87,7 @@ function MyPageForm({ userId, option }: { userId: number; option: string }) {
 
   return (
     <section className="max-sm:w-full sm:w-6/12 max-sm:text-sm p-3">
+      <Header title="My Log" type="arrow" back="prePage" />
       <main>
         <header className="mx-3 my-5 flex items-center max-sm:justify-around sm:justify-center sm:gap-10">
           <div className=" w-[70px] h-[70px] border border-gray-400 rounded-full overflow-hidden cursor-pointer">

@@ -1,12 +1,11 @@
 "use client";
 import React, { useState } from "react";
-import Button from "@/src/components/Button";
-import BackButton from "@/src/components/Button/BackButton";
+import Button from "@/src/components/Common/Button";
 import Link from "next/link";
 import { getPasswordCode, getVerificationEmail } from "@/src/services/auth";
 import useSignUpStore from "@/src/store/useSignUpStore";
 import ChangePassword from "./ChangePassword";
-
+import AuthHeader from "../Common/Header/Auth";
 function FindPassword() {
   const [showCodeInput, setShowCodeInput] = useState(false);
   const [codeData, setCodeData] = useState({
@@ -57,7 +56,7 @@ function FindPassword() {
 
   return (
     <section className="auth">
-      <BackButton />
+      <AuthHeader />
       <div className="title">
         <h2>비밀번호 재설정</h2>
         <h4>가입한 이메일로 인증코드 보내세요!</h4>

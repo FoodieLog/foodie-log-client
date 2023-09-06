@@ -7,6 +7,7 @@ import { passwordValidation } from "../../constants";
 import { useRouter } from "next/navigation";
 import { useUserStore } from "../../store/useUserStore";
 import Button from "../Common/Button";
+import Header from "../Common/Header";
 
 function SettingPassword() {
   const email = useUserStore((state) => state.user.email);
@@ -33,7 +34,7 @@ function SettingPassword() {
   return (
     <section className="auth">
       <div className="title">
-        <h2>비밀번호 재설정</h2>
+        <Header title="비밀번호 재설정" type="arrow" back="prePage" />
         <form onSubmit={handleSubmit(onSubmit)} className="w-full flex flex-col  gap-4 mt-10">
           <label>
             <p>회원이메일</p>

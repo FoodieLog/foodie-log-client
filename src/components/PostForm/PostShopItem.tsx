@@ -2,6 +2,7 @@ import React from "react";
 import { usePostStore } from "@/src/store/usePostStore";
 import { LiaExchangeAltSolid } from "react-icons/lia";
 import useSignUpStore from "@/src/store/useSignUpStore";
+import useOnClickBack from "../../hooks/useOnClickBack";
 
 interface ShopProps {
   type: string;
@@ -25,13 +26,9 @@ function PostShopItem({ type, item }: ShopProps) {
   const setNextComponent = useSignUpStore((state) => state.setNextComponent);
 
   const onClickhandler = (e: React.MouseEvent) => {
+    e.preventDefault();
     setNextComponent("PostImage");
     setContent({ ...content, ...item });
-  };
-
-  const resetShop = (e: React.MouseEvent) => {
-    e.preventDefault();
-    setNextComponent("PostSearch");
   };
 
   return (
@@ -50,7 +47,7 @@ function PostShopItem({ type, item }: ShopProps) {
         </div>
       </div>
       {type === "selected" && (
-        <LiaExchangeAltSolid className="w-5 h-5 cursor-pointer hover:text-red-500" onClick={resetShop} />
+        <LiaExchangeAltSolid className="w-5 h-5 cursor-pointer hover:text-red-500" onClick={useOnClickBack} />
       )}
     </div>
   );

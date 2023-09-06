@@ -6,7 +6,8 @@ import { useRouter } from "next/navigation";
 import { logOut } from "../../services/settings";
 import { BadgeSvg, ChangeSvg, NotificationSvg, OutSvg, WarningSvg } from "../../assets/svgs";
 import SettingModal from "./SettingModal";
-import Toggle from "../Toggle";
+import Toggle from "../Common/Toggle";
+import Header from "../Common/Header";
 
 function MySettings() {
   const [isClient, setIsClient] = useState(false);
@@ -47,10 +48,7 @@ function MySettings() {
       <div className="flex flex-col w-screen max-w-md flex-auto overflow-hidden rounded-3xl bg-white text-sm leading-6 shadow-lg ring-1 ring-gray-900/5">
         <div className="divide-y">
           <div className=" flex flex-col items-center py-5">
-            <div className="pb-10 relative w-full flex items-center justify-center">
-              <LiaAngleLeftSolid size="1.5rem" className="absolute left-5" />
-              <p className="text-sm">설정 및 개인정보</p>
-            </div>
+            <Header title="설정 및 개인정보" type="arrow" back="prePage" />
             {isClient && <h5 className="text-mb font-medium text-gray-900 dark:text-white">{nickName}</h5>}
           </div>
           <div className="group relative flex gap-x-6 items-center justify-between rounded-lg p-4 hover:bg-gray-50">

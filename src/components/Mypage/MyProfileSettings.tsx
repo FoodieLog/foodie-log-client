@@ -4,10 +4,9 @@ import { useRef, useState } from "react";
 import { MdAddPhotoAlternate } from "react-icons/md";
 import { settingProfile } from "@/src/services/mypage";
 import Image from "next/image";
-import BackButton from "../Button/BackButton";
-import Button from "../Button";
+import Button from "../Common/Button";
 import { useUserStore } from "@/src/store/useUserStore";
-
+import Haeder from "../../components/Common/Header";
 function MyProfileSettings() {
   const user = useUserStore((state) => state.user);
   const [previewImage, setPreviewImage] = useState("");
@@ -76,11 +75,8 @@ function MyProfileSettings() {
 
   return (
     <form id="formElem" className="auth" method="post" onSubmit={ProfileSubmit}>
-      <BackButton />
+      <Haeder title="프로필 설정" type="arrow" back="preComponent" />
       <div className=" flex flex-col items-center justify-center">
-        <div className="title">
-          <h2>프로필설정</h2>
-        </div>
         <div className="relative">
           <div
             onClick={pickImageHandler}
