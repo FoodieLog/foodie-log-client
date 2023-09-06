@@ -58,7 +58,7 @@ function SettingModal({ children }: SettingModalProps) {
             <label htmlFor="name" className="text-right">
               이메일
             </label>
-            <Input id="name" value={email} className="col-span-3" />
+            <Input id="name" value={email} className="col-span-3" disabled />
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
             <label htmlFor="username" className="text-right">
