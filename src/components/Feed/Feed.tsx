@@ -70,7 +70,7 @@ const Feed: React.FC<FeedData> = ({ feed, restaurant, isFollowed, isLiked }) => 
   };
 
   return (
-    <div className="mt-2 w-full max-w-[640px] bg-mint-light rounded-sm">
+    <div className="mt-2 w-full max-w-[640px] rounded-sm">
       {/* Header */}
       <div className="flex items-center p-3">
         <div className="relative w-12 h-12">
