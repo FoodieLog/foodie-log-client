@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import Image from "next/image";
-import { Logo } from "@/public/images";
+import { TextLogo } from "@/public/images";
 import { IoIosSearch, IoMdNotificationsOutline } from "react-icons/io";
 import Link from "next/link";
 import useHideOnScroll from "../../hooks/useHideOnScroll";
@@ -12,18 +12,18 @@ const Topbar = () => {
   return (
     // <section className="flex justify-between items-center max-w-[640px] px-4 bg-cyan-500">
     <section
-      className={`z-20 flex justify-between items-center max-w-[640px] px-4 bg-cyan-500 
+      className={`z-20 flex justify-between items-center max-w-[640px] px-4 
     ${isVisible ? "top-0" : "-top-16"} sticky transition-top duration-300`}
     >
       <div>
-        <Image src={Logo} alt="logo" className="w-[96px] h-[36px] my-2 sm:hidden cursor-pointer" />
+        <Image src={TextLogo} alt="logo" className="w-[100px] h-9/12 sm:hidden cursor-pointer" />
       </div>
-      <div className="flex text-3xl sm:hidden">
+      <div className="flex gap-x-2 text-xl sm:hidden">
         <Link href="/main/search">
-          <IoIosSearch className="mr-3 my-2 cursor-pointer " />
+          <IoIosSearch className="cursor-pointer hover:text-coral" />
         </Link>
         <Link href="/main/notification">
-          <IoMdNotificationsOutline className="my-2 cursor-pointer" />
+          <IoMdNotificationsOutline className="cursor-pointer hover:text-coral" />
         </Link>
       </div>
     </section>

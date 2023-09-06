@@ -3,6 +3,7 @@ import { persist, createJSONStorage } from "zustand/middleware";
 
 type User = {
   id?: number;
+  email?: string;
   nickName?: string;
   profileImageUrl?: string | null;
   accessToken?: string;
@@ -21,6 +22,7 @@ export const useUserStore = create<UserState>()(
     (set) => ({
       user: {
         id: undefined,
+        email: undefined,
         nickName: undefined,
         profileImageUrl: undefined,
         accessToken: undefined,

@@ -29,8 +29,9 @@ function LogInForm() {
     try {
       const body = { email: logInData.email, password: logInData.password };
       const res = await logIn(body);
-      console.log("로그인 성공");
+      console.log("로그인 성공", res);
       setUser(res.data.response);
+      console.log("");
       const oneDayInMilliseconds = 1000 * 60 * 60 * 24;
       const expiryTime = Date.now() + oneDayInMilliseconds; // 현재 시간에 24시간을 더함
       setTokenExpiry(expiryTime); // 만료 시간 설정

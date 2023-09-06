@@ -69,9 +69,13 @@ const FeedShared: React.FC<FeedSharedProps> = ({ Id }) => {
               className="w-12 h-12 border p-1 rounded-full cursor-pointer "
             />
           ) : (
-            <div className="">
-              <PiUserCircleBold className="w-12 h-12 text-zinc-500" />
-            </div>
+            <Image
+              fill={true}
+              src="/images/userImage.png"
+              alt="사용자 썸네일"
+              sizes="(max-width: 48px) 48px, 48px"
+              className="w-12 h-12 border p-1 rounded-full cursor-pointer"
+            />
           )}
         </div>
         <div className="flex flex-1 flex-col ml-3">
@@ -80,7 +84,7 @@ const FeedShared: React.FC<FeedSharedProps> = ({ Id }) => {
           </p>
           <p className="text-sm">{timeDifference}</p>
         </div>
-        {/* Follow 버튼을 어떻게 처리할지에 따라 아래 코드를 수정 */}
+
         <button
           className="w-30 h-9 py-2 mr-4 px-4 text-white font-bold rounded-2xl bg-green-400 hover:bg-green-500 border-0"
           onClick={handleIconClick}
@@ -91,12 +95,15 @@ const FeedShared: React.FC<FeedSharedProps> = ({ Id }) => {
       </div>
       <ImageSlide images={feedData.feedImages} />
       {/* 여기서 restaurant 데이터에 따라서 ShopCard 컴포넌트를 수정해야 합니다. */}
-      <ShopCard
-        id={feedData.restaurant.id}
-        name={feedData.restaurant.name}
-        category={feedData.restaurant.category}
-        roadAddress={feedData.restaurant.roadAddress}
-      />
+      <button className="cursor-pointer" onClick={handleIconClick}>
+        <ShopCard
+          id={feedData.restaurant.id}
+          name={feedData.restaurant.name}
+          category={feedData.restaurant.category}
+          roadAddress={feedData.restaurant.roadAddress}
+          disableClick={true}
+        />
+      </button>
       <p className="p-3">{feedData.content}</p>
       <div className="flex flex-between gap-2 items-center text-[18px] p-3">
         <button className="text-[24px]" onClick={handleIconClick}>
@@ -110,18 +117,15 @@ const FeedShared: React.FC<FeedSharedProps> = ({ Id }) => {
         <FiShare2 className="text-[24px] cursor-pointer" onClick={handleIconClick} />
       </div>
       <Dialog open={isDialogOpen} onOpenChange={() => setIsDialogOpen(false)}>
-        <DialogTrigger asChild>
-        </DialogTrigger>
+        <DialogTrigger asChild></DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
             <DialogTitle>더욱 더 다양한 정보가 필요하시면</DialogTitle>
             <DialogDescription>로그인 또는 회원 가입을 해주세요.</DialogDescription>
           </DialogHeader>
           <div className="flex justify-center space-x-4">
-            <Button onClick={() => router.push("/accounts/login")}>
-              로그인
-            </Button>
-            <Button variant="outline"onClick={() => router.push("/accounts/signup")}>
+            <Button onClick={() => router.push("/accounts/login")}>로그인</Button>
+            <Button variant="outline" onClick={() => router.push("/accounts/signup")}>
               회원가입
             </Button>
           </div>

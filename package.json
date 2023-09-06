@@ -43,6 +43,7 @@
     "zustand": "^4.4.1"
   },
   "devDependencies": {
-    "@faker-js/faker": "^8.0.2"
+    "@faker-js/faker": "^8.0.2",
+    "@svgr/webpack": "^8.1.0"
   }
 }

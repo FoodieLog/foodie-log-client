@@ -1,4 +1,4 @@
-import { userRequest } from "./index";
+import { userRequest, formDataRequest } from "./index";
 import { useUserStore } from "../store/useUserStore";
 import { makeFeedFetchRequest } from "../services/apiFeed";
 
@@ -33,12 +33,8 @@ export const getMyProfile = async (userId: number) => {
 };
 
 // 프로필 설정 (axios)
-export const profileSetting = async (body: FormData) => {
-  const res = await userRequest.put("​/api​/user​/setting​/profile", body, {
-    headers: {
-      "Content-Type": "multipart/form-data",
-    },
-  });
+export const settingProfile = async (body: FormData) => {
+  const res = await userRequest.put("​/api​/user​/setting​/profile", body);
   console.log("프로필 서버 응답데이터", res);
   return res;
 };
@@ -52,4 +48,10 @@ export const getMyMap = async (userId: number) => {
 // export const getMyMap = async (userId: number) => {
 //   const res =makeFeedFetchRequest(`/api/user/${userId}/map`);
 //   return res
+// };
+
+// export const profileSetting = async (body: FormData) => {
+//   const res = await makeFeedFetchRequest("​/api​/user​/setting​/profile", "PUT", body);
+//   console.log("프로필 서버 응답데이터", res);
+//   return res;
 // };

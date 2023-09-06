@@ -10,7 +10,7 @@ const Bottombar = () => {
   const { id } = useUserStore((state) => state.user);
 
   return (
-    <section className="bottombar w-full max-w-screen-sm mx-auto z-10 py-2 border-t-[1px] bg-white border-solid sm:hidden">
+    <section className="bottombar fixed bottom-0 w-full max-w-screen-sm mx-auto z-10 py-2 border-t-[1px] bg-white border-solid sm:hidden">
       <div className="bottombar_container flex justify-around ">
         {sidebarLinks
           .filter((link) => link.label !== "Search" && link.label !== "Notification")
@@ -18,9 +18,9 @@ const Bottombar = () => {
             const isActive = (pathname.includes(link.route) && link.route.length > 1) || pathname === link.route;
             const IconComponent = link.icon;
             return (
-              <Link href={link.route} key={link.route} className={`py-2 ${isActive && "bg-mint rounded-lg"}`}>
+              <Link href={link.route} key={link.route} className={`py-2 ${isActive && "text-sunflower-sat"}`}>
                 <div className="flex items-center">
-                  <IconComponent className="text-2xl mx-2" />
+                  <IconComponent className="text-xl mx-2" />
                 </div>
               </Link>
             );

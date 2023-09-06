@@ -9,10 +9,10 @@
   LogoNext
 }; 
 */
+import FoodieLogoFull from "./foodienobg.png";
+import FoodieLogoCrop from "./image60.png";
+import FoodieLogoTP from "./foodietransparent.png";
+import FoodieLogo from "./userImage.png";
+import TextLogo from "./textLogo.png";
 
-import Logo from "./Logo_example.png"
-import LogoIcon from "./logo_icon_only_example.png"
-export {
-  Logo,
-  LogoIcon
-}
+export { FoodieLogoFull, FoodieLogoCrop, FoodieLogoTP, FoodieLogo, TextLogo };

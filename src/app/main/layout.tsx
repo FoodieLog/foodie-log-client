@@ -23,7 +23,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
       <div className="flex min-h-screen mx-auto">
         <LeftSidebar />
         <div className="flex flex-col flex-1 items-center justify-center overflow-hidden">
-          <div className="w-full h-full overflow-y-auto">
+          <div className="flex flex-col items-center w-full h-full overflow-y-auto">
             <Providers>{children}</Providers>
           </div>
           <Bottombar />

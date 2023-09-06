@@ -12,6 +12,7 @@ interface ShopCardProps {
   roadAddress: string;
   isLiked?: boolean;
   shopUrl?: string;
+  disableClick?: boolean; 
 }
 
 const ShopCard: React.FC<ShopCardProps> = ({
@@ -20,13 +21,14 @@ const ShopCard: React.FC<ShopCardProps> = ({
   category,
   roadAddress,
   isLiked,
-  shopUrl
+  shopUrl,
+  disableClick
 }) => {
   const shopCategoryIcon = `/images/foodCategoryIcons/${getIcon(category)}`;
   const [like, setLike] = useState(isLiked);
 
   return (
-    <div className="flex items-center justify-between px-4 py-2">
+    <div className="flex items-center justify-between px-4 py-2" style={{ pointerEvents: disableClick ? "none" : "auto" }}>
       {" "}
       {/* Change flex layout to justify-between */}
       <div className="flex items-center">
