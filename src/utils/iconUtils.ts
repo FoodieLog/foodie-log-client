@@ -6,7 +6,7 @@ export function getIcon(category: string): string {
       return icons[key];
     }
   }
-  return "default.png";
+  return "foodDefault.png";
 }
 
 
