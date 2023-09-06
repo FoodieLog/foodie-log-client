@@ -16,12 +16,14 @@ import ShopCard from "../Restaurant/ShopCard";
 import { followUser, likeFeed, unfollowUser, unlikeFeed } from "@/src/services/apiFeed";
 
 const Feed: React.FC<FeedData> = ({ feed, restaurant, isFollowed, isLiked }) => {
+  const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
   const timeDifference = getTimeDiff(dayjs(feed.createdAt));
   const router = useRouter();
-
   const [Follow, setFollow] = useState<boolean>(isFollowed);
   const [Like, setLike] = useState<boolean>(isLiked);
   const [likeCount, setLikeCount] = useState<number>(feed.likeCount);
+
+  const CLIENT_BASE_URL = "localhost:3000"
 
   // 주의 : 이미지 경로를 /public/images/... 로 시작하면 안된다.
   // 대부분의 프론트엔드 프레임워크나 빌드 도구에서는 public 디렉토리의 내용이 빌드 시 루트 경로(/)에 배포된다고 한다.
@@ -69,6 +71,19 @@ const Feed: React.FC<FeedData> = ({ feed, restaurant, isFollowed, isLiked }) => 
     router.push(`/main/reply/${feed.feedId}`);
   };
 
+  const handleShareClick = () => {
+    const fullPath = `${CLIENT_BASE_URL}/entrance/${feed.feedId}`;
+    console.log("fullPath", fullPath);
+    navigator.clipboard.writeText(fullPath).then(
+      () => {
+        alert("클립보드에 링크가 저장되었습니다.\n\n피드를 공유해보세요!");
+      },
+      (error) => {
+        console.error("Failed to copy text: ", error);
+      }
+    );
+  };
+
   return (
     <div className="mt-2 w-full max-w-[640px] rounded-sm">
       {/* Header */}
@@ -84,9 +99,13 @@ const Feed: React.FC<FeedData> = ({ feed, restaurant, isFollowed, isLiked }) => 
             />
           ) : (
             // 기본 이미지 또는 대체 컴포넌트를 표시
-            <div className="">
-              <PiUserCircleBold className="w-12 h-12 text-zinc-500" />
-            </div>
+            <Image
+              fill={true}
+              src="/images/userImage.png"
+              alt="사용자 썸네일"
+              sizes="(max-width: 48px) 48px, 48px"
+              className="w-12 h-12 border p-1 rounded-full cursor-pointer"
+            />
           )}
         </div>
         <div className="flex flex-1 flex-col ml-3">
@@ -124,7 +143,7 @@ const Feed: React.FC<FeedData> = ({ feed, restaurant, isFollowed, isLiked }) => 
         <p>{likeCount}</p>
         <FaRegCommentDots className="text-[24px] cursor-pointer" onClick={handleReplyIconClick} />
         <p className="flex-1">{feed.replyCount}</p>
-        <FiShare2 className="text-[24px] cursor-pointer" />
+        <FiShare2 className="text-[24px] cursor-pointer" onClick={handleShareClick} />
       </div>
     </div>
   );
