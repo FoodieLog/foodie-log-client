@@ -1,4 +1,4 @@
-import BackButtonMain from '@/src/components/Button/BackButtonMain';
+import BackButtonMain from "@/src/components/Common/Button/BackButtonMain";
 import ReplyList from "@/src/components/Feed/replyList";
 
 interface ReplyProps {
@@ -9,7 +9,7 @@ interface ReplyProps {
 
 const reply = ({ params: { id } }: ReplyProps) => {
   return (
-    <div className='w-full flex flex-col justify-center max-w-screen-sm mx-auto'>
+    <div className="w-full flex flex-col justify-center max-w-screen-sm mx-auto">
       <BackButtonMain />
       <ReplyList id={id} />
     </div>

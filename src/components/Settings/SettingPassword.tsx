@@ -6,7 +6,7 @@ import { ChangePassword } from "../../types/apiTypes";
 import { passwordValidation } from "../../constants";
 import { useRouter } from "next/navigation";
 import { useUserStore } from "../../store/useUserStore";
-import Button from "../Button";
+import Button from "../Common/Button";
 
 function SettingPassword() {
   const email = useUserStore((state) => state.user.email);

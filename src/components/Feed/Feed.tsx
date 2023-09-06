@@ -11,7 +11,7 @@ import { FaRegCommentDots } from "react-icons/fa";
 import { FiShare2 } from "react-icons/fi";
 import { PiUserCircleBold } from "react-icons/pi";
 import { getIcon } from "../../utils/iconUtils";
-import Button from "../Button";
+import Button from "../Common/Button";
 import ShopCard from "../Restaurant/ShopCard";
 import { followUser, likeFeed, unfollowUser, unlikeFeed } from "@/src/services/apiFeed";
 
@@ -23,7 +23,7 @@ const Feed: React.FC<FeedData> = ({ feed, restaurant, isFollowed, isLiked }) => 
   const [Like, setLike] = useState<boolean>(isLiked);
   const [likeCount, setLikeCount] = useState<number>(feed.likeCount);
 
-  const CLIENT_BASE_URL = "localhost:3000"
+  const CLIENT_BASE_URL = "localhost:3000";
 
   // 주의 : 이미지 경로를 /public/images/... 로 시작하면 안된다.
   // 대부분의 프론트엔드 프레임워크나 빌드 도구에서는 public 디렉토리의 내용이 빌드 시 루트 경로(/)에 배포된다고 한다.

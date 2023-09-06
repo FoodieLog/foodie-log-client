@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import BackButtonMain from "@/src/components/Button/BackButtonMain";
+import BackButtonMain from "@/src/components/Common/Button/BackButtonMain";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { PiUserCircleBold } from "react-icons/pi";
