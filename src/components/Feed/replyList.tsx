@@ -10,6 +10,7 @@ import Image from "next/image";
 import { getTimeDiff } from "@/src/utils/date";
 import { APIReplyListResponse, getReplyList, saveReply, deleteReply, reportReply } from "@/src/services/apiFeed";
 import dayjs from "dayjs";
+import Link from "next/link";
 
 interface ReplyListProps {
   id: string;
@@ -64,7 +65,7 @@ const Reply: React.FC<ReplyListProps> = ({ id: feedId }) => {
       <div className="p-4">
         <div className="flex items-center justify-between mb-6 pb-3 border-b">
           <div className="flex items-center">
-            <div className="flex w-12 h-12 flex-shrink-0">
+            <Link href={`/main/${reply.id}`} className="flex w-12 h-12 flex-shrink-0">
               {author.profileImageUrl ? (
                 <Image
                   src={author.profileImageUrl}
@@ -82,7 +83,7 @@ const Reply: React.FC<ReplyListProps> = ({ id: feedId }) => {
                   className="w-12 h-12 border p-1 rounded-full cursor-pointer"
                 />
               )}
-            </div>
+            </Link>
             <div className="ml-2">
               <div className="flex justify-start items-center gap-3">
                 <span className="font-bold">{author.nickName}</span>
@@ -116,7 +117,7 @@ const Reply: React.FC<ReplyListProps> = ({ id: feedId }) => {
           return (
             <div key={reply.id} className="flex items-center justify-between mb-4">
               <div className="flex items-center">
-                <div className="flex w-12 h-12 flex-shrink-0">
+                <Link href={`/main/${reply.id}`} className="flex w-12 h-12 flex-shrink-0">
                   {reply.profileImageUrl ? (
                     <Image
                       src={reply.profileImageUrl}
@@ -134,7 +135,7 @@ const Reply: React.FC<ReplyListProps> = ({ id: feedId }) => {
                       className="w-12 h-12 border p-1 rounded-full cursor-pointer"
                     />
                   )}
-                </div>
+                </Link>
                 <div className="ml-2">
                   <div className="flex justify-start items-center gap-3">
                     <span className="font-bold">{reply.nickName}</span>
