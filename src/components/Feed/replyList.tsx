@@ -74,7 +74,13 @@ const Reply: React.FC<ReplyListProps> = ({ id: feedId }) => {
                   className="border p-1 rounded-full cursor-pointer"
                 />
               ) : (
-                <PiUserCircleBold className="w-12 h-12 text-zinc-500" />
+                <Image
+                  src="/images/userImage.png"
+                  alt="사용자 썸네일"
+                  width={48}
+                  height={48}
+                  className="w-12 h-12 border p-1 rounded-full cursor-pointer"
+                />
               )}
             </div>
             <div className="ml-2">
@@ -120,7 +126,13 @@ const Reply: React.FC<ReplyListProps> = ({ id: feedId }) => {
                       className="border p-1 rounded-full cursor-pointer"
                     />
                   ) : (
-                    <PiUserCircleBold className="w-12 h-12 text-zinc-500" />
+                    <Image
+                      src="/images/userImage.png"
+                      alt="사용자 썸네일"
+                      width={48}
+                      height={48}
+                      className="w-12 h-12 border p-1 rounded-full cursor-pointer"
+                    />
                   )}
                 </div>
                 <div className="ml-2">
@@ -128,7 +140,7 @@ const Reply: React.FC<ReplyListProps> = ({ id: feedId }) => {
                     <span className="font-bold">{reply.nickName}</span>
                     <span className="text-xs text-gray-500">{timeDifference}</span>
                   </div>
-                  <div className='text-sm'>
+                  <div className="text-sm">
                     {reply.content.length > 60 && !expandedReplies.includes(reply.id) ? (
                       <>
                         {reply.content.substring(0, 60) + "... "}
@@ -141,7 +153,7 @@ const Reply: React.FC<ReplyListProps> = ({ id: feedId }) => {
                       </>
                     ) : (
                       <>
-                        <p className='text-sm'>{reply.content}</p>
+                        <p className="text-sm">{reply.content}</p>
                         {expandedReplies.includes(reply.id) && (
                           <button
                             className="text-blue-500"
