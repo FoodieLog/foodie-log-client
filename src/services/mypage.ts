@@ -49,3 +49,9 @@ export const getMyMap = async (userId: number) => {
 //   const res =makeFeedFetchRequest(`/api/user/${userId}/map`);
 //   return res
 // };
+
+// export const profileSetting = async (body: FormData) => {
+//   const res = await makeFeedFetchRequest("​/api​/user​/setting​/profile", "PUT", body);
+//   console.log("프로필 서버 응답데이터", res);
+//   return res;
+// };
