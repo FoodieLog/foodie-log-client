@@ -7,7 +7,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "../../../components/ui/dropdown-menu";
-import { BsThreeDotsVertical } from "react-icons/bs";
+import { PiDotsThreeOutlineLight } from "react-icons/pi";
 import { useRouter } from "next/navigation";
 
 interface MenuProps {
@@ -29,11 +29,11 @@ function DropDown({ name, option }: MenuProps) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <BsThreeDotsVertical size="1.2rem" />
+        <PiDotsThreeOutlineLight size="1.2rem" />
       </DropdownMenuTrigger>
-      <DropdownMenuContent>
+      <DropdownMenuContent className="absoluteright-3 bg-white">
         <DropdownMenuLabel>{name}</DropdownMenuLabel>
-        <DropdownMenuSeparator />
+        <DropdownMenuSeparator className="bg-gray-100" />
         <DropdownMenuItem onClick={onClickHandler} className="cursor-pointer">
           {option}
         </DropdownMenuItem>
