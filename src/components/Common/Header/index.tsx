@@ -3,6 +3,7 @@ import { LiaAngleLeftSolid } from "react-icons/lia";
 import { BsArrowLeftCircle } from "react-icons/bs";
 import useSignUpStore from "../../../store/useSignUpStore";
 import { useRouter } from "next/navigation";
+import { usePostStore } from "@/src/store/usePostStore";
 
 interface HeaderProps {
   title: string;
@@ -12,6 +13,7 @@ interface HeaderProps {
 
 function Header({ title, type, back }: HeaderProps) {
   const router = useRouter();
+  const setFiles = usePostStore((state) => state.setFiles);
   let icon;
 
   switch (type) {
@@ -31,13 +33,14 @@ function Header({ title, type, back }: HeaderProps) {
     if (back === "preComponent") {
       const setNextComponent = useSignUpStore.getState().setNextComponent;
       setNextComponent("");
+      setFiles([]);
     } else if (back === "prePage") {
       router.back();
     }
   };
 
   return (
-    <header className="w-full p-5 flex items-center justify-between">
+    <header className="max-sm:max-w-[640px] w-full p-5 flex items-center justify-between">
       <button type="button" className="" onClick={onClickHandler}>
         {icon}
       </button>
