@@ -3,7 +3,7 @@ import { LiaAngleLeftSolid } from "react-icons/lia";
 import { BsArrowLeftCircle } from "react-icons/bs";
 import useSignUpStore from "../../../store/useSignUpStore";
 import { useRouter } from "next/navigation";
-import { usePostStore } from "@/src/store/usePostStore";
+import usePostStore from "@/src/store/usePostStore";
 
 interface HeaderProps {
   title: string;

@@ -39,3 +39,9 @@ export const fetchWithdraw = async ({ withdrawReason }: WithdrawBody) => {
   console.log("Fetching withdraw", withdrawReason);
   return await makeFeedFetchRequest("/user/setting/withdraw", "POST", { withdrawReason });
 };
+
+// 알림
+export const putNotification = async (flag: string) => {
+  const res = await userRequest.put("/api/user/setting/notification", { flag });
+  return res;
+};

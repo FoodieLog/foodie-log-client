@@ -14,18 +14,25 @@ import { getIcon } from "../../utils/iconUtils";
 import Button from "../Common/Button";
 import ShopCard from "../Restaurant/ShopCard";
 import { followUser, likeFeed, unfollowUser, unlikeFeed } from "@/src/services/apiFeed";
+import DropDown from "../Common/Menu/DropDown";
+import { useUserStore } from "@/src/store/useUserStore";
+import FeedModal from "./FeedModal";
+import useSignUpStore from "@/src/store/useSignUpStore";
 import { useToast } from "@/components/ui/use-toast";
-import DropDown from '../Common/Menu/DropDown';
 
 const Feed: React.FC<FeedData> = ({ feed, restaurant, isFollowed, isLiked }) => {
-  const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
-  const timeDifference = getTimeDiff(dayjs(feed.createdAt));
-  const router = useRouter();
+  const [showModal, setShowModal] = useState(false);
+  const [likeCount, setLikeCount] = useState<number>(feed.likeCount);
   const [Follow, setFollow] = useState<boolean>(isFollowed);
   const [Like, setLike] = useState<boolean>(isLiked);
-  const [likeCount, setLikeCount] = useState<number>(feed.likeCount);
+  const timeDifference = getTimeDiff(dayjs(feed.createdAt));
+  const nickName = useUserStore((state) => state.user.nickName);
+  const nextComponent = useSignUpStore((state) => state.nextComponent);
+
+  const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
   const { toast } = useToast();
 
+  const router = useRouter();
   const CLIENT_BASE_URL = "localhost:3000";
 
   // 주의 : 이미지 경로를 /public/images/... 로 시작하면 안된다.
@@ -122,8 +129,7 @@ const Feed: React.FC<FeedData> = ({ feed, restaurant, isFollowed, isLiked }) => 
         </div>
         {/* isFollowed 가 true 면 버튼 label이 "팔로잉", 아니면 "팔로우" */}
         <button
-          className="w-30 h-9 py-2 mr-4 px-4 text-white font-bold rounded-2xl 
-        bg-green-400 hover:bg-green-500 border-0"
+          className="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2.5 mr-3 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
           onClick={handleFollowButtonClick}
         >
           {Follow ? "팔로잉" : "팔로우"}
@@ -131,10 +137,10 @@ const Feed: React.FC<FeedData> = ({ feed, restaurant, isFollowed, isLiked }) => 
         {/* <Button variant={"primary"} size={"w-30 h-9"} onClick={handleButtonClick}>
           {Follow ? "팔로잉" : "팔로우"}
         </Button> */}
-        <DropDown name={"게시글"} option={"신고"} id={feed.feedId}/>
-        {/* <button onClick={handleReportIconClick}>
-          <BsThreeDotsVertical className="cursor-pointer ml-2" />
-        </button> */}
+        <div>
+          <DropDown name={feed.nickName} option={feed.nickName === nickName ? "본인" : "타인"} />
+          {nextComponent === "EditModal" ? <FeedModal feedId={feed.feedId} preContent={feed.content} /> : null}
+        </div>
       </div>
       {/* image */}
       <ImageSlide images={feed.feedImages} />

@@ -1,10 +1,10 @@
 import React from "react";
-import { usePostStore } from "@/src/store/usePostStore";
+import usePostStore from "@/src/store/usePostStore";
 import { PiStarThin, PiStarFill } from "react-icons/pi";
 import useSignUpStore from "@/src/store/useSignUpStore";
 import { getIcon } from "../../utils/iconUtils";
 import Link from "next/link";
-import Image from 'next/image';
+import Image from "next/image";
 
 interface ShopProps {
   item: MapItem;
@@ -30,7 +30,7 @@ function MyShopItem({ item }: ShopProps) {
   const { content, setContent } = usePostStore();
   const setNextComponent = useSignUpStore((state) => state.setNextComponent);
   const shopCategoryIcon = `/images/foodCategoryIcons/${getIcon(item.restaurant.category)}`;
-  console.log("shopCategoryIcon", shopCategoryIcon)
+  console.log("shopCategoryIcon", shopCategoryIcon);
   const onClickShophandler = (e: React.MouseEvent) => {
     e.preventDefault();
     setNextComponent("PostImage");
