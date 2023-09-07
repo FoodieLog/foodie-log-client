@@ -12,6 +12,7 @@ import useSignUpStore from "@/src/store/useSignUpStore";
 import MyProfileSettings from "./MyProfileSettings";
 import DropDown from "../Common/Menu/DropDown";
 import Header from "../Common/Header";
+
 import Image from "next/image";
 
 interface Thumbnail {
