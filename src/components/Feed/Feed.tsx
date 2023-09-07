@@ -14,6 +14,8 @@ import { getIcon } from "../../utils/iconUtils";
 import Button from "../Common/Button";
 import ShopCard from "../Restaurant/ShopCard";
 import { followUser, likeFeed, unfollowUser, unlikeFeed } from "@/src/services/apiFeed";
+import { useToast } from "@/components/ui/use-toast";
+import DropDown from '../Common/Menu/DropDown';
 
 const Feed: React.FC<FeedData> = ({ feed, restaurant, isFollowed, isLiked }) => {
   const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
@@ -22,6 +24,7 @@ const Feed: React.FC<FeedData> = ({ feed, restaurant, isFollowed, isLiked }) => 
   const [Follow, setFollow] = useState<boolean>(isFollowed);
   const [Like, setLike] = useState<boolean>(isLiked);
   const [likeCount, setLikeCount] = useState<number>(feed.likeCount);
+  const { toast } = useToast();
 
   const CLIENT_BASE_URL = "localhost:3000";
 
@@ -76,13 +79,18 @@ const Feed: React.FC<FeedData> = ({ feed, restaurant, isFollowed, isLiked }) => 
     console.log("fullPath", fullPath);
     navigator.clipboard.writeText(fullPath).then(
       () => {
-        alert("클립보드에 링크가 저장되었습니다.\n\n피드를 공유해보세요!");
+        toast({ title: "클립보드에 링크 저장💌!", description: "'붙여넣기'로 피드를 공유해보세요👍!" });
+        // alert("클립보드에 링크가 저장되었습니다.\n\n피드를 공유해보세요!");
       },
       (error) => {
         console.error("Failed to copy text: ", error);
       }
     );
   };
+
+  // const handleReportIconClick = () => {
+  //   return <DropDown name={"게시글"} option={"신고"} />;
+  // };
 
   return (
     <div className="mt-2 w-full max-w-[640px] rounded-sm">
@@ -123,7 +131,10 @@ const Feed: React.FC<FeedData> = ({ feed, restaurant, isFollowed, isLiked }) => 
         {/* <Button variant={"primary"} size={"w-30 h-9"} onClick={handleButtonClick}>
           {Follow ? "팔로잉" : "팔로우"}
         </Button> */}
-        <BsThreeDotsVertical className="cursor-pointer ml-2" />
+        <DropDown name={"게시글"} option={"신고"} id={feed.feedId}/>
+        {/* <button onClick={handleReportIconClick}>
+          <BsThreeDotsVertical className="cursor-pointer ml-2" />
+        </button> */}
       </div>
       {/* image */}
       <ImageSlide images={feed.feedImages} />

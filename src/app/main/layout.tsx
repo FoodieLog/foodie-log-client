@@ -4,6 +4,7 @@ import Bottombar from "../../components/Main/Bottombar";
 import Script from "next/script";
 import AuthCheck from "@/src/components/Auth/AuthCheck";
 import Providers from "../../utils/Providers";
+import { Toaster } from "@/components/ui/toaster";
 
 const NEXT_PUBLIC_KAKAO_MAP_API_KEY = process.env.NEXT_PUBLIC_KAKAO_MAP_API_KEY;
 
@@ -21,6 +22,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
       />
 
       <div className="flex min-h-screen mx-auto">
+        <Toaster />
         <LeftSidebar />
         <div className="flex flex-col flex-1 items-center justify-center overflow-hidden">
           <div className="flex flex-col items-center w-full h-full overflow-y-auto">

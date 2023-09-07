@@ -11,6 +11,7 @@ import { getTimeDiff } from "@/src/utils/date";
 import { APIReplyListResponse, getReplyList, saveReply, deleteReply, reportReply } from "@/src/services/apiFeed";
 import dayjs from "dayjs";
 import Link from "next/link";
+import DropDown from '../Common/Menu/DropDown';
 
 interface ReplyListProps {
   id: string;
@@ -56,6 +57,7 @@ const Reply: React.FC<ReplyListProps> = ({ id: feedId }) => {
     try {
       await deleteReply(replyId);
       setReplies((prevReplies) => prevReplies.filter((reply) => reply.id !== replyId));
+      
     } catch (error) {
       console.error("Failed to delete the reply", error);
     }
@@ -116,7 +118,7 @@ const Reply: React.FC<ReplyListProps> = ({ id: feedId }) => {
         {replies.map((reply) => {
           const timeDifference = getTimeDiff(dayjs(reply.createdAt));
           return (
-            <div key={reply.id} className="flex items-center justify-between mb-4">
+            <div key={reply.id} className="flex items-center justify-between mb-4  hover:bg-slate-100">
               <div className="flex items-center">
                 <Link href={`/main/${reply.id}`} className="flex w-12 h-12 flex-shrink-0">
                   {reply.profileImageUrl ? (
@@ -174,7 +176,8 @@ const Reply: React.FC<ReplyListProps> = ({ id: feedId }) => {
                   className="text-xl ml-3 mr-4 cursor-pointer"
                   onClick={() => handleDeleteReply(reply.id)}
                 />
-                <BsThreeDotsVertical className="text-xl mr-2" />
+                <DropDown name={"댓글"} option={"신고"} id={reply.id}/>
+                {/* <BsThreeDotsVertical className="text-xl mr-2" /> */}
               </div>
             </div>
           );
