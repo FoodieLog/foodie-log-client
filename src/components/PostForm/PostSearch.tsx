@@ -51,9 +51,9 @@ function PostSearch() {
     return <PostContent />;
   }
   return (
-    <section className="flex flex-col items-center justify-center w-full ">
+    <section className="w-full sm:max-w-[640px]">
       <Header title="식당 검색" type="arrow" back="prePage" />
-      <div className="mt-3 w-9/12 max-sm:w-full mx-3">
+      <div className="mt-3  mx-3">
         <form onSubmit={onSubmit} className="relative px-3">
           <input
             type="text"

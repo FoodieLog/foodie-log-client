@@ -59,7 +59,7 @@ function MyMap({ userId }: { userId: number }) {
   // }
 
   return (
-    <>
+    <section className="w-full sm:max-w-[640px]">
       <Header title="나의 맛집 리스트" type="arrow" back="prePage" />
       <MyListMap mapData={mapData} />
       <div>
@@ -67,7 +67,7 @@ function MyMap({ userId }: { userId: number }) {
           <MyShopItem key={data.restaurant.id} item={data} />
         ))}
       </div>
-    </>
+    </section>
   );
 }
 
