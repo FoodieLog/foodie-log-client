@@ -11,6 +11,7 @@ import { getTimeDiff } from "@/src/utils/date";
 import { APIReplyListResponse, getReplyList, saveReply, deleteReply, reportReply } from "@/src/services/apiFeed";
 import dayjs from "dayjs";
 import Link from "next/link";
+import DropDown from '../Menu/DropDown';
 
 interface ReplyListProps {
   id: string;
@@ -174,7 +175,8 @@ const Reply: React.FC<ReplyListProps> = ({ id: feedId }) => {
                   className="text-xl ml-3 mr-4 cursor-pointer"
                   onClick={() => handleDeleteReply(reply.id)}
                 />
-                <BsThreeDotsVertical className="text-xl mr-2" />
+                <DropDown name={"댓글"} option={"신고"} id={reply.id}/>
+                {/* <BsThreeDotsVertical className="text-xl mr-2" /> */}
               </div>
             </div>
           );
