@@ -1,4 +1,4 @@
-import BackButtonMain from "@/src/components/Button/BackButtonMain";
+import BackButtonMain from "@/src/components/Common/Button/BackButtonMain";
 import SearchUser from "@/src/components/SearhUser/SearhUser";
 import React from "react";
 const Search = () => {

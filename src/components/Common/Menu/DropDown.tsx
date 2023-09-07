@@ -6,7 +6,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "../../../components/ui/dropdown-menu";
+} from "../../../../components/ui/dropdown-menu";
 import { PiDotsThreeOutlineLight } from "react-icons/pi";
 import { useRouter } from "next/navigation";
 

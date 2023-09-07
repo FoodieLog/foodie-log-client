@@ -1,5 +1,5 @@
-import BackButtonMain from '@/src/components/Button/BackButtonMain';
-import Feeds from '@/src/components/Feed/Feeds';
+import BackButtonMain from "@/src/components/Common/Button/BackButtonMain";
+import Feeds from "@/src/components/Feed/Feeds";
 
 interface userFeedListProps {
   params: {
@@ -8,13 +8,13 @@ interface userFeedListProps {
 }
 
 const userFeedList = ({ params: { id } }: userFeedListProps) => {
-  const userId = id
+  const userId = id;
   return (
     <div className='w-full max-w-6xl mx-auto'>
       <BackButtonMain />
       <Feeds id={userId} />
     </div>
-  )
-}
+  );
+};
 
-export default userFeedList
+export default userFeedList;

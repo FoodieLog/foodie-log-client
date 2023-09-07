@@ -6,6 +6,7 @@ import { postFeed } from "../../services/post";
 import { useUserStore } from "../../store/useUserStore";
 import MyListMap from "../../components/Map/MyListMap";
 import MyShopItem from "./MyShopItem";
+import Header from "../Common/Header";
 
 interface MapItem {
   isLiked: {
@@ -59,6 +60,7 @@ function MyMap({ userId }: { userId: number }) {
 
   return (
     <>
+      <Header title="나의 맛집 리스트" type="arrow" back="prePage" />
       <MyListMap mapData={mapData} />
       <div>
         {mapData.map((data: MapItem) => (

@@ -3,11 +3,12 @@ import { postFeed } from "@/src/services/post";
 import { usePostStore } from "@/src/store/usePostStore";
 import { LiaAngleLeftSolid } from "react-icons/lia";
 import { useRouter } from "next/navigation";
-import Button from "@/src/components/Button";
+import Button from "@/src/components/Common/Button";
 import ShopListItem from "./PostShopItem";
 import useSignUpStore from "@/src/store/useSignUpStore";
 import PostSearch from "./PostSearch";
 import ImageSlide from "../Feed/ImageSlide";
+import Header from "../Common/Header";
 
 function PostContent() {
   const [isChecked, setIsChecked] = useState(false);
@@ -72,10 +73,7 @@ function PostContent() {
 
   return (
     <section>
-      <div className="mb-5 relative w-full flex items-center justify-center">
-        <LiaAngleLeftSolid size="1.5rem" className="absolute left-2" />
-        <strong className="text-lg">게시글 등록</strong>
-      </div>
+      <Header title="게시글 등록" type="arrow" back="preComponent" />
       <div>
         <ImageSlide images={images} />
         <ShopListItem type="selected" item={content}></ShopListItem>

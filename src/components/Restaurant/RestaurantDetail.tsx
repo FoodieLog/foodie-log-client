@@ -1,7 +1,7 @@
 "use client";
 import { useRouter, usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import BackButtonMain from "../Button/BackButtonMain";
+import BackButtonMain from "../Common/Button/BackButtonMain";
 import KakaoMap from "../Map/KakaoMap";
 import ShopCard from "./ShopCard";
 import Feeds from "../Feed/Feeds";

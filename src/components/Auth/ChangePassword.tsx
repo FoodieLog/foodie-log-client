@@ -5,8 +5,8 @@ import { resetPassword } from "@/src/services/auth";
 import { ChangePassword } from "@/src/types/apiTypes";
 import { passwordValidation } from "@/src/constants";
 import { useRouter } from "next/navigation";
-import Button from "@/src/components/Button";
-
+import Button from "@/src/components/Common/Button";
+import AuthHeader from "../Common/Header/Auth";
 function ChangePassword({ email }: ChangePassword) {
   const router = useRouter();
   const {
@@ -30,6 +30,7 @@ function ChangePassword({ email }: ChangePassword) {
 
   return (
     <section className="auth">
+      <AuthHeader />
       <div className="title">
         <h2>비밀번호 재설정</h2>
         <form onSubmit={handleSubmit(onSubmit)} className="w-full flex flex-col  gap-4 mt-10">

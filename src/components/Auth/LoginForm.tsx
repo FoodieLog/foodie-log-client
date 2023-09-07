@@ -5,9 +5,9 @@ import { useUserStore } from "@/src/store/useUserStore";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Image from "next/image";
-import Button from "@/src/components/Button";
+import Button from "@/src/components/Common/Button";
 import kakao from "@/public/images/kakao_login_medium_wide.png";
-import Line from "../Line";
+import Line from "../Common/Line";
 import Link from "next/link";
 // import { initializePushNotifications } from "../Notification/PushNotification";
 

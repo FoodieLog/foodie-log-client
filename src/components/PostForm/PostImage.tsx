@@ -1,11 +1,12 @@
 "use client";
 import React, { useRef, useState } from "react";
-import { LiaAngleLeftSolid } from "react-icons/lia";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import Image from "next/image";
 import { usePostStore } from "@/src/store/usePostStore";
-import Button from "../Button";
+import Button from "../Common/Button";
 import useSignUpStore from "@/src/store/useSignUpStore";
+import Header from "../Common/Header";
+import onClickPreComponent from "@/src/hooks/useOnClickBack";
 
 function PostImage() {
   const [previews, setPreviewImage] = useState<string[]>([]);
@@ -68,11 +69,8 @@ function PostImage() {
 
   return (
     <section className="flex flex-col items-center">
-      <div className="sm:w-[600px] max-sm:w-9/12">
-        <div className="relative w-full flex items-center justify-center">
-          <LiaAngleLeftSolid size="1.5rem" className="absolute left-2" />
-          <strong className="text-lg">사진 선택</strong>
-        </div>
+      <div className="">
+        <Header title="이미지 선택" type="arrow" back="preComponent" />
         <button type="button" onClick={pickImageHandler} className="">
           사진 추가
         </button>
