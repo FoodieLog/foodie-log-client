@@ -27,18 +27,17 @@ function PostShopItem({ type, item }: ShopProps) {
 
   const onClickhandler = (e: React.MouseEvent) => {
     e.preventDefault();
-    setNextComponent("PostImage");
-    setContent({ ...content, ...item });
+    if (type === "search") {
+      setNextComponent("PostImage");
+      setContent({ ...content, ...item });
+    }
   };
 
   return (
     <div
       onClick={onClickhandler}
-      className="flex items-center gap-5 px-5 py-3 mt-5 border hover:bg-gray-300 cursor-pointer"
+      className="flex items-center justify-between gap-5 px-5 py-3 mt-5 border hover:bg-gray-300 cursor-pointer"
     >
-      <div className="w-[40px] h-[40px] border border-gray-400 rounded-full overflow-hidden cursor-pointer">
-        {/* <Image src={"#"} alt="식당 썸네일" width={40} height={40} /> */}
-      </div>
       <div>
         <div key={item.id}>
           <strong>{item.place_name}</strong>

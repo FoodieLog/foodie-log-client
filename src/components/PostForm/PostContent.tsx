@@ -51,6 +51,7 @@ function PostContent() {
       console.log("피드 등록 실패", err);
     }
   };
+
   const onChangeText = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setText(e.target.value);
   };
@@ -72,7 +73,7 @@ function PostContent() {
   }
 
   return (
-    <section>
+    <section className="w-full sm:max-w-[640px]">
       <Header title="게시글 등록" type="arrow" back="preComponent" />
       <div>
         <ImageSlide images={images} />

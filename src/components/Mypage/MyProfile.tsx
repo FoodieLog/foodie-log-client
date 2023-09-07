@@ -88,9 +88,9 @@ function MyPageForm({ userId, option }: { userId: number; option: string }) {
   }
 
   return (
-    <section className="max-sm:w-full sm:w-6/12 max-sm:text-sm p-3">
+    <section className="w-full sm:max-w-[640px]">
       <Header title="My Log" type="arrow" back="prePage" />
-      <main>
+      <main className="px-3">
         <header className="mx-3 my-5 flex items-center max-sm:justify-around sm:justify-center sm:gap-10">
           <div className=" w-[70px] h-[70px] border border-gray-400 rounded-full overflow-hidden cursor-pointer">
             <Image
