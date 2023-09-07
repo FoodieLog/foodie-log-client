@@ -68,35 +68,40 @@ function PostImage() {
   };
 
   return (
-    <section className="flex flex-col items-center">
-      <div className="">
-        <Header title="이미지 선택" type="arrow" back="preComponent" />
-        <button type="button" onClick={pickImageHandler} className="">
+    <section className="w-full sm:max-w-[640px]">
+      <Header title="이미지 선택" type="arrow" back="preComponent" />
+      <div className="mx-3">
+        <button
+          type="button"
+          onClick={pickImageHandler}
+          className="text-gray-900 bg-white hover:bg-gray-100 border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-600 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 mr-2 mb-2"
+        >
           사진 추가
         </button>
-        <ul className="grid grid-cols-3">
-          {!previews.length ? (
-            <p className="text-center">
-              이미지를 선택하세요!
-              <br />
-              (최대 3장 가능)
-            </p>
-          ) : (
-            <>
-              {previews?.map((preview, index) => (
-                <li className="relative" key={index}>
-                  <div>
-                    <Image src={preview} width={200} height={200} alt={`사진${index}`} />
-                  </div>
-                  <AiOutlineCloseCircle
-                    className="absolute top-3 right-3"
-                    onClick={(e: React.MouseEvent) => deleteImagehandler(e, index)}
-                  />
-                </li>
-              ))}
-            </>
-          )}
-        </ul>
+        {!previews.length ? (
+          <p className="text-center">
+            이미지를 선택하세요!
+            <br />
+            (최대 3장 가능)
+          </p>
+        ) : (
+          <ul className="w-full grid grid-cols-3 gap-3">
+            {previews?.map((preview, i) => (
+              <li
+                key={i}
+                className="w-full h-full relative after:content-[''] after:block after:pb-[100%]  overflow-hidden"
+              >
+                <div className="w-full h-full absolute flex items-center justify-center">
+                  <Image width={200} height={200} src={preview} alt={`이미지${i}`} className="object-contain" />
+                </div>
+                <div onClick={(e: React.MouseEvent) => deleteImagehandler(e, i)}>
+                  <AiOutlineCloseCircle className="absolute top-3 right-3" />
+                </div>
+              </li>
+            ))}
+          </ul>
+        )}
+
         <input
           multiple
           type="file"
@@ -105,10 +110,12 @@ function PostImage() {
           hidden
           accept="image/*,audio/*,video/mp4,video/x-m4v,application/pdf,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation,.csv"
         />
+        <div className="mt-10">
+          <Button type="button" variant="primary" onClick={onNextCilck}>
+            선택 완료
+          </Button>
+        </div>
       </div>
-      <Button type="button" variant="primary" onClick={onNextCilck}>
-        선택 완료
-      </Button>
     </section>
   );
 }
