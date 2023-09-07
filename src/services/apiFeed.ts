@@ -53,7 +53,7 @@ export type APIUserSearchResponse = {
 export type APIReplyListResponse = {
   status: number;
   response: {
-    userId : number;
+    userId: number;
     nickName: string;
     profileImageUrl: string | null;
     content: string;
@@ -126,16 +126,15 @@ export const makeFeedFetchRequest = async <T>(
       body: body ? JSON.stringify(body) : null,
     });
 
+    const responseData = await response.json();
+
     if (!response.ok) {
-      throw new Error("API request failed");
+      console.error(responseData.error.message); // <--- 이 부분
+      throw new Error(responseData.error.message);
     }
-
-    // return await response.json();
-
-    const responseText = await response.text();
-
+       
     // 응답 본문이 없는 경우, default 값을 반환합니다.
-    if (!responseText) {
+    if (!responseData) {
       return {
         status: 200,
         response: {
@@ -145,7 +144,7 @@ export const makeFeedFetchRequest = async <T>(
       } as unknown as T;
     }
 
-    return JSON.parse(responseText);
+    return responseData;
   } catch (error) {
     console.error(error);
     throw error;
@@ -197,6 +196,10 @@ export const saveReply = async (feedId: number, content: string): Promise<APIRep
 
 export const deleteReply = (feedId: number): Promise<any> => {
   return makeFeedFetchRequest(`/reply/${feedId}`, "DELETE");
+};
+
+export const reportFeed = (feedId: number, reportReason: string): Promise<any> => {
+  return makeFeedFetchRequest(`/feed/report`, "POST", { feedId, reportReason });
 };
 
 export const reportReply = (replyId: number, reportReason: string): Promise<any> => {
