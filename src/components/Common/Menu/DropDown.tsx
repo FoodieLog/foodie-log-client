@@ -10,7 +10,7 @@ import {
 import { PiDotsThreeOutlineLight } from "react-icons/pi";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { useRouter } from "next/navigation";
-import DialogReport from "../Dialog/DialogReport";
+import DialogReport from "../../Dialog/DialogReport";
 
 interface MenuProps {
   name: string;

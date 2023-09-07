@@ -15,7 +15,7 @@ import Button from "../Common/Button";
 import ShopCard from "../Restaurant/ShopCard";
 import { followUser, likeFeed, unfollowUser, unlikeFeed } from "@/src/services/apiFeed";
 import { useToast } from "@/components/ui/use-toast";
-import DropDown from '../Menu/DropDown';
+import DropDown from '../Common/Menu/DropDown';
 
 const Feed: React.FC<FeedData> = ({ feed, restaurant, isFollowed, isLiked }) => {
   const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
