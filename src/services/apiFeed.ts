@@ -126,22 +126,28 @@ export const makeFeedFetchRequest = async <T>(
       body: body ? JSON.stringify(body) : null,
     });
 
-    const responseData = await response.json();
-
-    if (!response.ok) {
-      console.error(responseData.error.message); // <--- 이 부분
-      throw new Error(responseData.error.message);
-    }
-       
-    // 응답 본문이 없는 경우, default 값을 반환합니다.
-    if (!responseData) {
+    // 204 No Content 응답 처리
+    if (response.status === 204) {
       return {
-        status: 200,
+        status: 204,
         response: {
           content: [],
         },
         error: null,
       } as unknown as T;
+    }
+
+    let responseData;
+    try {
+      responseData = await response.json();
+    } catch (error) {
+      console.error("Failed to parse response body:", error);
+      throw error;
+    }
+
+    if (!response.ok) {
+      console.error(responseData.error.message); 
+      throw new Error(responseData.error.message);
     }
 
     return responseData;
@@ -171,19 +177,19 @@ export const getFeedShared = (feedId: number): Promise<GetFeedSharedResponse> =>
 };
 
 export const likeFeed = async (feedId: number): Promise<APIFeedResponse> => {
-  return await makeFeedFetchRequest("/feed/like", "POST", { feedId });
+  return makeFeedFetchRequest("/feed/like", "POST", { feedId });
 };
 
 export const unlikeFeed = async (feedId: number): Promise<APIFeedResponse> => {
-  return await makeFeedFetchRequest(`/feed/unlike?feedId=${feedId}`, "DELETE");
+  return makeFeedFetchRequest(`/feed/unlike?feedId=${feedId}`, "DELETE");
 };
 
 export const followUser = async (userId: number): Promise<APIFeedResponse> => {
-  return await makeFeedFetchRequest(`/user/follow?followedId=${userId}`, "POST");
+  return makeFeedFetchRequest(`/user/follow?followedId=${userId}`, "POST");
 };
 
 export const unfollowUser = async (userId: number): Promise<APIFeedResponse> => {
-  return await makeFeedFetchRequest(`/user/unfollow?followedId=${userId}`, "DELETE");
+  return makeFeedFetchRequest(`/user/unfollow?followedId=${userId}`, "DELETE");
 };
 
 export const getReplyList = async (feedId: number, replyId: number = 0): Promise<APIReplyListResponse> => {
@@ -207,5 +213,5 @@ export const reportReply = (replyId: number, reportReason: string): Promise<any>
 };
 
 export const searchUser = async (keyword: string): Promise<APIUserSearchResponse> => {
-  return await makeFeedFetchRequest(`/user/search?keyword=${keyword}`);
+  return makeFeedFetchRequest(`/user/search?keyword=${keyword}`);
 };
