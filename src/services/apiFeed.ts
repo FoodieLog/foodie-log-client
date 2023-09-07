@@ -111,7 +111,7 @@ export type FeedShared = {
 
 export const makeFeedFetchRequest = async <T>(
   endpoint: string,
-  method: "GET" | "POST" | "PUT" | "DELETE" = "GET",
+  method: "GET" | "POST" | "PUT" | "DELETE" | "PATCH" = "GET",
   body?: any
 ): Promise<T> => {
   const accessToken = useUserStore.getState().user.accessToken;
@@ -214,4 +214,8 @@ export const reportReply = (replyId: number, reportReason: string): Promise<any>
 
 export const searchUser = async (keyword: string): Promise<APIUserSearchResponse> => {
   return makeFeedFetchRequest(`/user/search?keyword=${keyword}`);
+};
+
+export const updateFeed = async (feedId: number, content: string): Promise<APIReplyPostResponse> => {
+  return makeFeedFetchRequest(`/api/feed/update`, "PATCH", { content, feedId });
 };

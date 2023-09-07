@@ -8,9 +8,7 @@ import {
   DropdownMenuTrigger,
 } from "../../../../components/ui/dropdown-menu";
 import { PiDotsThreeOutlineLight } from "react-icons/pi";
-import { BsThreeDotsVertical } from "react-icons/bs";
 import { useRouter } from "next/navigation";
-import DialogReport from "../../Dialog/DialogReport";
 
 interface MenuProps {
   name: string;
@@ -18,43 +16,63 @@ interface MenuProps {
   id?: number;
 }
 
-function DropDown({ name, option, id = 0 }: MenuProps) {
+function DropDown({ name, option }: MenuProps) {
+  const setNextComponent = useSignUpStore((state) => state.setNextComponent);
   const router = useRouter();
   const [showReportDialog, setShowReportDialog] = useState(false);
 
-  const onClickHandler = () => {
-    if ((name === "게시글" || name === "댓글") && option === "신고") {
-      setShowReportDialog(true);
-      return;
-    } else if (option === "설정 및 개인정보") {
-      router.push("/main/settings");
-      return;
-    } else if (option === "신고") {
-    }
+  let items: string[];
+  let onClickHandler: React.MouseEventHandler<HTMLDivElement> | undefined;
+
+  switch (option) {
+    case "설정 및 개인정보":
+      items = ["설정 및 개인정보"];
+      onClickHandler = () => {
+        router.push("/main/settings");
+        return;
+      };
+      break;
+    case "타인":
+      items = ["신고"];
+      onClickHandler = () => {
+        alert("신고 api 가 없습니다!");
+      };
+      break;
+    case "본인":
+      items = ["수정", "삭제"];
+      break;
+    default:
+      items = [];
+  }
+
+  const onClickEdit = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    setNextComponent("EditModal");
+  };
+
+  const onClickDelete = () => {
+    alert("삭제");
   };
 
   return (
-    <>
-      <DropdownMenu>
-        <DropdownMenuTrigger>
-          {option === "설정 및 개인정보" ? (
-            <PiDotsThreeOutlineLight size="1.2rem" />
-          ) : (
-            <BsThreeDotsVertical size="1.2rem" />
-          )}
-        </DropdownMenuTrigger>
-        <DropdownMenuContent className="absoluteright-3 bg-white">
-          <DropdownMenuLabel>{name}</DropdownMenuLabel>
-          <DropdownMenuSeparator className="bg-gray-100" />
-          <DropdownMenuItem onClick={onClickHandler} className="cursor-pointer">
-            {option}
+    <DropdownMenu>
+      <DropdownMenuTrigger>
+        <BsThreeDotsVertical size="1rem" />
+      </DropdownMenuTrigger>
+      <DropdownMenuContent className="absoluteright-3 bg-white">
+        <DropdownMenuLabel>{name}</DropdownMenuLabel>
+        <DropdownMenuSeparator className="bg-gray-100" />
+        {items?.map((item, i) => (
+          <DropdownMenuItem
+            key={i}
+            onClick={onClickHandler ? onClickHandler : i === 0 ? onClickEdit : onClickDelete}
+            className="cursor-pointer"
+          >
+            {item}
           </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
-      {showReportDialog && (
-        <DialogReport id={id} name={name} option={option} isOpened={true} onClose={() => setShowReportDialog(false)} />
-      )}
-    </>
+        ))}
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }
 

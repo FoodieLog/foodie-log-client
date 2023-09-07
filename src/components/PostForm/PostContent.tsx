@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { postFeed } from "@/src/services/post";
-import { usePostStore } from "@/src/store/usePostStore";
+import usePostStore from "@/src/store/usePostStore";
 import { LiaAngleLeftSolid } from "react-icons/lia";
 import { useRouter } from "next/navigation";
 import Button from "@/src/components/Common/Button";
@@ -15,6 +15,7 @@ function PostContent() {
   const [text, setText] = useState("");
   const { content, files, previews } = usePostStore();
   const nextComponent = useSignUpStore((state) => state.nextComponent);
+  const setNextComponent = useSignUpStore((state) => state.setNextComponent);
 
   const router = useRouter();
 
@@ -47,6 +48,7 @@ function PostContent() {
       const res = await postFeed(formData);
       router.replace("/main/home");
       console.log("피드 등록 성공", res);
+      setNextComponent("");
     } catch (err) {
       console.log("피드 등록 실패", err);
     }
@@ -73,9 +75,9 @@ function PostContent() {
   }
 
   return (
-    <section className="w-full sm:max-w-[640px]">
+    <section className="w-full sm:max-w-[640px] ">
       <Header title="게시글 등록" type="arrow" back="preComponent" />
-      <div>
+      <div className="px-3">
         <ImageSlide images={images} />
         <ShopListItem type="selected" item={content}></ShopListItem>
         <div className="my-5 ml-3 flex items-center gap-x-3 text-lg">
@@ -87,11 +89,11 @@ function PostContent() {
           className="w-full h-[130px] p-3 border rounded-lg border-gray-400 resize-none focus:outline-none"
           placeholder="문구 입력"
         />
-      </div>
-      <div className="mt-5">
-        <Button type="button" variant="primary" onClick={onClickHandler}>
-          게시글 등록
-        </Button>
+        <div className="mt-5">
+          <Button type="button" variant="primary" onClick={onClickHandler}>
+            게시글 등록
+          </Button>
+        </div>
       </div>
     </section>
   );

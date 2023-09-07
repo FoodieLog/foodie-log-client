@@ -21,7 +21,7 @@ interface PostData {
   y: string;
 }
 
-export const usePostStore = create<PostStore>((set) => ({
+const usePostStore = create<PostStore>((set) => ({
   content: {
     id: "",
     place_name: "",
@@ -39,3 +39,5 @@ export const usePostStore = create<PostStore>((set) => ({
   setFiles: (selectedFiles) => set({ files: selectedFiles }),
   setPreviews: (selectedPreviews) => set({ previews: selectedPreviews }),
 }));
+
+export default usePostStore;

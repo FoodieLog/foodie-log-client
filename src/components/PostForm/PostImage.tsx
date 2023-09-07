@@ -2,7 +2,7 @@
 import React, { useRef, useState } from "react";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import Image from "next/image";
-import { usePostStore } from "@/src/store/usePostStore";
+import usePostStore from "@/src/store/usePostStore";
 import Button from "../Common/Button";
 import useSignUpStore from "@/src/store/useSignUpStore";
 import Header from "../Common/Header";

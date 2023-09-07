@@ -146,7 +146,7 @@ function MyPageForm({ userId, option }: { userId: number; option: string }) {
                 className="w-full h-full relative after:content-[''] after:block after:pb-[100%]  overflow-hidden"
               >
                 <Link href={`/main/feed/${userId}`} className="w-full h-full absolute flex items-center justify-center">
-                  <Image width={70} height={70} src={thumbnail?.thumbnailUrl} alt={`썸네일${thumbnail.id}`} />
+                  <Image width={200} height={200} src={thumbnail?.thumbnailUrl} alt={`썸네일${thumbnail.id}`} />
                 </Link>
               </li>
             ))}
