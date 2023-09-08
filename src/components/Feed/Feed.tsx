@@ -9,7 +9,6 @@ import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { FaRegCommentDots } from "react-icons/fa";
 import { FiShare2 } from "react-icons/fi";
-import { PiUserCircleBold } from "react-icons/pi";
 import { getIcon } from "../../utils/iconUtils";
 import Button from "../Common/Button";
 import ShopCard from "../Restaurant/ShopCard";
@@ -23,6 +22,7 @@ import { useToast } from "@/components/ui/use-toast";
 const Feed: React.FC<FeedData> = ({ feed, restaurant, isFollowed, isLiked }) => {
   const [showModal, setShowModal] = useState(false);
   const [likeCount, setLikeCount] = useState<number>(feed.likeCount);
+  const [expandedFeed, setExpandedFeed] = useState(false);
   const [Follow, setFollow] = useState<boolean>(isFollowed);
   const [Like, setLike] = useState<boolean>(isLiked);
   const timeDifference = getTimeDiff(dayjs(feed.createdAt));
@@ -128,17 +128,21 @@ const Feed: React.FC<FeedData> = ({ feed, restaurant, isFollowed, isLiked }) => 
           <p className="text-sm">{timeDifference}</p>
         </div>
         {/* isFollowed 가 true 면 버튼 label이 "팔로잉", 아니면 "팔로우" */}
-        <button
-          className="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2.5 mr-3 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
-          onClick={handleFollowButtonClick}
-        >
-          {Follow ? "팔로잉" : "팔로우"}
-        </button>
-        {/* <Button variant={"primary"} size={"w-30 h-9"} onClick={handleButtonClick}>
-          {Follow ? "팔로잉" : "팔로우"}
-        </Button> */}
+        {nickName !== feed.nickName ? (
+          <button
+            className="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2.5 mr-3 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
+            onClick={handleFollowButtonClick}
+          >
+            {Follow ? "팔로잉" : "팔로우"}
+          </button>
+        ) : null}
         <div>
-          <DropDown name={feed.nickName} option={feed.nickName === nickName ? "본인" : "타인"} />
+          <DropDown
+            name={feed.nickName}
+            option={feed.nickName === nickName ? "본인" : "타인"}
+            id={feed.feedId}
+            type={"게시글"}
+          />
           {nextComponent === "EditModal" ? <FeedModal feedId={feed.feedId} preContent={feed.content} /> : null}
         </div>
       </div>
@@ -152,7 +156,26 @@ const Feed: React.FC<FeedData> = ({ feed, restaurant, isFollowed, isLiked }) => 
         roadAddress={restaurant.roadAddress}
       />
       {/* content */}
-      <p className="p-3">{feed.content}</p>
+      <div className="">
+        {feed.content.length > 90 && !expandedFeed ? (
+          <>
+            {feed.content.substring(0, 90) + "... "}
+            <button className="text-blue-500" onClick={() => setExpandedFeed(true)}>
+              더보기
+            </button>
+          </>
+        ) : (
+          <>
+            <p className="">{feed.content}</p>
+            {expandedFeed && (
+              <button className="text-blue-500" onClick={() => setExpandedFeed(false)}>
+                접기
+              </button>
+            )}
+          </>
+        )}
+      </div>
+
       <div className="flex flex-between gap-2 items-center text-[18px] p-3">
         <button className="text-[24px]" onClick={handleLikeClick}>
           {Like ? <AiFillHeart /> : <AiOutlineHeart />}
