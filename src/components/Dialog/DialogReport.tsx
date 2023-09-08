@@ -15,7 +15,7 @@ import { reportFeed, reportReply } from "@/src/services/apiFeed";
 interface DialogReportProps {
   id: number;
   name: string;
-  option: string;
+  type : string;
   isOpened: boolean;
   onClose: () => void;
 }
@@ -37,7 +37,7 @@ const translateReportReason = (reason: string): string => {
   }
 };
 
-const DialogReport = ({ id, name, option, isOpened = false, onClose }: DialogReportProps) => {
+const DialogReport = ({ id, name, type, isOpened = false, onClose }: DialogReportProps) => {
   const [isDialogOpen, setIsDialogOpen] = useState(isOpened);
   const [reason, setReason] = useState<string | undefined>(undefined);
   const [details, setDetails] = useState("");
@@ -55,10 +55,10 @@ const DialogReport = ({ id, name, option, isOpened = false, onClose }: DialogRep
 
       const translatedReason = translateReportReason(reason);
       const combinedReportReason = `${translatedReason}${details ? "," + details : ""}`;
-      console.log(id,name,option,combinedReportReason)
-      if (name === "게시글" && option === "신고") {
+      console.log(id,name,combinedReportReason)
+      if (type === "게시글") {
         await reportFeed(id, combinedReportReason);
-      } else if (name === "댓글" && option === "신고") {
+      } else if (type === "댓글") {
         await reportReply(id, combinedReportReason);
       }
 
@@ -82,7 +82,7 @@ const DialogReport = ({ id, name, option, isOpened = false, onClose }: DialogRep
     >
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>{name} 신고</DialogTitle>
+          <DialogTitle>{type} 신고</DialogTitle>
           <DialogDescription>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
