@@ -3,44 +3,29 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { BiPhotoAlbum } from "react-icons/bi";
 import { CgFlagAlt } from "react-icons/cg";
-import { useUserStore } from "../../store/useUserStore";
 import { getThumbnails } from "../../services/mypage";
 import { getMyProfile } from "@/src/services/mypage";
+import { ThumbnailState, myProfileState } from "../../types/mypage";
 import Link from "next/link";
 import Button from "../Common/Button";
 import useSignUpStore from "@/src/store/useSignUpStore";
 import MyProfileSettings from "./MyProfileSettings";
 import DropDown from "../Common/Menu/DropDown";
 import Header from "../Common/Header";
-
 import Image from "next/image";
-
-interface Thumbnail {
-  id: number;
-  thumbnailUrl: string;
-}
-
-interface myProfile {
-  aboutMe: string;
-  feedCount: number;
-  follower: number;
-  following: number;
-  profileImageUrl: string;
-  userId: number;
-}
 
 function MyPageForm({ userId, option }: { userId: number; option: string }) {
   const [isClient, setIsClient] = useState(false);
-  const [thumbnails, setThumbnails] = useState<Thumbnail[]>([]);
-  const [myProfile, setMyProfile] = useState<myProfile>({
+  const [thumbnails, setThumbnails] = useState<ThumbnailState[]>([]);
+  const [myProfile, setMyProfile] = useState<myProfileState>({
     aboutMe: "",
+    nickName: "",
     feedCount: 0,
     follower: 0,
     following: 0,
     profileImageUrl: "/images/userImage.png",
     userId: 0,
   });
-  const user = useUserStore((state) => state.user);
   const nextComponent = useSignUpStore((state) => state.nextComponent);
   const setNextComponent = useSignUpStore((state) => state.setNextComponent);
 
@@ -89,7 +74,7 @@ function MyPageForm({ userId, option }: { userId: number; option: string }) {
 
   return (
     <section className="w-full sm:max-w-[640px]">
-      <Header title="My Log" type="arrow" back="prePage" />
+      <Header title="Foodie Log" type="arrow" back="prePage" />
       <main className="px-3">
         <header className="mx-3 my-5 flex items-center max-sm:justify-around sm:justify-center sm:gap-10">
           <div className=" w-[70px] h-[70px] border border-gray-400 rounded-full overflow-hidden cursor-pointer">
@@ -103,8 +88,8 @@ function MyPageForm({ userId, option }: { userId: number; option: string }) {
           </div>
           <div>
             <div className="flex justify-between">
-              <p>{user.nickName}</p>
-              <DropDown name={user.nickName || "defaultName"} option={option} />
+              <p>{myProfile.nickName}</p>
+              <DropDown name={myProfile.nickName} option={option} />
             </div>
             <ul className="flex gap-x-2 mt-1">
               <li className=" flex flex-col items-center justify-center">
