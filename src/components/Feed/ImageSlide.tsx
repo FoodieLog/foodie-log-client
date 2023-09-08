@@ -11,7 +11,7 @@ const ImageSlide: React.FC<ImageSlideProps> = ({ images }) => {
   const slideRef = useRef(null); // 슬라이드 div 참조
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
-  const DISTANCE_TOUCH = 50;
+  const DISTANCE_TOUCH = 30;
   const prevSlide = () => {
     const isFirstSlide = currentIndex === 0;
     const newIndex = isFirstSlide ? images.length - 1 : currentIndex - 1;
