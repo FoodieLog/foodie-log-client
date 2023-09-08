@@ -34,7 +34,7 @@ export const sidebarLinks = [
   {
     icon: FiMapPin,
     label: "Maps",
-    route: "/main/maps",
+    route: "/main/liked",
   },
   {
     icon: AiOutlinePlusCircle,

@@ -7,8 +7,9 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "../../../../components/ui/dropdown-menu";
-import { PiDotsThreeOutlineLight } from "react-icons/pi";
+import { BsThreeDotsVertical } from "react-icons/bs";
 import { useRouter } from "next/navigation";
+import useSignUpStore from "@/src/store/useSignUpStore";
 
 interface MenuProps {
   name: string;

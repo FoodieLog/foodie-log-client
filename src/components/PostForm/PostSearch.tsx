@@ -61,7 +61,7 @@ function PostSearch() {
             value={keyWord}
             onChange={searchChangehandler}
             className="input"
-            placeholder="주소 또는 식당명을 검색해 주세요!"
+            placeholder="주소 또는 식당명을 검색"
           />
           <button type="submit" className="absolute top-0 bottom-0 right-8 my-auto">
             <AiOutlineSearch size="1.5rem" />

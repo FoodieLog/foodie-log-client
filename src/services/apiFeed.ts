@@ -146,7 +146,7 @@ export const makeFeedFetchRequest = async <T>(
     }
 
     if (!response.ok) {
-      console.error(responseData.error.message); 
+      console.error(responseData.error.message);
       throw new Error(responseData.error.message);
     }
 
@@ -217,5 +217,9 @@ export const searchUser = async (keyword: string): Promise<APIUserSearchResponse
 };
 
 export const updateFeed = async (feedId: number, content: string): Promise<APIReplyPostResponse> => {
-  return makeFeedFetchRequest(`/api/feed/update`, "PATCH", { content, feedId });
+  return makeFeedFetchRequest(`/feed/update`, "PATCH", { content, feedId });
+};
+
+export const getLikedShop = async () => {
+  return makeFeedFetchRequest(`/restaurant/map/liked`);
 };
