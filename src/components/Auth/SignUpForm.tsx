@@ -72,53 +72,69 @@ function SignUpForm() {
       </div>
       <form onSubmit={handleSubmit(onSubmit)} className="w-full flex flex-col  gap-4 mt-10">
         <div>
-          <input
-            className="input"
-            id="email"
-            type="text"
-            placeholder="이메일"
-            autoComplete="off"
-            {...register("email", emailValidation)}
-            onBlur={onBlurHandler}
-          />
+          <div className="relative">
+            <input
+              id="email"
+              type="text"
+              autoComplete="off"
+              {...register("email", emailValidation)}
+              onBlur={onBlurHandler}
+              className={`authInput border-1 peer`}
+              placeholder=" "
+            />
+            <label htmlFor="email" className={`authLabel`}>
+              이메일
+            </label>
+          </div>
           {errors?.email ? (
-            <p>{errors.email.message}</p>
+            <p className="error">{errors.email.message}</p>
           ) : availableEmail === 200 ? (
-            <p>사용 가능한 이메일입니다.</p>
+            <p className="ok">사용 가능한 이메일입니다.</p>
           ) : availableEmail === 1 ? null : (
-            <p>이미 사용하는 이메일입니다.</p>
+            <p className="error">이미 사용 중인 이메일입니다.</p>
           )}
         </div>
         <div>
-          <input
-            className="input"
-            type="password"
-            id="password"
-            placeholder="비밀번호"
-            maxLength={16}
-            autoComplete="off"
-            {...register("password", passwordValidation)}
-          />
-          {errors?.password && <p>{errors.password.message}</p>}
+          <div className="relative">
+            <input
+              className={`authInput border-1 peer`}
+              type="password"
+              id="password"
+              placeholder=""
+              maxLength={16}
+              autoComplete="off"
+              {...register("password", passwordValidation)}
+            />
+            <label htmlFor="password" className={`authLabel`}>
+              비밀번호
+            </label>
+          </div>
+
+          {errors?.password && <p className="error">{errors.password.message}</p>}
         </div>
         <div>
-          <input
-            className="input"
-            type="password"
-            id="password-check"
-            placeholder="비밀번호 확인"
-            autoComplete="off"
-            maxLength={16}
-            {...register("passwordCheck", {
-              required: "비밀번호는 필수 입력입니다.",
-              validate: {
-                value: (val: string | undefined) => {
-                  if (watch("password") !== val) return "비밀번호가 일치하지 않습니다.";
+          <div className="relative">
+            <input
+              className={`authInput border-1 peer`}
+              type="password"
+              id="password-check"
+              placeholder=""
+              autoComplete="off"
+              maxLength={16}
+              {...register("passwordCheck", {
+                required: "비밀번호는 필수 입력입니다.",
+                validate: {
+                  value: (val: string | undefined) => {
+                    if (watch("password") !== val) return "비밀번호가 일치하지 않습니다.";
+                  },
                 },
-              },
-            })}
-          />
-          {errors?.passwordCheck && <p>{errors.passwordCheck.message}</p>}
+              })}
+            />
+            <label htmlFor="password-check" className={`authLabel`}>
+              비밀번호 확인
+            </label>
+          </div>
+          {errors?.passwordCheck && <p className="error">{errors.passwordCheck.message}</p>}
         </div>
         <Button type="submit" variant="primary" disabled={isSubmitting}>
           회원가입
