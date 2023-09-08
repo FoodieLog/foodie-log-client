@@ -62,7 +62,7 @@ function MySettings() {
               <Toggle />
             </div>
           </div>
-          <div onClick={onClickBadge} className="group relative flex gap-x-6 rounded-lg p-4 hover:bg-gray-50">
+          <div onClick={onClickBadge} className="group relative flex gap-x-6 rounded-lg p-4 hover:bg-gray-50 cursor-pointer">
             <div className="mt-1 flex items-center justify-center">
               <BadgeSvg width="18" height="18" className="text-gray-600 group-hover:text-indigo-600" />
             </div>
@@ -70,7 +70,7 @@ function MySettings() {
               <div className="font-semibold text-gray-900">뱃지 신청</div>
             </div>
           </div>
-          <div onClick={onClickPassword} className="group relative flex gap-x-6 rounded-lg p-4 hover:bg-gray-50">
+          <div onClick={onClickPassword} className="group relative flex gap-x-6 rounded-lg p-4 hover:bg-gray-50 cursor-pointer">
             <div className="mt-1 flex items-center justify-center">
               <ChangeSvg width="18" height="18" className="text-gray-600 group-hover:text-indigo-600" />
             </div>
