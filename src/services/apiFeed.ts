@@ -14,6 +14,7 @@ export type APIFeedResponse = {
 
 export type Content = {
   feed: {
+    userId : number;
     nickName: string;
     profileImageUrl: string | null;
     feedId: number;

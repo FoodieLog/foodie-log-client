@@ -34,6 +34,7 @@ export interface ChangePassword {
 export type FeedData = {
   feed: {
     feedId: number;
+    userId : number;
     nickName: string;
     profileImageUrl: string | null;
     createdAt: Date | string;
