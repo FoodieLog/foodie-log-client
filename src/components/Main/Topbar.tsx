@@ -12,18 +12,18 @@ const Topbar = () => {
   return (
     // <section className="flex justify-between items-center max-w-[640px] px-4 bg-cyan-500">
     <section
-      className={`z-20 flex justify-between items-center max-w-[640px] px-4 
+      className={`z-20 flex justify-between items-center max-w-[640px] px-4 mt-2 
     ${isVisible ? "top-0" : "-top-16"} sticky transition-top duration-300`}
     >
       <div>
         <Image src={TextLogo} alt="logo" className="w-[100px] h-9/12 sm:hidden cursor-pointer" />
       </div>
-      <div className="flex gap-x-2 text-xl sm:hidden">
+      <div className="flex gap-x-2 text-3xl sm:hidden">
         <Link href="/main/search">
-          <IoIosSearch className="cursor-pointer hover:text-coral" />
+          <IoIosSearch className="cursor-pointer hover:text-coral mr-2" />
         </Link>
         <Link href="/main/notification">
-          <IoMdNotificationsOutline className="cursor-pointer hover:text-coral" />
+          <IoMdNotificationsOutline className="cursor-pointer hover:text-coral mr-2" />
         </Link>
       </div>
     </section>

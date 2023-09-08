@@ -11,11 +11,12 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { reportFeed, reportReply } from "@/src/services/apiFeed";
+import { useToast } from "@/components/ui/use-toast";
 
 interface DialogReportProps {
   id: number;
   name: string;
-  option: string;
+  type: string;
   isOpened: boolean;
   onClose: () => void;
 }
@@ -33,14 +34,15 @@ const translateReportReason = (reason: string): string => {
     case "기타":
       return "ETC";
     default:
-      return "ETC";  // 기본값, 에러 처리를 위해 ETC로 설정
+      return "ETC"; // 기본값, 에러 처리를 위해 ETC로 설정
   }
 };
 
-const DialogReport = ({ id, name, option, isOpened = false, onClose }: DialogReportProps) => {
+const DialogReport = ({ id, name, type, isOpened = false, onClose }: DialogReportProps) => {
   const [isDialogOpen, setIsDialogOpen] = useState(isOpened);
   const [reason, setReason] = useState<string | undefined>(undefined);
   const [details, setDetails] = useState("");
+  const { toast } = useToast();
 
   useEffect(() => {
     setIsDialogOpen(isOpened);
@@ -48,21 +50,22 @@ const DialogReport = ({ id, name, option, isOpened = false, onClose }: DialogRep
 
   const handleSubmitReport = async () => {
     try {
-      if (!reason) { 
+      if (!reason) {
         alert("신고 사유를 선택해주세요.");
         return;
       }
 
       const translatedReason = translateReportReason(reason);
       const combinedReportReason = `${translatedReason}${details ? "," + details : ""}`;
-      console.log(id,name,option,combinedReportReason)
-      if (name === "게시글" && option === "신고") {
+      console.log(id, name, combinedReportReason);
+      if (type === "게시글") {
         await reportFeed(id, combinedReportReason);
-      } else if (name === "댓글" && option === "신고") {
+      } else if (type === "댓글") {
         await reportReply(id, combinedReportReason);
       }
-
-      alert("신고가 성공적으로 제출되었습니다.");
+      toast({title: "신고정상 접수", description: "신고가 정상 접수 되었습니다." }
+      );
+      // alert("신고가 정상 접수 되었습니다.");
       onClose();
     } catch (error) {
       console.error(error);
@@ -82,7 +85,7 @@ const DialogReport = ({ id, name, option, isOpened = false, onClose }: DialogRep
     >
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>{name} 신고</DialogTitle>
+          <DialogTitle>{type} 신고</DialogTitle>
           <DialogDescription>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>

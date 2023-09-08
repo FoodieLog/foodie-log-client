@@ -48,7 +48,7 @@ const ShopCard: React.FC<ShopCardProps> = ({
             <p className="font-bold text-base cursor-pointer">{name}</p>
           </Link>
           <Link href={`/main/restaurants/${id}`}>
-            <p className="text-base cursor-pointer">{roadAddress}</p>
+            <p className="text-sm cursor-pointer">{roadAddress}</p>
           </Link>
         </div>
       </div>
