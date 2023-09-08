@@ -41,6 +41,9 @@ function DropDown({ name, option, id = 0, type = "" }: MenuProps) {
         setShowReportDialog(true);
       };
       break;
+      case "본인댓글":
+        items = [];
+        break;  
     case "본인":
       items = ["수정", "삭제"];
       break;

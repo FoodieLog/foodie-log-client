@@ -179,7 +179,12 @@ const Reply: React.FC<ReplyListProps> = ({ id: feedId }) => {
                     onClick={() => handleDeleteReply(reply.id)}
                   />
                 ) : null}
-                <DropDown name={"댓글"} option={"신고"} id={reply.id} />
+                <DropDown
+                  name={reply.nickName}
+                  option={reply.nickName === nickName ? "본인댓글" : "타인"}
+                  id={reply.id}
+                  type={"댓글"}
+                />
                 {/* <BsThreeDotsVertical className="text-xl mr-2" /> */}
               </div>
             </div>
