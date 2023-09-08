@@ -46,9 +46,9 @@ const SearchUser: React.FC = () => {
         />
         {searchTerm && <SlClose className="mr-4 cursor-pointer text-2xl text-slate-400" onClick={handleClearInput} />}
       </div>
-      <div className="w-full px-5 mt-4">
+      <div className="w-full px-5 mt-4 ">
         {searchResults.map((user) => (
-          <div key={user.id} className="w-full flex items-center mt-2">
+          <div key={user.id} className="w-full flex items-center mt-2 hover:bg-slate-100">
             <Link href={`/main/${user.id}`} className="flex w-12 h-12 flex-shrink-0">
               {user.profileImageUrl ? (
                 <Image
