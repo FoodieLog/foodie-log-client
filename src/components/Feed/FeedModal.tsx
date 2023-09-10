@@ -1,3 +1,4 @@
+"use client";
 import useSignUpStore from "@/src/store/useSignUpStore";
 import React, { useState } from "react";
 import { updateFeed } from "../../services/apiFeed";
