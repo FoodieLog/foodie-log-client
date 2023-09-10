@@ -37,7 +37,7 @@ const Feed: React.FC<FeedProps> = ({ feed, restaurant, isFollowed, isLiked, upda
   const { toast } = useToast();
 
   const router = useRouter();
-  const CLIENT_BASE_URL = "localhost:3000";
+  const CLIENT_BASE_URL = "foodielog.shop";
 
   const handleLikeClick = async () => {
     try {
@@ -139,10 +139,12 @@ const Feed: React.FC<FeedProps> = ({ feed, restaurant, isFollowed, isLiked, upda
         {/* isFollowed 가 true 면 버튼 label이 "팔로잉", 아니면 "팔로우" */}
         {userId !== feed.userId ? (
           <button
-            className={`text-gray-900 ${isFollowed ? 'bg-white' : 'bg-slate-200'} border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2.5 mr-3 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700`}
+            className={`text-gray-900 ${
+              isFollowed ? "bg-white" : "bg-slate-200"
+            } border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2.5 mr-3 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700`}
             onClick={handleFollowButtonClick}
           >
-            {isFollowed  ? "팔로잉" : "팔로우"}
+            {isFollowed ? "팔로잉" : "팔로우"}
           </button>
         ) : null}
         <div>
