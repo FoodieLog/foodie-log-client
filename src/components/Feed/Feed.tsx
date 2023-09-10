@@ -110,7 +110,7 @@ const Feed: React.FC<FeedProps> = ({ feed, restaurant, isFollowed, isLiked, upda
     <div className="mt-2 w-full max-w-[640px] rounded-sm">
       {/* Header */}
       <div className="flex items-center p-3">
-        <Link href={`/main/${userId}`} className="relative w-12 h-12">
+        <Link href={`/main/${feed.userId}`} className="relative w-12 h-12">
           {feed.profileImageUrl ? (
             <Image
               fill={true}
@@ -131,7 +131,7 @@ const Feed: React.FC<FeedProps> = ({ feed, restaurant, isFollowed, isLiked, upda
           )}
         </Link>
         <div className="flex flex-1 flex-col ml-3">
-          <Link href={`/main/${userId}`}>
+          <Link href={`/main/${feed.userId}`}>
             <p className="font-bold  cursor-pointer">{feed.nickName}</p>
           </Link>
           <p className="text-sm">{timeDifference}</p>
@@ -165,7 +165,7 @@ const Feed: React.FC<FeedProps> = ({ feed, restaurant, isFollowed, isLiked, upda
         roadAddress={restaurant.roadAddress}
       />
       {/* content */}
-      <div className="">
+      <div className="mx-2">
         {feed.content.length > 90 && !expandedFeed ? (
           <>
             {feed.content.substring(0, 90) + "... "}
