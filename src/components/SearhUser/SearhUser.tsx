@@ -35,7 +35,7 @@ const SearchUser: React.FC = () => {
   };
 
   return (
-    <div className="w-full flex flex-col items-center justify-between px-4 mt-6">
+    <div className="w-full flex flex-col items-center justify-between px-4 mt-3">
       <div className="w-full flex items-center justify-between border rounded-2xl py-2 px-1 focus-within:border-gray-400">
         <input
           className="flex-grow px-4 outline-none"

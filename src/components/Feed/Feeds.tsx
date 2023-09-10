@@ -51,7 +51,7 @@ const Feeds: React.FC<FeedsProps> = ({ id }) => {
   };
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center pt-5">
       {feedsData.map((content, index) => (
         <Feed
           key={index}

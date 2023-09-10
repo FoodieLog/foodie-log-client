@@ -5,7 +5,7 @@ import { useState } from "react";
 const ShopThumbList = ({ restaurants }: { restaurants: any[] }) => {
   console.log("restaurants", restaurants)
   return (
-    <div className="w-full flex flex-col items-center p-1 max-w-[640px]">
+    <div className="w-full flex flex-col items-center p-1 max-w-[640px] pt-[44px]">
       {restaurants.map((restaurant, index) => (
         <ShopThumb key={index} {...restaurant} />
       ))}
