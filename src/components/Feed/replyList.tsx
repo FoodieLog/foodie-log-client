@@ -121,7 +121,7 @@ const Reply: React.FC<ReplyListProps> = ({ id: feedId }) => {
           return (
             <div key={reply.id} className="flex items-center justify-between mb-4 hover:bg-slate-100">
               <div className="flex items-center">
-                <Link href={`/main/${reply.id}`} className="flex w-12 h-12 flex-shrink-0">
+                <Link href={`/main/${reply.userId}`} className="flex w-12 h-12 flex-shrink-0 cursor-pointer">
                   {reply.profileImageUrl ? (
                     <Image
                       src={reply.profileImageUrl}
@@ -142,7 +142,9 @@ const Reply: React.FC<ReplyListProps> = ({ id: feedId }) => {
                 </Link>
                 <div className="ml-2">
                   <div className="flex justify-start items-center gap-3">
-                    <span className="font-bold">{reply.nickName}</span>
+                    <Link href={`/main/${reply.userId}`} className='cursor-pointer'>
+                      <span className="font-bold">{reply.nickName}</span>
+                    </Link>
                     <span className="text-xs text-gray-500">{timeDifference}</span>
                   </div>
                   <div className="">

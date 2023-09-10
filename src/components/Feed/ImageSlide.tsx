@@ -12,16 +12,19 @@ const ImageSlide: React.FC<ImageSlideProps> = ({ images }) => {
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
   const DISTANCE_TOUCH = 30;
+
   const prevSlide = () => {
     const isFirstSlide = currentIndex === 0;
-    const newIndex = isFirstSlide ? images.length - 1 : currentIndex - 1;
-    setCurrentIndex(newIndex);
+    if (!isFirstSlide) {
+      setCurrentIndex(currentIndex - 1);
+    }
   };
 
   const nextSlide = () => {
     const isLastSlide = currentIndex === images.length - 1;
-    const newIndex = isLastSlide ? 0 : currentIndex + 1;
-    setCurrentIndex(newIndex);
+    if (!isLastSlide) {
+      setCurrentIndex(currentIndex + 1);
+    }
   };
 
   const goToSlide = (slideIndex: number) => {
@@ -62,15 +65,6 @@ const ImageSlide: React.FC<ImageSlideProps> = ({ images }) => {
     }
   };
 
-  const handleTouchMove = (e: React.TouchEvent) => {
-    const touch = e.touches[0];
-    if (touch.clientX - startX > DISTANCE_TOUCH) {
-      prevSlide();
-    } else if (startX - touch.clientX > DISTANCE_TOUCH) {
-      nextSlide();
-    }
-  };
-
   return (
     <div className="w-full max-w-[640px] relative group">
       <div
@@ -80,7 +74,6 @@ const ImageSlide: React.FC<ImageSlideProps> = ({ images }) => {
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
         onTouchStart={handleTouchStart}
-        onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
       >
         <div
