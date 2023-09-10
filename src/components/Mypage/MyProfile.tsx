@@ -73,7 +73,7 @@ function MyPageForm({ userId, option }: { userId: number; option: string }) {
   }
 
   return (
-    <section className="w-full sm:max-w-[640px]">
+    <section className="w-full sm:max-w-[640px] mx-auto">
       <Header title="Foodie Log" type="arrow" back="prePage" />
       <main className="px-3">
         <header className="mx-3 my-5 flex items-center max-sm:justify-around sm:justify-center sm:gap-10">
