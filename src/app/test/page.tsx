@@ -4,7 +4,7 @@ import PostImage from "@/src/components/PostForm/PostImage";
 function page() {
   return (
     <>
-      <FeedModal />
+      {/* <FeedModal /> */}
     </>
   );
 }
