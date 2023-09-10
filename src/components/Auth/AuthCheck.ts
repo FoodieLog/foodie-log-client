@@ -19,7 +19,7 @@ const AuthCheck: React.FC = () => {
     } else {
       return;
     }
-  }, [accessToken, tokenExpiry, router]);
+  }, [accessToken, tokenExpiry, router,pathname]);
 
   return null;
 };

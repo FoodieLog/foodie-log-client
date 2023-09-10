@@ -24,11 +24,13 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
       <div className="flex min-h-screen mx-auto">
         <Toaster />
         <LeftSidebar />
-        <div className="flex flex-col flex-1 items-center justify-center overflow-hidden">
-          <div className="flex flex-col items-center w-full h-full overflow-y-auto">
+        <div className="flex flex-col flex-1 overflow-hidden">
+          <div className="flex-1 w-full overflow-y-auto pb-[53px]">
             <Providers>{children}</Providers>
           </div>
+          <div className="fixed bottom-0 left-0 right-0">
           <Bottombar />
+          </div>
         </div>
       </div>
     </>

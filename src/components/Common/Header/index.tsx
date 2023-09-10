@@ -40,7 +40,7 @@ function Header({ title, type, back }: HeaderProps) {
   };
 
   return (
-    <header className="max-sm:max-w-[640px] w-full p-5 flex items-center justify-between">
+    <header className="max-sm:max-w-[640px] w-full px-5 pt-5 pb-1 flex items-center justify-between">
       <button type="button" className="" onClick={onClickHandler}>
         {icon}
       </button>

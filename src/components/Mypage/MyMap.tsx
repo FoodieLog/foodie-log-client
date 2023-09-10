@@ -60,7 +60,7 @@ function MyMap({ userId }: { userId: number }) {
   // }
 
   return (
-    <section className="w-full sm:max-w-[640px]">
+    <section className="w-full sm:max-w-[640px] mx-auto">
       <Header title="나의 맛집 리스트" type="arrow" back="prePage" />
       <div className="flex flex-col items-center">
         <MyListMap mapData={mapData} />
