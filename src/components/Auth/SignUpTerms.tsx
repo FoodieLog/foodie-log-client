@@ -2,11 +2,11 @@
 import React, { useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import { sendKakaoCode } from "@/src/services/kakao";
-import Button from "@/src/components/Button";
-import BackButton from "@/src/components/Button/BackButton";
+import Button from "@/src/components/Common/Button";
 import useSignUpStore from "@/src/store/useSignUpStore";
 import useKakaoStore from "@/src/store/useKakaoStore";
 import SignUpProfile from "./SignUpProfile";
+import AuthHeader from "../Common/Header/Auth";
 
 function SignUpTerms() {
   const isChecked = useSignUpStore((state) => state.isChecked);
@@ -48,7 +48,7 @@ function SignUpTerms() {
 
   return (
     <section className="auth">
-      <BackButton />
+      <AuthHeader />
       <div className="mb-10">
         <div className="title">
           <h2>이용약관동의</h2>

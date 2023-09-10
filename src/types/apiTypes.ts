@@ -34,6 +34,7 @@ export interface ChangePassword {
 export type FeedData = {
   feed: {
     feedId: number;
+    userId : number;
     nickName: string;
     profileImageUrl: string | null;
     createdAt: Date | string;
@@ -44,7 +45,7 @@ export type FeedData = {
     content: string;
     likeCount: number;
     replyCount: number;
-   };
+  };
   restaurant: {
     id: number;
     name: string;
@@ -80,4 +81,28 @@ export type ApiResponse = {
   status: number;
   response: UserResponse;
   error: string | null;
+};
+
+// 좋아요한 맛집 리스트
+export type LikedMapResponse = {
+  status: number;
+  response: {
+    content: MapItem[];
+  };
+  error: any;
+};
+export type MapItem = {
+  isLiked: {
+    id: number;
+    liked: boolean;
+  };
+  restaurant: {
+    category: string;
+    id: number;
+    link: string;
+    mapX: string;
+    mapY: string;
+    name: string;
+    roadAddress: string;
+  };
 };

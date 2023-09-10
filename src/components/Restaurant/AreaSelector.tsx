@@ -17,7 +17,7 @@ interface AreaSelectorProps {
 
 const AreaSelector: React.FC<AreaSelectorProps> = ({ onSelectedAreaChange }) => {
   const [selectedRegion, setSelectedRegion] = useState<string>("수도권");
-  const [selectedDo, setSelectedDo] = useState<string>("서울시");
+  const [selectedDo, setSelectedDo] = useState<string>("");
   const [selectedSiGunGu, setSelectedSiGunGu] = useState<string>("");
 
   const [doOptions, setDoOptions] = useState<string[]>([]);
@@ -30,9 +30,8 @@ const AreaSelector: React.FC<AreaSelectorProps> = ({ onSelectedAreaChange }) => 
   }, [selectedRegion]);
 
   useEffect(() => {
-    const selectedOptions = selectedDo && (area as AreaType)[selectedRegion] 
-      ? (area as AreaType)[selectedRegion][selectedDo] 
-      : [];
+    const selectedOptions =
+      selectedDo && (area as AreaType)[selectedRegion] ? (area as AreaType)[selectedRegion][selectedDo] : [];
     setSiGunGuOptions(selectedOptions || []);
   }, [selectedDo, selectedRegion]);
 
@@ -43,15 +42,16 @@ const AreaSelector: React.FC<AreaSelectorProps> = ({ onSelectedAreaChange }) => 
   const handleSearch = () => {
     if (onSelectedAreaChange) {
       const searchQuery = selectedSiGunGu ? `${selectedDo} ${selectedSiGunGu}` : selectedDo;
+      console.log("searchQuery : ", searchQuery);
       onSelectedAreaChange(searchQuery);
     }
   };
 
   return (
     <div
-      className={`z-20 w-full sticky border-b border-solid item-center 
-     bg-white border border-gray-300 sm:rounded-md p-1 m-0 sm:m-4 sm:w-[480px]
-     ${isVisible ? "top-0" : "-top-16"} transition-top duration-300`}
+      className={`z-20 w-full border-b border-solid items-center
+     bg-white border border-gray-300 sm:rounded-md p-2 sm:mx-mt-4 sm:w-[480px]
+     ${isVisible ? "fixed top-0" : "fixed -top-16"} transition-top duration-300`}
     >
       <div className="flex items-center justify-evenly w-full">
         <select

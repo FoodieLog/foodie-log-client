@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import BackButtonMain from "@/src/components/Button/BackButtonMain";
+import BackButtonMain from "@/src/components/Common/Button/BackButtonMain";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { PiUserCircleBold } from "react-icons/pi";
@@ -11,6 +11,8 @@ import { getTimeDiff } from "@/src/utils/date";
 import { APIReplyListResponse, getReplyList, saveReply, deleteReply, reportReply } from "@/src/services/apiFeed";
 import dayjs from "dayjs";
 import Link from "next/link";
+import DropDown from "../Common/Menu/DropDown";
+import { useUserStore } from "@/src/store/useUserStore";
 
 interface ReplyListProps {
   id: string;
@@ -18,7 +20,7 @@ interface ReplyListProps {
 
 const Reply: React.FC<ReplyListProps> = ({ id: feedId }) => {
   const initialAuthorState: APIReplyListResponse["response"] = {
-    userId : 0,
+    userId: 0,
     nickName: "",
     profileImageUrl: null,
     content: "",
@@ -31,6 +33,7 @@ const Reply: React.FC<ReplyListProps> = ({ id: feedId }) => {
   const [newReply, setNewReply] = useState<string>("");
   const [isAuthorExpanded, setIsAuthorExpanded] = useState<boolean>(false);
   const [expandedReplies, setExpandedReplies] = useState<number[]>([]);
+  const nickName = useUserStore((state) => state.user.nickName);
 
   useEffect(() => {
     getReplyList(Number(feedId)).then((data) => {
@@ -46,7 +49,7 @@ const Reply: React.FC<ReplyListProps> = ({ id: feedId }) => {
     if (newReply) {
       saveReply(Number(feedId), newReply).then((data) => {
         // FIXME : saveReply 응답값에 userId가 없어서 임시로 0으로 설정
-        setReplies((prevReplies) => [...prevReplies, {...data.response, userId:0}]);
+        setReplies((prevReplies) => [...prevReplies, { ...data.response, userId: 0 }]);
         setNewReply(""); // Clear the input
       });
     }
@@ -116,7 +119,7 @@ const Reply: React.FC<ReplyListProps> = ({ id: feedId }) => {
         {replies.map((reply) => {
           const timeDifference = getTimeDiff(dayjs(reply.createdAt));
           return (
-            <div key={reply.id} className="flex items-center justify-between mb-4">
+            <div key={reply.id} className="flex items-center justify-between mb-4 hover:bg-slate-100">
               <div className="flex items-center">
                 <Link href={`/main/${reply.id}`} className="flex w-12 h-12 flex-shrink-0">
                   {reply.profileImageUrl ? (
@@ -142,7 +145,7 @@ const Reply: React.FC<ReplyListProps> = ({ id: feedId }) => {
                     <span className="font-bold">{reply.nickName}</span>
                     <span className="text-xs text-gray-500">{timeDifference}</span>
                   </div>
-                  <div className="text-sm">
+                  <div className="">
                     {reply.content.length > 60 && !expandedReplies.includes(reply.id) ? (
                       <>
                         {reply.content.substring(0, 60) + "... "}
@@ -155,7 +158,7 @@ const Reply: React.FC<ReplyListProps> = ({ id: feedId }) => {
                       </>
                     ) : (
                       <>
-                        <p className="text-sm">{reply.content}</p>
+                        <p className="">{reply.content}</p>
                         {expandedReplies.includes(reply.id) && (
                           <button
                             className="text-blue-500"
@@ -170,11 +173,19 @@ const Reply: React.FC<ReplyListProps> = ({ id: feedId }) => {
                 </div>
               </div>
               <div className="flex items-center">
-                <RiDeleteBin6Line
-                  className="text-xl ml-3 mr-4 cursor-pointer"
-                  onClick={() => handleDeleteReply(reply.id)}
+                {nickName === reply.nickName ? (
+                  <RiDeleteBin6Line
+                    className="text-xl ml-3 mr-4 cursor-pointer"
+                    onClick={() => handleDeleteReply(reply.id)}
+                  />
+                ) : null}
+                <DropDown
+                  name={reply.nickName}
+                  option={reply.nickName === nickName ? "본인댓글" : "타인"}
+                  id={reply.id}
+                  type={"댓글"}
                 />
-                <BsThreeDotsVertical className="text-xl mr-2" />
+                {/* <BsThreeDotsVertical className="text-xl mr-2" /> */}
               </div>
             </div>
           );

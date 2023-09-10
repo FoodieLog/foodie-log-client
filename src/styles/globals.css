@@ -19,13 +19,25 @@
     @apply flex flex-col  items-center justify-center mb-10 mt-28;
   }
   .input {
-    @apply h-[45px] w-full appearance-none border-2 border-gray-200 rounded  py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500;
+    @apply h-[45px] w-full appearance-none border-2 border-gray-200 rounded  py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-400;
+  }
+  .authInput {
+    @apply block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg appearance-none dark:text-white border border-gray-600 focus:outline-none focus:ring-0;
+  }
+  .authLabel {
+    @apply absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-gray-600 peer-focus:dark:text-gray-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1;
   }
   .checkbox {
     @apply h-4 w-4 rounded border-gray-300;
   }
   .code {
     @apply text-center text-xl h-10 w-10 rounded border-0 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600;
+  }
+  .ok {
+    @apply mt-2 text-xs text-green-600 dark:text-green-400;
+  }
+  .error {
+    @apply mt-2 text-xs text-red-600 dark:text-red-400;
   }
 }
 

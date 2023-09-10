@@ -14,6 +14,7 @@ export type APIFeedResponse = {
 
 export type Content = {
   feed: {
+    userId : number;
     nickName: string;
     profileImageUrl: string | null;
     feedId: number;
@@ -53,7 +54,7 @@ export type APIUserSearchResponse = {
 export type APIReplyListResponse = {
   status: number;
   response: {
-    userId : number;
+    userId: number;
     nickName: string;
     profileImageUrl: string | null;
     content: string;
@@ -111,7 +112,7 @@ export type FeedShared = {
 
 export const makeFeedFetchRequest = async <T>(
   endpoint: string,
-  method: "GET" | "POST" | "PUT" | "DELETE" = "GET",
+  method: "GET" | "POST" | "PUT" | "DELETE" | "PATCH" = "GET",
   body?: any
 ): Promise<T> => {
   const accessToken = useUserStore.getState().user.accessToken;
@@ -126,18 +127,10 @@ export const makeFeedFetchRequest = async <T>(
       body: body ? JSON.stringify(body) : null,
     });
 
-    if (!response.ok) {
-      throw new Error("API request failed");
-    }
-
-    // return await response.json();
-
-    const responseText = await response.text();
-
-    // 응답 본문이 없는 경우, default 값을 반환합니다.
-    if (!responseText) {
+    // 204 No Content 응답 처리
+    if (response.status === 204) {
       return {
-        status: 200,
+        status: 204,
         response: {
           content: [],
         },
@@ -145,7 +138,20 @@ export const makeFeedFetchRequest = async <T>(
       } as unknown as T;
     }
 
-    return JSON.parse(responseText);
+    let responseData;
+    try {
+      responseData = await response.json();
+    } catch (error) {
+      console.error("Failed to parse response body:", error);
+      throw error;
+    }
+
+    if (!response.ok) {
+      console.error(responseData.error.message);
+      throw new Error(responseData.error.message);
+    }
+
+    return responseData;
   } catch (error) {
     console.error(error);
     throw error;
@@ -172,19 +178,19 @@ export const getFeedShared = (feedId: number): Promise<GetFeedSharedResponse> =>
 };
 
 export const likeFeed = async (feedId: number): Promise<APIFeedResponse> => {
-  return await makeFeedFetchRequest("/feed/like", "POST", { feedId });
+  return makeFeedFetchRequest("/feed/like", "POST", { feedId });
 };
 
 export const unlikeFeed = async (feedId: number): Promise<APIFeedResponse> => {
-  return await makeFeedFetchRequest(`/feed/unlike?feedId=${feedId}`, "DELETE");
+  return makeFeedFetchRequest(`/feed/unlike?feedId=${feedId}`, "DELETE");
 };
 
 export const followUser = async (userId: number): Promise<APIFeedResponse> => {
-  return await makeFeedFetchRequest(`/user/follow?followedId=${userId}`, "POST");
+  return makeFeedFetchRequest(`/user/follow?followedId=${userId}`, "POST");
 };
 
 export const unfollowUser = async (userId: number): Promise<APIFeedResponse> => {
-  return await makeFeedFetchRequest(`/user/unfollow?followedId=${userId}`, "DELETE");
+  return makeFeedFetchRequest(`/user/unfollow?followedId=${userId}`, "DELETE");
 };
 
 export const getReplyList = async (feedId: number, replyId: number = 0): Promise<APIReplyListResponse> => {
@@ -199,10 +205,22 @@ export const deleteReply = (feedId: number): Promise<any> => {
   return makeFeedFetchRequest(`/reply/${feedId}`, "DELETE");
 };
 
+export const reportFeed = (feedId: number, reportReason: string): Promise<any> => {
+  return makeFeedFetchRequest(`/feed/report`, "POST", { feedId, reportReason });
+};
+
 export const reportReply = (replyId: number, reportReason: string): Promise<any> => {
   return makeFeedFetchRequest(`/reply/report`, "POST", { replyId, reportReason });
 };
 
 export const searchUser = async (keyword: string): Promise<APIUserSearchResponse> => {
-  return await makeFeedFetchRequest(`/user/search?keyword=${keyword}`);
+  return makeFeedFetchRequest(`/user/search?keyword=${keyword}`);
+};
+
+export const updateFeed = async (feedId: number, content: string): Promise<APIReplyPostResponse> => {
+  return makeFeedFetchRequest(`/feed/update`, "PATCH", { content, feedId });
+};
+
+export const getLikedShop = async () => {
+  return makeFeedFetchRequest(`/restaurant/map/liked`);
 };

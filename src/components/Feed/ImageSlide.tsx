@@ -11,7 +11,7 @@ const ImageSlide: React.FC<ImageSlideProps> = ({ images }) => {
   const slideRef = useRef(null); // 슬라이드 div 참조
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
-
+  const DISTANCE_TOUCH = 30;
   const prevSlide = () => {
     const isFirstSlide = currentIndex === 0;
     const newIndex = isFirstSlide ? images.length - 1 : currentIndex - 1;
@@ -35,10 +35,10 @@ const ImageSlide: React.FC<ImageSlideProps> = ({ images }) => {
 
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!isDragging) return;
-    if (e.clientX - startX > 100) {
+    if (e.clientX - startX > DISTANCE_TOUCH) {
       prevSlide();
       setIsDragging(false);
-    } else if (startX - e.clientX > 100) {
+    } else if (startX - e.clientX > DISTANCE_TOUCH) {
       nextSlide();
       setIsDragging(false);
     }
@@ -55,9 +55,9 @@ const ImageSlide: React.FC<ImageSlideProps> = ({ images }) => {
 
   const handleTouchMove = (e: React.TouchEvent) => {
     const touch = e.touches[0];
-    if (touch.clientX - startX > 100) {
+    if (touch.clientX - startX > DISTANCE_TOUCH) {
       prevSlide();
-    } else if (startX - touch.clientX > 100) {
+    } else if (startX - touch.clientX > DISTANCE_TOUCH) {
       nextSlide();
     }
   };

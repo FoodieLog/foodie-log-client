@@ -6,8 +6,8 @@ import { MdAddPhotoAlternate } from "react-icons/md";
 import { signUp } from "@/src/services/auth";
 import { profileSetting } from "@/src/services/kakao";
 import Image from "next/image";
-import BackButton from "../Button/BackButton";
-import Button from "../Button";
+import Button from "../Common/Button";
+import AuthHeader from "../Common/Header/Auth";
 
 import useSignUpStore from "@/src/store/useSignUpStore";
 import useKakaoStore from "@/src/store/useKakaoStore";
@@ -101,7 +101,7 @@ function SignUpProfile() {
 
   return (
     <form id="formElem" className="auth" method="post" onSubmit={code ? ProfileSubmit : SignUpSubmit}>
-      <BackButton />
+      <AuthHeader />
       <div className=" flex flex-col items-center justify-center">
         <div className="title">
           <h2>프로필설정</h2>

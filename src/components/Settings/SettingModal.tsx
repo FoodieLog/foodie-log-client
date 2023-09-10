@@ -9,7 +9,7 @@ import {
   DialogTrigger,
 } from "../../../components/ui/dialog";
 import { Input } from "../../../components/ui/input";
-import Button from "../Button";
+import Button from "../Common/Button";
 import { fetchWithdraw } from "../../services/settings";
 import { SettingModalProps } from "../../types/user";
 import { useUserStore } from "@/src/store/useUserStore";

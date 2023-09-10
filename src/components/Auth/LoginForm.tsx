@@ -5,9 +5,9 @@ import { useUserStore } from "@/src/store/useUserStore";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Image from "next/image";
-import Button from "@/src/components/Button";
+import Button from "@/src/components/Common/Button";
 import kakao from "@/public/images/kakao_login_medium_wide.png";
-import Line from "../Line";
+import Line from "../Common/Line";
 import Link from "next/link";
 // import { initializePushNotifications } from "../Notification/PushNotification";
 
@@ -59,25 +59,36 @@ function LogInForm() {
         <h2>로그인</h2>
         <p>Foodie-Log에 오신 걸 환영합니다!</p>
       </div>
-      <form onSubmit={onSubmit} className="w-full flex flex-col  gap-4 mt-10">
-        <input
-          type="text"
-          name="email"
-          value={logInData.email}
-          onChange={onChangeHandler}
-          className="input"
-          placeholder="이메일"
-        />
-        <input
-          type="password"
-          name="password"
-          value={logInData.password}
-          onChange={onChangeHandler}
-          className="input"
-          placeholder="비밀번호"
-          autoComplete="off"
-        />
-
+      <form onSubmit={onSubmit} className="w-full flex flex-col gap-4 mt-10">
+        <div className="relative">
+          <input
+            id="email"
+            type="text"
+            name="email"
+            value={logInData.email}
+            onChange={onChangeHandler}
+            className={`authInput border-1 peer`}
+            placeholder=""
+          />
+          <label htmlFor="email" className={`authLabel`}>
+            이메일
+          </label>
+        </div>
+        <div className="relative">
+          <input
+            id="password"
+            type="password"
+            name="password"
+            value={logInData.password}
+            onChange={onChangeHandler}
+            className={`authInput border-1 peer`}
+            autoComplete="off"
+            placeholder=" "
+          />
+          <label htmlFor="password" className={`authLabel`}>
+            비밀번호
+          </label>
+        </div>
         <div className="flex flex-col items-center mt-10">
           <div className="mb-3">
             로그인 또는

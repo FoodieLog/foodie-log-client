@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { getFeedList, getFeedListByUserId, Content } from "@/src/services/apiFeed";
 
 type FeedsProps = {
-  id?: string; // id는 선택적인 props로 선언합니다.
+  id?: number; 
 }
 
 const Feeds: React.FC<FeedsProps> = ({ id }) => {
@@ -37,10 +37,21 @@ const Feeds: React.FC<FeedsProps> = ({ id }) => {
     }
 
     fetchData();
-  }, [id]); // useEffect가 id에 의존하도록 수정하였습니다.
+  }, [id]); 
+
+  const updateFollowStatus = (userId: number, newStatus: boolean) => {
+    setFeedsData((prevData) => {
+      return prevData.map((content) => {
+        if (content.feed.userId === userId) {
+          return { ...content, followed: newStatus };
+        }
+        return content;
+      });
+    });
+  };
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center pt-5">
       {feedsData.map((content, index) => (
         <Feed
           key={index}
@@ -48,6 +59,7 @@ const Feeds: React.FC<FeedsProps> = ({ id }) => {
           restaurant={content.restaurant}
           isFollowed={content.followed}
           isLiked={content.liked}
+          updateFollowStatus={updateFollowStatus}
         />
       ))}
     </div>
