@@ -53,6 +53,15 @@ const ImageSlide: React.FC<ImageSlideProps> = ({ images }) => {
     setStartX(touch.clientX);
   };
 
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    const touch = e.changedTouches[0];
+    if (touch.clientX - startX > DISTANCE_TOUCH) {
+      prevSlide();
+    } else if (startX - touch.clientX > DISTANCE_TOUCH) {
+      nextSlide();
+    }
+  };
+
   const handleTouchMove = (e: React.TouchEvent) => {
     const touch = e.touches[0];
     if (touch.clientX - startX > DISTANCE_TOUCH) {
@@ -64,7 +73,7 @@ const ImageSlide: React.FC<ImageSlideProps> = ({ images }) => {
 
   return (
     <div className="w-full max-w-[640px] relative group">
-      <div 
+      <div
         className="relative pb-[100%]"
         ref={slideRef}
         onMouseDown={handleMouseDown}
@@ -72,6 +81,7 @@ const ImageSlide: React.FC<ImageSlideProps> = ({ images }) => {
         onMouseUp={handleMouseUp}
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
       >
         <div
           style={{ backgroundImage: `url(${images[currentIndex]?.imageUrl})` }}
