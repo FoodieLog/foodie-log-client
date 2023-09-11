@@ -10,7 +10,7 @@ import Link from "next/link";
 import Button from "../Common/Button";
 import useSignUpStore from "@/src/store/useSignUpStore";
 import MyProfileSettings from "./MyProfileSettings";
-import DropDown from "../Common/Menu/DropDown";
+
 import Header from "../Common/Header";
 import Image from "next/image";
 
@@ -64,58 +64,51 @@ function MyPageForm({ userId, option }: { userId: number; option: string }) {
   };
 
   if (nextComponent === "profileSettings") {
-    return <MyProfileSettings />;
+    return <MyProfileSettings aboutMe={myProfile.aboutMe} />;
   }
 
   if (!isClient) {
     // Returns null on first render, so the client and server match
     return null;
   }
-
+  // mx-3 my-5 flex items-center max-sm:justify-around sm:justify-center sm:gap-10
   return (
     <section className="w-full sm:max-w-[640px] mx-auto">
-      <Header title="Foodie Log" type="arrow" back="prePage" />
-      <main className="px-3">
-        <header className="mx-3 my-5 flex items-center max-sm:justify-around sm:justify-center sm:gap-10">
-          <div className=" w-[70px] h-[70px] border border-gray-400 rounded-full overflow-hidden cursor-pointer">
+      <Header title={myProfile.nickName} type="left" back="prePage" option={option} />
+      <main className="px-2 space-y-3">
+        <header className="flex items-center mt-5 mb-3 mx-3 justify-between">
+          <div className="w-[70px] h-[70px] shrink-0 rounded-full overflow-hidden cursor-pointer">
             <Image
               width={70}
               height={70}
               src={myProfile?.profileImageUrl || "/images/userImage.png"}
               alt="프로필 사진"
             />
-            <input type="file" hidden></input>
           </div>
-          <div>
-            <div className="flex justify-between">
-              <p>{myProfile.nickName}</p>
-              <DropDown name={myProfile.nickName} option={option} />
-            </div>
-            <ul className="flex gap-x-2 mt-1">
-              <li className=" flex flex-col items-center justify-center">
-                <p>게시물</p>
-                <p>{myProfile?.feedCount}</p>
-              </li>
-              <li className="flex flex-col items-center justify-center">
-                <p>팔로워</p>
-                <p>{myProfile?.follower}</p>
-              </li>
-              <li className="flex flex-col items-center justify-center">
-                <p>팔로우</p>
-                <p>{myProfile?.following}</p>
-              </li>
-            </ul>
-          </div>
+          <ul className="w-full flex justify-evenly">
+            <li className="flex flex-col items-center justify-center">
+              <p className="text-lg">{myProfile?.feedCount}</p>
+              <p className="text-sm">게시물</p>
+            </li>
+            <li className="flex flex-col items-center justify-center">
+              <p className="text-lg">{myProfile?.follower}</p>
+              <p className="text-sm">팔로워</p>
+            </li>
+            <li className="flex flex-col items-center justify-center">
+              <p className="text-lg">{myProfile?.following}</p>
+              <p className="text-sm">팔로우</p>
+            </li>
+          </ul>
         </header>
-        <div className="px-10">
+        <div className="px-1 ">
           <p>{myProfile?.aboutMe}</p>
         </div>
         <div>
           <Button type="button" variant={"primary"} onClick={onClickProfileEdit}>
-            프로필 수정
+            {option === "타인" ? "팔로우" : "프로필 수정"}
           </Button>
         </div>
-        <div className="flex justify-around w-full mt-3 py-3 border">
+        <div className="flex justify-around w-full py-2 border">
           <Link href={"/main/mypage"}>
             <BiPhotoAlbum size="1.2rem" />
           </Link>

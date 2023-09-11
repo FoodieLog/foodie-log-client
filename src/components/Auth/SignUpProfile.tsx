@@ -46,7 +46,7 @@ function SignUpProfile() {
       console.log("회원가입 성공", res);
       alert("회원가입이 완료되었습니다.\n로그인 페이지로 이동합니다.");
       router.replace("/accounts/login");
-    })
+    });
   };
 
   // 카카오 로그인 시 프로필 설정 api
@@ -79,11 +79,12 @@ function SignUpProfile() {
   // 이미지 파일 입력
   const ProfileChangehandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
+
     if (!file) return;
 
     const fileSizeInMB = file.size / (1024 * 1024);
-    if (fileSizeInMB > 3) {
-      alert("파일 크기가 3MB를 초과합니다. 3MB 이하의 파일을 선택해주세요.");
+    if (fileSizeInMB > 5) {
+      alert("파일 크기가 5MB를 초과합니다. 5MB 이하의 파일을 선택해주세요.");
       return;
     }
 

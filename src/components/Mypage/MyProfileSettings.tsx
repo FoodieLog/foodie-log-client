@@ -7,13 +7,13 @@ import Image from "next/image";
 import Button from "../Common/Button";
 import { useUserStore } from "@/src/store/useUserStore";
 import Haeder from "../../components/Common/Header";
-function MyProfileSettings() {
+function MyProfileSettings({ aboutMe }: { aboutMe: string }) {
   const user = useUserStore((state) => state.user);
   const [previewImage, setPreviewImage] = useState("");
   const [profileImage, setProfileImage] = useState<File>();
   const [profile, setProfile] = useState({
     nickName: user.nickName,
-    aboutMe: "",
+    aboutMe,
   });
 
   const fileInput = useRef<HTMLInputElement>(null);
@@ -74,52 +74,54 @@ function MyProfileSettings() {
   };
 
   return (
-    <form id="formElem" className="auth" method="post" onSubmit={ProfileSubmit}>
-      <Haeder title="프로필 설정" type="arrow" back="preComponent" />
-      <div className=" flex flex-col items-center justify-center">
-        <div className="relative">
-          <div
-            onClick={pickImageHandler}
-            className="flex justify-center items-center w-[200px] h-[200px] border border-gray-400 rounded-full overflow-hidden cursor-pointer"
-          >
-            <Image
-              src={user.profileImageUrl ? user.profileImageUrl : previewImage}
-              alt="프로필 사진"
-              width={200}
-              height={200}
-            />
-            <input
-              type="file"
-              ref={fileInput}
-              onChange={ProfileChangehandler}
-              hidden
-              accept="image/*,audio/*,video/mp4,video/x-m4v,application/pdf,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation,.csv"
-            />
-          </div>
-          <div onClick={pickImageHandler} className="absolute bottom-5 right-0 cursor-pointer">
-            <MdAddPhotoAlternate size="2.5rem" className="text-gray-400" />
+    <section className="w-full sm:max-w-[640px] mx-auto">
+      <form id="formElem" className="flex flex-col space-y-10" method="post" onSubmit={ProfileSubmit}>
+        <Haeder title="프로필 설정" type="arrow" back="preComponent" />
+        <div className=" flex flex-col items-center justify-center ">
+          <div className="relative ">
+            <div
+              onClick={pickImageHandler}
+              className="flex justify-center items-center w-[200px] h-[200px] rounded-full overflow-hidden cursor-pointer"
+            >
+              <Image
+                src={user.profileImageUrl ? user.profileImageUrl : previewImage}
+                alt="프로필 사진"
+                width={200}
+                height={200}
+              />
+              <input
+                type="file"
+                ref={fileInput}
+                onChange={ProfileChangehandler}
+                hidden
+                accept="image/*,audio/*,video/mp4,video/x-m4v,application/pdf,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation,.csv"
+              />
+            </div>
+            <div onClick={pickImageHandler} className="absolute bottom-5 right-0 cursor-pointer">
+              <MdAddPhotoAlternate size="2.5rem" className="text-gray-400" />
+            </div>
           </div>
         </div>
-      </div>
 
-      <div className="flex flex-col space-y-4">
-        <label>
-          <p className="mb-1">
-            닉네임(계정아이디)<span className="text-red-500">*</span>
-          </p>
-          <input type="text" name="nickName" value={profile.nickName} className="input" onChange={onChangeHandler} />
-        </label>
-        <label>
-          <p className="mb-1">자기소개</p>
-          <input type="text" name="aboutMe" value={profile.aboutMe} className="input" onChange={onChangeHandler} />
-        </label>
-      </div>
-      <div className="my-10">
-        <Button type="submit" variant={"primary"}>
-          프로필 설정
-        </Button>
-      </div>
-    </form>
+        <div className="flex flex-col space-y-4 px-2">
+          <label>
+            <p className="mb-1">
+              닉네임(계정아이디)<span className="text-red-500">*</span>
+            </p>
+            <input type="text" name="nickName" value={profile.nickName} className="input" onChange={onChangeHandler} />
+          </label>
+          <label>
+            <p className="mb-1">자기소개</p>
+            <input type="text" name="aboutMe" value={profile.aboutMe} className="input" onChange={onChangeHandler} />
+          </label>
+        </div>
+        <div className="my-10 px-2">
+          <Button type="submit" variant={"primary"}>
+            프로필 설정
+          </Button>
+        </div>
+      </form>
+    </section>
   );
 }
 

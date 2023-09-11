@@ -3,28 +3,38 @@ import { LiaAngleLeftSolid } from "react-icons/lia";
 import { BsArrowLeftCircle } from "react-icons/bs";
 import useSignUpStore from "../../../store/useSignUpStore";
 import { useRouter } from "next/navigation";
+import DropDown from "../../Common/Menu/DropDown";
 import usePostStore from "@/src/store/usePostStore";
 
 interface HeaderProps {
   title: string;
   type: string;
   back: "preComponent" | "prePage";
+  option?: string;
 }
 
-function Header({ title, type, back }: HeaderProps) {
+function Header({ title, type, back, option }: HeaderProps) {
   const router = useRouter();
   const setFiles = usePostStore((state) => state.setFiles);
+  let headerStyle;
+  let titleStyle;
   let icon;
 
   switch (type) {
-    case "circle":
-      icon = <BsArrowLeftCircle size="1.5rem" />;
+    case "left":
+      headerStyle = `relative`;
+      titleStyle = `ml-2`;
+      icon = `absolute right-5`;
       break;
     case "arrow":
-      icon = <LiaAngleLeftSolid size="1.5rem" />;
+      headerStyle = `justify-between`;
+      titleStyle = ``;
+      icon = ``;
       break;
     default:
-      icon = null;
+      headerStyle = null;
+      titleStyle = ``;
+      icon = ``;
   }
 
   const onClickHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -40,12 +50,12 @@ function Header({ title, type, back }: HeaderProps) {
   };
 
   return (
-    <header className="max-sm:max-w-[640px] w-full px-5 pt-5 pb-1 flex items-center justify-between">
+    <header className={`max-sm:max-w-[640px] w-full px-5 pt-5 pb-1 flex items-center ${headerStyle}`}>
       <button type="button" className="" onClick={onClickHandler}>
-        {icon}
+        <LiaAngleLeftSolid size="1.5rem" />
       </button>
-      <h4>{title}</h4>
-      <div></div>
+      <h4 className={`${titleStyle} font-medium`}>{title}</h4>
+      <div className={`${icon}`}>{option ? <DropDown name={title} option={option} /> : null}</div>
     </header>
   );
 }

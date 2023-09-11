@@ -64,7 +64,11 @@ function PostImage() {
   };
 
   const onNextCilck = (e: React.MouseEvent) => {
-    setNextComponent("PostContent");
+    if (previews.length > 0) {
+      return setNextComponent("PostContent");
+    } else {
+      alert("이미지 필수입니다!");
+    }
   };
 
   return (
