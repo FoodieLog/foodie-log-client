@@ -45,21 +45,37 @@ function SignUpCode() {
           <span>(회원님)</span>로 전송된 인증코드를 입력해주세요!
         </p>
         <div className="flex justify-center gap-2 mt-10">
-          <input name="firstCode" value={codeData.firstCode} onChange={onChangeHandler} type="text" className="code" />
+          <input
+            name="firstCode"
+            value={codeData.firstCode}
+            onChange={onChangeHandler}
+            type="text"
+            className="code"
+            maxLength={1}
+          />
           <input
             name="secondCode"
             value={codeData.secondCode}
             onChange={onChangeHandler}
             type="text"
             className="code"
+            maxLength={1}
           />
-          <input name="thirdCode" value={codeData.thirdCode} onChange={onChangeHandler} type="text" className="code" />
+          <input
+            name="thirdCode"
+            value={codeData.thirdCode}
+            onChange={onChangeHandler}
+            type="text"
+            className="code"
+            maxLength={1}
+          />
           <input
             name="fourthCode"
             value={codeData.fourthCode}
             onChange={onChangeHandler}
             type="text"
             className="code"
+            maxLength={1}
           />
         </div>
       </div>
