@@ -72,7 +72,7 @@ function ChangePassword({ email }: ChangePassword) {
           </label>
           <div className="mt-20">
             <Button type="submit" variant={"primary"} disabled={isSubmitting}>
-              비밀번호 변경
+              {isSubmitting ? "로딩중..." : "비밀번호 변경"}
             </Button>
           </div>
         </form>

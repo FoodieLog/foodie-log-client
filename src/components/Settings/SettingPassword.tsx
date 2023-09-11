@@ -32,10 +32,10 @@ function SettingPassword() {
   };
 
   return (
-    <section className="auth">
+    <section className="w-full sm:max-w-[640px] mx-auto space-y-10">
+      <Header title="비밀번호 재설정" type="arrow" back="prePage" />
       <div className="title">
-        <Header title="비밀번호 재설정" type="arrow" back="prePage" />
-        <form onSubmit={handleSubmit(onSubmit)} className="w-full flex flex-col  gap-4 mt-10">
+        <form onSubmit={handleSubmit(onSubmit)} className="w-full flex flex-col  gap-4 px-2">
           <label>
             <p>회원이메일</p>
             <input type="text" className="input" value={email} disabled />
@@ -86,7 +86,7 @@ function SettingPassword() {
           </label>
           <div className="mt-20">
             <Button type="submit" variant={"primary"} disabled={isSubmitting}>
-              비밀번호 변경
+              {isSubmitting ? "로딩중..." : "비밀번호 변경"}
             </Button>
           </div>
         </form>
