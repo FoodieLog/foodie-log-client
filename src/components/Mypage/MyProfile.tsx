@@ -112,7 +112,7 @@ function MyPageForm({ userId, option }: { userId: number; option: string }) {
           <Link href={"/main/mypage"}>
             <BiPhotoAlbum size="1.2rem" />
           </Link>
-          <Link href={option === "신고" ? `/main/map/${userId}` : "/main/mypage/map"}>
+          <Link href={option === "타인" ? `/main/map/${userId}` : "/main/mypage/map"}>
             <CgFlagAlt size="1.2rem" />
           </Link>
         </div>
