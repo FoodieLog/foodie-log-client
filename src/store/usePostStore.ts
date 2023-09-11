@@ -7,6 +7,7 @@ interface PostStore {
   setFiles: (files: File[]) => void;
   previews: string[];
   setPreviews: (previews: string[]) => void;
+  resetContent: () => void;
 }
 
 interface PostData {
@@ -38,6 +39,21 @@ const usePostStore = create<PostStore>((set) => ({
   setContent: (selectedContent) => set({ content: selectedContent }),
   setFiles: (selectedFiles) => set({ files: selectedFiles }),
   setPreviews: (selectedPreviews) => set({ previews: selectedPreviews }),
+  resetContent: () => set({
+    content: {
+      id: "",
+      place_name: "",
+      place_url: "",
+      category_name: "",
+      address_name: "",
+      road_address_name: "",
+      phone: "",
+      x: "",
+      y: "",
+    },
+    files: [],
+    previews: []
+  }),
 }));
 
 export default usePostStore;
