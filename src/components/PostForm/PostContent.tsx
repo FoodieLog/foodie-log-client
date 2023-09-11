@@ -14,7 +14,7 @@ function PostContent() {
   const [isChecked, setIsChecked] = useState(false);
   const [text, setText] = useState("");
   const { content, files, previews, resetContent } = usePostStore();
-  
+
   const nextComponent = useSignUpStore((state) => state.nextComponent);
   const setNextComponent = useSignUpStore((state) => state.setNextComponent);
 
@@ -79,7 +79,7 @@ function PostContent() {
   return (
     <section className="w-full sm:max-w-[640px] ">
       <Header title="게시글 등록" type="arrow" back="preComponent" />
-      <div className="px-3">
+      <div className="px-3 mt-5">
         <ImageSlide images={images} />
         <ShopListItem type="selected" item={content}></ShopListItem>
         <div className="my-5 ml-3 flex items-center gap-x-3 text-lg">

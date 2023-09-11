@@ -29,7 +29,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
             <Providers>{children}</Providers>
           </div>
           <div className="fixed bottom-0 left-0 right-0">
-          <Bottombar />
+            <Bottombar />
           </div>
         </div>
       </div>
