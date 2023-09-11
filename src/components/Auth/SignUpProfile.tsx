@@ -8,7 +8,6 @@ import { profileSetting } from "@/src/services/kakao";
 import Image from "next/image";
 import Button from "../Common/Button";
 import AuthHeader from "../Common/Header/Auth";
-
 import useSignUpStore from "@/src/store/useSignUpStore";
 import useKakaoStore from "@/src/store/useKakaoStore";
 import { useUserStore } from "@/src/store/useUserStore";
@@ -22,9 +21,8 @@ function SignUpProfile() {
   });
   const params = useSearchParams();
   const code = params.get("code");
-
+  const router = useRouter();
   const user = useSignUpStore((state) => state.user);
-
   const fileInput = useRef<HTMLInputElement>(null);
 
   // 회원가입 api
@@ -44,7 +42,11 @@ function SignUpProfile() {
     formData.append("content", blob);
     formData.append("file", profileImage as File);
 
-    await signUp(formData).then((res) => console.log("회원가입 성공", res));
+    await signUp(formData).then((res) => {
+      console.log("회원가입 성공", res);
+      alert("회원가입이 완료되었습니다.\n로그인 페이지로 이동합니다.");
+      router.replace("/accounts/login");
+    })
   };
 
   // 카카오 로그인 시 프로필 설정 api
