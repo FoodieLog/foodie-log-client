@@ -13,7 +13,8 @@ import Header from "../Common/Header";
 function PostContent() {
   const [isChecked, setIsChecked] = useState(false);
   const [text, setText] = useState("");
-  const { content, files, previews } = usePostStore();
+  const { content, files, previews, resetContent } = usePostStore();
+  
   const nextComponent = useSignUpStore((state) => state.nextComponent);
   const setNextComponent = useSignUpStore((state) => state.setNextComponent);
 
@@ -46,8 +47,9 @@ function PostContent() {
         formData.append("files", files[i]);
       }
       const res = await postFeed(formData);
-      router.replace("/main/home");
+      router.replace("/main/mypage");
       console.log("피드 등록 성공", res);
+      resetContent();
       setNextComponent("");
     } catch (err) {
       console.log("피드 등록 실패", err);
