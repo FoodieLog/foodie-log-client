@@ -2,6 +2,7 @@
 import React from "react";
 import MyProfile from "../../../components/Mypage/MyProfile";
 import { useUserStore } from "@/src/store/useUserStore";
+
 function MyPage() {
   const userId = useUserStore((state) => state.user.id);
   console.log(userId);

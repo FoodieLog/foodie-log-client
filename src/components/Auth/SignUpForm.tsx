@@ -137,7 +137,7 @@ function SignUpForm() {
           {errors?.passwordCheck && <p className="error">{errors.passwordCheck.message}</p>}
         </div>
         <Button type="submit" variant="primary" disabled={isSubmitting}>
-          회원가입
+          {isSubmitting ? "로딩중..." : "회원가입"}
         </Button>
       </form>
       <div className="w-full flex items-center justify-center my-10 space-x-2">
