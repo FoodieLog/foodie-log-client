@@ -8,6 +8,7 @@ import Button from "@/src/components/Common/Button";
 import kakao from "@/public/images/kakao_login_medium_wide.png";
 import Line from "../Common/Line";
 import Link from "next/link";
+import AuthButton from "../Common/Button/AuthButton";
 import { initializePushNotifications } from "../Notification/PushNotification";
 import { useUserStore } from "@/src/store/useUserStore";
 
@@ -102,9 +103,10 @@ function LogInForm() {
         </div>
       </form>
       <Line />
-      <Button type="button" variant={"text"} size={""} onClick={onClickHandler}>
+      {/* <Button type="button" variant={"text"} size={""} onClick={onClickHandler}>
         <Image src={kakao} alt="카카오 로그인 버튼" />
-      </Button>
+      </Button> */}
+      <AuthButton />
       <div className="flex justify-center my-10">
         <Link href={"/accounts/password"} className="underline underline-offset-1">
           비밀번호를 잊으셨나요?

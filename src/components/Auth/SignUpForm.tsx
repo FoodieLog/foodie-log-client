@@ -13,6 +13,7 @@ import SignUpTerms from "./SignUpTerms";
 import SignUpCode from "./SignUpCode";
 import SignUpProfile from "./SignUpProfile";
 import useSignUpStore from "@/src/store/useSignUpStore";
+import AuthButton from "../Common/Button/AuthButton";
 
 interface SighUpInput {
   email: string;
@@ -145,9 +146,7 @@ function SignUpForm() {
         <span className="w-10 flex-shrink-0 font-semibold text-gray-600 text-center text-sm">또는</span>
         <div className="h-[0.8px] w-full bg-slate-400" />
       </div>
-      <button type="button" className="" onClick={() => kakaoLogin()}>
-        <Image src={kakao} alt="카카오 로그인 버튼" />
-      </button>
+      <AuthButton />
     </section>
   );
 }
