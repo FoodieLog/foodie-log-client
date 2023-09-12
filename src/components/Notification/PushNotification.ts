@@ -5,6 +5,7 @@ export const initializePushNotifications = async () => {
   // 알림 권한 요청
   if (typeof window !== "undefined" && "Notification" in window) {
     const permission = await Notification.requestPermission();
+    console.log("Notification permission status:", permission)
     if (permission !== "granted") {
       console.warn("User denied the notification permission");
       return;
@@ -41,7 +42,7 @@ export const initializePushNotifications = async () => {
       const notificationTitle = payload.notification.title;
       const notificationOptions = {
         body: payload.notification.body,
-        icon: "/images/logo_icon_only_example.png",
+        icon: "/images/userImage.png",
       };
 
       if ("serviceWorker" in navigator) {
