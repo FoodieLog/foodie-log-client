@@ -39,6 +39,17 @@ const RestaurantDetail = ({ Id }: RestaurantDetailProps) => {
 
   if (!restaurantDetail) return <div>Loading...</div>;
 
+  const updateFollowStatus = (userId: number, newStatus: boolean) => {
+    setFeedList((prevData : any[]) => {
+      return prevData.map((content) => {
+        if (content.feed.userId === userId) {
+          return { ...content, followed: newStatus };
+        }
+        return content;
+      });
+    });
+  };
+
   return (
     <div className="w-full flex flex-col justify-center max-w-screen-sm mx-auto">
       <BackButtonMain />
@@ -59,6 +70,7 @@ const RestaurantDetail = ({ Id }: RestaurantDetailProps) => {
             restaurant={feedItem.restaurant}
             isFollowed={feedItem.followed}
             isLiked={feedItem.liked}
+            updateFollowStatus={updateFollowStatus}
           />
         ))}
     </div>

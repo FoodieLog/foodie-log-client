@@ -22,9 +22,17 @@ import Link from "next/link";
 
 type FeedProps = FeedData & {
   updateFollowStatus?: (userId: number, newStatus: boolean) => void;
+  removeDeletedFeed?: (feedId: number) => void;
 };
 
-const Feed: React.FC<FeedProps> = ({ feed, restaurant, isFollowed, isLiked, updateFollowStatus }) => {
+const Feed: React.FC<FeedProps> = ({
+  feed,
+  restaurant,
+  isFollowed,
+  isLiked,
+  updateFollowStatus,
+  removeDeletedFeed,
+}) => {
   const [likeCount, setLikeCount] = useState<number>(feed.likeCount);
   const [expandedFeed, setExpandedFeed] = useState(false);
   // const [Follow, setFollow] = useState<boolean>(isFollowed);
@@ -37,7 +45,7 @@ const Feed: React.FC<FeedProps> = ({ feed, restaurant, isFollowed, isLiked, upda
   const { toast } = useToast();
 
   const router = useRouter();
-  const CLIENT_BASE_URL = "foodielog.shop";
+  const CLIENT_BASE_URL = "https://foodielog.shop";
 
   const handleLikeClick = async () => {
     try {
@@ -102,10 +110,6 @@ const Feed: React.FC<FeedProps> = ({ feed, restaurant, isFollowed, isLiked, upda
     );
   };
 
-  // const handleReportIconClick = () => {
-  //   return <DropDown name={"게시글"} option={"신고"} />;
-  // };
-
   return (
     <div className="mt-2 w-full max-w-[640px] rounded-sm">
       {/* Header */}
@@ -153,6 +157,7 @@ const Feed: React.FC<FeedProps> = ({ feed, restaurant, isFollowed, isLiked, upda
             option={feed.userId === userId ? "본인" : "타인"}
             id={feed.feedId}
             type={"게시글"}
+            removeDeletedFeed={removeDeletedFeed}
           />
           {nextComponent === "EditModal" ? <FeedModal feedId={feed.feedId} preContent={feed.content} /> : null}
         </div>
@@ -192,7 +197,7 @@ const Feed: React.FC<FeedProps> = ({ feed, restaurant, isFollowed, isLiked, upda
           {Like ? <AiFillHeart /> : <AiOutlineHeart />}
         </button>
         <p>{likeCount}</p>
-        <FaRegCommentDots className="text-[24px] cursor-pointer" onClick={handleReplyIconClick} />
+        <FaRegCommentDots className="text-[24px] cursor-pointer ml-5" onClick={handleReplyIconClick} />
         <p className="flex-1">{feed.replyCount}</p>
         <FiShare2 className="text-[24px] cursor-pointer" onClick={handleShareClick} />
       </div>

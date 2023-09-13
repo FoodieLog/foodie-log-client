@@ -2,7 +2,6 @@ import axios, { AxiosRequestConfig } from "axios";
 import { useUserStore } from "../store/useUserStore";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
-const AUTH_TOKEN = useUserStore.getState().user.accessToken;
 
 const axiosConfig: AxiosRequestConfig = {
   baseURL: BASE_URL,
@@ -16,7 +15,7 @@ const multipartConfig: AxiosRequestConfig = {
 };
 
 const accessToken = useUserStore.getState().user.accessToken;
-
+console.log("[service>index>accessToken] : ", accessToken);
 const userConfig: AxiosRequestConfig = {
   baseURL: BASE_URL,
   headers: {

@@ -39,6 +39,10 @@ const Feeds: React.FC<FeedsProps> = ({ id }) => {
     fetchData();
   }, [id]); 
 
+  const removeDeletedFeed = (feedId: number) => {
+    setFeedsData(prevData => prevData.filter(feed => feed.feed.feedId !== feedId));
+  };
+
   const updateFollowStatus = (userId: number, newStatus: boolean) => {
     setFeedsData((prevData) => {
       return prevData.map((content) => {
@@ -60,6 +64,7 @@ const Feeds: React.FC<FeedsProps> = ({ id }) => {
           isFollowed={content.followed}
           isLiked={content.liked}
           updateFollowStatus={updateFollowStatus}
+          removeDeletedFeed={removeDeletedFeed}
         />
       ))}
     </div>

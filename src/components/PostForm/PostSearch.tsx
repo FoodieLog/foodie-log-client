@@ -51,7 +51,7 @@ function PostSearch() {
     return <PostContent />;
   }
   return (
-    <section className="w-full sm:max-w-[640px]">
+    <section className="w-full sm:max-w-[640px] mx-auto">
       <Header title="식당 검색" type="arrow" back="prePage" />
       <div className="mt-3  mx-3">
         <form onSubmit={onSubmit} className="relative px-3">
