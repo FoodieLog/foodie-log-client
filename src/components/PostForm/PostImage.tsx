@@ -72,7 +72,7 @@ function PostImage() {
   };
 
   return (
-    <section className="w-full sm:max-w-[640px]">
+    <section className="w-full sm:max-w-[640px] mx-auto">
       <Header title="이미지 선택" type="arrow" back="preComponent" />
       <div className="mx-3">
         <button

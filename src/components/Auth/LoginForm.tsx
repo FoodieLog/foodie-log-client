@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 import { logIn } from "@/src/services/auth";
-import { useUserStore } from "@/src/store/useUserStore";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Image from "next/image";
@@ -10,6 +9,7 @@ import kakao from "@/public/images/kakao_login_medium_wide.png";
 import Line from "../Common/Line";
 import Link from "next/link";
 import { initializePushNotifications } from "../Notification/PushNotification";
+import { useUserStore } from "@/src/store/useUserStore";
 
 function LogInForm() {
   const [logInData, setLogInData] = useState({
@@ -32,8 +32,8 @@ function LogInForm() {
       console.log("로그인 성공", res);
       setUser(res.data.response);
       console.log("");
-      const oneDayInMilliseconds = 1000 * 60 * 60 * 24;
-      const expiryTime = Date.now() + oneDayInMilliseconds; // 현재 시간에 24시간을 더함
+      const minutesInMilliseconds = 1000 * 60 * 29;
+      const expiryTime = Date.now() + minutesInMilliseconds;
       setTokenExpiry(expiryTime); // 만료 시간 설정
 
       initializePushNotifications();

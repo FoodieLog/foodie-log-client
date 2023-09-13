@@ -30,7 +30,7 @@ function MyShopItem({ item }: ShopProps) {
   const { content, setContent } = usePostStore();
   const setNextComponent = useSignUpStore((state) => state.setNextComponent);
   const shopCategoryIcon = `/images/foodCategoryIcons/${getIcon(item.restaurant.category)}`;
-  console.log("shopCategoryIcon", shopCategoryIcon);
+  // console.log("shopCategoryIcon", shopCategoryIcon);
   const onClickShophandler = (e: React.MouseEvent) => {
     e.preventDefault();
     setNextComponent("PostImage");

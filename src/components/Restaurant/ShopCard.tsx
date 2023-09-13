@@ -4,6 +4,7 @@ import { getIcon } from "../../utils/iconUtils";
 import { FiExternalLink } from "react-icons/fi";
 import { useState } from "react";
 import Image from "next/image";
+import { PiStarFill, PiStarThin } from 'react-icons/pi';
 
 interface ShopCardProps {
   id: number;
@@ -57,8 +58,8 @@ const ShopCard: React.FC<ShopCardProps> = ({
           {isLiked !== undefined && (
             <button className="text-[24px] mr-2" onClick={() => setLike(!like)}>
               {" "}
-              {/* Add a margin for spacing */}
-              {like ? <AiFillHeart /> : <AiOutlineHeart />}
+              {/* FIXME : 음식점 좋아요/좋아요 취소 API 연결해야함 */}
+              {like ? <PiStarFill size="2rem" color="#FF6D60" /> : <PiStarThin size="2rem" />}
             </button>
           )}
           {shopUrl && (
