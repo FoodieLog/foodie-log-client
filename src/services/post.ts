@@ -11,6 +11,7 @@ const headers = {
 
 // 피드 등록 (axios)
 export const postFeed = async (body: FormData) => {
+  console.log("[feed등록시 accessToken]", accessToken);
   const res = await userRequest.post("/api/feed/save", body);
   console.log("feed 등록 서버 응답데이터", res);
   return res;
