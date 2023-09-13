@@ -16,6 +16,7 @@ import Image from "next/image";
 
 function MyPageForm({ userId, option }: { userId: number; option: string }) {
   const [isClient, setIsClient] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [thumbnails, setThumbnails] = useState<ThumbnailState[]>([]);
   const [myProfile, setMyProfile] = useState<myProfileState>({
     aboutMe: "",
@@ -28,12 +29,6 @@ function MyPageForm({ userId, option }: { userId: number; option: string }) {
   });
   const nextComponent = useSignUpStore((state) => state.nextComponent);
   const setNextComponent = useSignUpStore((state) => state.setNextComponent);
-
-  useEffect(() => {
-    setIsClient(true);
-    checkThumbnails();
-    checkMyProfile();
-  }, [userId]);
 
   const checkThumbnails = async () => {
     try {
@@ -59,6 +54,28 @@ function MyPageForm({ userId, option }: { userId: number; option: string }) {
     }
   };
 
+  useEffect(() => {
+    checkThumbnails();
+    checkMyProfile();
+    setIsClient(true);
+    setIsLoading(false);
+  }, [userId]);
+
+  // 비동기 로딩이 완료되었는지 확인
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  // myProfile이 유효한 값이 있는지 확인
+  if (!myProfile) {
+    return null;
+  }
+
+  if (!isClient) {
+    // Returns null on first render, so the client and server match
+    return null;
+  }
+
   const onClickProfileEdit = () => {
     setNextComponent("profileSettings");
   };
@@ -67,10 +84,6 @@ function MyPageForm({ userId, option }: { userId: number; option: string }) {
     return <MyProfileSettings aboutMe={myProfile.aboutMe} />;
   }
 
-  if (!isClient) {
-    // Returns null on first render, so the client and server match
-    return null;
-  }
   // mx-3 my-5 flex items-center max-sm:justify-around sm:justify-center sm:gap-10
   return (
     <section className="w-full sm:max-w-[640px] mx-auto">
@@ -109,7 +122,7 @@ function MyPageForm({ userId, option }: { userId: number; option: string }) {
           </Button>
         </div>
         <div className="flex justify-around w-full py-2 border">
-          <Link href={"/main/mypage"}>
+          <Link href={`/main/feed/${userId}`}>
             <BiPhotoAlbum size="1.2rem" />
           </Link>
           <Link href={option === "타인" ? `/main/map/${userId}` : "/main/mypage/map"}>
