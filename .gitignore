@@ -42,3 +42,7 @@ next-env.d.ts
 **/public/sw.js.map
 **/public/workbox-*.js.map
 **/public/worker-*.js.map
+
+# https SSL and Key
+localhost-key.pem
+localhost.pem
