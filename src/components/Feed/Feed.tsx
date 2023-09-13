@@ -45,7 +45,7 @@ const Feed: React.FC<FeedProps> = ({
   const { toast } = useToast();
 
   const router = useRouter();
-  const CLIENT_BASE_URL = "foodielog.shop";
+  const CLIENT_BASE_URL = "https://foodielog.shop";
 
   const handleLikeClick = async () => {
     try {
