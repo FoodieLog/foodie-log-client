@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import { useUserStore } from "@/src/store/useUserStore";
 import { useRouter, usePathname } from "next/navigation";
 import { reissueTokens } from "@/src/services/apiFeed";
+import Logout from "@/src/services/Logout";
 
 const AuthCheck: React.FC = () => {
   const { user, setUser, setTokenExpiry } = useUserStore((state) => ({
@@ -17,7 +18,7 @@ const AuthCheck: React.FC = () => {
     console.log("[AuthCheck] user.accessToken : ", user.accessToken);
     const validateTokens = async () => {
       if (!user.accessToken) {
-        router.replace("/accounts/login");
+        Logout();
         return;
       }
 
@@ -25,7 +26,7 @@ const AuthCheck: React.FC = () => {
 
       if (isTokenExpired) {
         try {
-          console.log("[AuthCheck] Token is expired, reissueTokens")
+          console.log("[AuthCheck] Token is expired, reissueTokens");
           const reissueResponse = await reissueTokens();
 
           if (reissueResponse.status === 201 && reissueResponse.response && reissueResponse.response.accessToken) {
@@ -38,13 +39,13 @@ const AuthCheck: React.FC = () => {
             setTokenExpiry(expiryTime);
           } else {
             console.error(reissueResponse.error.message.accessToken);
-            // alert("토큰이 유효하지 않습니다. 다시 로그인해 주세요!");
-            // router.replace("/accounts/login");
+            alert("토큰이 유효하지 않습니다. 다시 로그인해 주세요!");
+            Logout();
           }
         } catch (error) {
           console.error("Error while reissuing tokens:", error);
           alert("토큰이 유효하지 않습니다. 다시 로그인해 주세요!");
-          router.replace("/accounts/login");
+          Logout();
         }
       } else if (pathname === "/") {
         router.replace("/main/home");

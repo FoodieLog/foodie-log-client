@@ -1,6 +1,7 @@
 // apiFeed.ts
 
 import { useUserStore } from "../store/useUserStore";
+import Logout from './Logout';
 
 const BASE_URL = "https://api.foodielog-server.monster/api";
 
@@ -172,7 +173,7 @@ export const makeFeedFetchRequest = async <T>(
           if (retryCount >= 2) {
             console.log("Showing alert");
             alert("토큰이 유효하지 않습니다. 다시 로그인해 주세요!");
-            window.location.href = "/accounts/login";
+            Logout();
           }
         }
       } catch (reissueError) {
