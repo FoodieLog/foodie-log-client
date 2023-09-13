@@ -5,11 +5,14 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { FoodieLogoTP, FoodieLogo } from "@/public/images";
 import Image from "next/image";
-import Logout from "./Logout";
+import Logout from "@/src/services/Logout";
+import { TbLogout2 } from "react-icons/tb";
 
 const BottomSideBar = () => {
   const router = useRouter();
   const pathname = usePathname();
+
+  
 
   return (
     <section className="flex flex-col h-screen border-r-[1px] border-solid sticky top-0 max-sm:hidden ">
@@ -29,8 +32,9 @@ const BottomSideBar = () => {
           );
         })}
       </div>
-      <div className="flex px-6 py-2 mb-4">
-        <Logout />
+      <div className="flex items-center cursor-pointer" onClick={Logout}>
+        <TbLogout2 className="text-2xl mx-2" />
+        <p className="ml-2 max-lg:hidden">Logout</p>
       </div>
     </section>
   );
