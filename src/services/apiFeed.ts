@@ -151,29 +151,35 @@ export const makeFeedFetchRequest = async <T>(
       } as unknown as T;
     }
 
-    // if (response.status === 400 && !skipReissue) {
-    //   if (retryCount >= 3) {
-    //     throw new Error("Maximum retry attempts reached.");
-    //   }
+    if (response.status === 400 && !skipReissue) {
+      console.log("400 error, reissuing token");
+      if (retryCount >= 2) {
+        throw new Error("Maximum retry attempts reached.");
+      }
 
-    //   try {
-    //     const reissueResponse = await reissueTokens();
-    //     if (reissueResponse.status === 201 && reissueResponse.response && reissueResponse.response.accessToken) {
-    //       // 새로 발급받은 accessToken 설정
-    //       useUserStore.getState().setUser({ accessToken: reissueResponse.response.accessToken });
-    //       const minutesInMilliseconds = 1000 * 60 * 29;
-    //       const expiryTime = Date.now() + minutesInMilliseconds;
-    //       useUserStore.getState().setTokenExpiry(expiryTime);
-
-    //       // 토큰 재발급 후 다시 해당 API를 호출
-    //       return await makeFeedFetchRequest(endpoint, method, body, retryCount + 1);
-    //     }
-    //   } catch (reissueError) {
-    //     console.error("Error while reissuing token:", reissueError);
-    //     window.location.href = "/accounts/login";
-    //     throw reissueError;
-    //   }
-    // }
+      try {
+        const reissueResponse = await reissueTokens();
+        if (reissueResponse.status === 201 && reissueResponse.response && reissueResponse.response.accessToken) {
+          // 새로 발급받은 accessToken 설정
+          useUserStore.getState().setUser({ accessToken: reissueResponse.response.accessToken });
+          const minutesInMilliseconds = 1000 * 60 * 29;
+          const expiryTime = Date.now() + minutesInMilliseconds;
+          useUserStore.getState().setTokenExpiry(expiryTime);
+          // 토큰 재발급 후 다시 해당 API를 호출
+          return await makeFeedFetchRequest(endpoint, method, body, retryCount + 1);
+        } else {
+          console.log("Reissue failed:", reissueResponse.status, reissueResponse.response);
+          if (retryCount >= 2) {
+            console.log("Showing alert");
+            alert("토큰이 유효하지 않습니다. 다시 로그인해 주세요!");
+            window.location.href = "/accounts/login";
+          }
+        }
+      } catch (reissueError) {
+        console.error("Error while reissuing token:", reissueError);
+        throw reissueError;
+      }
+    }
 
     let responseData;
     try {
