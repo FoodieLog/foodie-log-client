@@ -14,7 +14,7 @@ export type APIFeedResponse = {
 
 export type Content = {
   feed: {
-    userId : number;
+    userId: number;
     nickName: string;
     profileImageUrl: string | null;
     feedId: number;
@@ -110,20 +110,33 @@ export type FeedShared = {
   replyCount: number;
 };
 
+type HeadersType = {
+  "Content-Type": string;
+  Authorization?: string;
+};
+
 export const makeFeedFetchRequest = async <T>(
   endpoint: string,
   method: "GET" | "POST" | "PUT" | "DELETE" | "PATCH" = "GET",
-  body?: any
+  body?: any,
+  retryCount: number = 0,
+  skipReissue: boolean = false,
+  includeToken: boolean = true
 ): Promise<T> => {
   const accessToken = useUserStore.getState().user.accessToken;
+
+  const headers: HeadersType = {
+    "Content-Type": "application/json",
+  };
+
+  if (includeToken) {
+    headers["Authorization"] = `Bearer ${accessToken}`;
+  }
 
   try {
     const response = await fetch(`${BASE_URL}${endpoint}`, {
       method,
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-        "Content-Type": "application/json",
-      },
+      headers,
       body: body ? JSON.stringify(body) : null,
     });
 
@@ -137,6 +150,30 @@ export const makeFeedFetchRequest = async <T>(
         error: null,
       } as unknown as T;
     }
+
+    // if (response.status === 400 && !skipReissue) {
+    //   if (retryCount >= 3) {
+    //     throw new Error("Maximum retry attempts reached.");
+    //   }
+
+    //   try {
+    //     const reissueResponse = await reissueTokens();
+    //     if (reissueResponse.status === 201 && reissueResponse.response && reissueResponse.response.accessToken) {
+    //       // 새로 발급받은 accessToken 설정
+    //       useUserStore.getState().setUser({ accessToken: reissueResponse.response.accessToken });
+    //       const minutesInMilliseconds = 1000 * 60 * 29;
+    //       const expiryTime = Date.now() + minutesInMilliseconds;
+    //       useUserStore.getState().setTokenExpiry(expiryTime);
+
+    //       // 토큰 재발급 후 다시 해당 API를 호출
+    //       return await makeFeedFetchRequest(endpoint, method, body, retryCount + 1);
+    //     }
+    //   } catch (reissueError) {
+    //     console.error("Error while reissuing token:", reissueError);
+    //     window.location.href = "/accounts/login";
+    //     throw reissueError;
+    //   }
+    // }
 
     let responseData;
     try {
@@ -174,7 +211,7 @@ export const getFeedListByUserId = (
 };
 
 export const getFeedShared = (feedId: number): Promise<GetFeedSharedResponse> => {
-  return makeFeedFetchRequest<GetFeedSharedResponse>(`/feed/detail?feedId=${feedId}`);
+  return makeFeedFetchRequest<GetFeedSharedResponse>(`/feed/detail/${feedId}`, "GET", undefined, 0, false, false);
 };
 
 export const likeFeed = async (feedId: number): Promise<APIFeedResponse> => {
@@ -183,6 +220,10 @@ export const likeFeed = async (feedId: number): Promise<APIFeedResponse> => {
 
 export const unlikeFeed = async (feedId: number): Promise<APIFeedResponse> => {
   return makeFeedFetchRequest(`/feed/unlike?feedId=${feedId}`, "DELETE");
+};
+
+export const deleteFeed = async (feedId: number): Promise<any> => {
+  return makeFeedFetchRequest(`/feed/delete?feedId=${feedId}`, "POST");
 };
 
 export const followUser = async (userId: number): Promise<APIFeedResponse> => {
@@ -223,4 +264,8 @@ export const updateFeed = async (feedId: number, content: string): Promise<APIRe
 
 export const getLikedShop = async () => {
   return makeFeedFetchRequest(`/restaurant/map/liked`);
+};
+
+export const reissueTokens = async (): Promise<any> => {
+  return makeFeedFetchRequest("/api/auth/reissue", "GET", undefined, 0, true);
 };
