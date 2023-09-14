@@ -47,10 +47,10 @@ function PostContent() {
         formData.append("files", files[i]);
       }
       const res = await postFeed(formData);
-      router.replace("/main/mypage");
       console.log("피드 등록 성공", res);
       resetContent();
       setNextComponent("");
+      router.replace("/main/mypage");
     } catch (err) {
       console.log("피드 등록 실패", err);
     }
@@ -77,7 +77,7 @@ function PostContent() {
   }
 
   return (
-    <section className="w-full sm:max-w-[640px] ">
+    <section className="w-full sm:max-w-[640px] mx-auto">
       <Header title="게시글 등록" type="arrow" back="preComponent" />
       <div className="px-3 mt-5">
         <ImageSlide images={images} />

@@ -4,7 +4,8 @@ import { getIcon } from "../../utils/iconUtils";
 import { FiExternalLink } from "react-icons/fi";
 import { useState } from "react";
 import Image from "next/image";
-import { PiStarFill, PiStarThin } from 'react-icons/pi';
+import { PiStarFill, PiStarThin } from "react-icons/pi";
+import { likeRestaurant, unlikeRestaurant } from "@/src/services/apiFeed";
 
 interface ShopCardProps {
   id: number;
@@ -13,23 +14,31 @@ interface ShopCardProps {
   roadAddress: string;
   isLiked?: boolean;
   shopUrl?: string;
-  disableClick?: boolean; 
+  disableClick?: boolean;
 }
 
-const ShopCard: React.FC<ShopCardProps> = ({
-  id,
-  name,
-  category,
-  roadAddress,
-  isLiked,
-  shopUrl,
-  disableClick
-}) => {
+const ShopCard: React.FC<ShopCardProps> = ({ id, name, category, roadAddress, isLiked, shopUrl, disableClick }) => {
   const shopCategoryIcon = `/images/foodCategoryIcons/${getIcon(category)}`;
   const [like, setLike] = useState(isLiked);
 
+  const handleLikeToggle = async () => {
+    try {
+      if (like) {
+        await unlikeRestaurant(id);
+      } else {
+        await likeRestaurant(id);
+      }
+      setLike(!like);
+    } catch (error) {
+      console.error("식당 좋아요/좋아요 취소 동작 중 오류가 발생했습니다.", error);
+    }
+  };
+
   return (
-    <div className="flex items-center justify-between px-4 py-2" style={{ pointerEvents: disableClick ? "none" : "auto" }}>
+    <div
+      className="flex items-center justify-between px-4 py-2"
+      style={{ pointerEvents: disableClick ? "none" : "auto" }}
+    >
       {" "}
       {/* Change flex layout to justify-between */}
       <div className="flex items-center">
@@ -56,9 +65,7 @@ const ShopCard: React.FC<ShopCardProps> = ({
       {(isLiked !== undefined || shopUrl) && ( // Adjust this condition to show the right section only when needed
         <div className="flex items-center">
           {isLiked !== undefined && (
-            <button className="text-[24px] mr-2" onClick={() => setLike(!like)}>
-              {" "}
-              {/* FIXME : 음식점 좋아요/좋아요 취소 API 연결해야함 */}
+            <button className="text-[24px] mr-2" onClick={handleLikeToggle}>
               {like ? <PiStarFill size="2rem" color="#FF6D60" /> : <PiStarThin size="2rem" />}
             </button>
           )}

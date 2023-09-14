@@ -8,6 +8,7 @@ import { BadgeSvg, ChangeSvg, NotificationSvg, OutSvg, WarningSvg } from "../../
 import SettingModal from "./SettingModal";
 import Toggle from "../Common/Toggle";
 import Header from "../Common/Header";
+import Logout from '@/src/services/Logout';
 
 function MySettings() {
   const [isClient, setIsClient] = useState(false);
@@ -35,9 +36,8 @@ function MySettings() {
       return;
     }
     try {
-      const res = await logOut();
-      router.replace("/accounts/login");
-      console.log("로그아웃 성공", res);
+  
+      Logout();
     } catch (error) {
       console.log("로그아웃 실패", error);
     }

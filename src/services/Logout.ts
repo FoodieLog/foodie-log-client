@@ -1,23 +1,30 @@
 import { useUserStore } from "@/src/store/useUserStore";
 import { getMessaging, deleteToken } from "firebase/messaging";
 import firebaseApp from "@/firebaseConfig";
+import { logOut } from "./settings";
 
-const Logout = async () => {
-  // Clear user data directly from store without using a hook
-  useUserStore.getState().clearUser();
-
-  // Delete FCM token from IndexedDB
+const logoutUser = async () => {
   const messaging = getMessaging(firebaseApp);
+
+  try {
+    const res = await logOut();
+    console.log("Successfully logged out:", res);
+  } catch (error) {
+    console.error("Error during logout:", error);
+  } finally {
+    useUserStore.getState().clearUser();
+  }
+
   try {
     const currentToken = await deleteToken(messaging);
     if (currentToken) {
-      console.log("Token deleted.");
+      console.log("FCM token deleted.");
     }
   } catch (error) {
-    console.error("Failed to delete token: ", error);
+    console.error("Failed to delete FCM token:", error);
   }
 
   window.location.href = "/accounts/login";
 };
 
-export default Logout;
+export default logoutUser;
