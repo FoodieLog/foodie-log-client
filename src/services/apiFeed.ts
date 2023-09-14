@@ -273,6 +273,14 @@ export const getLikedShop = async () => {
   return makeFeedFetchRequest(`/restaurant/map/liked`);
 };
 
+export const likeRestaurant = async (restaurantId: number): Promise<void> => {
+  await makeFeedFetchRequest(`/restaurant/like?restaurantId=${restaurantId}`, "POST");
+};
+
+export const unlikeRestaurant = async (restaurantId: number): Promise<void> => {
+  await makeFeedFetchRequest(`/restaurant/unlike?restaurantId=${restaurantId}`, "DELETE");
+};
+
 export const reissueTokens = async (): Promise<any> => {
-  return makeFeedFetchRequest("/api/auth/reissue", "GET", undefined, 0, true);
+  return makeFeedFetchRequest("/auth/reissue", "GET", undefined, 0, true);
 };

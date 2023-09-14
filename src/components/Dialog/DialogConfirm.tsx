@@ -33,10 +33,10 @@ const DialogConfirm = ({ content, isOpened, onClose, onConfirm }: DialogConfirmP
           <DialogTitle>{content}</DialogTitle>
         </DialogHeader>
         <div className="flex justify-center mt-4">
-          <Button onClick={onClose} className="mr-2">
+          <Button variant="outline" onClick={onClose} className="mr-2">
             취소
           </Button>
-          <Button onClick={onConfirm}>삭제</Button>
+          <Button variant="default" onClick={onConfirm}>확인</Button>
         </div>
       </DialogContent>
     </Dialog>

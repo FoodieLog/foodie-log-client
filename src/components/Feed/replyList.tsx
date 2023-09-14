@@ -34,6 +34,7 @@ const Reply: React.FC<ReplyListProps> = ({ id: feedId }) => {
   const [isAuthorExpanded, setIsAuthorExpanded] = useState<boolean>(false);
   const [expandedReplies, setExpandedReplies] = useState<number[]>([]);
   const nickName = useUserStore((state) => state.user.nickName);
+  const id = useUserStore((state) => state.user.id);
 
   useEffect(() => {
     getReplyList(Number(feedId)).then((data) => {
@@ -69,7 +70,10 @@ const Reply: React.FC<ReplyListProps> = ({ id: feedId }) => {
       <div className="p-4">
         <div className="flex items-center justify-between mb-6 pb-3 border-b">
           <div className="flex items-center">
-            <Link href={`/main/${author.userId}`} className="flex w-12 h-12 flex-shrink-0">
+            <Link
+              href={author.userId === id ? `/main/mypage` : `/main/${author.userId}`}
+              className="flex w-12 h-12 flex-shrink-0"
+            >
               {author.profileImageUrl ? (
                 <Image
                   src={author.profileImageUrl}
@@ -90,7 +94,9 @@ const Reply: React.FC<ReplyListProps> = ({ id: feedId }) => {
             </Link>
             <div className="ml-2">
               <div className="flex justify-start items-center gap-3">
-                <span className="font-bold">{author.nickName}</span>
+                <Link href={author.userId === id ? `/main/mypage` : `/main/${author.userId}`}>
+                  <span className="font-bold">{author.nickName}</span>
+                </Link>
                 <span className="text-xs text-gray-500">{timeDifference}</span>
               </div>
               <div>
@@ -121,7 +127,10 @@ const Reply: React.FC<ReplyListProps> = ({ id: feedId }) => {
           return (
             <div key={reply.id} className="flex items-center justify-between mb-4 hover:bg-slate-100">
               <div className="flex items-center">
-                <Link href={`/main/${reply.userId}`} className="flex w-12 h-12 flex-shrink-0 cursor-pointer">
+                <Link
+                  href={author.userId === id ? `/main/mypage` : `/main/${author.userId}`}
+                  className="flex w-12 h-12 flex-shrink-0"
+                >
                   {reply.profileImageUrl ? (
                     <Image
                       src={reply.profileImageUrl}
@@ -142,7 +151,10 @@ const Reply: React.FC<ReplyListProps> = ({ id: feedId }) => {
                 </Link>
                 <div className="ml-2">
                   <div className="flex justify-start items-center gap-3">
-                    <Link href={`/main/${reply.userId}`} className='cursor-pointer'>
+                    <Link
+                      href={author.userId === id ? `/main/mypage` : `/main/${author.userId}`}
+                      className="cursor-pointer"
+                    >
                       <span className="font-bold">{reply.nickName}</span>
                     </Link>
                     <span className="text-xs text-gray-500">{timeDifference}</span>
