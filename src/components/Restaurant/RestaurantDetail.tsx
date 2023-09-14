@@ -53,7 +53,11 @@ const RestaurantDetail = ({ Id }: RestaurantDetailProps) => {
   return (
     <div className="w-full flex flex-col justify-center max-w-screen-sm mx-auto">
       <BackButtonMain />
-      <KakaoMap latitude={restaurantDetail.restaurant.mapY} longitude={restaurantDetail.restaurant.mapX} />
+      <KakaoMap
+        latitude={restaurantDetail.restaurant.mapY}
+        longitude={restaurantDetail.restaurant.mapX}
+        restaurantId={restaurantId}
+      />
       <ShopCard
         id={restaurantId}
         name={restaurantDetail.restaurant.name}
