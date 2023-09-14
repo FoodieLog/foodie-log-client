@@ -11,6 +11,7 @@ import AuthHeader from "../Common/Header/Auth";
 import useSignUpStore from "@/src/store/useSignUpStore";
 import useKakaoStore from "@/src/store/useKakaoStore";
 import { useUserStore } from "@/src/store/useUserStore";
+import { kakaoLogin } from "@/src/services/kakao";
 
 function SignUpProfile() {
   const [previewImage, setPreviewImage] = useState("/images/userImage.png");
@@ -65,7 +66,10 @@ function SignUpProfile() {
     formData.append("file", profileImage as File);
 
     await profileSetting(formData)
-      .then((res) => console.log("프로필 성공", res))
+      .then((res) => {
+        kakaoLogin();
+        console.log("프로필 성공", res);
+      })
       .catch((err) => console.log("프로필 에러", err));
   };
 
@@ -104,17 +108,17 @@ function SignUpProfile() {
 
   return (
     <form id="formElem" className="auth" method="post" onSubmit={code ? ProfileSubmit : SignUpSubmit}>
-      <AuthHeader />
-      <div className=" flex flex-col items-center justify-center">
+      <AuthHeader back="preComponent" />
+      <div className=" flex flex-col items-center justify-center mb-4">
         <div className="title">
           <h2>프로필설정</h2>
         </div>
         <div className="relative">
           <div
             onClick={pickImageHandler}
-            className="flex justify-center items-center w-[200px] h-[200px] border border-gray-400 rounded-full overflow-hidden cursor-pointer"
+            className="flex justify-center items-center w-[150px] h-[150px] border border-gray-400 rounded-full overflow-hidden cursor-pointer"
           >
-            <Image src={previewImage} alt="프로필 사진" width={200} height={200} />
+            <Image src={previewImage} alt="프로필 사진" width={150} height={150} />
             <input
               type="file"
               ref={fileInput}
@@ -129,7 +133,7 @@ function SignUpProfile() {
         </div>
       </div>
 
-      <div className="flex flex-col space-y-4">
+      <div className="flex flex-col space-y-5">
         <label>
           <p className="mb-1">
             닉네임(계정아이디)<span className="text-red-500">*</span>
@@ -141,9 +145,11 @@ function SignUpProfile() {
           <input type="text" name="aboutMe" value={profile.aboutMe} className="input" onChange={onChangeHandler} />
         </label>
       </div>
-      <Button type="submit" variant={"primary"}>
-        {code ? "프로필 설정" : "가입완료"}
-      </Button>
+      <div className="my-10">
+        <Button type="submit" variant={"primary"}>
+          {code ? "프로필 설정" : "가입완료"}
+        </Button>
+      </div>
     </form>
   );
 }
