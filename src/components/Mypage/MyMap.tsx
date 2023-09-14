@@ -43,6 +43,10 @@ function MyMap({ userId }: { userId: number }) {
     }
   };
 
+  const removeItemFromList = (id: number) => {
+    setMapData((prevData) => prevData.filter((item) => item.restaurant.id !== id));
+  };
+
   // const queryClient = useQueryClient();
 
   // const { data, isLoading, isError, error } = useQuery({ queryKey: ["mapData"], queryFn: () => getMyMap(userId) });
@@ -66,7 +70,7 @@ function MyMap({ userId }: { userId: number }) {
         <MyListMap mapData={mapData} />
         <div className="w-full sm:max-w-[640px] ">
           {mapData.map((data: MapItem) => (
-            <MyShopItem key={data.restaurant.id} item={data} />
+            <MyShopItem key={data.restaurant.id} item={data} removeItem={removeItemFromList} />
           ))}
         </div>
       </div>
