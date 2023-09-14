@@ -1,9 +1,12 @@
 import { useUserStore } from "@/src/store/useUserStore";
 import { getMessaging, deleteToken } from "firebase/messaging";
 import firebaseApp from "@/firebaseConfig";
+import { logOut } from './settings';
 
 const Logout = async () => {
-  // Clear user data directly from store without using a hook
+
+  const res = await logOut();
+  console.log("로그아웃 api 호출완료", res);
   useUserStore.getState().clearUser();
 
   // Delete FCM token from IndexedDB
