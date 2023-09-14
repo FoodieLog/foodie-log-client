@@ -8,12 +8,13 @@ import { BadgeSvg, ChangeSvg, NotificationSvg, OutSvg, WarningSvg } from "../../
 import SettingModal from "./SettingModal";
 import Toggle from "../Common/Toggle";
 import Header from "../Common/Header";
-import Logout from '@/src/services/Logout';
+import Logout from "@/src/services/Logout";
 
 function MySettings() {
   const [isClient, setIsClient] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const nickName = useUserStore((state) => state.user.nickName);
+  const clearUser = useUserStore((state) => state.user.clearUser);
   const router = useRouter();
 
   useEffect(() => {
@@ -36,7 +37,6 @@ function MySettings() {
       return;
     }
     try {
-  
       Logout();
     } catch (error) {
       console.log("로그아웃 실패", error);

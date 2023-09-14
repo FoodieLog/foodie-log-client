@@ -32,6 +32,17 @@ function SignUpForm() {
   });
   const { user, setUser, isChecked, nextComponent, setNextComponent } = useSignUpStore();
 
+  if (nextComponent === "SignUpTerms") {
+    return <SignUpTerms />;
+  } else if (nextComponent === "SignUpCode") {
+    return <SignUpCode />;
+  } else if (nextComponent === "SignUpProfile") {
+    return <SignUpProfile />;
+  }
+  const onClickHandler: React.MouseEventHandler<HTMLButtonElement> = (event) => {
+    event.preventDefault();
+    kakaoLogin();
+  };
   const onBlurHandler: React.FocusEventHandler<HTMLInputElement> = async (event) => {
     const email = event?.target.value;
     if (!errors?.email && email.trim() !== "") {
@@ -56,14 +67,6 @@ function SignUpForm() {
 
     setUser({ ...user, email, password });
   };
-
-  if (nextComponent === "SignUpTerms") {
-    return <SignUpTerms />;
-  } else if (nextComponent === "SignUpCode") {
-    return <SignUpCode />;
-  } else if (nextComponent === "SignUpProfile") {
-    return <SignUpProfile />;
-  }
 
   return (
     <section className="flex flex-col items-center justify-center p-10 h-4/5 sm:w-[600px] sm:border border-gray-300">
@@ -146,7 +149,7 @@ function SignUpForm() {
         <span className="w-10 flex-shrink-0 font-semibold text-gray-600 text-center text-sm">또는</span>
         <div className="h-[0.8px] w-full bg-slate-400" />
       </div>
-      <AuthButton />
+      <AuthButton onClick={onClickHandler} />
     </section>
   );
 }

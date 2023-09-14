@@ -38,7 +38,7 @@ function SignUpCode() {
   };
   return (
     <section className="auth">
-      <AuthHeader />
+      <AuthHeader back="preComponent" />
       <div className="title">
         <h2>인증코드</h2>
         <p>

@@ -2,11 +2,12 @@
 import React from "react";
 import { useRef, useState } from "react";
 import { MdAddPhotoAlternate } from "react-icons/md";
-import { settingProfile } from "@/src/services/mypage";
+import { profileSetting } from "@/src/services/kakao";
 import Image from "next/image";
 import Button from "../Common/Button";
 import { useUserStore } from "@/src/store/useUserStore";
 import Haeder from "../../components/Common/Header";
+
 function MyProfileSettings({ aboutMe }: { aboutMe: string }) {
   const user = useUserStore((state) => state.user);
   const [previewImage, setPreviewImage] = useState("");
@@ -34,7 +35,7 @@ function MyProfileSettings({ aboutMe }: { aboutMe: string }) {
     formData.append("file", profileImage as File);
     console.log("폼데이터", formData);
     try {
-      const res = settingProfile(formData);
+      const res = profileSetting(formData);
       console.log("프로필 설정 성공", res);
     } catch (error) {
       console.log("프로필 설정 에러", error);

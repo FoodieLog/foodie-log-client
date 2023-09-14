@@ -77,7 +77,7 @@ function PostContent() {
   }
 
   return (
-    <section className="w-full sm:max-w-[640px] mx-auto">
+    <section className="w-full sm:max-w-[640px]  mx-auto">
       <Header title="게시글 등록" type="arrow" back="preComponent" />
       <div className="px-3 mt-5">
         <ImageSlide images={images} />
