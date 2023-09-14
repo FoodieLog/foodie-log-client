@@ -10,9 +10,9 @@ const Topbar = () => {
   const isVisible = useHideOnScroll();
 
   return (
-    // <section className="flex justify-between items-center max-w-[640px] px-4 bg-cyan-500">
     <section
-      className={`z-20 flex w-full justify-between items-center bg-white max-w-[640px] px-4 pt-2 pb-1  
+      className={`z-20 flex w-full justify-between items-center bg-white max-w-[640px] px-4 pt-2 pb-1 
+      sm:fixed sm:-top-2
     ${isVisible ? "fixed top-0" : "fixed -top-16"} transition-top duration-300`}
     >
       <div>
