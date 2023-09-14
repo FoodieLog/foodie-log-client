@@ -67,6 +67,14 @@ const Feed: React.FC<FeedProps> = ({
     }
   };
 
+  // 팔로우 버튼의 기본 클래스 설정
+  const followButtonClass = `text-gray-900 border border-gray-300 focus:outline-none font-medium rounded-full text-sm px-5 py-2.5 mr-3 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:focus:ring-gray-700 bg-white`;
+
+  // 팔로우 상태에 따른 호버 버튼의 클래스 설정
+  const buttonClass = isFollowed
+    ? `${followButtonClass} hover:bg-slate-200 opacity-0 cursor-not-allowed`
+    : `${followButtonClass} hover:bg-gray-100`;
+
   const handleFollowButtonClick = async () => {
     try {
       let newFollowStatus;
@@ -142,12 +150,7 @@ const Feed: React.FC<FeedProps> = ({
         </div>
         {/* isFollowed 가 true 면 버튼 label이 "팔로잉", 아니면 "팔로우" */}
         {userId !== feed.userId ? (
-          <button
-            className={`text-gray-900 ${
-              isFollowed ? "bg-white" : "bg-slate-200"
-            } border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2.5 mr-3 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700`}
-            onClick={handleFollowButtonClick}
-          >
+          <button className={buttonClass} onClick={handleFollowButtonClick} disabled={isFollowed}>
             {isFollowed ? "팔로잉" : "팔로우"}
           </button>
         ) : null}
