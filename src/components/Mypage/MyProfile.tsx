@@ -30,7 +30,15 @@ function MyPageForm({ userId, option }: { userId: number; option: string }) {
   const nextComponent = useSignUpStore((state) => state.nextComponent);
   const setNextComponent = useSignUpStore((state) => state.setNextComponent);
 
+  useEffect(() => {
+    setIsClient(true);
+    checkThumbnails();
+    checkMyProfile();
+  }, []);
+
+  console.log("아이이디디", myProfile.nickName);
   const checkThumbnails = async () => {
+    console.log("userId", userId);
     try {
       if (userId) {
         const { response } = await getThumbnails(userId, 0);
@@ -43,6 +51,7 @@ function MyPageForm({ userId, option }: { userId: number; option: string }) {
   };
 
   const checkMyProfile = async () => {
+    console.log("유저아이디", userId);
     try {
       if (userId) {
         const { response } = await getMyProfile(userId);

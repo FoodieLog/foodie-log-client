@@ -7,6 +7,7 @@ import useSignUpStore from "@/src/store/useSignUpStore";
 import useKakaoStore from "@/src/store/useKakaoStore";
 import SignUpProfile from "./SignUpProfile";
 import AuthHeader from "../Common/Header/Auth";
+import { getKaKaoToken, postKakaoToken } from "@/src/services/kakao";
 
 function SignUpTerms() {
   const isChecked = useSignUpStore((state) => state.isChecked);
@@ -24,7 +25,16 @@ function SignUpTerms() {
 
   const onClickHandler = async (e: React.MouseEvent) => {
     e.preventDefault();
-    if (isChecked) {
+    if (isChecked && code) {
+      const { data } = await getKaKaoToken(code);
+      console.log("카카오 토큰", data);
+      await postKakaoToken(data.access_token)
+        .then((res) => {
+          setNextComponent("SignUpProfile");
+          console.log("서버에 토큰 전송 성공", res);
+        })
+        .catch((err) => console.log("서버 토큰 전송 실패", err));
+    } else if (isChecked && !code) {
       setNextComponent("SignUpProfile");
     }
   };
@@ -48,7 +58,7 @@ function SignUpTerms() {
 
   return (
     <section className="auth">
-      <AuthHeader />
+      <AuthHeader back="preComponent" />
       <div className="mb-10">
         <div className="title">
           <h2>이용약관동의</h2>

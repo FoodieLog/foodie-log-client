@@ -8,6 +8,8 @@ import Button from "@/src/components/Common/Button";
 import kakao from "@/public/images/kakao_login_medium_wide.png";
 import Line from "../Common/Line";
 import Link from "next/link";
+import AuthButton from "../Common/Button/AuthButton";
+import { kakaoLogin } from "@/src/services/kakao";
 import { initializePushNotifications } from "../Notification/PushNotification";
 import { useUserStore } from "@/src/store/useUserStore";
 
@@ -22,6 +24,11 @@ function LogInForm() {
   const setUser = useUserStore((state) => state.setUser);
   const user = useUserStore((state) => state.user);
   const setTokenExpiry = useUserStore((state) => state.setTokenExpiry);
+
+  const onClickHandler: React.MouseEventHandler<HTMLButtonElement> = (event) => {
+    event.preventDefault();
+    kakaoLogin();
+  };
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -47,10 +54,6 @@ function LogInForm() {
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setLogInData({ ...logInData, [name]: value });
-  };
-
-  const onClickHandler = () => {
-    console.log("onClick");
   };
 
   return (
@@ -102,9 +105,10 @@ function LogInForm() {
         </div>
       </form>
       <Line />
-      <Button type="button" variant={"text"} size={""} onClick={onClickHandler}>
+      {/* <Button type="button" variant={"text"} size={""} onClick={onClickHandler}>
         <Image src={kakao} alt="카카오 로그인 버튼" />
-      </Button>
+      </Button> */}
+      <AuthButton onClick={onClickHandler} />
       <div className="flex justify-center my-10">
         <Link href={"/accounts/password"} className="underline underline-offset-1">
           비밀번호를 잊으셨나요?

@@ -1,5 +1,5 @@
 import React from "react";
-import MyMap from "@/src/components/Mypage/MyMap";
+import MyMap from "@/src/components/Map/MyMap";
 
 const Map = ({ params }: { params: { id: string } }) => {
   const userId = parseInt(params.id);

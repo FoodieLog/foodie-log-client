@@ -1,5 +1,5 @@
 import React from "react";
-import MyMap from "../../../components/Mypage/MyMap";
+import MyMap from "../../../components/Map/MyMap";
 
 function Map() {
   return (

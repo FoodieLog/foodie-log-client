@@ -29,9 +29,9 @@ function ChangePassword({ email }: ChangePassword) {
   };
 
   return (
-    <section className="auth">
-      <AuthHeader />
-      <div className="title">
+    <section className="w-full sm:max-w-[640px] mx-auto px-2">
+      <AuthHeader back="preComponent" />
+      <div className="flex flex-col items-center">
         <h2>비밀번호 재설정</h2>
         <form onSubmit={handleSubmit(onSubmit)} className="w-full flex flex-col  gap-4 mt-10">
           <label>
