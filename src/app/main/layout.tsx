@@ -18,7 +18,8 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
       <AuthCheck />
       <Script
         src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${NEXT_PUBLIC_KAKAO_MAP_API_KEY}&libraries=services,clusterer&autoload=false`}
-        strategy="beforeInteractive"
+        // strategy="beforeInteractive"
+        strategy="lazyOnload"
       />
 
       <div className="flex min-h-screen mx-auto">
