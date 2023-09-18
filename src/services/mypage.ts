@@ -34,7 +34,11 @@ export const getMyProfile = async (userId: number) => {
 
 // 프로필 설정 (axios)
 export const settingProfile = async (body: FormData) => {
-  const res = await userRequest.put("​/api​/user​/setting​/profile", body);
+  const res = await userRequest.put("/api/user/setting/profile", body, {
+    headers: {
+      "Content-Type": "multipart/form-data;charset=utf-8",
+    },
+  });
   console.log("프로필 서버 응답데이터", res);
   return res;
 };

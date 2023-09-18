@@ -14,6 +14,7 @@ interface HeaderProps {
 }
 
 function Header({ title, type, back, option }: HeaderProps) {
+  console.log("타이틀", title);
   const router = useRouter();
   const setFiles = usePostStore((state) => state.setFiles);
   let headerStyle;

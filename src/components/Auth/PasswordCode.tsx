@@ -55,9 +55,9 @@ function FindPassword() {
   }
 
   return (
-    <section className="auth">
-      <AuthHeader />
-      <div className="title">
+    <section className="w-full sm:max-w-[640px] mx-auto px-2">
+      <AuthHeader back="prePage" />
+      <div className="flex flex-col items-center">
         <h2>비밀번호 재설정</h2>
         <h4>가입한 이메일로 인증코드 보내세요!</h4>
         <form onSubmit={sendPasswordCodeHandler} className="w-full flex flex-col  gap-4 mt-10">
@@ -88,6 +88,7 @@ function FindPassword() {
               onChange={onChangeHandler}
               type="text"
               className="code"
+              maxLength={1}
             />
             <input
               name="secondCode"
@@ -95,6 +96,7 @@ function FindPassword() {
               onChange={onChangeHandler}
               type="text"
               className="code"
+              maxLength={1}
             />
             <input
               name="thirdCode"
@@ -102,6 +104,7 @@ function FindPassword() {
               onChange={onChangeHandler}
               type="text"
               className="code"
+              maxLength={1}
             />
             <input
               name="fourthCode"
@@ -109,6 +112,7 @@ function FindPassword() {
               onChange={onChangeHandler}
               type="text"
               className="code"
+              maxLength={1}
             />
           </div>
           <div>

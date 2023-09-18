@@ -26,6 +26,9 @@ module.exports = {
         "accordion-up": "accordion-up 0.2s ease-out",
       },
       colors: {
+        kakao: {
+          container: "#FEE500",
+        },
         coral: {
           DEFAULT: "#FF6D60",
           dark: "#CC594F",

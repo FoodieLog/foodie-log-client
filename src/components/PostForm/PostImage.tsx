@@ -72,13 +72,13 @@ function PostImage() {
   };
 
   return (
-    <section className="w-full sm:max-w-[640px] mx-auto">
+    <section className="w-full sm:max-w-[640px]  mx-auto">
       <Header title="이미지 선택" type="arrow" back="preComponent" />
-      <div className="mx-3">
+      <div className=" mx-3">
         <button
           type="button"
           onClick={pickImageHandler}
-          className="text-gray-900 bg-white hover:bg-gray-100 border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-600 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 mr-2 mb-2"
+          className=" text-gray-900 bg-white hover:bg-gray-100 border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-600 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 mr-2 mb-2"
         >
           사진 추가
         </button>

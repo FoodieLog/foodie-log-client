@@ -52,11 +52,3 @@ export const resetPassword = async ({ email, password }: ResetPasswordBody) => {
   const res = await axiosRequest.put("/api/auth/password/reset", { email, password });
   return res;
 };
-
-// 카카오 코드 전송
-export const sendKakaoCode = async (code: string) => {
-  console.log(`sendKakaoCode`, code);
-  const res = await axiosRequest.get(`/api/auth/login/kakao?code=${code}`);
-  console.log("카카오 코드 응답데이터", res);
-  return res;
-};

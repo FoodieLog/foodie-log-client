@@ -58,11 +58,20 @@ const multipartConfig: AxiosRequestConfig = {
   baseURL: BASE_URL,
 };
 
+const kakaoConfig: AxiosRequestConfig = {
+  baseURL: "https://kauth.kakao.com/oauth/token",
+  headers: {
+    "Content-Type": "application/x-www-form-urlencoded;charset=utf-8",
+  },
+};
+
 const axiosRequest = axios.create(axiosConfig);
 const multipartrequest = axios.create(multipartConfig);
 
 const userRequest = axios.create(axiosConfig);
 const formDataRequest = axios.create(axiosConfig);
+
+const kakaoRequest = axios.create(kakaoConfig);
 
 // Axios 인터셉터를 사용하여 매 요청 전에 토큰 값을 가져와 `Authorization` 헤더에 설정
 const setAuthTokenInterceptor = (config: any) => {
@@ -83,4 +92,4 @@ userRequest.interceptors.request.use(setAuthTokenInterceptor);
 formDataRequest.interceptors.request.use(setAuthTokenInterceptor);
 multipartrequest.interceptors.request.use(setAuthTokenInterceptor);
 
-export { axiosRequest, multipartrequest, userRequest, formDataRequest };
+export { axiosRequest, multipartrequest, userRequest, formDataRequest, kakaoRequest };

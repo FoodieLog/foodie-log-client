@@ -1,12 +1,14 @@
-"use client"
+"use client";
+import { useRef, useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
 
-import React from "react";
-import { useRef, useEffect, useState } from "react";
-
-
-
-const KakaoMap: React.FC<{ latitude: string; longitude: string }> = ({ latitude, longitude }) => {
+const KakaoMap: React.FC<{ latitude: string; longitude: string; restaurantId: number }> = ({
+  latitude,
+  longitude,
+  restaurantId,
+}) => {
+  const router = useRouter();
   const mapRef = useRef();
   const level = 3;
   const [mapSize, setMapSize] = useState({
@@ -25,11 +27,19 @@ const KakaoMap: React.FC<{ latitude: string; longitude: string }> = ({ latitude,
     }
   }, [mapSize]);
 
+  const onMarkerClick = (restaurantId: number) => {
+    router.push(`/main/restaurants/${restaurantId}`);
+  };
+
   return (
     <div>
       <div className="p-1 bg-slate-300">
         <Map center={{ lat: parsedLat, lng: parsedLng }} style={mapSize} ref={mapRef} level={level}>
-          <MapMarker position={{ lat: parsedLat, lng: parsedLng }}></MapMarker>
+          <MapMarker
+            position={{ lat: parsedLat, lng: parsedLng }}
+            clickable={true}
+            onClick={() => onMarkerClick(restaurantId)}
+          ></MapMarker>
         </Map>
       </div>
     </div>
