@@ -14,7 +14,6 @@ function MySettings() {
   const [isClient, setIsClient] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const nickName = useUserStore((state) => state.user.nickName);
-  const clearUser = useUserStore((state) => state.user.clearUser);
   const router = useRouter();
 
   useEffect(() => {
