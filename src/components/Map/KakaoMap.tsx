@@ -27,7 +27,7 @@ const KakaoMap: React.FC<{ latitude: string; longitude: string }> = ({ latitude,
 
   return (
     <div>
-      <div className="p-2 bg-slate-300">
+      <div className="p-1 bg-slate-300">
         <Map center={{ lat: parsedLat, lng: parsedLng }} style={mapSize} ref={mapRef} level={level}>
           <MapMarker position={{ lat: parsedLat, lng: parsedLng }}></MapMarker>
         </Map>
