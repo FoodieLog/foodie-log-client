@@ -1,10 +1,10 @@
 "use client";
-import React from "react";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Button from "@/src/components/Common/Button";
 import useSignUpStore from "@/src/store/useSignUpStore";
 import { sendEmailCode, getVerificationEmail } from "@/src/services/auth";
 import AuthHeader from "../Common/Header/Auth";
+
 function SignUpCode() {
   const setNextComponent = useSignUpStore((state) => state.setNextComponent);
   const email = useSignUpStore((state) => state.user.email);
@@ -14,6 +14,14 @@ function SignUpCode() {
     thirdCode: "",
     fourthCode: "",
   });
+  const [focusedIndex, setFocusedIndex] = useState(0);
+  const inputRefs: React.RefObject<HTMLInputElement>[] = [
+    useRef(null),
+    useRef(null),
+    useRef(null),
+    useRef(null),
+    useRef(null),
+  ];
 
   const ResendClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
     await sendEmailCode(email)
@@ -35,6 +43,11 @@ function SignUpCode() {
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setCodeData({ ...codeData, [name]: value });
+
+    if (value.length >= e.target.maxLength && focusedIndex < inputRefs.length - 1) {
+      inputRefs[focusedIndex + 1].current?.focus();
+      setFocusedIndex(focusedIndex + 1);
+    }
   };
   return (
     <section className="auth">
@@ -42,7 +55,7 @@ function SignUpCode() {
       <div className="title">
         <h2>인증코드</h2>
         <p>
-          <span>(회원님)</span>로 전송된 인증코드를 입력해주세요!
+          <span>{email || "이메일"}</span>로 전송된 인증코드를 입력해주세요!
         </p>
         <div className="flex justify-center gap-2 mt-10">
           <input
@@ -52,6 +65,7 @@ function SignUpCode() {
             type="text"
             className="code"
             maxLength={1}
+            ref={inputRefs[0]}
           />
           <input
             name="secondCode"
@@ -60,6 +74,7 @@ function SignUpCode() {
             type="text"
             className="code"
             maxLength={1}
+            ref={inputRefs[1]}
           />
           <input
             name="thirdCode"
@@ -68,6 +83,7 @@ function SignUpCode() {
             type="text"
             className="code"
             maxLength={1}
+            ref={inputRefs[2]}
           />
           <input
             name="fourthCode"
@@ -76,6 +92,7 @@ function SignUpCode() {
             type="text"
             className="code"
             maxLength={1}
+            ref={inputRefs[3]}
           />
         </div>
       </div>
