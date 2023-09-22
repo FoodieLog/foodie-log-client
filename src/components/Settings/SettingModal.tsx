@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import {
   Dialog,
   DialogContent,
@@ -20,6 +21,8 @@ function SettingModal({ children }: SettingModalProps) {
   const [withdrawReason, setWithdrawReason] = useState("");
   const email = useUserStore((state) => state.user.email);
   const kakaoAccessToken = useUserStore((state) => state.user.kakaoAccessToken);
+  const clearUser = useUserStore((state) => state.clearUser);
+  const router = useRouter();
   const { toast } = useToast();
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -41,6 +44,8 @@ function SettingModal({ children }: SettingModalProps) {
     if (!kakaoAccessToken) {
       try {
         const res = await fetchWithdraw({ withdrawReason });
+        clearUser();
+        router.replace("/accounts/login");
         toast({ title: "푸드로그 탈퇴", description: "회원 탈퇴되었습니다." });
       } catch (error) {
         toast({ title: "탈퇴 실패", description: "탈퇴 실패하였습니다." });
@@ -49,6 +54,8 @@ function SettingModal({ children }: SettingModalProps) {
       try {
         await fetchWithdraw({ withdrawReason });
         await unlinkKaKaoToken();
+        clearUser();
+        router.replace("/accounts/login");
         toast({ title: "푸드로그 탈퇴", description: "회원 탈퇴되었습니다." });
       } catch (error) {
         toast({ title: "탈퇴 실패", description: "탈퇴 실패하였습니다." });
