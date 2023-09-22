@@ -93,7 +93,7 @@ function PostImage() {
             {previews?.map((preview, i) => (
               <li
                 key={i}
-                className="w-full h-full relative after:content-[''] after:block after:pb-[100%]  overflow-hidden"
+                className="w-full h-full relative after:content-[''] after:block after:pb-[100%] overflow-hidden"
               >
                 <div className="w-full h-full absolute flex items-center justify-center">
                   <Image width={200} height={200} src={preview} alt={`이미지${i}`} className="object-contain" />
