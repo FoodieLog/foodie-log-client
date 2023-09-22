@@ -15,6 +15,7 @@ function MySettings() {
   const [showModal, setShowModal] = useState(false);
   const nickName = useUserStore((state) => state.user.nickName);
   const kakaoAccessToken = useUserStore((state) => state.user.kakaoAccessToken);
+  const clearUser = useUserStore((state) => state.clearUser);
   const router = useRouter();
   const { toast } = useToast();
 
@@ -41,15 +42,18 @@ function MySettings() {
       try {
         await Logout();
       } catch (error) {
+        clearUser();
         router.replace("/accounts/login");
         toast({ title: "로그아웃", description: "로그아웃되었습니다!" });
       }
     } else {
       try {
         await logoutKaKaoToken();
+        clearUser();
         router.replace("/accounts/login");
         toast({ title: "로그아웃", description: "로그아웃되었습니다!" });
       } catch (error) {
+        clearUser();
         router.replace("/accounts/login");
         toast({ title: "로그아웃", description: "로그아웃되었습니다!" });
       }
