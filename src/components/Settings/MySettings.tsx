@@ -1,20 +1,22 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import { useUserStore } from "../../store/useUserStore";
-import { LiaAngleLeftSolid } from "react-icons/lia";
+import { useEffect, useState } from "react";
+import { useUserStore } from "@/src/store/useUserStore";
 import { useRouter } from "next/navigation";
-import { logOut } from "../../services/settings";
-import { BadgeSvg, ChangeSvg, NotificationSvg, OutSvg, WarningSvg } from "../../assets/svgs";
-import SettingModal from "./SettingModal";
-import Toggle from "../Common/Toggle";
-import Header from "../Common/Header";
+import { BadgeSvg, ChangeSvg, NotificationSvg, OutSvg, WarningSvg } from "@/src/assets/svgs";
+import SettingModal from "@/src/components/Settings/SettingModal";
+import Toggle from "@/src/components/Common/Toggle";
+import Header from "@/src/components/Common/Header";
 import Logout from "@/src/services/Logout";
+import { logoutKaKaoToken } from "@/src/services/kakao";
+import { useToast } from "@/components/ui/use-toast";
 
 function MySettings() {
   const [isClient, setIsClient] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const nickName = useUserStore((state) => state.user.nickName);
+  const kakaoAccessToken = useUserStore((state) => state.user.kakaoAccessToken);
   const router = useRouter();
+  const { toast } = useToast();
 
   useEffect(() => {
     setIsClient(true);
@@ -35,10 +37,22 @@ function MySettings() {
     if (!confirm("로그아웃하시겠습니까?")) {
       return;
     }
-    try {
-      Logout();
-    } catch (error) {
-      console.log("로그아웃 실패", error);
+    if (!kakaoAccessToken) {
+      try {
+        await Logout();
+      } catch (error) {
+        router.replace("/accounts/login");
+        toast({ title: "로그아웃", description: "로그아웃되었습니다!" });
+      }
+    } else {
+      try {
+        await logoutKaKaoToken();
+        router.replace("/accounts/login");
+        toast({ title: "로그아웃", description: "로그아웃되었습니다!" });
+      } catch (error) {
+        router.replace("/accounts/login");
+        toast({ title: "로그아웃", description: "로그아웃되었습니다!" });
+      }
     }
   };
 
