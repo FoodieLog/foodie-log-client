@@ -9,9 +9,7 @@ import Image from "next/image";
 import Button from "../Common/Button";
 import AuthHeader from "../Common/Header/Auth";
 import useSignUpStore from "@/src/store/useSignUpStore";
-import useKakaoStore from "@/src/store/useKakaoStore";
-import { useUserStore } from "@/src/store/useUserStore";
-import { kakaoLogin } from "@/src/services/kakao";
+import { useToast } from "@/components/ui/use-toast";
 
 function SignUpProfile() {
   const [previewImage, setPreviewImage] = useState("/images/userImage.png");
@@ -25,6 +23,8 @@ function SignUpProfile() {
   const router = useRouter();
   const user = useSignUpStore((state) => state.user);
   const fileInput = useRef<HTMLInputElement>(null);
+  const kakaoToken = localStorage.getItem("kakaoToken");
+  const { toast } = useToast();
 
   // 회원가입 api
   const SignUpSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -44,9 +44,8 @@ function SignUpProfile() {
     formData.append("file", profileImage as File);
 
     await signUp(formData).then((res) => {
-      console.log("회원가입 성공", res);
-      alert("회원가입이 완료되었습니다.\n로그인 페이지로 이동합니다.");
       router.replace("/accounts/login");
+      toast({ title: "회원 가입", description: "푸디로그에 오신 걸 환영합니다!" });
     });
   };
 
@@ -66,11 +65,12 @@ function SignUpProfile() {
     formData.append("file", profileImage as File);
 
     await profileSetting(formData)
-      .then((res) => {
-        kakaoLogin();
-        console.log("프로필 성공", res);
+      .then(() => {
+        localStorage.removeItem("kakaoToken");
+        router.replace("/main/home");
+        toast({ title: "회원 가입", description: "푸디로그에 오신 걸 환영합니다!" });
       })
-      .catch((err) => console.log("프로필 에러", err));
+      .catch((err) => toast({ description: err }));
   };
 
   // ref 클릭
@@ -107,7 +107,7 @@ function SignUpProfile() {
   };
 
   return (
-    <form id="formElem" className="auth" method="post" onSubmit={code ? ProfileSubmit : SignUpSubmit}>
+    <form id="formElem" className="auth" method="post" onSubmit={kakaoToken ? ProfileSubmit : SignUpSubmit}>
       <AuthHeader back="preComponent" />
       <div className=" flex flex-col items-center justify-center mb-4">
         <div className="title">
@@ -147,7 +147,7 @@ function SignUpProfile() {
       </div>
       <div className="my-10">
         <Button type="submit" variant={"primary"}>
-          {code ? "프로필 설정" : "가입완료"}
+          {kakaoToken ? "프로필 설정" : "가입완료"}
         </Button>
       </div>
     </form>
