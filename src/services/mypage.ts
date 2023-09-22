@@ -1,6 +1,6 @@
-import { userRequest, formDataRequest } from "./index";
-import { useUserStore } from "../store/useUserStore";
-import { makeFeedFetchRequest } from "../services/apiFeed";
+import { userRequest, formDataRequest } from "@/src/services";
+import { useUserStore } from "@/src/store/useUserStore";
+import { makeFeedFetchRequest } from "@/src/services/apiFeed";
 
 const accessToken = useUserStore.getState().user.accessToken;
 const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL as string;
