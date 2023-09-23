@@ -1,7 +1,7 @@
 // apiFeed.ts
 
 import { useUserStore } from "../store/useUserStore";
-import Logout from './Logout';
+import Logout from "./Logout";
 
 const BASE_URL = "https://api.foodielog-server.monster/api";
 
@@ -203,7 +203,9 @@ export const makeFeedFetchRequest = async <T>(
 };
 
 export const getFeedList = (feedId: number, pageSize: number, pageNumber: number): Promise<APIFeedResponse> => {
-  return makeFeedFetchRequest(`/feed/list?feedId=${feedId}&pageSize=${pageSize}&pageNumber=${pageNumber}`);
+  if (feedId === 0) {
+    return makeFeedFetchRequest(`/feed/list?pageSize=${pageSize}&pageNumber=${pageNumber}`);
+  } else return makeFeedFetchRequest(`/feed/list?feedId=${feedId}&pageSize=${pageSize}&pageNumber=${pageNumber}`);
 };
 
 export const getFeedListByUserId = (
@@ -212,9 +214,10 @@ export const getFeedListByUserId = (
   pageSize: number,
   pageNumber: number
 ): Promise<APIFeedResponse> => {
-  return makeFeedFetchRequest(
-    `/user/${userId}/feed/list?feedId=${feedId}&pageSize=${pageSize}&pageNumber=${pageNumber}`
-  );
+  if (feedId === 0) {
+    return makeFeedFetchRequest(`/user/${userId}/feed/?pageSize=${pageSize}&pageNumber=${pageNumber}`);
+  } else
+    return makeFeedFetchRequest(`/user/${userId}/feed/?feedId=${feedId}&pageSize=${pageSize}&pageNumber=${pageNumber}`);
 };
 
 export const getFeedShared = (feedId: number): Promise<GetFeedSharedResponse> => {
