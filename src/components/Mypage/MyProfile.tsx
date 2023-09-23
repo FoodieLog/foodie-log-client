@@ -36,9 +36,7 @@ function MyPageForm({ userId, option }: { userId: number; option: string }) {
     checkMyProfile();
   }, []);
 
-  console.log("아이이디디", myProfile.nickName);
   const checkThumbnails = async () => {
-    console.log("userId", userId);
     try {
       if (userId) {
         const { response } = await getThumbnailByUserId(userId, 0);
@@ -51,12 +49,11 @@ function MyPageForm({ userId, option }: { userId: number; option: string }) {
   };
 
   const checkMyProfile = async () => {
-    console.log("유저아이디", userId);
     try {
       if (userId) {
-        const { response } = await getMyProfile(userId);
-        setMyProfile(response);
-        console.log("마이프로필 성공", response);
+        const { data } = await getMyProfile(userId);
+        setMyProfile(data.response);
+        console.log("마이프로필 성공", data);
       }
     } catch (error) {
       console.log("마이프로필 실패", error);
@@ -93,19 +90,20 @@ function MyPageForm({ userId, option }: { userId: number; option: string }) {
     return <MyProfileSettings aboutMe={myProfile.aboutMe} />;
   }
 
-  // mx-3 my-5 flex items-center max-sm:justify-around sm:justify-center sm:gap-10
   return (
     <section className="w-full sm:max-w-[640px] mx-auto">
       <Header title={myProfile.nickName} type="left" back="prePage" option={option} />
       <main className="px-2 space-y-3">
-        <header className="flex items-center mt-5 mb-3 mx-3 justify-between">
-          <div className="w-[70px] h-[70px] shrink-0 rounded-full overflow-hidden cursor-pointer">
-            <Image
-              width={70}
-              height={70}
-              src={myProfile?.profileImageUrl || "/images/userImage.png"}
-              alt="프로필 사진"
-            />
+        <header className="flex items-center mt-5 mb-3 mx-3 justify-between shrink-0">
+          <div className="relative ml-3 w-[70px] h-[70px] shrink-0 rounded-full overflow-hidden cursor-pointer">
+            <div className="absolute w-full h-full">
+              <Image
+                fill
+                src={myProfile?.profileImageUrl || "/images/userImage.png"}
+                alt="프로필 사진"
+                className="object-cover"
+              />
+            </div>
           </div>
           <ul className="w-full flex justify-evenly">
             <li className="flex flex-col items-center justify-center">
@@ -138,23 +136,24 @@ function MyPageForm({ userId, option }: { userId: number; option: string }) {
             <CgFlagAlt size="1.2rem" />
           </Link>
         </div>
-        <article className="">
-          <ul className="w-full grid grid-cols-3 gap-3">
+        <article>
+          <ul className="w-full grid grid-cols-3">
             {thumbnails?.map((thumbnail) => (
               <li
                 key={thumbnail.feed.feedId}
                 className="w-full h-full relative after:content-[''] after:block after:pb-[100%]  overflow-hidden"
               >
-                <Link href={`/main/feed/${userId}`} className="w-[200px] h-[200px] absolute flex items-center justify-center">
+                <Link
+                  href={`/main/feed/${userId}`}
+                  className="w-[200px] h-[200px] absolute flex items-center justify-center"
+                >
                   <Image
                     fill
                     // width={200}
                     // height={200}
                     src={thumbnail?.feed.thumbnailUrl}
                     alt={`썸네일${thumbnail.feed.feedId}`}
-                    style={{
-                      objectFit: "cover",
-                    }}
+                    className="object-cover"
                   />
                 </Link>
               </li>
