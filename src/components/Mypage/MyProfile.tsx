@@ -30,12 +30,6 @@ function MyPageForm({ userId, option }: { userId: number; option: string }) {
   const nextComponent = useSignUpStore((state) => state.nextComponent);
   const setNextComponent = useSignUpStore((state) => state.setNextComponent);
 
-  useEffect(() => {
-    setIsClient(true);
-    checkThumbnails();
-    checkMyProfile();
-  }, []);
-
   const checkThumbnails = async () => {
     try {
       if (userId) {
@@ -54,6 +48,10 @@ function MyPageForm({ userId, option }: { userId: number; option: string }) {
         const { data } = await getMyProfile(userId);
         setMyProfile(data.response);
         console.log("마이프로필 성공", data);
+        console.log("checkMyProfile->userId : ", userId);
+        const { response } = await getMyProfile(userId);
+        setMyProfile(response);
+        console.log("마이프로필 성공", response);
       }
     } catch (error) {
       console.log("마이프로필 실패", error);
@@ -136,24 +134,29 @@ function MyPageForm({ userId, option }: { userId: number; option: string }) {
             <CgFlagAlt size="1.2rem" />
           </Link>
         </div>
-        <article>
-          <ul className="w-full grid grid-cols-3">
+        <article className="">
+          <ul className="w-full grid grid-cols-3 gap-2">
             {thumbnails?.map((thumbnail) => (
               <li
                 key={thumbnail.feed.feedId}
                 className="w-full h-full relative after:content-[''] after:block after:pb-[100%]  overflow-hidden"
               >
-                <Link
-                  href={`/main/feed/${userId}`}
-                  className="w-[200px] h-[200px] absolute flex items-center justify-center"
-                >
+                <Link href={`/main/feed/${userId}`} style={{ paddingBottom: "100%" }}>
                   <Image
                     fill
+                    sizes="100vw"
                     // width={200}
                     // height={200}
                     src={thumbnail?.feed.thumbnailUrl}
                     alt={`썸네일${thumbnail.feed.feedId}`}
-                    className="object-cover"
+                    style={{
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                    }}
                   />
                 </Link>
               </li>
