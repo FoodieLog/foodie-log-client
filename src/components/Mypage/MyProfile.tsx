@@ -3,7 +3,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { BiPhotoAlbum } from "react-icons/bi";
 import { CgFlagAlt } from "react-icons/cg";
-import { getThumbnails } from "../../services/mypage";
+import { getThumbnailByUserId } from "../../services/mypage";
 import { getMyProfile } from "@/src/services/mypage";
 import { ThumbnailState, myProfileState } from "../../types/mypage";
 import Link from "next/link";
@@ -41,7 +41,7 @@ function MyPageForm({ userId, option }: { userId: number; option: string }) {
     console.log("userId", userId);
     try {
       if (userId) {
-        const { response } = await getThumbnails(userId, 0);
+        const { response } = await getThumbnailByUserId(userId, 0);
         setThumbnails(response.content);
         console.log("썸네일 성공", response.content);
       }
@@ -68,12 +68,12 @@ function MyPageForm({ userId, option }: { userId: number; option: string }) {
     checkMyProfile();
     setIsClient(true);
     setIsLoading(false);
-  }, [userId]);
+  }, []);
 
   // 비동기 로딩이 완료되었는지 확인
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
+  // if (isLoading) {
+  //   return <div>Loading...</div>;
+  // }
 
   // myProfile이 유효한 값이 있는지 확인
   if (!myProfile) {
@@ -142,11 +142,20 @@ function MyPageForm({ userId, option }: { userId: number; option: string }) {
           <ul className="w-full grid grid-cols-3 gap-3">
             {thumbnails?.map((thumbnail) => (
               <li
-                key={thumbnail.id}
+                key={thumbnail.feed.feedId}
                 className="w-full h-full relative after:content-[''] after:block after:pb-[100%]  overflow-hidden"
               >
-                <Link href={`/main/feed/${userId}`} className="w-full h-full absolute flex items-center justify-center">
-                  <Image width={200} height={200} src={thumbnail?.thumbnailUrl} alt={`썸네일${thumbnail.id}`} />
+                <Link href={`/main/feed/${userId}`} className="w-[200px] h-[200px] absolute flex items-center justify-center">
+                  <Image
+                    fill
+                    // width={200}
+                    // height={200}
+                    src={thumbnail?.feed.thumbnailUrl}
+                    alt={`썸네일${thumbnail.feed.feedId}`}
+                    style={{
+                      objectFit: "cover",
+                    }}
+                  />
                 </Link>
               </li>
             ))}
