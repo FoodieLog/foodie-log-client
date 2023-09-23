@@ -41,13 +41,3 @@ export interface myProfileState {
   profileImageUrl: string;
   userId: number;
 }
-
-export interface myProfileState {
-  aboutMe: string;
-  nickName: string;
-  feedCount: number;
-  follower: number;
-  following: number;
-  profileImageUrl: string;
-  userId: number;
-}
