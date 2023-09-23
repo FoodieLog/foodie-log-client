@@ -4,8 +4,10 @@ import { useUserStore } from "@/src/store/useUserStore";
 import { useRouter, usePathname } from "next/navigation";
 import { reissueTokens } from "@/src/services/apiFeed";
 import Logout from "@/src/services/Logout";
+import { useToast } from "@/components/ui/use-toast";
 
 const AuthCheck: React.FC = () => {
+  const { toast } = useToast();
   const { user, setUser, setTokenExpiry } = useUserStore((state) => ({
     user: state.user,
     setUser: state.setUser,
@@ -39,12 +41,12 @@ const AuthCheck: React.FC = () => {
             setTokenExpiry(expiryTime);
           } else {
             console.error(reissueResponse.error.message.accessToken);
-            alert("토큰이 유효하지 않습니다. 다시 로그인해 주세요!");
+            toast({ description: "토큰이 유효하지 않습니다.\n다시 로그인해 주세요!" });
             Logout();
           }
         } catch (error) {
           console.error("Error while reissuing tokens:", error);
-          alert("토큰이 유효하지 않습니다. 다시 로그인해 주세요!");
+          toast({ description: "토큰이 유효하지 않습니다.\n다시 로그인해 주세요!" });
           Logout();
         }
       } else if (pathname === "/") {

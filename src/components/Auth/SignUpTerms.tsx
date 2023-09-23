@@ -1,20 +1,20 @@
 "use client";
-import React, { useEffect } from "react";
 import { useSearchParams } from "next/navigation";
-import { sendKakaoCode } from "@/src/services/kakao";
 import Button from "@/src/components/Common/Button";
 import useSignUpStore from "@/src/store/useSignUpStore";
 import useKakaoStore from "@/src/store/useKakaoStore";
 import SignUpProfile from "./SignUpProfile";
 import AuthHeader from "../Common/Header/Auth";
 import { getKaKaoToken, postKakaoToken } from "@/src/services/kakao";
+import { toast } from "@/components/ui/use-toast";
+import { useState } from "react";
 
 function SignUpTerms() {
+  const [isLoading, setIsLoading] = useState(false);
   const isChecked = useSignUpStore((state) => state.isChecked);
   const setIsChecked = useSignUpStore((state) => state.setIsChecked);
   const nextComponent = useSignUpStore((state) => state.nextComponent);
   const setNextComponent = useSignUpStore((state) => state.setNextComponent);
-  const setCode = useKakaoStore((state) => state.setCode);
 
   const params = useSearchParams();
   const code = params.get("code");
@@ -23,11 +23,13 @@ function SignUpTerms() {
     setIsChecked(!isChecked);
   };
 
+  // 카카오 로그인 로직은 추후 삭제 예정
   const onClickHandler = async (e: React.MouseEvent) => {
     e.preventDefault();
+    setIsLoading(true);
+    if (!isChecked) return toast({ description: "약관 동의는 필수입니다." });
     if (isChecked && code) {
       const { data } = await getKaKaoToken(code);
-      console.log("카카오 토큰", data);
       await postKakaoToken(data.access_token)
         .then((res) => {
           setNextComponent("SignUpProfile");
@@ -37,20 +39,8 @@ function SignUpTerms() {
     } else if (isChecked && !code) {
       setNextComponent("SignUpProfile");
     }
+    setIsLoading(false);
   };
-
-  // const kaKaoClick = async (e: React.MouseEvent) => {
-  //   e.preventDefault();
-  //   if (!code) return;
-  //   console.log("Click", code);
-  //   await sendKakaoCode(code)
-  //     .then((res) => {
-  //       setNextComponent("SignUpProfile");
-  //       console.log(code);
-  //       console.log("카카오 코드 전송 성공", res);
-  //     })
-  //     .catch((err) => console.log("Error", err));
-  // };
 
   if (nextComponent === "SignUpProfile") {
     return <SignUpProfile />;
@@ -72,8 +62,8 @@ function SignUpTerms() {
         </div>
         <p>더 알아보기</p>
       </div>
-      <Button type="button" variant={"primary"} onClick={onClickHandler}>
-        {code ? "가입완료" : "다음"}
+      <Button type="button" variant={"primary"} onClick={onClickHandler} disabled={isLoading}>
+        {isLoading ? "로딩중..." : "다음"}
       </Button>
     </section>
   );

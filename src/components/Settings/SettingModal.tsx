@@ -33,7 +33,7 @@ function SettingModal({ children }: SettingModalProps) {
     e.preventDefault();
 
     if (withdrawReason.trim() === "") {
-      toast({ description: "사유를 입력해주세요" });
+      toast({ description: "🥲 탈퇴 사유를 입력해주세요." });
       return;
     }
     confirm("탈퇴하시겠습니까?");
