@@ -11,8 +11,6 @@ function FeedModal({ feedId, preContent }: FeedModalProps) {
   const [content, setContent] = useState(preContent);
   const setNextComponent = useSignUpStore((state) => state.setNextComponent);
 
-  console.log(content);
-
   const onChangeTextArea = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setContent(e.target.value);
   };
@@ -23,19 +21,21 @@ function FeedModal({ feedId, preContent }: FeedModalProps) {
 
   const onClickEdit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+
     try {
       const res = await updateFeed(feedId, content);
+      setNextComponent("");
       console.log("수정 성공", res);
     } catch (err) {
       console.error("수정 에러", err);
     }
   };
   return (
-    <div className="fixed flex justify-center items-center bg-gray-300 top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div className="fixed w-screen flex justify-center items-center top-0 left-0 right-0 z-50 p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
       <div className="relative w-full max-w-2xl max-h-full">
         <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
           <div className="flex items-start justify-between p-4">
-            <h3 className="text-xl font-semibold text-gray-900 dark:text-white">피드 수정</h3>
+            <h4 className="text-lg font-semibold text-gray-900 dark:text-white">피드 수정</h4>
           </div>
           <form className="mx-5">
             <div className="w-full mb-4 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700">

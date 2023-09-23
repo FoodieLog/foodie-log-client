@@ -12,6 +12,7 @@ import useSignUpStore from "@/src/store/useSignUpStore";
 import { useToast } from "@/components/ui/use-toast";
 
 function SignUpProfile() {
+  const [isLoading, setIsLoading] = useState(false);
   const [availableEmail, setAvailableEmail] = useState(0);
   const [previewImage, setPreviewImage] = useState("/images/userImage.png");
   const [profileImage, setProfileImage] = useState<File>();
@@ -31,6 +32,7 @@ function SignUpProfile() {
   // 회원가입 api
   const SignUpSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsLoading(true);
     if (availableEmail !== 200) {
       toast({ title: "닉네임 오류", description: "유효하지 않는 닉네임입니다.\n닉네임을 다시 입력해 주세요." });
     }
@@ -60,11 +62,13 @@ function SignUpProfile() {
         setProfileImage(undefined);
       })
       .catch((err) => toast({ description: "회원가입에 실패하였습니다." }));
+    setIsLoading(false);
   };
 
   // 카카오 로그인 시 프로필 설정 api
   const ProfileSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsLoading(true);
     if (availableEmail !== 200) {
       toast({ title: "닉네임 오류", description: "유효하지 않는 닉네임입니다.\n닉네임을 다시 입력해 주세요." });
     }
@@ -92,6 +96,7 @@ function SignUpProfile() {
         setProfileImage(undefined);
       })
       .catch((err) => toast({ description: "회원가입에 실패하였습니다." }));
+    setIsLoading(false);
   };
 
   // ref 클릭
@@ -191,8 +196,8 @@ function SignUpProfile() {
         </label>
       </div>
       <div className="my-10">
-        <Button type="submit" variant={"primary"}>
-          {kakaoToken ? "프로필 설정" : "가입완료"}
+        <Button type="submit" variant={"primary"} disabled={isLoading}>
+          {isLoading ? "로딩중..." : kakaoToken ? "프로필 설정" : "가입완료"}
         </Button>
       </div>
     </form>

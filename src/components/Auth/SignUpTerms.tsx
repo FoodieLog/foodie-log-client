@@ -6,8 +6,11 @@ import useKakaoStore from "@/src/store/useKakaoStore";
 import SignUpProfile from "./SignUpProfile";
 import AuthHeader from "../Common/Header/Auth";
 import { getKaKaoToken, postKakaoToken } from "@/src/services/kakao";
+import { toast } from "@/components/ui/use-toast";
+import { useState } from "react";
 
 function SignUpTerms() {
+  const [isLoading, setIsLoading] = useState(false);
   const isChecked = useSignUpStore((state) => state.isChecked);
   const setIsChecked = useSignUpStore((state) => state.setIsChecked);
   const nextComponent = useSignUpStore((state) => state.nextComponent);
@@ -23,6 +26,8 @@ function SignUpTerms() {
   // 카카오 로그인 로직은 추후 삭제 예정
   const onClickHandler = async (e: React.MouseEvent) => {
     e.preventDefault();
+    setIsLoading(true);
+    if (!isChecked) return toast({ description: "약관 동의는 필수입니다." });
     if (isChecked && code) {
       const { data } = await getKaKaoToken(code);
       await postKakaoToken(data.access_token)
@@ -34,6 +39,7 @@ function SignUpTerms() {
     } else if (isChecked && !code) {
       setNextComponent("SignUpProfile");
     }
+    setIsLoading(false);
   };
 
   if (nextComponent === "SignUpProfile") {
@@ -56,8 +62,8 @@ function SignUpTerms() {
         </div>
         <p>더 알아보기</p>
       </div>
-      <Button type="button" variant={"primary"} onClick={onClickHandler}>
-        다음
+      <Button type="button" variant={"primary"} onClick={onClickHandler} disabled={isLoading}>
+        {isLoading ? "로딩중..." : "다음"}
       </Button>
     </section>
   );
