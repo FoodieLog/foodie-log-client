@@ -30,14 +30,8 @@ export const getThumbnailByUserId = async (userId: number, feedId: number) => {
 
 // 내 프로필 (fetch)
 export const getMyProfile = async (userId: number) => {
-  const res = await fetch(`${baseURL}/api/user/${userId}/profile`, {
-    method: "GET",
-    headers,
-  });
-
-  const data = await res.json();
-  console.log("마이프로필", data);
-  return data;
+  const res = await userRequest.get(`${baseURL}/api/user/${userId}/profile`);
+  return res;
 };
 
 // 프로필 설정 (axios)
