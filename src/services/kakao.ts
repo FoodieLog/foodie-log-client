@@ -1,4 +1,4 @@
-import { axiosRequest, multipartrequest, kakaoRequest, userRequest } from "./index";
+import { axiosRequest, multipartrequest, kakaoRequest, userRequest, kakaoLogoutRequest } from "./index";
 import useKakaoStore from "../store/useKakaoStore";
 
 //카카오 로그인
@@ -19,7 +19,7 @@ export const sendKakaoCode = (code: string) => {
   return res;
 };
 
-// 카카오 토큰 전송
+// 카카오 토큰 발급
 export const getKaKaoToken = async (code: string) => {
   const res = await kakaoRequest.post("https://kauth.kakao.com/oauth/token", {
     grant_type: "authorization_code",
@@ -30,9 +30,21 @@ export const getKaKaoToken = async (code: string) => {
   return res;
 };
 
-// 카카오 회원가입 (서버에 토큰 전송)
+// 카카오 이메일 중복 체크 - 카카오 토큰 전송
 export const postKakaoToken = async (token: string) => {
-  const res = await multipartrequest.get(`/api/auth/login/kakao?token=${token}`);
+  const res = await axiosRequest.get(`/api/auth/exists/kakao?token=${token}`);
+  return res;
+};
+
+// 카카오 로그인
+export const loginKaKaoToken = async (token: string) => {
+  const res = await axiosRequest.get(`/api/auth/login/kakao?token=${token}`);
+  return res;
+};
+
+// 카카오 로그아웃
+export const logoutKaKaoToken = async () => {
+  const res = await kakaoLogoutRequest.post(`/logout`);
   return res;
 };
 
@@ -44,5 +56,11 @@ export const profileSetting = async (body: FormData) => {
     },
   });
   console.log("프로필 서버 응답데이터", res);
+  return res;
+};
+
+//카카오 회원 탈퇴
+export const unlinkKaKaoToken = async () => {
+  const res = await kakaoLogoutRequest.post(`/unlink`);
   return res;
 };
