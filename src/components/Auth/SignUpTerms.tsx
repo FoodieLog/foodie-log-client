@@ -1,7 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
 import { useSearchParams } from "next/navigation";
-import { sendKakaoCode } from "@/src/services/kakao";
 import Button from "@/src/components/Common/Button";
 import useSignUpStore from "@/src/store/useSignUpStore";
 import useKakaoStore from "@/src/store/useKakaoStore";
@@ -14,7 +12,6 @@ function SignUpTerms() {
   const setIsChecked = useSignUpStore((state) => state.setIsChecked);
   const nextComponent = useSignUpStore((state) => state.nextComponent);
   const setNextComponent = useSignUpStore((state) => state.setNextComponent);
-  const setCode = useKakaoStore((state) => state.setCode);
 
   const params = useSearchParams();
   const code = params.get("code");
@@ -23,11 +20,11 @@ function SignUpTerms() {
     setIsChecked(!isChecked);
   };
 
+  // 카카오 로그인 로직은 추후 삭제 예정
   const onClickHandler = async (e: React.MouseEvent) => {
     e.preventDefault();
     if (isChecked && code) {
       const { data } = await getKaKaoToken(code);
-      console.log("카카오 토큰", data);
       await postKakaoToken(data.access_token)
         .then((res) => {
           setNextComponent("SignUpProfile");
@@ -38,19 +35,6 @@ function SignUpTerms() {
       setNextComponent("SignUpProfile");
     }
   };
-
-  // const kaKaoClick = async (e: React.MouseEvent) => {
-  //   e.preventDefault();
-  //   if (!code) return;
-  //   console.log("Click", code);
-  //   await sendKakaoCode(code)
-  //     .then((res) => {
-  //       setNextComponent("SignUpProfile");
-  //       console.log(code);
-  //       console.log("카카오 코드 전송 성공", res);
-  //     })
-  //     .catch((err) => console.log("Error", err));
-  // };
 
   if (nextComponent === "SignUpProfile") {
     return <SignUpProfile />;
@@ -73,7 +57,7 @@ function SignUpTerms() {
         <p>더 알아보기</p>
       </div>
       <Button type="button" variant={"primary"} onClick={onClickHandler}>
-        {code ? "가입완료" : "다음"}
+        다음
       </Button>
     </section>
   );
