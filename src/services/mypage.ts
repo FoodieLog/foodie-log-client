@@ -10,11 +10,19 @@ const headers = {
 };
 
 // 내 피드 썸네일 리스트 (fetch)
-export const getThumbnails = async (userId: number, feedId: number) => {
-  const res = await fetch(`${baseURL}/api/user/${userId}/feed/thumbnail?feedId=${feedId}`, {
-    method: "GET",
-    headers,
-  });
+export const getThumbnailByUserId = async (userId: number, feedId: number) => {
+  let res;
+  if (feedId === 0) {
+    res = await fetch(`${baseURL}/api/user/${userId}/feed`, {
+      method: "GET",
+      headers,
+    });
+  } else {
+    res = await fetch(`${baseURL}/api/user/${userId}/feed/?feedId=${feedId}`, {
+      method: "GET",
+      headers,
+    });
+  }
 
   const data = await res.json();
   return data;
