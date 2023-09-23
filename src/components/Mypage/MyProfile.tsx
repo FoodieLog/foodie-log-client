@@ -30,6 +30,13 @@ function MyPageForm({ userId, option }: { userId: number; option: string }) {
   const nextComponent = useSignUpStore((state) => state.nextComponent);
   const setNextComponent = useSignUpStore((state) => state.setNextComponent);
 
+  useEffect(() => {
+    checkThumbnails();
+    checkMyProfile();
+    setIsClient(true);
+    setIsLoading(false);
+  }, []);
+
   const checkThumbnails = async () => {
     try {
       if (userId) {
@@ -45,25 +52,14 @@ function MyPageForm({ userId, option }: { userId: number; option: string }) {
   const checkMyProfile = async () => {
     try {
       if (userId) {
-        const { data } = await getMyProfile(userId);
-        setMyProfile(data.response);
-        console.log("마이프로필 성공", data);
-        console.log("checkMyProfile->userId : ", userId);
-        const { response } = await getMyProfile(userId);
-        setMyProfile(response);
-        console.log("마이프로필 성공", response);
+        const response  = await getMyProfile(userId);
+        setMyProfile(response.data);
+        console.log("마이프로필 성공", response.data);
       }
     } catch (error) {
       console.log("마이프로필 실패", error);
     }
   };
-
-  useEffect(() => {
-    checkThumbnails();
-    checkMyProfile();
-    setIsClient(true);
-    setIsLoading(false);
-  }, []);
 
   // 비동기 로딩이 완료되었는지 확인
   // if (isLoading) {
@@ -147,7 +143,7 @@ function MyPageForm({ userId, option }: { userId: number; option: string }) {
                     sizes="100vw"
                     // width={200}
                     // height={200}
-                    src={thumbnail?.feed.thumbnailUrl}
+                    src={thumbnail.feed.thumbnailUrl}
                     alt={`썸네일${thumbnail.feed.feedId}`}
                     style={{
                       position: "absolute",
