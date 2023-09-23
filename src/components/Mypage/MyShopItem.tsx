@@ -6,7 +6,7 @@ import { getIcon } from "../../utils/iconUtils";
 import Link from "next/link";
 import Image from "next/image";
 import DialogConfirm from "../Dialog/DialogConfirm";
-import { likeRestaurant, unlikeRestaurant } from '@/src/services/apiFeed';
+import { likeRestaurant, unlikeRestaurant } from "@/src/services/apiFeed";
 
 interface ShopProps {
   item: MapItem;
@@ -75,9 +75,9 @@ function MyShopItem({ item, removeItem }: ShopProps) {
   return (
     <div
       onClick={onClickShophandler}
-      className="relative flex items-center justify-between py-3 px-10 mt-3 border hover:bg-gray-300 "
+      className="relative flex items-center justify-between py-3 px-10 mt-3 border hover:bg-gray-300 max-sm:text-xs"
     >
-      <div className="flex  items-center gap-x-5">
+      <div className="flex items-center gap-x-5">
         <Link href={`/main/restaurants/${item.restaurant.id}`}>
           <div className="relative w-12 h-12">
             <Image

@@ -123,24 +123,13 @@ const Feed: React.FC<FeedProps> = ({
       {/* Header */}
       <div className="flex items-center p-3">
         <Link href={`/main/${feed.userId}`} className="relative w-12 h-12">
-          {feed.profileImageUrl ? (
-            <Image
-              fill={true}
-              src={feed.profileImageUrl}
-              alt="사용자 썸네일"
-              sizes="(max-width: 48px) 48px, 48px"
-              className="w-12 h-12 border p-1 rounded-full cursor-pointer"
-            />
-          ) : (
-            // 기본 이미지 또는 대체 컴포넌트를 표시
-            <Image
-              fill={true}
-              src="/images/userImage.png"
-              alt="사용자 썸네일"
-              sizes="(max-width: 48px) 48px, 48px"
-              className="w-12 h-12 border p-1 rounded-full cursor-pointer"
-            />
-          )}
+          <Image
+            fill={true}
+            src={feed.profileImageUrl || "/images/userImage.png"}
+            alt="사용자 썸네일"
+            sizes="(max-width: 48px) 48px, 48px"
+            className="w-12 h-12 border p-1 rounded-full cursor-pointer"
+          />
         </Link>
         <div className="flex flex-1 flex-col ml-3">
           <Link href={`/main/${feed.userId}`}>
