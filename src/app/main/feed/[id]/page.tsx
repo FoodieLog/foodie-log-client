@@ -10,7 +10,7 @@ interface userFeedListProps {
 const userFeedList = ({ params: { id } }: userFeedListProps) => {
   const userId = Number(id);
   return (
-    <div className='w-full max-w-6xl mx-auto'>
+    <div className="w-full max-w-[640px] mx-auto">
       <BackButtonMain />
       <Feeds id={userId} />
     </div>
