@@ -5,15 +5,21 @@ import ShopCard from "./ShopCard";
 import Image from "next/image";
 
 type ExtendedShopThumbData = ShopThumbData & {
-  restaurantId: number 
+  restaurantId: number;
 };
 
-const ShopThumb: React.FC<ExtendedShopThumbData> = ({ restaurantId: id, name, category = "", roadAddress, feedList }) => {
+const ShopThumb: React.FC<ExtendedShopThumbData> = ({
+  restaurantId: id,
+  name,
+  category = "",
+  roadAddress,
+  feedList,
+}) => {
   console.log(id, name, category, roadAddress, feedList);
 
   const fillDefaultThumbnails = () => {
     const defaultImgCount = 3 - feedList.length;
-    const defaultImgs = new Array(defaultImgCount).fill('/icon-256x256.png');
+    const defaultImgs = new Array(defaultImgCount).fill("/icon-256x256.png");
     return [...feedList, ...defaultImgs];
   };
 
@@ -27,11 +33,11 @@ const ShopThumb: React.FC<ExtendedShopThumbData> = ({ restaurantId: id, name, ca
           <div className="w-1/3 border" key={index} style={{ position: "relative" }}>
             <div style={{ paddingBottom: "100%" }}></div>
             <Link href={`/main/restaurants/${id}`}>
-              {typeof thumbnail === 'string' ? (
+              {typeof thumbnail === "string" ? (
                 <Image
                   src={thumbnail}
                   alt="Default thumbnail"
-                  sizes="100vw"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   fill
                   style={{
                     position: "absolute",
@@ -46,7 +52,7 @@ const ShopThumb: React.FC<ExtendedShopThumbData> = ({ restaurantId: id, name, ca
                 <Image
                   src={thumbnail.thumbnailUrl}
                   alt="Feed thumbnail"
-                  sizes="100vw"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   fill
                   style={{
                     position: "absolute",
