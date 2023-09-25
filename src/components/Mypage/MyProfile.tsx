@@ -49,23 +49,23 @@ function MyPageForm({ userId, option }: { userId: number; option: string }) {
   );
 
   useEffect(() => {
-    checkThumbnails();
+    // checkThumbnails();
     checkMyProfile();
     setIsClient(true);
     setIsLoading(false);
   }, []);
 
-  const checkThumbnails = async () => {
-    try {
-      if (userId) {
-        const { response } = await getThumbnailByUserId(userId, 0);
-        setThumbnails(response.content);
-        console.log("썸네일 성공", response.content);
-      }
-    } catch (error) {
-      console.log("썸네일 실패", error);
-    }
-  };
+  // const checkThumbnails = async () => {
+  //   try {
+  //     if (userId) {
+  //       const { response } = await getThumbnailByUserId(userId, 0);
+  //       setThumbnails(response.content);
+  //       console.log("썸네일 성공", response.content);
+  //     }
+  //   } catch (error) {
+  //     console.log("썸네일 실패", error);
+  //   }
+  // };
 
   const checkMyProfile = async () => {
     try {
