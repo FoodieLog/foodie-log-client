@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { useUserStore } from "../../store/useUserStore";
 import Button from "../Common/Button";
 import Header from "../Common/Header";
+import { useToast } from "@/components/ui/use-toast";
 
 function SettingPassword() {
   const email = useUserStore((state) => state.user.email);
@@ -20,14 +21,15 @@ function SettingPassword() {
   } = useForm<ChangePassword>({
     mode: "onChange",
   });
+  const { toast } = useToast();
 
   const onSubmit = async ({ oldPassword, newPassword }: ChangePassword) => {
     try {
       const res = await FatchChangePassword({ oldPassword, newPassword });
       router.replace("/accounts/login");
-      console.log("비밀번호 재설정", res);
+      toast({ description: "비밀번호 변경되었습니다!\n다시 로그인해 주세요!" });
     } catch (err) {
-      console.log("비밀번호 재설정 실패", err);
+      toast({ description: "비밀번호 변경 실패하였습니다!" });
     }
   };
 

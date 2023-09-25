@@ -14,6 +14,7 @@ import SignUpCode from "./SignUpCode";
 import SignUpProfile from "./SignUpProfile";
 import useSignUpStore from "@/src/store/useSignUpStore";
 import AuthButton from "../Common/Button/AuthButton";
+import { useToast } from "@/components/ui/use-toast";
 
 interface SighUpInput {
   email: string;
@@ -31,6 +32,7 @@ function SignUpForm() {
     mode: "onChange",
   });
   const { user, setUser, isChecked, nextComponent, setNextComponent } = useSignUpStore();
+  const { toast } = useToast();
 
   if (nextComponent === "SignUpTerms") {
     return <SignUpTerms />;
@@ -48,11 +50,9 @@ function SignUpForm() {
     if (!errors?.email && email.trim() !== "") {
       try {
         const res = await duplicateCheck(email);
-        console.log("이메일 중복 체크", res);
         setAvailableEmail(res.data.status);
       } catch (err) {
         setAvailableEmail(409);
-        console.log("이메일 중복 에러", err);
       }
     }
   };
@@ -61,9 +61,10 @@ function SignUpForm() {
     await sendEmailCode(email)
       .then((res) => {
         setNextComponent("SignUpCode");
-        console.log("이메일코드 전송성공", res);
       })
-      .catch((err) => console.log("이메일코드 전송실패", err));
+      .catch((err) =>
+        toast({ title: "이메일 코드 전송 실패", description: "이메일 코드 전송 실패하였습니다!\n다시 입력해 주세요!" })
+      );
 
     setUser({ ...user, email, password });
   };

@@ -4,6 +4,7 @@ import Button from "@/src/components/Common/Button";
 import useSignUpStore from "@/src/store/useSignUpStore";
 import { sendEmailCode, getVerificationEmail } from "@/src/services/auth";
 import AuthHeader from "../Common/Header/Auth";
+import { useToast } from "@/components/ui/use-toast";
 
 function SignUpCode() {
   const setNextComponent = useSignUpStore((state) => state.setNextComponent);
@@ -22,11 +23,14 @@ function SignUpCode() {
     useRef(null),
     useRef(null),
   ];
+  const { toast } = useToast();
 
   const ResendClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
     await sendEmailCode(email)
-      .then((res) => console.log("코드 재전송 성공", res))
-      .catch((err) => console.log("재전송 실패", err));
+      .then((res) =>
+        toast({ title: "이메일 인증 코드 발송", description: "입력한 이메일로 인증코드가 발송되었습니다!" })
+      )
+      .catch((err) => toast({ title: "이메일 인증 코드 발송 실패", description: "이메일을 다시 입력해 주세요!" }));
   };
 
   const NextClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -35,9 +39,8 @@ function SignUpCode() {
     await getVerificationEmail(email, code)
       .then((res) => {
         setNextComponent("SignUpTerms");
-        console.log("코드 인증 성공", res);
       })
-      .catch((err) => console.log("코드 인증 실패", err));
+      .catch((err) => toast({ title: "이메일 인증 실패", description: "인증코드를 다시 확인해 주세요!" }));
   };
 
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {

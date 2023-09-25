@@ -3,21 +3,21 @@ import React from "react";
 import { logIn } from "@/src/services/auth";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import Image from "next/image";
 import Button from "@/src/components/Common/Button";
-import kakao from "@/public/images/kakao_login_medium_wide.png";
 import Line from "../Common/Line";
 import Link from "next/link";
 import AuthButton from "../Common/Button/AuthButton";
 import { kakaoLogin } from "@/src/services/kakao";
 import { initializePushNotifications } from "../Notification/PushNotification";
 import { useUserStore } from "@/src/store/useUserStore";
+import { useToast } from "@/components/ui/use-toast";
 
 function LogInForm() {
   const [logInData, setLogInData] = useState({
     email: "",
     password: "",
   });
+  const { toast } = useToast();
 
   const router = useRouter();
 
@@ -36,9 +36,7 @@ function LogInForm() {
     try {
       const body = { email: logInData.email, password: logInData.password };
       const res = await logIn(body);
-      console.log("로그인 성공", res);
       setUser(res.data.response);
-      console.log("");
       const minutesInMilliseconds = 1000 * 60 * 29;
       const expiryTime = Date.now() + minutesInMilliseconds;
       setTokenExpiry(expiryTime); // 만료 시간 설정
@@ -47,7 +45,7 @@ function LogInForm() {
 
       router.replace("/main/home");
     } catch (err) {
-      console.log("로그인 실패", err);
+      toast({ title: "로그인 실패", description: "이메일 또는 비밀번호가 틀렸습니다!" });
     }
   };
 
