@@ -1,46 +1,47 @@
 "use client";
 
 import Feed from "./Feed";
-import { useEffect, useState } from "react";
-import { getFeedList, getFeedListByUserId, Content } from "@/src/services/apiFeed";
+import React, { useEffect, useState } from "react";
+import { getFeedList, getFeedListByUserId, Content, APIFeedResponse } from "@/src/services/apiFeed";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import InfiniteScroll from "react-infinite-scroller";
 
 type FeedsProps = {
-  id?: number; 
-}
+  id?: number;
+  startingFeedId?: number;
+};
 
-const Feeds: React.FC<FeedsProps> = ({ id }) => {
+const Feeds: React.FC<FeedsProps> = ({ id, startingFeedId }) => {
   const [feedsData, setFeedsData] = useState<Content[]>([]);
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const feedId = 0;
-        const pageSize = 15;
-        const pageNumber = 0;
-        
-        let response;
-
-        if (id) {
-          response = await getFeedListByUserId(Number(id), feedId, pageSize, pageNumber);
-        } else {
-          response = await getFeedList(feedId, pageSize, pageNumber);
-        }
-        
-        console.log("[getFeedList]: ", response);
-        if (response.status === 200) {
-          console.log("response.response.content", response.response.content);
-          setFeedsData(response.response.content);
-        }
-      } catch (error) {
-        console.error("Failed to fetch feed data:", error);
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery(
+    ["feedList", id],
+    async ({ pageParam = startingFeedId || 0 }) => {
+      let response;
+      if (id) {
+        response = await getFeedListByUserId(id, pageParam);
+      } else {
+        response = await getFeedList(pageParam);
       }
-    }
 
-    fetchData();
-  }, [id]); 
+      const apiResponse = response as APIFeedResponse;
+      setFeedsData(apiResponse.response.content);
+      return apiResponse;
+    },
+    {
+      getNextPageParam: (lastPage: APIFeedResponse) => {
+        if (lastPage?.response?.content?.length < 15) return undefined;
+        return lastPage?.response?.content[lastPage.response.content.length - 1]?.feed.feedId || 0;
+      },
+    }
+  );
+
+  const loadMore = (page: number) => {
+    fetchNextPage();
+  };
 
   const removeDeletedFeed = (feedId: number) => {
-    setFeedsData(prevData => prevData.filter(feed => feed.feed.feedId !== feedId));
+    setFeedsData((prevData) => prevData.filter((feed) => feed.feed.feedId !== feedId));
   };
 
   const updateFollowStatus = (userId: number, newStatus: boolean) => {
@@ -55,18 +56,24 @@ const Feeds: React.FC<FeedsProps> = ({ id }) => {
   };
 
   return (
-    <div className="flex flex-col items-center pt-5">
-      {feedsData.map((content, index) => (
-        <Feed
-          key={index}
-          feed={content.feed}
-          restaurant={content.restaurant}
-          isFollowed={content.followed}
-          isLiked={content.liked}
-          updateFollowStatus={updateFollowStatus}
-          removeDeletedFeed={removeDeletedFeed}
-        />
-      ))}
+    <div className="flex flex-col pt-5 max-w-[640px] w-full mx-auto">
+      <InfiniteScroll pageStart={0} loadMore={loadMore} hasMore={hasNextPage && !isFetchingNextPage}>
+        {(data?.pages || []).map((page, index) => (
+          <React.Fragment key={index}>
+            {page.response.content.map((content: Content) => (
+              <Feed
+                key={content.feed.feedId}
+                feed={content.feed}
+                restaurant={content.restaurant}
+                isFollowed={content.followed}
+                isLiked={content.liked}
+                updateFollowStatus={updateFollowStatus}
+                removeDeletedFeed={removeDeletedFeed}
+              />
+            ))}
+          </React.Fragment>
+        ))}
+      </InfiniteScroll>
     </div>
   );
 };

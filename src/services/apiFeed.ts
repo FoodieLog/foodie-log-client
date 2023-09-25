@@ -202,22 +202,21 @@ export const makeFeedFetchRequest = async <T>(
   }
 };
 
-export const getFeedList = (feedId: number, pageSize: number, pageNumber: number): Promise<APIFeedResponse> => {
+export const getFeedList = (feedId: number): Promise<APIFeedResponse> => {
   if (feedId === 0) {
-    return makeFeedFetchRequest(`/feed/list?pageSize=${pageSize}&pageNumber=${pageNumber}`);
-  } else return makeFeedFetchRequest(`/feed/list?feedId=${feedId}&pageSize=${pageSize}&pageNumber=${pageNumber}`);
+    return makeFeedFetchRequest(`/feed/list`);
+  } else return makeFeedFetchRequest(`/feed/list?feedId=${feedId}`);
 };
 
 export const getFeedListByUserId = (
   userId: number,
   feedId: number,
-  pageSize: number,
-  pageNumber: number
+  
 ): Promise<APIFeedResponse> => {
   if (feedId === 0) {
-    return makeFeedFetchRequest(`/user/${userId}/feed/?pageSize=${pageSize}&pageNumber=${pageNumber}`);
+    return makeFeedFetchRequest(`/user/${userId}/feed`);
   } else
-    return makeFeedFetchRequest(`/user/${userId}/feed/?feedId=${feedId}&pageSize=${pageSize}&pageNumber=${pageNumber}`);
+    return makeFeedFetchRequest(`/user/${userId}/feed/?feedId=${feedId}`);
 };
 
 export const getFeedShared = (feedId: number): Promise<GetFeedSharedResponse> => {

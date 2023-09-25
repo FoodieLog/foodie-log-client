@@ -10,9 +10,10 @@ import Link from "next/link";
 import Button from "../Common/Button";
 import useSignUpStore from "@/src/store/useSignUpStore";
 import MyProfileSettings from "./MyProfileSettings";
-
 import Header from "../Common/Header";
 import Image from "next/image";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import InfiniteScroll from "react-infinite-scroller";
 
 function MyPageForm({ userId, option }: { userId: number; option: string }) {
   const [isClient, setIsClient] = useState(false);
@@ -30,42 +31,53 @@ function MyPageForm({ userId, option }: { userId: number; option: string }) {
   const nextComponent = useSignUpStore((state) => state.nextComponent);
   const setNextComponent = useSignUpStore((state) => state.setNextComponent);
 
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery(
+    ["thumbnailList", userId],
+    async ({ pageParam = 0 }) => {
+      if (userId) {
+        const response = await getThumbnailByUserId(userId, pageParam);
+        return response.response;
+      }
+      throw new Error("User ID is not provided");
+    },
+    {
+      getNextPageParam: (lastPage) => {
+        if (lastPage?.content?.length < 15) return undefined;
+        return lastPage?.content[lastPage.content.length - 1]?.feed.feedId || 0;
+      },
+    }
+  );
+
   useEffect(() => {
-    setIsClient(true);
-    checkThumbnails();
+    // checkThumbnails();
     checkMyProfile();
+    setIsClient(true);
+    setIsLoading(false);
   }, []);
 
-  const checkThumbnails = async () => {
-    try {
-      if (userId) {
-        const { response } = await getThumbnailByUserId(userId, 0);
-        setThumbnails(response.content);
-        console.log("썸네일 성공", response.content);
-      }
-    } catch (error) {
-      console.log("썸네일 실패", error);
-    }
-  };
+  // const checkThumbnails = async () => {
+  //   try {
+  //     if (userId) {
+  //       const { response } = await getThumbnailByUserId(userId, 0);
+  //       setThumbnails(response.content);
+  //       console.log("썸네일 성공", response.content);
+  //     }
+  //   } catch (error) {
+  //     console.log("썸네일 실패", error);
+  //   }
+  // };
 
   const checkMyProfile = async () => {
     try {
       if (userId) {
-        const { data } = await getMyProfile(userId);
-        setMyProfile(data.response);
-        console.log("마이프로필 성공", data);
+        const response = await getMyProfile(userId);
+        setMyProfile(response.data.response);
+        console.log("마이프로필 성공", response.data.response);
       }
     } catch (error) {
       console.log("마이프로필 실패", error);
     }
   };
-
-  useEffect(() => {
-    checkThumbnails();
-    checkMyProfile();
-    setIsClient(true);
-    setIsLoading(false);
-  }, []);
 
   // 비동기 로딩이 완료되었는지 확인
   // if (isLoading) {
@@ -99,6 +111,7 @@ function MyPageForm({ userId, option }: { userId: number; option: string }) {
             <div className="absolute w-full h-full">
               <Image
                 fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 src={myProfile?.profileImageUrl || "/images/userImage.png"}
                 alt="프로필 사진"
                 className="object-cover"
@@ -136,29 +149,40 @@ function MyPageForm({ userId, option }: { userId: number; option: string }) {
             <CgFlagAlt size="1.2rem" />
           </Link>
         </div>
-        <article>
-          <ul className="w-full grid grid-cols-3">
-            {thumbnails?.map((thumbnail) => (
-              <li
-                key={thumbnail.feed.feedId}
-                className="w-full h-full relative after:content-[''] after:block after:pb-[100%]  overflow-hidden"
-              >
-                <Link
-                  href={`/main/feed/${userId}`}
-                  className="w-[200px] h-[200px] absolute flex items-center justify-center"
-                >
-                  <Image
-                    fill
-                    // width={200}
-                    // height={200}
-                    src={thumbnail?.feed.thumbnailUrl}
-                    alt={`썸네일${thumbnail.feed.feedId}`}
-                    className="object-cover"
-                  />
-                </Link>
-              </li>
-            ))}
-          </ul>
+        <article className="">
+          <InfiniteScroll pageStart={0} loadMore={() => fetchNextPage()} hasMore={hasNextPage && !isFetchingNextPage}>
+            <ul className="w-full grid grid-cols-3 gap-2">
+              {data?.pages.map((page, index) => (
+                // page에 대한 key 추가
+                <React.Fragment key={index}>
+                  {page.content.map((thumbnail: any) => (
+                    <li key={thumbnail.feed.feedId} className="">
+                      <Link
+                        href={`/main/feed/${userId}?feedId=${thumbnail.feed.feedId}`}
+                        className="w-full h-full relative after:content-[''] after:block after:pb-[100%]  overflow-hidden"
+                        style={{ paddingBottom: "100%" }}
+                      >
+                        <Image
+                          fill
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                          src={thumbnail.feed.thumbnailUrl}
+                          alt={`썸네일${thumbnail.feed.feedId}`}
+                          style={{
+                            position: "absolute",
+                            top: 0,
+                            left: 0,
+                            width: "100%",
+                            height: "100%",
+                            objectFit: "cover",
+                          }}
+                        />
+                      </Link>
+                    </li>
+                  ))}
+                </React.Fragment>
+              ))}
+            </ul>
+          </InfiniteScroll>
         </article>
       </main>
     </section>
