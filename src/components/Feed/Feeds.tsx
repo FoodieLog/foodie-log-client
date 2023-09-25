@@ -8,14 +8,15 @@ import InfiniteScroll from "react-infinite-scroller";
 
 type FeedsProps = {
   id?: number;
+  startingFeedId?: number;
 };
 
-const Feeds: React.FC<FeedsProps> = ({ id }) => {
+const Feeds: React.FC<FeedsProps> = ({ id, startingFeedId }) => {
   const [feedsData, setFeedsData] = useState<Content[]>([]);
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery(
     ["feedList", id],
-    async ({ pageParam = 0 }) => {
+    async ({ pageParam = startingFeedId || 0 }) => {
       let response;
       if (id) {
         response = await getFeedListByUserId(id, pageParam);

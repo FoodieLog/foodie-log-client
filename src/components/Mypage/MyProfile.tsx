@@ -158,7 +158,7 @@ function MyPageForm({ userId, option }: { userId: number; option: string }) {
                   {page.content.map((thumbnail: any) => (
                     <li key={thumbnail.feed.feedId} className="">
                       <Link
-                        href={`/main/feed/${userId}`}
+                        href={`/main/feed/${userId}?feedId=${thumbnail.feed.feedId}`}
                         className="w-full h-full relative after:content-[''] after:block after:pb-[100%]  overflow-hidden"
                         style={{ paddingBottom: "100%" }}
                       >
