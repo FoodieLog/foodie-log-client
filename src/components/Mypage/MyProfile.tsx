@@ -3,16 +3,17 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { BiPhotoAlbum } from "react-icons/bi";
 import { CgFlagAlt } from "react-icons/cg";
-import { getThumbnails } from "../../services/mypage";
+import { getThumbnailByUserId } from "../../services/mypage";
 import { getMyProfile } from "@/src/services/mypage";
 import { ThumbnailState, myProfileState } from "../../types/mypage";
 import Link from "next/link";
 import Button from "../Common/Button";
 import useSignUpStore from "@/src/store/useSignUpStore";
 import MyProfileSettings from "./MyProfileSettings";
-
 import Header from "../Common/Header";
 import Image from "next/image";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import InfiniteScroll from "react-infinite-scroller";
 
 function MyPageForm({ userId, option }: { userId: number; option: string }) {
   const [isClient, setIsClient] = useState(false);
@@ -30,50 +31,58 @@ function MyPageForm({ userId, option }: { userId: number; option: string }) {
   const nextComponent = useSignUpStore((state) => state.nextComponent);
   const setNextComponent = useSignUpStore((state) => state.setNextComponent);
 
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery(
+    ["thumbnailList", userId],
+    async ({ pageParam = 0 }) => {
+      if (userId) {
+        const response = await getThumbnailByUserId(userId, pageParam);
+        return response.response;
+      }
+      throw new Error("User ID is not provided");
+    },
+    {
+      getNextPageParam: (lastPage) => {
+        if (lastPage?.content?.length < 15) return undefined;
+        return lastPage?.content[lastPage.content.length - 1]?.feed.feedId || 0;
+      },
+    }
+  );
+
   useEffect(() => {
-    setIsClient(true);
-    checkThumbnails();
+    // checkThumbnails();
     checkMyProfile();
+    setIsClient(true);
+    setIsLoading(false);
   }, []);
 
-  console.log("아이이디디", myProfile.nickName);
-  const checkThumbnails = async () => {
-    console.log("userId", userId);
-    try {
-      if (userId) {
-        const { response } = await getThumbnails(userId, 0);
-        setThumbnails(response.content);
-        console.log("썸네일 성공", response.content);
-      }
-    } catch (error) {
-      console.log("썸네일 실패", error);
-    }
-  };
+  // const checkThumbnails = async () => {
+  //   try {
+  //     if (userId) {
+  //       const { response } = await getThumbnailByUserId(userId, 0);
+  //       setThumbnails(response.content);
+  //       console.log("썸네일 성공", response.content);
+  //     }
+  //   } catch (error) {
+  //     console.log("썸네일 실패", error);
+  //   }
+  // };
 
   const checkMyProfile = async () => {
-    console.log("유저아이디", userId);
     try {
       if (userId) {
-        const { response } = await getMyProfile(userId);
-        setMyProfile(response);
-        console.log("마이프로필 성공", response);
+        const response = await getMyProfile(userId);
+        setMyProfile(response.data.response);
+        console.log("마이프로필 성공", response.data.response);
       }
     } catch (error) {
       console.log("마이프로필 실패", error);
     }
   };
 
-  useEffect(() => {
-    checkThumbnails();
-    checkMyProfile();
-    setIsClient(true);
-    setIsLoading(false);
-  }, [userId]);
-
   // 비동기 로딩이 완료되었는지 확인
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
+  // if (isLoading) {
+  //   return <div>Loading...</div>;
+  // }
 
   // myProfile이 유효한 값이 있는지 확인
   if (!myProfile) {
@@ -93,19 +102,21 @@ function MyPageForm({ userId, option }: { userId: number; option: string }) {
     return <MyProfileSettings aboutMe={myProfile.aboutMe} />;
   }
 
-  // mx-3 my-5 flex items-center max-sm:justify-around sm:justify-center sm:gap-10
   return (
     <section className="w-full sm:max-w-[640px] mx-auto">
       <Header title={myProfile.nickName} type="left" back="prePage" option={option} />
       <main className="px-2 space-y-3">
-        <header className="flex items-center mt-5 mb-3 mx-3 justify-between">
-          <div className="w-[70px] h-[70px] shrink-0 rounded-full overflow-hidden cursor-pointer">
-            <Image
-              width={70}
-              height={70}
-              src={myProfile?.profileImageUrl || "/images/userImage.png"}
-              alt="프로필 사진"
-            />
+        <header className="flex items-center mt-5 mb-3 mx-3 justify-between shrink-0">
+          <div className="relative ml-3 w-[70px] h-[70px] shrink-0 rounded-full overflow-hidden cursor-pointer">
+            <div className="absolute w-full h-full">
+              <Image
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                src={myProfile?.profileImageUrl || "/images/userImage.png"}
+                alt="프로필 사진"
+                className="object-cover"
+              />
+            </div>
           </div>
           <ul className="w-full flex justify-evenly">
             <li className="flex flex-col items-center justify-center">
@@ -139,18 +150,39 @@ function MyPageForm({ userId, option }: { userId: number; option: string }) {
           </Link>
         </div>
         <article className="">
-          <ul className="w-full grid grid-cols-3 gap-3">
-            {thumbnails?.map((thumbnail) => (
-              <li
-                key={thumbnail.id}
-                className="w-full h-full relative after:content-[''] after:block after:pb-[100%]  overflow-hidden"
-              >
-                <Link href={`/main/feed/${userId}`} className="w-full h-full absolute flex items-center justify-center">
-                  <Image width={200} height={200} src={thumbnail?.thumbnailUrl} alt={`썸네일${thumbnail.id}`} />
-                </Link>
-              </li>
-            ))}
-          </ul>
+          <InfiniteScroll pageStart={0} loadMore={() => fetchNextPage()} hasMore={hasNextPage && !isFetchingNextPage}>
+            <ul className="w-full grid grid-cols-3 gap-2">
+              {data?.pages.map((page, index) => (
+                // page에 대한 key 추가
+                <React.Fragment key={index}>
+                  {page.content.map((thumbnail: any) => (
+                    <li key={thumbnail.feed.feedId} className="">
+                      <Link
+                        href={`/main/feed/${userId}?feedId=${thumbnail.feed.feedId}`}
+                        className="w-full h-full relative after:content-[''] after:block after:pb-[100%]  overflow-hidden"
+                        style={{ paddingBottom: "100%" }}
+                      >
+                        <Image
+                          fill
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                          src={thumbnail.feed.thumbnailUrl}
+                          alt={`썸네일${thumbnail.feed.feedId}`}
+                          style={{
+                            position: "absolute",
+                            top: 0,
+                            left: 0,
+                            width: "100%",
+                            height: "100%",
+                            objectFit: "cover",
+                          }}
+                        />
+                      </Link>
+                    </li>
+                  ))}
+                </React.Fragment>
+              ))}
+            </ul>
+          </InfiniteScroll>
         </article>
       </main>
     </section>

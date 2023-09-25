@@ -7,7 +7,10 @@ import { passwordValidation } from "@/src/constants";
 import { useRouter } from "next/navigation";
 import Button from "@/src/components/Common/Button";
 import AuthHeader from "../Common/Header/Auth";
+import { useToast } from "@/components/ui/use-toast";
+
 function ChangePassword({ email }: ChangePassword) {
+  const { toast } = useToast();
   const router = useRouter();
   const {
     register,
@@ -22,9 +25,9 @@ function ChangePassword({ email }: ChangePassword) {
     try {
       const res = await resetPassword({ email, password });
       router.replace("/accounts/login");
-      console.log("비밀번호 재설정", res);
+      toast({ description: "비밀번호가 변경되었습니다!" });
     } catch (err) {
-      console.log("비밀번호 재설정 실패", err);
+      toast({ title: "비밀번호 변경 실패", description: "다시 시도해 주세요!" });
     }
   };
 

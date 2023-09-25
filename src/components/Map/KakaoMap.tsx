@@ -39,6 +39,13 @@ const KakaoMap: React.FC<{ latitude: string; longitude: string; restaurantId: nu
             position={{ lat: parsedLat, lng: parsedLng }}
             clickable={true}
             onClick={() => onMarkerClick(restaurantId)}
+            image={{
+              src: "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png", // 마커이미지의 주소입니다
+              size: {
+                width: 24,
+                height: 35,
+              }, // 마커이미지의 크기입니다
+            }}
           ></MapMarker>
         </Map>
       </div>

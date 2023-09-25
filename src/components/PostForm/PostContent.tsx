@@ -9,11 +9,13 @@ import useSignUpStore from "@/src/store/useSignUpStore";
 import PostSearch from "./PostSearch";
 import ImageSlide from "../Feed/ImageSlide";
 import Header from "../Common/Header";
+import { useToast } from "@/components/ui/use-toast";
 
 function PostContent() {
   const [isChecked, setIsChecked] = useState(false);
   const [text, setText] = useState("");
   const { content, files, previews, resetContent } = usePostStore();
+  const { toast } = useToast();
 
   const nextComponent = useSignUpStore((state) => state.nextComponent);
   const setNextComponent = useSignUpStore((state) => state.setNextComponent);
@@ -47,12 +49,12 @@ function PostContent() {
         formData.append("files", files[i]);
       }
       const res = await postFeed(formData);
-      console.log("피드 등록 성공", res);
+      toast({ description: "게시글 등록되었습니다!" });
       resetContent();
       setNextComponent("");
       router.replace("/main/mypage");
     } catch (err) {
-      console.log("피드 등록 실패", err);
+      toast({ description: "게시글 등록 중 오류 발생하였습니다." });
     }
   };
 
@@ -63,6 +65,8 @@ function PostContent() {
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.checked) {
       setIsChecked(true);
+    } else {
+      setIsChecked(false);
     }
   };
 
@@ -82,10 +86,10 @@ function PostContent() {
       <div className="px-3 mt-5">
         <ImageSlide images={images} />
         <ShopListItem type="selected" item={content}></ShopListItem>
-        <div className="my-5 ml-3 flex items-center gap-x-3 text-lg">
+        <label className="my-5 ml-3 flex items-center gap-x-3 text-lg">
           <input type="checkbox" className="w-4 h-4" checked={isChecked} onChange={onChangeHandler} />
           <span>나의 맛집 리스트에 추가</span>
-        </div>
+        </label>
         <textarea
           onChange={onChangeText}
           className="w-full h-[130px] p-3 border rounded-lg border-gray-400 resize-none focus:outline-none"

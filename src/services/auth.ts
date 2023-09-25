@@ -52,3 +52,9 @@ export const resetPassword = async ({ email, password }: ResetPasswordBody) => {
   const res = await axiosRequest.put("/api/auth/password/reset", { email, password });
   return res;
 };
+
+// 닉네임 중복 체크
+export const duplicateNickNameCheck = async (nickName: string) => {
+  const res = await axiosRequest.get(`/api/auth/exists/nickname?input=${nickName}`);
+  return res;
+};

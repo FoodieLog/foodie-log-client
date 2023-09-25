@@ -1,5 +1,8 @@
+"use client";
+
 import BackButtonMain from "@/src/components/Common/Button/BackButtonMain";
 import Feeds from "@/src/components/Feed/Feeds";
+import {  useSearchParams } from "next/navigation";
 
 interface userFeedListProps {
   params: {
@@ -7,14 +10,21 @@ interface userFeedListProps {
   };
 }
 
-const userFeedList = ({ params: { id } }: userFeedListProps) => {
+const UserFeedList = ({ params: { id } }: userFeedListProps) => {
+  const params = useSearchParams();
+  const feedId = params.get('feedId') || undefined;
+
+  console.log("params:", { id });
+  console.log("router.query:", feedId);
+
   const userId = Number(id);
+  const startingFeedId = feedId ? Number(feedId) : undefined;
   return (
-    <div className='w-full max-w-6xl mx-auto'>
+    <div className="w-full max-w-[640px] mx-auto">
       <BackButtonMain />
-      <Feeds id={userId} />
+      <Feeds id={userId} startingFeedId={startingFeedId} />
     </div>
   );
 };
 
-export default userFeedList;
+export default UserFeedList;

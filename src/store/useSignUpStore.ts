@@ -7,6 +7,7 @@ interface SignUpStore {
   setUser: (data: SignUpData) => void;
   setIsChecked: (data: boolean) => void;
   setNextComponent: (data: string) => void;
+  clearUser: () => void;
 }
 interface SignUpData {
   email: string;
@@ -23,6 +24,14 @@ const useSignUpStore = create<SignUpStore>((set) => ({
   setUser: (newData) => set({ user: newData }),
   setIsChecked: (data) => set({ isChecked: data }),
   setNextComponent: (data) => set({ nextComponent: data }),
+  clearUser: () =>
+    set((prevState) => ({
+      ...prevState,
+      user: {
+        email: "",
+        password: "",
+      },
+    })),
 }));
 
 export default useSignUpStore;

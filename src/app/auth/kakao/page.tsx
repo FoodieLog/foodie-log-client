@@ -2,44 +2,38 @@
 import { useSearchParams } from "next/navigation";
 import Button from "@/src/components/Common/Button";
 import useSignUpStore from "@/src/store/useSignUpStore";
-import useKakaoStore from "@/src/store/useKakaoStore";
-import SignUpProfile from "./SignUpProfile";
-import AuthHeader from "../Common/Header/Auth";
-import { getKaKaoToken, postKakaoToken } from "@/src/services/kakao";
-import { toast } from "@/components/ui/use-toast";
-import { useState } from "react";
+import SignUpProfile from "@/src/components/Auth/SignUpProfile";
+import AuthHeader from "@/src/components/Common/Header/Auth";
+import { loginKaKaoToken } from "@/src/services/kakao";
+import { useUserStore } from "@/src/store/useUserStore";
+import { useToast } from "@/components/ui/use-toast";
 
-function SignUpTerms() {
-  const [isLoading, setIsLoading] = useState(false);
+function KaKaoSignUpTerms() {
   const isChecked = useSignUpStore((state) => state.isChecked);
   const setIsChecked = useSignUpStore((state) => state.setIsChecked);
   const nextComponent = useSignUpStore((state) => state.nextComponent);
   const setNextComponent = useSignUpStore((state) => state.setNextComponent);
-
-  const params = useSearchParams();
-  const code = params.get("code");
+  const setUser = useUserStore((state) => state.setUser);
+  const { toast } = useToast();
 
   const onChangeHandler = () => {
     setIsChecked(!isChecked);
   };
 
-  // 카카오 로그인 로직은 추후 삭제 예정
   const onClickHandler = async (e: React.MouseEvent) => {
     e.preventDefault();
-    setIsLoading(true);
-    if (!isChecked) return toast({ description: "약관 동의는 필수입니다." });
-    if (isChecked && code) {
-      const { data } = await getKaKaoToken(code);
-      await postKakaoToken(data.access_token)
+    const kakaoToken = localStorage.getItem("kakaoToken");
+
+    if (isChecked && kakaoToken) {
+      await loginKaKaoToken(kakaoToken)
         .then((res) => {
           setNextComponent("SignUpProfile");
-          console.log("서버에 토큰 전송 성공", res);
+          setUser(res.data.response);
         })
-        .catch((err) => console.log("서버 토큰 전송 실패", err));
-    } else if (isChecked && !code) {
-      setNextComponent("SignUpProfile");
+        .catch((err) => toast({ description: "카카오 인증이 만료되었습니다." }));
+    } else if (!isChecked) {
+      toast({ description: "푸디로그 이용약관동의는 필수입니다." });
     }
-    setIsLoading(false);
   };
 
   if (nextComponent === "SignUpProfile") {
@@ -62,11 +56,11 @@ function SignUpTerms() {
         </div>
         <p>더 알아보기</p>
       </div>
-      <Button type="button" variant={"primary"} onClick={onClickHandler} disabled={isLoading}>
-        {isLoading ? "로딩중..." : "다음"}
+      <Button type="button" variant={"primary"} onClick={onClickHandler}>
+        다음
       </Button>
     </section>
   );
 }
 
-export default SignUpTerms;
+export default KaKaoSignUpTerms;

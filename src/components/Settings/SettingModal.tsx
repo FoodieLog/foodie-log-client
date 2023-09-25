@@ -1,4 +1,5 @@
-import React, { ReactNode, useState } from "react";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 import {
   Dialog,
   DialogContent,
@@ -7,16 +8,22 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "../../../components/ui/dialog";
-import { Input } from "../../../components/ui/input";
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
 import Button from "../Common/Button";
-import { fetchWithdraw } from "../../services/settings";
-import { SettingModalProps } from "../../types/user";
+import { fetchWithdraw } from "@/src/services/settings";
+import { SettingModalProps } from "@/src/types/user";
 import { useUserStore } from "@/src/store/useUserStore";
+import { unlinkKaKaoToken } from "@/src/services/kakao";
+import { useToast } from "@/components/ui/use-toast";
 
 function SettingModal({ children }: SettingModalProps) {
   const [withdrawReason, setWithdrawReason] = useState("");
   const email = useUserStore((state) => state.user.email);
+  const kakaoAccessToken = useUserStore((state) => state.user.kakaoAccessToken);
+  const clearUser = useUserStore((state) => state.clearUser);
+  const router = useRouter();
+  const { toast } = useToast();
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setWithdrawReason(e.target.value);
@@ -26,20 +33,33 @@ function SettingModal({ children }: SettingModalProps) {
     e.preventDefault();
 
     if (withdrawReason.trim() === "") {
-      alert("사유를 입력해주세요!");
+      toast({ description: "🥲 탈퇴 사유를 입력해주세요." });
       return;
     }
     confirm("탈퇴하시겠습니까?");
     if (!confirm) {
-      alert("취소되었습니다!");
       return;
     }
-    console.log("탈퇴 이유", withdrawReason);
-    try {
-      const res = await fetchWithdraw({ withdrawReason });
-      console.log("회원 탈퇴 성공", res);
-    } catch (error) {
-      console.log("탈퇴 에러", error);
+
+    if (!kakaoAccessToken) {
+      try {
+        const res = await fetchWithdraw({ withdrawReason });
+        clearUser();
+        router.replace("/accounts/login");
+        toast({ title: "푸드로그 탈퇴", description: "회원 탈퇴되었습니다." });
+      } catch (error) {
+        toast({ title: "탈퇴 실패", description: "탈퇴 실패하였습니다." });
+      }
+    } else {
+      try {
+        await fetchWithdraw({ withdrawReason });
+        await unlinkKaKaoToken();
+        clearUser();
+        router.replace("/accounts/login");
+        toast({ title: "푸드로그 탈퇴", description: "회원 탈퇴되었습니다." });
+      } catch (error) {
+        toast({ title: "탈퇴 실패", description: "탈퇴 실패하였습니다." });
+      }
     }
   };
 

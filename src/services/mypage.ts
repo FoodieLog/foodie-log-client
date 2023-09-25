@@ -1,6 +1,6 @@
-import { userRequest, formDataRequest } from "./index";
-import { useUserStore } from "../store/useUserStore";
-import { makeFeedFetchRequest } from "../services/apiFeed";
+import { userRequest, formDataRequest } from "@/src/services";
+import { useUserStore } from "@/src/store/useUserStore";
+import { makeFeedFetchRequest } from "@/src/services/apiFeed";
 
 const accessToken = useUserStore.getState().user.accessToken;
 const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL as string;
@@ -10,11 +10,19 @@ const headers = {
 };
 
 // 내 피드 썸네일 리스트 (fetch)
-export const getThumbnails = async (userId: number, feedId: number) => {
-  const res = await fetch(`${baseURL}/api/user/${userId}/feed/thumbnail?feedId=${feedId}`, {
-    method: "GET",
-    headers,
-  });
+export const getThumbnailByUserId = async (userId: number, feedId: number) => {
+  let res;
+  if (feedId === 0) {
+    res = await fetch(`${baseURL}/api/user/${userId}/feed`, {
+      method: "GET",
+      headers,
+    });
+  } else {
+    res = await fetch(`${baseURL}/api/user/${userId}/feed/?feedId=${feedId}`, {
+      method: "GET",
+      headers,
+    });
+  }
 
   const data = await res.json();
   return data;
@@ -22,14 +30,8 @@ export const getThumbnails = async (userId: number, feedId: number) => {
 
 // 내 프로필 (fetch)
 export const getMyProfile = async (userId: number) => {
-  const res = await fetch(`${baseURL}/api/user/${userId}/profile`, {
-    method: "GET",
-    headers,
-  });
-
-  const data = await res.json();
-  console.log("마이프로필", data);
-  return data;
+  const res = await userRequest.get(`${baseURL}/api/user/${userId}/profile`);
+  return res;
 };
 
 // 프로필 설정 (axios)

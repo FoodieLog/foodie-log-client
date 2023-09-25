@@ -3,17 +3,17 @@ import React from "react";
 import { useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { MdAddPhotoAlternate } from "react-icons/md";
-import { signUp } from "@/src/services/auth";
+import { signUp, duplicateNickNameCheck } from "@/src/services/auth";
 import { profileSetting } from "@/src/services/kakao";
 import Image from "next/image";
 import Button from "../Common/Button";
 import AuthHeader from "../Common/Header/Auth";
 import useSignUpStore from "@/src/store/useSignUpStore";
-import useKakaoStore from "@/src/store/useKakaoStore";
-import { useUserStore } from "@/src/store/useUserStore";
-import { kakaoLogin } from "@/src/services/kakao";
+import { useToast } from "@/components/ui/use-toast";
 
 function SignUpProfile() {
+  const [isLoading, setIsLoading] = useState(false);
+  const [availableEmail, setAvailableEmail] = useState(0);
   const [previewImage, setPreviewImage] = useState("/images/userImage.png");
   const [profileImage, setProfileImage] = useState<File>();
   const [profile, setProfile] = useState({
@@ -24,12 +24,18 @@ function SignUpProfile() {
   const code = params.get("code");
   const router = useRouter();
   const user = useSignUpStore((state) => state.user);
+  const clearUser = useSignUpStore((state) => state.clearUser);
   const fileInput = useRef<HTMLInputElement>(null);
+  const kakaoToken = localStorage.getItem("kakaoToken");
+  const { toast } = useToast();
 
   // 회원가입 api
   const SignUpSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+    setIsLoading(true);
+    if (availableEmail !== 200) {
+      toast({ title: "닉네임 오류", description: "유효하지 않는 닉네임입니다.\n닉네임을 다시 입력해 주세요." });
+    }
     const formData = new FormData();
 
     const userData = {
@@ -43,17 +49,29 @@ function SignUpProfile() {
     formData.append("content", blob);
     formData.append("file", profileImage as File);
 
-    await signUp(formData).then((res) => {
-      console.log("회원가입 성공", res);
-      alert("회원가입이 완료되었습니다.\n로그인 페이지로 이동합니다.");
-      router.replace("/accounts/login");
-    });
+    await signUp(formData)
+      .then((res) => {
+        router.replace("/accounts/login");
+        toast({ title: "회원 가입", description: "푸디로그에 오신 걸 환영합니다!" });
+        clearUser();
+        setProfile({
+          nickName: "",
+          aboutMe: "",
+        });
+        setPreviewImage("/images/userImage.png");
+        setProfileImage(undefined);
+      })
+      .catch((err) => toast({ description: "회원가입에 실패하였습니다." }));
+    setIsLoading(false);
   };
 
   // 카카오 로그인 시 프로필 설정 api
   const ProfileSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+    setIsLoading(true);
+    if (availableEmail !== 200) {
+      toast({ title: "닉네임 오류", description: "유효하지 않는 닉네임입니다.\n닉네임을 다시 입력해 주세요." });
+    }
     const formData = new FormData();
 
     const userData = {
@@ -66,11 +84,19 @@ function SignUpProfile() {
     formData.append("file", profileImage as File);
 
     await profileSetting(formData)
-      .then((res) => {
-        kakaoLogin();
-        console.log("프로필 성공", res);
+      .then(() => {
+        localStorage.removeItem("kakaoToken");
+        router.replace("/main/home");
+        toast({ title: "회원 가입", description: "푸디로그에 오신 걸 환영합니다!" });
+        setProfile({
+          nickName: "",
+          aboutMe: "",
+        });
+        setPreviewImage("/images/userImage.png");
+        setProfileImage(undefined);
       })
-      .catch((err) => console.log("프로필 에러", err));
+      .catch((err) => toast({ description: "회원가입에 실패하였습니다." }));
+    setIsLoading(false);
   };
 
   // ref 클릭
@@ -106,8 +132,17 @@ function SignUpProfile() {
     setProfile({ ...profile, [name]: value });
   };
 
+  const onBlurHandler: React.FocusEventHandler<HTMLInputElement> = async (e) => {
+    try {
+      const res = await duplicateNickNameCheck(e.target.value);
+      setAvailableEmail(res.status);
+    } catch (err: any) {
+      setAvailableEmail(err.response.status);
+    }
+  };
+
   return (
-    <form id="formElem" className="auth" method="post" onSubmit={code ? ProfileSubmit : SignUpSubmit}>
+    <form id="formElem" className="auth" method="post" onSubmit={kakaoToken ? ProfileSubmit : SignUpSubmit}>
       <AuthHeader back="preComponent" />
       <div className=" flex flex-col items-center justify-center mb-4">
         <div className="title">
@@ -138,16 +173,31 @@ function SignUpProfile() {
           <p className="mb-1">
             닉네임(계정아이디)<span className="text-red-500">*</span>
           </p>
-          <input type="text" name="nickName" value={profile.nickName} className="input" onChange={onChangeHandler} />
+          <input
+            type="text"
+            name="nickName"
+            value={profile.nickName}
+            className="input"
+            onBlur={onBlurHandler}
+            onChange={onChangeHandler}
+          />
+          {availableEmail === 200 ? (
+            <p className="ok">사용 가능한 닉네임입니다.</p>
+          ) : availableEmail === 400 ? (
+            <p className="error">한글, 영문대소문자, _만 가능합니다.</p>
+          ) : availableEmail === 409 ? (
+            <p className="error">이미 사용 중인 닉네임입니다.</p>
+          ) : null}
         </label>
+
         <label>
           <p className="mb-1">자기소개</p>
           <input type="text" name="aboutMe" value={profile.aboutMe} className="input" onChange={onChangeHandler} />
         </label>
       </div>
       <div className="my-10">
-        <Button type="submit" variant={"primary"}>
-          {code ? "프로필 설정" : "가입완료"}
+        <Button type="submit" variant={"primary"} disabled={isLoading}>
+          {isLoading ? "로딩중..." : kakaoToken ? "프로필 설정" : "가입완료"}
         </Button>
       </div>
     </form>
