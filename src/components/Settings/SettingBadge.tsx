@@ -3,14 +3,17 @@ import React from "react";
 import { applyBadge } from "../../services/settings";
 import { StarSvg } from "@/src/assets/svgs";
 import Header from "../Common/Header";
+import { useToast } from "@/components/ui/use-toast";
 
 function SettingBadge() {
+  const { toast } = useToast();
+
   const onClick = async () => {
     try {
       const res = await applyBadge();
-      console.log("뱃지 성공", res);
+      toast({ description: "뱃지 신청되었습니다!" });
     } catch (err) {
-      console.log("벳지 에러", err);
+      toast({ description: "이미 뱃지 신청하셨습니다!" });
     }
   };
   return (

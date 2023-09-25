@@ -6,6 +6,7 @@ import { getPasswordCode, getVerificationEmail } from "@/src/services/auth";
 import useSignUpStore from "@/src/store/useSignUpStore";
 import ChangePassword from "./ChangePassword";
 import AuthHeader from "../Common/Header/Auth";
+import { useToast } from "@/components/ui/use-toast";
 function FindPassword() {
   const [showCodeInput, setShowCodeInput] = useState(false);
   const [codeData, setCodeData] = useState({
@@ -15,6 +16,7 @@ function FindPassword() {
     thirdCode: "",
     fourthCode: "",
   });
+  const { toast } = useToast();
 
   const nextComponent = useSignUpStore((state) => state.nextComponent);
   const setNextComponent = useSignUpStore((state) => state.setNextComponent);
@@ -24,10 +26,9 @@ function FindPassword() {
     try {
       const res = await getPasswordCode(codeData.email);
       setShowCodeInput(true);
-      console.log("이메일 코드 성공", res);
       showCodeInput && setCodeData({ ...codeData, firstCode: "", secondCode: "", thirdCode: "", fourthCode: "" });
     } catch (err) {
-      console.log("이메일 코드 실패", err);
+      toast({ title: "이메일 인증 코드 발송 실패", description: "이메일을 다시 입력해 주세요!" });
     }
   };
 
@@ -42,9 +43,8 @@ function FindPassword() {
       const code = codeData.firstCode + codeData.secondCode + codeData.thirdCode + codeData.fourthCode;
       const res = await getVerificationEmail(codeData.email, code);
       setNextComponent("ChangePassword");
-      console.log("이메일 인증 성공", res);
     } catch (err) {
-      console.log("이메일 인증 실패", err);
+      toast({ title: "이메일 인증 실패", description: "이메일 인증 실패하였습니다. 다시 입력해 주세요!" });
     } finally {
       showCodeInput && setCodeData({ ...codeData, firstCode: "", secondCode: "", thirdCode: "", fourthCode: "" });
     }

@@ -2,6 +2,7 @@
 import useSignUpStore from "@/src/store/useSignUpStore";
 import React, { useState } from "react";
 import { updateFeed } from "../../services/apiFeed";
+import { useToast } from "@/components/ui/use-toast";
 
 interface FeedModalProps {
   feedId: number;
@@ -10,6 +11,7 @@ interface FeedModalProps {
 function FeedModal({ feedId, preContent }: FeedModalProps) {
   const [content, setContent] = useState(preContent);
   const setNextComponent = useSignUpStore((state) => state.setNextComponent);
+  const { toast } = useToast();
 
   const onChangeTextArea = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setContent(e.target.value);
@@ -25,9 +27,9 @@ function FeedModal({ feedId, preContent }: FeedModalProps) {
     try {
       const res = await updateFeed(feedId, content);
       setNextComponent("");
-      console.log("수정 성공", res);
+      toast({ description: "게시글 수정되었습니다!" });
     } catch (err) {
-      console.error("수정 에러", err);
+      toast({ description: "게시글 수정에 오류 발생하였습니다!" });
     }
   };
   return (
