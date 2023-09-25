@@ -68,7 +68,7 @@ function MyMap({ userId }: { userId: number }) {
       <Header title="나의 맛집 리스트" type="arrow" back="prePage" />
       <div className="flex flex-col items-center">
         <MyListMap mapData={mapData} />
-        <div className="w-full sm:max-w-[640px] ">
+        <div className="w-full sm:max-w-[640px] overflow-y-auto max-h-[calc(100vh-55vh)]">
           {mapData.map((data: MapItem) => (
             <MyShopItem key={data.restaurant.id} item={data} removeItem={removeItemFromList} />
           ))}
