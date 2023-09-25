@@ -77,7 +77,7 @@ function MyShopItem({ item, removeItem }: ShopProps) {
       onClick={onClickShophandler}
       className="relative flex items-center justify-between py-3 px-10 mt-3 border hover:bg-gray-300 max-sm:text-xs"
     >
-      <div className="flex items-center gap-x-5">
+      <div className="flex items-center gap-x-5 mr-4">
         <Link href={`/main/restaurants/${item.restaurant.id}`}>
           <div className="relative w-12 h-12">
             <Image
