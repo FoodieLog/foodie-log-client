@@ -1,20 +1,18 @@
 "use client";
-import React from "react";
+import Link from "next/link";
 import { useState } from "react";
-import Image from "next/image";
-import Button from "@/src/components/Common/Button";
-import kakao from "@/public/images/kakao_login_medium_wide.png";
 import { useForm } from "react-hook-form";
+import { useToast } from "@/components/ui/use-toast";
 import { duplicateCheck, sendEmailCode } from "@/src/services/auth";
 import { kakaoLogin } from "@/src/services/kakao";
 import { SignUpForm } from "@/src/types/apiTypes";
 import { emailValidation, passwordValidation } from "@/src/constants";
-import SignUpTerms from "./SignUpTerms";
-import SignUpCode from "./SignUpCode";
-import SignUpProfile from "./SignUpProfile";
+import AuthButton from "@/src/components/Common/Button/AuthButton";
+import Button from "@/src/components/Common/Button";
+import SignUpTerms from "@/src/components/Auth/SignUpTerms";
+import SignUpCode from "@/src/components/Auth/SignUpCode";
+import SignUpProfile from "@/src/components/Auth/SignUpProfile";
 import useSignUpStore from "@/src/store/useSignUpStore";
-import AuthButton from "../Common/Button/AuthButton";
-import { useToast } from "@/components/ui/use-toast";
 
 interface SighUpInput {
   email: string;
@@ -141,6 +139,9 @@ function SignUpForm() {
           </div>
           {errors?.passwordCheck && <p className="error">{errors.passwordCheck.message}</p>}
         </div>
+        <Link href={"/accounts/login"} className="mt-3 text-center underline underline-offset-1">
+          로그인하기
+        </Link>
         <Button type="submit" variant="primary" disabled={isSubmitting}>
           {isSubmitting ? "로딩중..." : "회원가입"}
         </Button>

@@ -1,16 +1,15 @@
 "use client";
-import React from "react";
-import { logIn } from "@/src/services/auth";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import Button from "@/src/components/Common/Button";
-import Line from "../Common/Line";
 import Link from "next/link";
-import AuthButton from "../Common/Button/AuthButton";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { logIn } from "@/src/services/auth";
 import { kakaoLogin } from "@/src/services/kakao";
-import { initializePushNotifications } from "../Notification/PushNotification";
+import { initializePushNotifications } from "@/src/components/Notification/PushNotification";
 import { useUserStore } from "@/src/store/useUserStore";
 import { useToast } from "@/components/ui/use-toast";
+import Button from "@/src/components/Common/Button";
+import Line from "@/src/components//Common/Line";
+import AuthButton from "@/src/components/Common/Button/AuthButton";
 
 function LogInForm() {
   const [logInData, setLogInData] = useState({
@@ -40,9 +39,7 @@ function LogInForm() {
       const minutesInMilliseconds = 1000 * 60 * 29;
       const expiryTime = Date.now() + minutesInMilliseconds;
       setTokenExpiry(expiryTime); // 만료 시간 설정
-
       initializePushNotifications();
-
       router.replace("/main/home");
     } catch (err) {
       toast({ title: "로그인 실패", description: "이메일 또는 비밀번호가 틀렸습니다!" });
