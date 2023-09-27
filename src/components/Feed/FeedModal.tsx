@@ -3,14 +3,13 @@ import useSignUpStore from "@/src/store/useSignUpStore";
 import React, { useState } from "react";
 import { updateFeed } from "../../services/apiFeed";
 import { useToast } from "@/components/ui/use-toast";
+import useFeedStore from "@/src/store/useFeedStore";
 
-interface FeedModalProps {
-  feedId: number;
-  preContent: string;
-}
-function FeedModal({ feedId, preContent }: FeedModalProps) {
-  const [content, setContent] = useState(preContent);
+function FeedModal() {
+  const feed = useFeedStore((state) => state.feed);
+  const [content, setContent] = useState(feed.content);
   const setNextComponent = useSignUpStore((state) => state.setNextComponent);
+
   const { toast } = useToast();
 
   const onChangeTextArea = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -25,7 +24,7 @@ function FeedModal({ feedId, preContent }: FeedModalProps) {
     e.preventDefault();
 
     try {
-      const res = await updateFeed(feedId, content);
+      const res = await updateFeed(feed.id, content);
       setNextComponent("");
       toast({ description: "게시글 수정되었습니다!" });
     } catch (err) {

@@ -1,10 +1,11 @@
 "use client";
-
 import Feed from "./Feed";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { getFeedList, getFeedListByUserId, Content, APIFeedResponse } from "@/src/services/apiFeed";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import InfiniteScroll from "react-infinite-scroller";
+import useSignUpStore from "@/src/store/useSignUpStore";
+import FeedModal from "./FeedModal";
 
 type FeedsProps = {
   id?: number;
@@ -13,6 +14,7 @@ type FeedsProps = {
 
 const Feeds: React.FC<FeedsProps> = ({ id, startingFeedId }) => {
   const [feedsData, setFeedsData] = useState<Content[]>([]);
+  const nextComponent = useSignUpStore((state) => state.nextComponent);
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery(
     ["feedList", id],
@@ -60,7 +62,7 @@ const Feeds: React.FC<FeedsProps> = ({ id, startingFeedId }) => {
       <InfiniteScroll pageStart={0} loadMore={loadMore} hasMore={hasNextPage && !isFetchingNextPage}>
         {(data?.pages || []).map((page, index) => (
           <React.Fragment key={index}>
-            {page.response.content.map((content: Content) => (
+            {page.response.content.map((content: Content, i) => (
               <Feed
                 key={content.feed.feedId}
                 feed={content.feed}
@@ -74,6 +76,7 @@ const Feeds: React.FC<FeedsProps> = ({ id, startingFeedId }) => {
           </React.Fragment>
         ))}
       </InfiniteScroll>
+      {nextComponent === "EditModal" && <FeedModal />}
     </div>
   );
 };
