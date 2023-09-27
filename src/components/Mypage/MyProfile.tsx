@@ -1,15 +1,16 @@
 "use client";
 import React from "react";
+import Link from "next/link";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { BiPhotoAlbum } from "react-icons/bi";
 import { CgFlagAlt } from "react-icons/cg";
-import { getThumbnailByUserId } from "../../services/mypage";
+import { getThumbnailByUserId } from "@/src/services/mypage";
 import { getMyProfile } from "@/src/services/mypage";
-import { ThumbnailState, myProfileState } from "../../types/mypage";
-import Link from "next/link";
-import Button from "../Common/Button";
+import { ThumbnailState, myProfileState } from "@/src/types/mypage";
 import useSignUpStore from "@/src/store/useSignUpStore";
 import MyProfileSettings from "./MyProfileSettings";
+import Button from "../Common/Button";
 import Header from "../Common/Header";
 import Image from "next/image";
 import { useInfiniteQuery } from "@tanstack/react-query";
@@ -30,6 +31,8 @@ function MyPageForm({ userId, option }: { userId: number; option: string }) {
   });
   const nextComponent = useSignUpStore((state) => state.nextComponent);
   const setNextComponent = useSignUpStore((state) => state.setNextComponent);
+
+  const router = useRouter();
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery(
     ["thumbnailList", userId],
@@ -95,17 +98,13 @@ function MyPageForm({ userId, option }: { userId: number; option: string }) {
   }
 
   const onClickProfileEdit = () => {
-    setNextComponent("profileSettings");
+    router.push("/main/mypage/edit");
   };
-
-  if (nextComponent === "profileSettings") {
-    return <MyProfileSettings aboutMe={myProfile.aboutMe} />;
-  }
 
   return (
     <section className="w-full sm:max-w-[640px] mx-auto">
       <Header title={myProfile.nickName} type="left" back="prePage" option={option} />
-      <main className="px-2 space-y-3">
+      <main className="px-4 space-y-3">
         <header className="flex items-center mt-5 mb-3 mx-3 justify-between shrink-0">
           <div className="relative ml-3 w-[70px] h-[70px] shrink-0 rounded-full overflow-hidden cursor-pointer">
             <div className="absolute w-full h-full">
@@ -133,7 +132,7 @@ function MyPageForm({ userId, option }: { userId: number; option: string }) {
             </li>
           </ul>
         </header>
-        <div className="px-1 ">
+        <div className="px-6">
           <p>{myProfile?.aboutMe}</p>
         </div>
         <div>
