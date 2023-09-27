@@ -149,9 +149,9 @@ const Feed: React.FC<FeedProps> = ({
             option={feed.userId === userId ? "본인" : "타인"}
             id={feed.feedId}
             type={"게시글"}
+            content={feed.content}
             removeDeletedFeed={removeDeletedFeed}
           />
-          {nextComponent === "EditModal" ? <FeedModal feedId={feed.feedId} preContent={feed.content} /> : null}
         </div>
       </div>
       {/* image */}

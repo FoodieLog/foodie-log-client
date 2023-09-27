@@ -14,20 +14,23 @@ import DialogReport from "../../Dialog/DialogReport";
 import DialogConfirm from "../../Dialog/DialogConfirm";
 import { deleteFeed } from "@/src/services/apiFeed";
 import { useToast } from "@/components/ui/use-toast";
+import useFeedStore from "@/src/store/useFeedStore";
 
 interface MenuProps {
   name: string;
   option: string;
   id?: number;
   type?: string;
+  content?: string;
   removeDeletedFeed?: (feedId: number) => void;
 }
 
-function DropDown({ name, option, id = 0, type = "", removeDeletedFeed }: MenuProps) {
+function DropDown({ name, option, id = 0, type = "", content = "", removeDeletedFeed }: MenuProps) {
   const setNextComponent = useSignUpStore((state) => state.setNextComponent);
   const router = useRouter();
   const [showReportDialog, setShowReportDialog] = useState(false);
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
+  const setFeed = useFeedStore((state) => state.setFeed);
 
   const { toast } = useToast();
 
@@ -61,6 +64,7 @@ function DropDown({ name, option, id = 0, type = "", removeDeletedFeed }: MenuPr
   const onClickEdit = async (e: React.MouseEvent) => {
     e.preventDefault();
     setNextComponent("EditModal");
+    setFeed({ id, content });
   };
 
   const onClickDelete = async () => {
