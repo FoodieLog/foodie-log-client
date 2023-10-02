@@ -15,6 +15,7 @@ import Header from "../Common/Header";
 import Image from "next/image";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import InfiniteScroll from "react-infinite-scroller";
+import { followUser, unfollowUser } from '@/src/services/apiFeed';
 
 function MyPageForm({ userId, option }: { userId: number; option: string }) {
   const [isClient, setIsClient] = useState(false);
@@ -26,6 +27,7 @@ function MyPageForm({ userId, option }: { userId: number; option: string }) {
     feedCount: 0,
     follower: 0,
     following: 0,
+    followed: false,
     profileImageUrl: "/images/userImage.png",
     userId: 0,
   });
@@ -97,9 +99,36 @@ function MyPageForm({ userId, option }: { userId: number; option: string }) {
     return null;
   }
 
-  const onClickProfileEdit = () => {
-    router.push("/main/mypage/edit");
-  };
+  
+const onClickProfileEdit = async () => {
+  if (option === "타인") {
+    try {
+      let newFollowStatus: boolean | undefined;
+      if (myProfile.followed) {
+        const response = await unfollowUser(userId); // unfollow API 호출
+        if (response.status === 204) {
+          newFollowStatus = false;
+        }
+      } else {
+        const response = await followUser(userId); // follow API 호출
+        if (response.status === 201) {
+          newFollowStatus = true;
+        }
+      }
+
+      if (newFollowStatus !== undefined) {
+        setMyProfile({
+          ...myProfile,
+          followed: newFollowStatus,
+        }); // 팔로우 상태 업데이트
+      }
+    } catch (error) {
+      console.error("팔로우 상태 업데이트 실패:", error);
+    }
+  } else {
+    router.push("/main/mypage/edit"); // 기존 로직
+  }
+};
 
   return (
     <section className="w-full sm:max-w-[640px] mx-auto">
@@ -137,7 +166,7 @@ function MyPageForm({ userId, option }: { userId: number; option: string }) {
         </div>
         <div>
           <Button type="button" variant={"primary"} onClick={onClickProfileEdit}>
-            {option === "타인" ? "팔로우" : "프로필 수정"}
+            {option === "타인" ?( myProfile.followed === true ? "언팔로우" : "팔로우") : "프로필 수정"}
           </Button>
         </div>
         <div className="flex justify-around w-full py-2 border">
