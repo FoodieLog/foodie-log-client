@@ -38,6 +38,7 @@ export interface myProfileState {
   feedCount: number;
   follower: number;
   following: number;
+  followed: boolean;
   profileImageUrl: string;
   userId: number;
 }
