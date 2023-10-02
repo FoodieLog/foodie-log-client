@@ -106,3 +106,34 @@ export type MapItem = {
     roadAddress: string;
   };
 };
+
+//Notification
+
+export interface User {
+  id: number;
+  nickName: string;
+  profileImgUrl: string | null;
+}
+
+export interface Feed {
+  id: number;
+  thumbnail: string;
+}
+
+export interface Reply {
+  id: number;
+  content: string;
+  feedId: number;
+  thumbnail: string;
+}
+
+export interface Notification {
+  id: number;
+  type: "LIKE" | "FOLLOW" | "REPLY";
+  checkFlag: string;
+  user: User;
+  feed?: Feed;
+  reply?: Reply;
+  isFollowed?: boolean;
+  createdAt: string;
+}

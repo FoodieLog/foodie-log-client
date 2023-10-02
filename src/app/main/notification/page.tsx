@@ -1,6 +1,13 @@
-import React from "react";
-const Notification = () => {
-  return <div>Notification</div>;
+import BackButtonMain from "@/src/components/Common/Button/BackButtonMain";
+import NotificationList from "@/src/components/Notification/NotificationList";
+
+const NotificationPage = () => {
+  return (
+    <div className="w-full flex flex-col justify-center max-w-screen-sm mx-auto">
+      <BackButtonMain />
+      <NotificationList />
+    </div>
+  );
 };
 
-export default Notification;
+export default NotificationPage;
