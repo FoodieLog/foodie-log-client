@@ -15,7 +15,7 @@ import Header from "../Common/Header";
 import Image from "next/image";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import InfiniteScroll from "react-infinite-scroller";
-import { followUser, unfollowUser } from '@/src/services/apiFeed';
+import { followUser, unfollowUser } from "@/src/services/apiFeed";
 
 function MyPageForm({ userId, option }: { userId: number; option: string }) {
   const [isClient, setIsClient] = useState(false);
@@ -41,6 +41,7 @@ function MyPageForm({ userId, option }: { userId: number; option: string }) {
     async ({ pageParam = 0 }) => {
       if (userId) {
         const response = await getThumbnailByUserId(userId, pageParam);
+        console.log("Thumbnail : ", response);
         return response.response;
       }
       throw new Error("User ID is not provided");
@@ -60,18 +61,6 @@ function MyPageForm({ userId, option }: { userId: number; option: string }) {
     setIsLoading(false);
   }, []);
 
-  // const checkThumbnails = async () => {
-  //   try {
-  //     if (userId) {
-  //       const { response } = await getThumbnailByUserId(userId, 0);
-  //       setThumbnails(response.content);
-  //       console.log("썸네일 성공", response.content);
-  //     }
-  //   } catch (error) {
-  //     console.log("썸네일 실패", error);
-  //   }
-  // };
-
   const checkMyProfile = async () => {
     try {
       if (userId) {
@@ -84,12 +73,6 @@ function MyPageForm({ userId, option }: { userId: number; option: string }) {
     }
   };
 
-  // 비동기 로딩이 완료되었는지 확인
-  // if (isLoading) {
-  //   return <div>Loading...</div>;
-  // }
-
-  // myProfile이 유효한 값이 있는지 확인
   if (!myProfile) {
     return null;
   }
@@ -99,36 +82,35 @@ function MyPageForm({ userId, option }: { userId: number; option: string }) {
     return null;
   }
 
-  
-const onClickProfileEdit = async () => {
-  if (option === "타인") {
-    try {
-      let newFollowStatus: boolean | undefined;
-      if (myProfile.followed) {
-        const response = await unfollowUser(userId); // unfollow API 호출
-        if (response.status === 204) {
-          newFollowStatus = false;
+  const onClickProfileEdit = async () => {
+    if (option === "타인") {
+      try {
+        let newFollowStatus: boolean | undefined;
+        if (myProfile.followed) {
+          const response = await unfollowUser(userId); // unfollow API 호출
+          if (response.status === 204) {
+            newFollowStatus = false;
+          }
+        } else {
+          const response = await followUser(userId); // follow API 호출
+          if (response.status === 201) {
+            newFollowStatus = true;
+          }
         }
-      } else {
-        const response = await followUser(userId); // follow API 호출
-        if (response.status === 201) {
-          newFollowStatus = true;
-        }
-      }
 
-      if (newFollowStatus !== undefined) {
-        setMyProfile({
-          ...myProfile,
-          followed: newFollowStatus,
-        }); // 팔로우 상태 업데이트
+        if (newFollowStatus !== undefined) {
+          setMyProfile({
+            ...myProfile,
+            followed: newFollowStatus,
+          }); // 팔로우 상태 업데이트
+        }
+      } catch (error) {
+        console.error("팔로우 상태 업데이트 실패:", error);
       }
-    } catch (error) {
-      console.error("팔로우 상태 업데이트 실패:", error);
+    } else {
+      router.push("/main/mypage/edit"); // 기존 로직
     }
-  } else {
-    router.push("/main/mypage/edit"); // 기존 로직
-  }
-};
+  };
 
   return (
     <section className="w-full sm:max-w-[640px] mx-auto">
@@ -166,7 +148,7 @@ const onClickProfileEdit = async () => {
         </div>
         <div>
           <Button type="button" variant={"primary"} onClick={onClickProfileEdit}>
-            {option === "타인" ?( myProfile.followed === true ? "언팔로우" : "팔로우") : "프로필 수정"}
+            {option === "타인" ? (myProfile.followed === true ? "언팔로우" : "팔로우") : "프로필 수정"}
           </Button>
         </div>
         <div className="flex justify-around w-full py-2 border">
