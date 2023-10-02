@@ -232,6 +232,11 @@ export const getNotificationList = (): Promise<APIResponse<Notification[]>> => {
   return makeFeedFetchRequest<APIResponse<Notification[]>>("/notification/list");
 };
 
+export const sendFcmToken = async (fcmToken: string): Promise<any> => {
+  return makeFeedFetchRequest("/notification/push", "POST", {fcmToken});
+};
+
+
 export const getFeedShared = (feedId: number): Promise<GetFeedSharedResponse> => {
   return makeFeedFetchRequest<GetFeedSharedResponse>(`/feed/detail/${feedId}`, "GET", undefined, 0, false, false);
 };
