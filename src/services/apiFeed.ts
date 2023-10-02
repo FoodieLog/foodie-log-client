@@ -1,9 +1,18 @@
 // apiFeed.ts
 
 import { useUserStore } from "../store/useUserStore";
+import { Notification } from '../types/apiTypes';
 import Logout from "./Logout";
 
 const BASE_URL = "https://api.foodielog-server.monster/api";
+
+interface APIResponse<T> {
+  status: number;
+  response: {
+    content: T;
+  };
+  error: any;
+}
 
 export type APIFeedResponse = {
   status: number;
@@ -218,6 +227,15 @@ export const getFeedListByUserId = (
   } else
     return makeFeedFetchRequest(`/user/${userId}/feed/?feedId=${feedId}`);
 };
+
+export const getNotificationList = (): Promise<APIResponse<Notification[]>> => {
+  return makeFeedFetchRequest<APIResponse<Notification[]>>("/notification/list");
+};
+
+export const sendFcmToken = async (fcmToken: string): Promise<any> => {
+  return makeFeedFetchRequest("/notification/push", "POST", {fcmToken});
+};
+
 
 export const getFeedShared = (feedId: number): Promise<GetFeedSharedResponse> => {
   return makeFeedFetchRequest<GetFeedSharedResponse>(`/feed/detail/${feedId}`, "GET", undefined, 0, false, false);
