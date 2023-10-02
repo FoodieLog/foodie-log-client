@@ -1,11 +1,12 @@
 import { getMessaging, getToken, onMessage } from "firebase/messaging";
 import firebaseApp from "@/firebaseConfig";
+import { sendFcmToken } from "@/src/services/apiFeed";
 
 export const initializePushNotifications = async () => {
   // 알림 권한 요청
   if (typeof window !== "undefined" && "Notification" in window) {
     const permission = await Notification.requestPermission();
-    console.log("Notification permission status:", permission)
+    console.log("Notification permission status:", permission);
     if (permission !== "granted") {
       console.warn("User denied the notification permission");
       return;
@@ -28,6 +29,8 @@ export const initializePushNotifications = async () => {
     const token = await getToken(messaging, { vapidKey: VAPID_KEY });
     console.log(`FCM Token: ${token}`);
     // TODO: 서버에 토큰을 전송하는 코드 추가
+    const res = await sendFcmToken(token);
+    console.log("FCM 서버전송 완료 : ", res);
   } catch (error) {
     if (isFirebaseError(error) && error.code !== "messaging/token-unsubscribe-failed") {
       console.error(`Failed to get FCM token: ${error.message}`);

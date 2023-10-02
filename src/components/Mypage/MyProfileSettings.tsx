@@ -1,23 +1,48 @@
 "use client";
-import React from "react";
-import { useRef, useState } from "react";
-import { MdAddPhotoAlternate } from "react-icons/md";
-import { profileSetting } from "@/src/services/kakao";
+import { useRef, useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Button from "../Common/Button";
-import { useUserStore } from "@/src/store/useUserStore";
 import Haeder from "../../components/Common/Header";
+import { MdAddPhotoAlternate } from "react-icons/md";
+import { getMyProfile } from "@/src/services/mypage";
+import { profileSetting } from "@/src/services/kakao";
+import { useUserStore } from "@/src/store/useUserStore";
+import { useToast } from "@/components/ui/use-toast";
 
-function MyProfileSettings({ aboutMe }: { aboutMe: string }) {
-  const user = useUserStore((state) => state.user);
-  const [previewImage, setPreviewImage] = useState("");
-  const [profileImage, setProfileImage] = useState<File>();
+function MyProfileSettings() {
   const [profile, setProfile] = useState({
-    nickName: user.nickName,
-    aboutMe,
+    nickName: "",
+    aboutMe: "",
   });
-
+  const [previewImage, setPreviewImage] = useState("/images/userImage.png");
+  const [profileImage, setProfileImage] = useState<File>();
   const fileInput = useRef<HTMLInputElement>(null);
+  const user = useUserStore((state) => state.user);
+  const { toast } = useToast();
+  const router = useRouter();
+
+  useEffect(() => {
+    const checkMyProfile = async () => {
+      try {
+        if (user.id) {
+          const {
+            data: { response },
+          } = await getMyProfile(user.id);
+
+          setProfile({
+            nickName: response.nickName,
+            aboutMe: response.aboutMe,
+          });
+          setPreviewImage(response.profileImageUrl);
+          console.log("마이프로필 성공", response);
+        }
+      } catch (error) {
+        console.log("마이프로필 실패", error);
+      }
+    };
+    checkMyProfile();
+  }, [user.id]);
 
   // 프로필 설정 api
   const ProfileSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -35,10 +60,10 @@ function MyProfileSettings({ aboutMe }: { aboutMe: string }) {
     formData.append("file", profileImage as File);
     console.log("폼데이터", formData);
     try {
-      const res = profileSetting(formData);
-      console.log("프로필 설정 성공", res);
+      await profileSetting(formData);
+      router.replace("/main/mypage");
     } catch (error) {
-      console.log("프로필 설정 에러", error);
+      toast({ description: "프로필 수정 다시 시도해 주세요." });
     }
   };
 
@@ -55,8 +80,8 @@ function MyProfileSettings({ aboutMe }: { aboutMe: string }) {
     if (!file) return;
 
     const fileSizeInMB = file.size / (1024 * 1024);
-    if (fileSizeInMB > 3) {
-      alert("파일 크기가 3MB를 초과합니다. 3MB 이하의 파일을 선택해주세요.");
+    if (fileSizeInMB > 5) {
+      toast({ description: "파일 크기가 5MB를 초과합니다." });
       return;
     }
 
@@ -77,19 +102,14 @@ function MyProfileSettings({ aboutMe }: { aboutMe: string }) {
   return (
     <section className="w-full sm:max-w-[640px] mx-auto">
       <form id="formElem" className="flex flex-col space-y-10" method="post" onSubmit={ProfileSubmit}>
-        <Haeder title="프로필 설정" type="arrow" back="preComponent" />
+        <Haeder title="프로필 설정" type="arrow" back="prePage" />
         <div className=" flex flex-col items-center justify-center ">
-          <div className="relative ">
+          <div className="relative">
             <div
               onClick={pickImageHandler}
               className="flex justify-center items-center w-[200px] h-[200px] rounded-full overflow-hidden cursor-pointer"
             >
-              <Image
-                src={user.profileImageUrl ? user.profileImageUrl : previewImage}
-                alt="프로필 사진"
-                width={200}
-                height={200}
-              />
+              <Image src={previewImage} alt="프로필 사진" width={200} height={200} className="object-cover" />
               <input
                 type="file"
                 ref={fileInput}
