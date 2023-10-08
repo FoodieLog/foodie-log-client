@@ -65,7 +65,7 @@ function FindPassword() {
             name="email"
             value={codeData.email}
             onChange={onChangeHandler}
-            className="input"
+            className="inputStyles"
             placeholder="이메일 확인"
           />
           <Button type="submit" variant={"secondary"}>

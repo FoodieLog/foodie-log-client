@@ -177,7 +177,7 @@ function SignUpProfile() {
             type="text"
             name="nickName"
             value={profile.nickName}
-            className="input"
+            className="inputStyles"
             onBlur={onBlurHandler}
             onChange={onChangeHandler}
           />
@@ -192,7 +192,13 @@ function SignUpProfile() {
 
         <label>
           <p className="mb-1">자기소개</p>
-          <input type="text" name="aboutMe" value={profile.aboutMe} className="input" onChange={onChangeHandler} />
+          <input
+            type="text"
+            name="aboutMe"
+            value={profile.aboutMe}
+            className="inputStyles"
+            onChange={onChangeHandler}
+          />
         </label>
       </div>
       <div className="my-10">

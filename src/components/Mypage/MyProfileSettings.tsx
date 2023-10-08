@@ -129,11 +129,23 @@ function MyProfileSettings() {
             <p className="mb-1">
               닉네임(계정아이디)<span className="text-red-500">*</span>
             </p>
-            <input type="text" name="nickName" value={profile.nickName} className="input" onChange={onChangeHandler} />
+            <input
+              type="text"
+              name="nickName"
+              value={profile.nickName}
+              className="inputStyles"
+              onChange={onChangeHandler}
+            />
           </label>
           <label>
             <p className="mb-1">자기소개</p>
-            <input type="text" name="aboutMe" value={profile.aboutMe} className="input" onChange={onChangeHandler} />
+            <input
+              type="text"
+              name="aboutMe"
+              value={profile.aboutMe}
+              className="inputStyles"
+              onChange={onChangeHandler}
+            />
           </label>
         </div>
         <div className="my-10 px-2">

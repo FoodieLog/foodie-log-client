@@ -28,7 +28,6 @@ function PostSearch() {
   const [keyWord, setKeyword] = useState("");
   const [ShopList, setShopList] = useState<ShopItem[]>([]);
   const nextComponent = useSignUpStore((state) => state.nextComponent);
-  const setNextComponent = useSignUpStore((state) => state.setNextComponent);
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
@@ -60,7 +59,7 @@ function PostSearch() {
             name="search"
             value={keyWord}
             onChange={searchChangehandler}
-            className="input"
+            className="inputStyles"
             placeholder="주소 또는 식당명을 검색"
           />
           <button type="submit" className="absolute top-0 bottom-0 right-8 my-auto">
