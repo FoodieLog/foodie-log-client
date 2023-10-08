@@ -4,7 +4,7 @@ import MyMap from "@/src/components/Map/MyMap";
 const Map = ({ params }: { params: { id: string } }) => {
   const userId = parseInt(params.id);
 
-  return <MyMap userId={userId} />;
+  return <MyMap userId={userId} header="님의 지도" />;
 };
 
 export default Map;
