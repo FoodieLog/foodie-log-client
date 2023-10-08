@@ -42,3 +42,8 @@ export interface myProfileState {
   profileImageUrl: string;
   userId: number;
 }
+
+export interface MyMap {
+  userId: number;
+  header: string;
+}
