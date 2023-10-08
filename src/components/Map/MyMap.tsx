@@ -16,9 +16,6 @@ function MyMap({ userId, header }: MyMap) {
 
   useEffect(() => {
     checkMyMap();
-  }, []);
-
-  useEffect(() => {
     getMyLiked();
   }, []);
 
