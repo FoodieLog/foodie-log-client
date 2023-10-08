@@ -39,13 +39,13 @@ function ChangePassword({ email }: ChangePassword) {
         <form onSubmit={handleSubmit(onSubmit)} className="w-full flex flex-col  gap-4 mt-10">
           <label>
             <p>회원이메일</p>
-            <input type="text" className="input" value={email} disabled />
+            <input type="text" className="inputStyles" value={email} disabled />
           </label>
           <label>
             <p>변경할 비밀번호</p>
             <input
               type="password"
-              className="input"
+              className="inputStyles"
               placeholder="변경할 비밀번호"
               maxLength={16}
               autoComplete="new-password"
@@ -58,7 +58,7 @@ function ChangePassword({ email }: ChangePassword) {
             <input
               type="password"
               id="newPasswordCheck"
-              className="input"
+              className="inputStyles"
               placeholder="변경할 비밀번호 확인"
               autoComplete="off"
               maxLength={16}
