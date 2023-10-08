@@ -75,7 +75,7 @@ function PostImage() {
     <section className="w-full sm:max-w-[640px]  mx-auto">
       <Header title="이미지 선택" type="arrow" back="preComponent" />
       <div className=" mx-3">
-        <div className="flex justify-center mt-5 mx-2 flex-wrap">
+        <div className="flex justify-center mt-5 gap-2 flex-wrap">
           <button
             type="button"
             onClick={pickImageHandler}
