@@ -68,7 +68,7 @@ const kakaoConfig: AxiosRequestConfig = {
 const kakaoLogoutConfig: AxiosRequestConfig = {
   baseURL: "https://kapi.kakao.com/v1/user",
   headers: {
-    "Content-Type": "application/x-www-form-urlencoded",
+    "Content-Type": "application/x-www-form-urlencoded;charset=utf-8",
   },
 };
 
@@ -84,7 +84,6 @@ const kakaoLogoutRequest = axios.create(kakaoLogoutConfig);
 
 // Axios 인터셉터를 사용하여 매 요청 전에 토큰 값을 가져와 `Authorization` 헤더에 설정
 const setAuthTokenInterceptor = (config: any) => {
-  console.log("config : ", config);
   const accessToken = useUserStore.getState().user.accessToken;
 
   // headers에 기본값 설정
@@ -97,14 +96,13 @@ const setAuthTokenInterceptor = (config: any) => {
 };
 
 const setKakaoTokenInterceptor = (config: any) => {
-  console.log("config : ", config);
-  const accessToken = useUserStore.getState().user.kakaoAccessToken;
+  const kakaoAccessToken = useUserStore.getState().user.kakaoAccessToken;
 
   // headers에 기본값 설정
   config.headers = config.headers || {};
 
-  if (accessToken) {
-    config.headers.Authorization = `Bearer ${accessToken}`;
+  if (kakaoAccessToken) {
+    config.headers.Authorization = `Bearer ${kakaoAccessToken}`;
   }
   return config;
 };
