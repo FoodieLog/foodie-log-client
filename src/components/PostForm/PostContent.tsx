@@ -26,7 +26,7 @@ function PostContent() {
     e.preventDefault();
     try {
       const formData = new FormData();
-      console.log(formData);
+
       const userData = {
         selectedSearchPlace: {
           id: content.id,
