@@ -41,6 +41,9 @@ function MySettings() {
     if (!kakaoAccessToken) {
       try {
         await Logout();
+        clearUser();
+        router.replace("/accounts/login");
+        toast({ title: "로그아웃", description: "로그아웃되었습니다!" });
       } catch (error) {
         clearUser();
         router.replace("/accounts/login");
@@ -48,9 +51,11 @@ function MySettings() {
       }
     } else {
       try {
-        await logoutKaKaoToken();
+        const res = await logoutKaKaoToken();
+        await Logout();
         clearUser();
         router.replace("/accounts/login");
+        console.log("로그아웃", res);
         toast({ title: "로그아웃", description: "로그아웃되었습니다!" });
       } catch (error) {
         clearUser();

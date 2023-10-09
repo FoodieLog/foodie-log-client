@@ -35,9 +35,8 @@ interface WithdrawBody {
   withdrawReason: string;
 }
 
-export const fetchWithdraw = async ({ withdrawReason }: WithdrawBody) => {
-  console.log("Fetching withdraw", withdrawReason);
-  return await makeFeedFetchRequest("/user/setting/withdraw", "POST", { withdrawReason });
+export const withdraw = async (body: WithdrawBody) => {
+  return await userRequest.post("/api/user/setting/withdraw", body);
 };
 
 // 알림

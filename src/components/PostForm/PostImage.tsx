@@ -1,6 +1,6 @@
 "use client";
 import React, { useRef, useState } from "react";
-import { AiOutlineCloseCircle } from "react-icons/ai";
+import { AiOutlineCloseCircle, AiFillCamera, AiFillCloseCircle } from "react-icons/ai";
 import Image from "next/image";
 import usePostStore from "@/src/store/usePostStore";
 import Button from "../Common/Button";
@@ -75,36 +75,34 @@ function PostImage() {
     <section className="w-full sm:max-w-[640px]  mx-auto">
       <Header title="이미지 선택" type="arrow" back="preComponent" />
       <div className=" mx-3">
-        <button
-          type="button"
-          onClick={pickImageHandler}
-          className=" text-gray-900 bg-white hover:bg-gray-100 border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-600 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 mr-2 mb-2"
-        >
-          사진 추가
-        </button>
-        {!previews.length ? (
-          <p className="text-center">
-            이미지를 선택하세요!
-            <br />
-            (최대 3장 가능)
-          </p>
-        ) : (
-          <ul className="w-full grid grid-cols-3 gap-3">
+        <div className="flex justify-center mt-5 gap-2 flex-wrap">
+          <button
+            type="button"
+            onClick={pickImageHandler}
+            className="flex flex-col w-[70px] h-[70px] justify-center items-center text-center border border-black rounded-lg"
+          >
+            <AiFillCamera />
+            <p>{previews.length}/3</p>
+          </button>
+
+          <ul className="flex gap-2">
             {previews?.map((preview, i) => (
               <li
                 key={i}
-                className="w-full h-full relative after:content-[''] after:block after:pb-[100%] overflow-hidden"
+                className="relative w-[70px] h-[70px] flex flex-col  justify-center items-center text-center border border-black rounded-lg overflow-hidden"
               >
-                <div className="w-full h-full absolute flex items-center justify-center">
-                  <Image width={200} height={200} src={preview} alt={`이미지${i}`} className="object-contain" />
-                </div>
-                <div onClick={(e: React.MouseEvent) => deleteImagehandler(e, i)}>
-                  <AiOutlineCloseCircle className="absolute top-3 right-3" />
-                </div>
+                <Image width={70} height={64} src={preview} alt={`이미지${i}`} className="object-cover" />
+                <button
+                  type="button"
+                  onClick={(e: React.MouseEvent) => deleteImagehandler(e, i)}
+                  className="absolute top-1 right-1"
+                >
+                  <AiFillCloseCircle />
+                </button>
               </li>
             ))}
           </ul>
-        )}
+        </div>
 
         <input
           multiple

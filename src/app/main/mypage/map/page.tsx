@@ -8,7 +8,7 @@ function Map() {
   if (!userId) return;
   return (
     <>
-      <MyMap userId={userId} />
+      <MyMap userId={userId} header="내가 리뷰한 맛집" />
     </>
   );
 }

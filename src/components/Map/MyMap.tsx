@@ -6,18 +6,16 @@ import { postFeed } from "../../services/post";
 import { useUserStore } from "../../store/useUserStore";
 import { getLikedShop } from "../../services/apiFeed";
 import { LikedMapResponse, MapItem } from "@/src/types/apiTypes";
+import { MyMap } from "@/src/types/mypage";
 import MyListMap from "./MyListMap";
 import MyShopItem from "../Mypage/MyShopItem";
 import Header from "../Common/Header";
 
-function MyMap({ userId }: { userId: number }) {
+function MyMap({ userId, header }: MyMap) {
   const [mapData, setMapData] = useState<MapItem[]>([]);
 
   useEffect(() => {
     checkMyMap();
-  }, []);
-
-  useEffect(() => {
     getMyLiked();
   }, []);
 
@@ -65,7 +63,7 @@ function MyMap({ userId }: { userId: number }) {
 
   return (
     <section className="w-full sm:max-w-[640px] mx-auto">
-      <Header title="나의 맛집 리스트" type="arrow" back="prePage" />
+      <Header title={header} type="arrow" back="prePage" />
       <div className="flex flex-col items-center">
         <MyListMap mapData={mapData} />
         <div className="w-full sm:max-w-[640px] overflow-y-auto max-h-[calc(100vh-55vh)]">

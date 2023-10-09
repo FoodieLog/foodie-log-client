@@ -164,7 +164,7 @@ const Feed: React.FC<FeedProps> = ({
         roadAddress={restaurant.roadAddress}
       />
       {/* content */}
-      <div className="mx-2">
+      <div className="mx-2 whitespace-pre-wrap">
         {feed.content.length > 90 && !expandedFeed ? (
           <>
             {feed.content.substring(0, 90) + "... "}
