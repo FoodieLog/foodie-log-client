@@ -52,7 +52,7 @@ function LogInForm() {
   };
 
   return (
-    <section className="flex flex-col items-center justify-center p-10 h-4/5 sm:w-[600px] sm:border border-gray-300">
+    <section className="w-full flex flex-col items-center justify-center p-10 h-4/5 sm:w-[600px] sm:border border-gray-300">
       <div className="title">
         <h2>로그인</h2>
         <p>Foodie-Log에 오신 걸 환영합니다!</p>

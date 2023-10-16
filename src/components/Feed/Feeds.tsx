@@ -1,8 +1,17 @@
 "use client";
 import Feed from "./Feed";
 import React, { useEffect, useRef, useState } from "react";
-import { getFeedList, getFeedListByUserId, Content, APIFeedResponse } from "@/src/services/apiFeed";
-import { useInfiniteQuery } from "@tanstack/react-query";
+import {
+  getFeedList,
+  getFeedListByUserId,
+  Content,
+  APIFeedResponse,
+  getSingleFeed,
+  APISingleFeedResponse,
+  followUser,
+  unfollowUser,
+} from "@/src/services/apiFeed";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import InfiniteScroll from "react-infinite-scroller";
 import useSignUpStore from "@/src/store/useSignUpStore";
 import FeedModal from "./FeedModal";
@@ -10,12 +19,35 @@ import FeedModal from "./FeedModal";
 type FeedsProps = {
   id?: number;
   startingFeedId?: number;
+  singleFeedId?: number;
 };
 
-const Feeds: React.FC<FeedsProps> = ({ id, startingFeedId }) => {
+const Feeds: React.FC<FeedsProps> = ({ id, startingFeedId, singleFeedId }) => {
   const [feedsData, setFeedsData] = useState<Content[]>([]);
+  const [singleFeedData, setSingleFeedData] = useState<Content | null>(null);
   const nextComponent = useSignUpStore((state) => state.nextComponent);
+  const [followedUsers, setFollowedUsers] = useState<Set<number>>(new Set());
   const feedRef = useRef<{ [key: number]: HTMLDivElement | null }>({});
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await getSingleFeed(singleFeedId!);
+        if (response.status === 200) {
+          console.log("response.response.content : ", response.response.content);
+          const apiResponse = response as APISingleFeedResponse;
+          setSingleFeedData(apiResponse.response.content);
+        }
+        console.log("Direct API call:", response);
+      } catch (error) {
+        console.error("API Error:", error);
+      }
+    };
+
+    if (singleFeedId) {
+      fetchData();
+    }
+  }, [singleFeedId]);
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery(
     ["feedList", id],
@@ -29,6 +61,8 @@ const Feeds: React.FC<FeedsProps> = ({ id, startingFeedId }) => {
 
       const apiResponse = response as APIFeedResponse;
       setFeedsData(apiResponse.response.content);
+      // 여기서 전체 feed 데이터 목록을 출력
+      console.log("Current feed data list:", apiResponse.response.content);
       return apiResponse;
     },
     {
@@ -36,6 +70,7 @@ const Feeds: React.FC<FeedsProps> = ({ id, startingFeedId }) => {
         if (lastPage?.response?.content?.length < 15) return undefined;
         return lastPage?.response?.content[lastPage.response.content.length - 1]?.feed.feedId || 0;
       },
+      enabled: !singleFeedId, // singleFeedId가 없는 경우에만 쿼리 실행
     }
   );
 
@@ -47,20 +82,30 @@ const Feeds: React.FC<FeedsProps> = ({ id, startingFeedId }) => {
     setFeedsData((prevData) => prevData.filter((feed) => feed.feed.feedId !== feedId));
   };
 
-  const updateFollowStatus = (userId: number, newStatus: boolean) => {
-    console.log("Updating follow status for userId:", userId, "newStatus:", newStatus);
-    setFeedsData((prevData) => {
-      const newData = prevData.map((content) => {
-        if (content.feed.userId === userId) {
-          return { ...content, isFollowed: newStatus };
-        }
-        return content;
-      });
-      console.log("Updated feedsData:", newData);  // 로그 추가
-      return newData;
-    });
-  };
+  const updateFollowStatus = async (userId: number, newStatus: boolean) => {
+    let response;
+    try {
+      if (newStatus) {
+        response = await followUser(userId);
+      } else {
+        response = await unfollowUser(userId);
+      }
   
+      if ((newStatus && response.status === 201) || (!newStatus && response.status === 204)) {
+        setFeedsData((prevData) => {
+          return prevData.map((content) => {
+            if (content.feed.userId === userId) {
+              return { ...content, followed: newStatus };
+            }
+            return content;
+          });
+        });
+      }
+    } catch (error) {
+      console.error("Failed to update follow state:", error);
+    }
+  };
+
   useEffect(() => {
     let found = false;
 
@@ -85,33 +130,53 @@ const Feeds: React.FC<FeedsProps> = ({ id, startingFeedId }) => {
 
   return (
     <div className="flex flex-col pt-5 max-w-[640px] w-full mx-auto">
-      <InfiniteScroll pageStart={0} loadMore={loadMore} hasMore={hasNextPage && !isFetchingNextPage}>
-        {(data?.pages || []).map((page, index) => (
-          <React.Fragment key={index}>
-            {page.response.content.map((content: Content, i) => (
-              <div
-                key={content.feed.feedId}
-                ref={(el) => {
-                  if (content.feed.feedId !== undefined) {
-                    // feedId가 undefined인지 확인
-                    feedRef.current[content.feed.feedId] = el;
-                  }
-                }}
-              >
-                <Feed
-                  key={content.feed.feedId}
-                  feed={content.feed}
-                  restaurant={content.restaurant}
-                  isFollowed={content.followed}
-                  isLiked={content.liked}
-                  updateFollowStatus={updateFollowStatus}
-                  removeDeletedFeed={removeDeletedFeed}
-                />
-              </div>
-            ))}
-          </React.Fragment>
-        ))}
-      </InfiniteScroll>
+      {/* singleFeedId가 있을 경우 단일 피드 렌더링 */}
+      {singleFeedId && singleFeedData ? (
+        <Feed
+          key={singleFeedData.feed.feedId}
+          feed={singleFeedData.feed}
+          restaurant={singleFeedData.restaurant}
+          isFollowed={singleFeedData.followed}
+          isLiked={singleFeedData.liked}
+          updateFollowStatus={updateFollowStatus}
+          removeDeletedFeed={removeDeletedFeed}
+        />
+      ) : (
+        <InfiniteScroll pageStart={0} loadMore={loadMore} hasMore={hasNextPage && !isFetchingNextPage}>
+          {(data?.pages || []).map((page, index) => {
+            if (!Array.isArray(page.response.content)) {
+              // page.response.content가 배열이 아닐 경우에 대한 처리
+              console.error("page.response.content is not an array:", page.response.content);
+              return null;
+            }
+            return (
+              <React.Fragment key={index}>
+                {page.response.content.map((content: Content, i) => (
+                  <div
+                    key={content.feed.feedId}
+                    ref={(el) => {
+                      if (content.feed.feedId !== undefined) {
+                        // feedId가 undefined인지 확인
+                        feedRef.current[content.feed.feedId] = el;
+                      }
+                    }}
+                  >
+                    <Feed
+                      key={content.feed.feedId}
+                      feed={content.feed}
+                      restaurant={content.restaurant}
+                      isFollowed={content.followed}
+                      isLiked={content.liked}
+                      updateFollowStatus={updateFollowStatus}
+                      removeDeletedFeed={removeDeletedFeed}
+                    />
+                  </div>
+                ))}
+              </React.Fragment>
+            );
+          })}
+        </InfiniteScroll>
+      )}
       {nextComponent === "EditModal" && <FeedModal />}
     </div>
   );

@@ -1,6 +1,8 @@
+"use client";
+
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FeedData } from "../../types/apiTypes";
 import ImageSlide from "./ImageSlide";
 import { getTimeDiff } from "../../utils/date";
@@ -72,31 +74,12 @@ const Feed: React.FC<FeedProps> = ({
 
   // 팔로우 상태에 따른 호버 버튼의 클래스 설정
   const buttonClass = isFollowed
-    ? `${followButtonClass} hover:bg-slate-200 opacity-0 cursor-not-allowed`
+    ? `${followButtonClass} hover:bg-slate-200 opacity-0`
     : `${followButtonClass} hover:bg-gray-100`;
 
   const handleFollowButtonClick = async () => {
-    try {
-      let newFollowStatus;
-      if (isFollowed) {
-        const response = await unfollowUser(feed.userId);
-        if (response.status === 204) {
-          newFollowStatus = false;
-          // setFollow(newFollowStatus);
-        }
-      } else {
-        const response = await followUser(feed.userId);
-        if (response.status === 201) {
-          newFollowStatus = true;
-          // setFollow(newFollowStatus);
-        }
-      }
-      // Feeds 컴포넌트의 팔로우 상태 업데이트 함수를 호출
-      if (updateFollowStatus && newFollowStatus !== undefined) {
-        updateFollowStatus(feed.userId, newFollowStatus);
-      }
-    } catch (error) {
-      console.error("Failed to update follow state:", error);
+    if (updateFollowStatus) {
+      updateFollowStatus(feed.userId, !isFollowed);
     }
   };
 
