@@ -13,6 +13,7 @@ import Header from "../Common/Header";
 
 function MyMap({ userId, header }: MyMap) {
   const [mapData, setMapData] = useState<MapItem[]>([]);
+  const [nickName, setNickName] = useState("");
 
   useEffect(() => {
     checkMyMap();
@@ -24,6 +25,7 @@ function MyMap({ userId, header }: MyMap) {
     try {
       const { data } = await getMyMap(userId);
       setMapData(data.response.content);
+      setNickName(data.response.nickName);
       console.log("마미 맵 성공", data);
     } catch (err) {
       console.log("마이 맵 실패", err);
@@ -63,7 +65,7 @@ function MyMap({ userId, header }: MyMap) {
 
   return (
     <section className="w-full sm:max-w-[640px] mx-auto">
-      <Header title={header} type="arrow" back="prePage" />
+      <Header title={!userId ? header : `${nickName}${header}`} type="arrow" back="prePage" />
       <div className="flex flex-col items-center">
         <MyListMap mapData={mapData} />
         <div className="w-full sm:max-w-[640px] overflow-y-auto max-h-[calc(100vh-55vh)]">
