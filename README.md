@@ -1,34 +1,18 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Foodie-Log (푸디로그)
 
-## Getting Started
+## 프로젝트 소개
+> 주제: 자신이 다녀온 식당을 시각적 콘텐츠와 함께 공유하는 SNS 플랫폼 <br/>
+> 기간: 2023.07.05 ~ <br/>
+> DEMO: [푸디로그](https://www.foodielog.shop/) <br/>
 
-First, run the development server:
+## 개발팀
+> 🧑‍💻 프론트엔드 팀 <br/>
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+|<a href="https://github.com/ChoEun-Sang"><img src="https://avatars.githubusercontent.com/u/128155681?v=4" width=150px alt="조은상" />|<a href="https://github.com/iskra17"><img src="https://avatars.githubusercontent.com/u/128365197?v=4" width=150px alt="정재현" />|
+|:---------------------------------------------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------------------------------------------:|
+|                                             **[조은상](https://github.com/ChoEun-Sang)**                                             |                                             **[정재현](https://github.com/iskra17)**                                             |
+> 🧑‍💻 백엔드 팀 <br/>
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+|<a href="https://github.com/chaewon12"><img src="https://avatars.githubusercontent.com/u/65496092?v=4" width=150px alt="엄채원" />|<a href="https://github.com/sohn919"><img src="https://avatars.githubusercontent.com/u/84082544?v=4" width=150px alt="손영준" />|<a href="[https://github.com/ChoEun-Sang](https://github.com/inyoung0215)"><img src="https://avatars.githubusercontent.com/u/86757234?v=4" width=150px alt="정재현" />|
+|:---------------------------------------------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------------------------------------------:|
+|                                             **[엄채원](https://github.com/chaewon12)**                                             |                                             **[손영준](https://github.com/sohn919)**                                             |                                             **[황인영](https://github.com/inyoung0215)**                                             |
