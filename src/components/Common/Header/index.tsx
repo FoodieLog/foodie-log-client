@@ -52,7 +52,7 @@ function Header({ title, type, back, option }: HeaderProps) {
 
   return (
     <header className={`grid grid-cols-3 max-sm:max-w-[640px] w-full px-5 pt-5 pb-1 items-center ${headerStyle}`}>
-      <button type="button" className="" onClick={onClickHandler}>
+      <button type="button" onClick={onClickHandler}>
         <LiaAngleLeftSolid size="1.5rem" />
       </button>
       <h4 className={`${titleStyle} font-medium justify-self-center`}>{title}</h4>

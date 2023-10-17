@@ -55,27 +55,26 @@ function FindPassword() {
   }
 
   return (
-    <section className="w-full sm:max-w-[640px] mx-auto px-2">
+    <section className="flex flex-col items-center justify-center p-10 h-4/5 sm:w-[600px] sm:border border-gray-300">
       <AuthHeader back="prePage" />
-      <div className="flex flex-col items-center">
-        <h2>비밀번호 재설정</h2>
-        <h4>가입한 이메일로 인증코드 보내세요!</h4>
-        <form onSubmit={sendPasswordCodeHandler} className="w-full flex flex-col  gap-4 mt-10">
-          <input
-            name="email"
-            value={codeData.email}
-            onChange={onChangeHandler}
-            className="inputStyles"
-            placeholder="이메일 확인"
-          />
-          <Button type="submit" variant={"secondary"}>
-            인증코드 보내기
-          </Button>
-          <Link href={"/accounts/signup"} className="mb-10 flex justify-center underline underline-offset-1">
-            새 계정 만들기
-          </Link>
-        </form>
-      </div>
+      <h2>비밀번호 재설정</h2>
+      <h4>가입한 이메일로 인증코드 보내세요!</h4>
+      <form onSubmit={sendPasswordCodeHandler} className="w-full flex flex-col gap-4 mt-10">
+        <input
+          name="email"
+          value={codeData.email}
+          onChange={onChangeHandler}
+          className="inputStyles"
+          placeholder="이메일 확인"
+        />
+        <Button type="submit" variant={"secondary"}>
+          인증코드 보내기
+        </Button>
+        <Link href={"/accounts/signup"} className="mb-10 flex justify-center underline underline-offset-1">
+          새 계정 만들기
+        </Link>
+      </form>
+
       {showCodeInput && (
         <>
           <div className="flex justify-center">
@@ -115,7 +114,7 @@ function FindPassword() {
               maxLength={1}
             />
           </div>
-          <div>
+          <div className="w-full">
             <div className="flex justify-center mb-2">
               <Button type="button" variant={"text"} onClick={sendPasswordCodeHandler}>
                 코드 재전송

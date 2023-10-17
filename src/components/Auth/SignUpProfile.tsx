@@ -142,7 +142,12 @@ function SignUpProfile() {
   };
 
   return (
-    <form id="formElem" className="auth" method="post" onSubmit={kakaoToken ? ProfileSubmit : SignUpSubmit}>
+    <form
+      id="formElem"
+      className="flex flex-col items-center justify-center p-10 h-4/5 sm:w-[600px] sm:border border-gray-300"
+      method="post"
+      onSubmit={kakaoToken ? ProfileSubmit : SignUpSubmit}
+    >
       <AuthHeader back="preComponent" />
       <div className=" flex flex-col items-center justify-center mb-4">
         <div className="title">
@@ -168,7 +173,7 @@ function SignUpProfile() {
         </div>
       </div>
 
-      <div className="flex flex-col space-y-5">
+      <div className="w-full flex flex-col space-y-5">
         <label>
           <p className="mb-1">
             닉네임(계정아이디)<span className="text-red-500">*</span>
@@ -189,7 +194,6 @@ function SignUpProfile() {
             <p className="error">이미 사용 중인 닉네임입니다.</p>
           ) : null}
         </label>
-
         <label>
           <p className="mb-1">자기소개</p>
           <input
@@ -201,7 +205,7 @@ function SignUpProfile() {
           />
         </label>
       </div>
-      <div className="my-10">
+      <div className="my-10 w-full">
         <Button type="submit" variant={"primary"} disabled={isLoading}>
           {isLoading ? "로딩중..." : kakaoToken ? "프로필 설정" : "가입완료"}
         </Button>
