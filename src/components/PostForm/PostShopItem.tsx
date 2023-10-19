@@ -2,24 +2,8 @@ import React from "react";
 import usePostStore from "@/src/store/usePostStore";
 import { LiaExchangeAltSolid } from "react-icons/lia";
 import useSignUpStore from "@/src/store/useSignUpStore";
-import useOnClickBack from "../../hooks/useOnClickBack";
-
-interface ShopProps {
-  type: string;
-  item: ShopItem;
-}
-
-interface ShopItem {
-  id: string;
-  place_name: string;
-  place_url: string;
-  category_name: string;
-  address_name: string;
-  road_address_name: string;
-  phone: string;
-  x: string;
-  y: string;
-}
+import useOnClickBack from "@/src/hooks/useOnClickBack";
+import { ShopProps } from "@/src/types/post";
 
 function PostShopItem({ type, item }: ShopProps) {
   const { content, setContent } = usePostStore();
