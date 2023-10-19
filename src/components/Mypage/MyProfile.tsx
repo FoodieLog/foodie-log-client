@@ -14,10 +14,11 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { followUser, unfollowUser } from "@/src/services/apiFeed";
 import Button from "@/src/components/Common/Button";
 import Header from "@/src/components/Common/Header";
-import CustomModal from "@/src/components/Dialog/CustomModal";
+import CustomModal from "@/src/components/Common/Dialog/CustomModal";
 import MyFriendList from "@/src/components/Mypage/MyFriendList";
+import { MyPageForm } from "@/src/types/mypage";
 
-function MyPageForm({ userId, option }: { userId: number; option: string }) {
+function MyPageForm({ userId, option }: MyPageForm) {
   const [reload, setReload] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [isClient, setIsClient] = useState(false);

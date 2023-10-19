@@ -1,23 +1,18 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { useQuery, useMutation, useQueryClient, QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { getMyMap } from "../../services/mypage";
-import { postFeed } from "../../services/post";
-import { useUserStore } from "../../store/useUserStore";
-import { getLikedShop } from "../../services/apiFeed";
+import { getMyMap } from "@/src/services/mypage";
+import { getLikedShop } from "@/src/services/apiFeed";
 import { LikedMapResponse, MapItem } from "@/src/types/apiTypes";
-import MyListMap from "../../components/Map/MyListMap";
-import MyShopItem from "./MyShopItem";
-import Header from "../Common/Header";
+import MyListMap from "@/src/components/Map/MyListMap";
+import MyShopItem from "@/src/components/Mypage/MyShopItem";
+import Header from "@/src/components/Common/Header";
+import { MyMapProps } from "@/src/types/mypage";
 
-function MyMap({ userId }: { userId: number }) {
+function MyMap({ userId }: MyMapProps) {
   const [mapData, setMapData] = useState<MapItem[]>([]);
 
   useEffect(() => {
     checkMyMap();
-  }, []);
-
-  useEffect(() => {
     getMyLiked();
   }, []);
 
@@ -46,22 +41,6 @@ function MyMap({ userId }: { userId: number }) {
   const removeItemFromList = (id: number) => {
     setMapData((prevData) => prevData.filter((item) => item.restaurant.id !== id));
   };
-
-  // const queryClient = useQueryClient();
-
-  // const { data, isLoading, isError, error } = useQuery({ queryKey: ["mapData"], queryFn: () => getMyMap(userId) });
-
-  // const mutation = useMutation({
-  //   mutationFn: postFeed,
-  //   onSuccess: () => {
-  //     // Invalidate and refetch
-  //     queryClient.invalidateQueries({ queryKey: ["mapData"] });
-  //   },
-  // });
-
-  // if (isLoading) {
-  //   return <div>로딩중</div>;
-  // }
 
   return (
     <section className="w-full sm:max-w-[640px] mx-auto">

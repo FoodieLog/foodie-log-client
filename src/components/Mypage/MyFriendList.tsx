@@ -3,22 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { followUser, unfollowUser } from "@/src/services/apiFeed";
-
-interface MyFriendListProps {
-  data: ListData[];
-  friendListTitle: string;
-  reload: boolean;
-  setReload: React.Dispatch<React.SetStateAction<boolean>>;
-  updateFollow: () => Promise<void>;
-  updateFollower: () => Promise<void>;
-}
-
-interface ListData {
-  followed: boolean;
-  nickName: string;
-  profileImageUrl: string;
-  userId: number;
-}
+import { MyFriendListProps } from "@/src/types/mypage";
 
 function MyFriendList({ data, friendListTitle, reload, setReload, updateFollow, updateFollower }: MyFriendListProps) {
   const onClickFollowing = async (e: React.MouseEvent<HTMLButtonElement>, Id: number) => {
