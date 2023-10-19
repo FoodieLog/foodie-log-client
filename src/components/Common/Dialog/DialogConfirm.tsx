@@ -3,13 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-
-interface DialogConfirmProps {
-  content: string;
-  isOpened: boolean;
-  onClose: () => void;
-  onConfirm: () => void;
-}
+import { DialogConfirmProps } from "@/src/types/common";
 
 const DialogConfirm = ({ content, isOpened, onClose, onConfirm }: DialogConfirmProps) => {
   const [isDialogOpen, setIsDialogOpen] = useState(isOpened);
@@ -36,7 +30,9 @@ const DialogConfirm = ({ content, isOpened, onClose, onConfirm }: DialogConfirmP
           <Button variant="outline" onClick={onClose} className="mr-2">
             취소
           </Button>
-          <Button variant="default" onClick={onConfirm}>확인</Button>
+          <Button variant="default" onClick={onConfirm}>
+            확인
+          </Button>
         </div>
       </DialogContent>
     </Dialog>
