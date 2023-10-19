@@ -1,25 +1,29 @@
 "use client";
 import React from "react";
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import Image from "next/image";
+import InfiniteScroll from "react-infinite-scroller";
+import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { BiPhotoAlbum } from "react-icons/bi";
 import { CgFlagAlt } from "react-icons/cg";
-import { getThumbnailByUserId } from "@/src/services/mypage";
+import { getThumbnailByUserId, getFollowList, getFollowerList } from "@/src/services/mypage";
 import { getMyProfile } from "@/src/services/mypage";
 import { ThumbnailState, myProfileState } from "@/src/types/mypage";
-import useSignUpStore from "@/src/store/useSignUpStore";
-import MyProfileSettings from "./MyProfileSettings";
-import Button from "../Common/Button";
-import Header from "../Common/Header";
-import Image from "next/image";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import InfiniteScroll from "react-infinite-scroller";
 import { followUser, unfollowUser } from "@/src/services/apiFeed";
+import Button from "@/src/components/Common/Button";
+import Header from "@/src/components/Common/Header";
+import CustomModal from "@/src/components/Dialog/CustomModal";
+import MyFriendList from "@/src/components/Mypage/MyFriendList";
 
 function MyPageForm({ userId, option }: { userId: number; option: string }) {
+  const [reload, setReload] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const [isClient, setIsClient] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [friendList, setFriendList] = useState([]);
+  const [friendListTitle, setFriendListTitle] = useState("");
   const [thumbnails, setThumbnails] = useState<ThumbnailState[]>([]);
   const [myProfile, setMyProfile] = useState<myProfileState>({
     aboutMe: "",
@@ -31,10 +35,14 @@ function MyPageForm({ userId, option }: { userId: number; option: string }) {
     profileImageUrl: "/images/userImage.png",
     userId: 0,
   });
-  const nextComponent = useSignUpStore((state) => state.nextComponent);
-  const setNextComponent = useSignUpStore((state) => state.setNextComponent);
 
   const router = useRouter();
+
+  useEffect(() => {
+    checkMyProfile();
+    setIsClient(true);
+    setIsLoading(false);
+  }, [reload]);
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery(
     ["thumbnailList", userId],
@@ -54,13 +62,6 @@ function MyPageForm({ userId, option }: { userId: number; option: string }) {
     }
   );
 
-  useEffect(() => {
-    // checkThumbnails();
-    checkMyProfile();
-    setIsClient(true);
-    setIsLoading(false);
-  }, []);
-
   const checkMyProfile = async () => {
     try {
       if (userId) {
@@ -72,6 +73,24 @@ function MyPageForm({ userId, option }: { userId: number; option: string }) {
       console.log("마이프로필 실패", error);
     }
   };
+
+  const onClickFollow = useCallback(async () => {
+    setShowModal(true);
+    setFriendListTitle("팔로우");
+    try {
+      const { response } = await getFollowList(userId);
+      setFriendList(response.content);
+    } catch (error) {}
+  }, [userId]);
+
+  const onClickFollower = useCallback(async () => {
+    setShowModal(true);
+    setFriendListTitle("팔로워");
+    try {
+      const { response } = await getFollowerList(userId);
+      setFriendList(response.content);
+    } catch (error) {}
+  }, [userId]);
 
   if (!myProfile) {
     return null;
@@ -114,6 +133,18 @@ function MyPageForm({ userId, option }: { userId: number; option: string }) {
 
   return (
     <section className="w-full sm:max-w-[640px] mx-auto">
+      {showModal && (
+        <CustomModal showModal={showModal} setShowModal={setShowModal} reload={reload}>
+          <MyFriendList
+            data={friendList}
+            friendListTitle={friendListTitle}
+            reload={reload}
+            setReload={setReload}
+            updateFollow={onClickFollow}
+            updateFollower={onClickFollower}
+          />
+        </CustomModal>
+      )}
       <Header title={myProfile.nickName} type="left" back="prePage" option={option} />
       <main className="px-4 space-y-3">
         <header className="flex items-center mt-5 mb-3 mx-3 justify-between shrink-0">
@@ -133,13 +164,17 @@ function MyPageForm({ userId, option }: { userId: number; option: string }) {
               <p className="text-lg">{myProfile?.feedCount}</p>
               <p className="text-sm">게시물</p>
             </li>
-            <li className="flex flex-col items-center justify-center">
-              <p className="text-lg">{myProfile?.follower}</p>
-              <p className="text-sm">팔로워</p>
+            <li className="flex flex-col items-center justify-center cursor-pointer">
+              <button type="button" onClick={onClickFollower}>
+                <p className="text-lg">{myProfile?.follower}</p>
+                <p className="text-sm">팔로워</p>
+              </button>
             </li>
-            <li className="flex flex-col items-center justify-center">
-              <p className="text-lg">{myProfile?.following}</p>
-              <p className="text-sm">팔로우</p>
+            <li className="flex flex-col items-center justify-center cursor-pointer">
+              <button type="button" onClick={onClickFollow}>
+                <p className="text-lg">{myProfile?.following}</p>
+                <p className="text-sm">팔로우</p>
+              </button>
             </li>
           </ul>
         </header>
@@ -165,7 +200,7 @@ function MyPageForm({ userId, option }: { userId: number; option: string }) {
               {data?.pages.map((page, index) => (
                 // page에 대한 key 추가
                 <React.Fragment key={index}>
-                  {page.content.map((thumbnail: any) => (
+                  {page?.content?.map((thumbnail: any) => (
                     <li key={thumbnail.feed.feedId} className="">
                       <Link
                         href={`/main/feed/${userId}?feedId=${thumbnail.feed.feedId}`}

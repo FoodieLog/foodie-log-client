@@ -93,7 +93,7 @@ function DropDown({ name, option, id = 0, type = "", content = "", removeDeleted
         <DropdownMenuTrigger>
           <BsThreeDotsVertical size="1rem" />
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="absoluteright-3 bg-white">
+        <DropdownMenuContent className="bg-white">
           <DropdownMenuLabel>{name}</DropdownMenuLabel>
           <DropdownMenuSeparator className="bg-gray-100" />
           {items?.map((item, i) => (

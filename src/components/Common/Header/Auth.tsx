@@ -16,7 +16,7 @@ function AuthHeader({ back }: { back: string }) {
     }
   };
   return (
-    <button type="button" onClick={onClickHandler} className="flex justify-end hover:text-red-500">
+    <button type="button" onClick={onClickHandler} className="my-3 w-full flex hover:text-red-500">
       <BsArrowLeftCircle size="1.7rem" />
     </button>
   );

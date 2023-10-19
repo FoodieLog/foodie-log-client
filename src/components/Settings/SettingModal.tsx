@@ -10,7 +10,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import Button from "../Common/Button";
+import Button from "@/src/components/Common/Button";
 import { withdraw } from "@/src/services/settings";
 import { SettingModalProps } from "@/src/types/user";
 import { useUserStore } from "@/src/store/useUserStore";
@@ -78,7 +78,7 @@ function SettingModal({ children }: SettingModalProps) {
   return (
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="max-w-[325px] sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>회원 탈퇴 요청</DialogTitle>
           <DialogDescription>
