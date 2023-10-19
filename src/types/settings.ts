@@ -1,4 +1,4 @@
 //탈퇴
-export interface SettingModalProps {
+export interface WithdrawModalProps {
   children: React.ReactNode;
 }
