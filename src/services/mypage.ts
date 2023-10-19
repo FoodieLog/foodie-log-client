@@ -51,6 +51,18 @@ export const getMyMap = async (userId: number) => {
   return res;
 };
 
+// 팔로우 리스트
+export const getFollowList = async (userId: number) => {
+  const res = await userRequest.get(`/api/user/follow/list?userId=${userId}`);
+  return res.data;
+};
+
+// 팔로워 리스트
+export const getFollowerList = async (userId: number) => {
+  const res = await userRequest.get(`/api/user/follower/list?userId=${userId}`);
+  return res.data;
+};
+
 // export const getMyMap = async (userId: number) => {
 //   const res =makeFeedFetchRequest(`/api/user/${userId}/map`);
 //   return res
