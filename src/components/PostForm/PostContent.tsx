@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import { postFeed } from "@/src/services/post";
 import usePostStore from "@/src/store/usePostStore";
-import { LiaAngleLeftSolid } from "react-icons/lia";
 import { useRouter } from "next/navigation";
 import Button from "@/src/components/Common/Button";
-import ShopListItem from "./PostShopItem";
+import PostShopItem from "./PostShopItem";
 import useSignUpStore from "@/src/store/useSignUpStore";
-import PostSearch from "./PostSearch";
-import ImageSlide from "../Feed/ImageSlide";
-import Header from "../Common/Header";
+import PostSearch from "@/src/components/PostForm/PostSearch";
+import FeedImageSlide from "@/src/components/Feed/FeedImageSlide";
+import Header from "@/src/components/Common/Header";
 import { useToast } from "@/components/ui/use-toast";
 
 function PostContent() {
@@ -84,8 +83,8 @@ function PostContent() {
     <section className="w-full sm:max-w-[640px]  mx-auto">
       <Header title="게시글 등록" type="arrow" back="preComponent" />
       <div className="px-3 mt-5">
-        <ImageSlide images={images} />
-        <ShopListItem type="selected" item={content}></ShopListItem>
+        <FeedImageSlide images={images} />
+        <PostShopItem type="selected" item={content} />
         <label className="my-5 ml-3 flex items-center gap-x-3 text-lg">
           <input type="checkbox" className="w-4 h-4" checked={isChecked} onChange={onChangeHandler} />
           <span>나의 맛집 리스트에 추가</span>

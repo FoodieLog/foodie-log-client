@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useUserStore } from "@/src/store/useUserStore";
 import { useRouter } from "next/navigation";
 import { BadgeSvg, ChangeSvg, NotificationSvg, OutSvg, WarningSvg } from "@/src/assets/svgs";
-import SettingModal from "@/src/components/Settings/SettingModal";
+import WithdrawModal from "@/src/components/Settings/SettingWithdrawModal";
 import Toggle from "@/src/components/Common/Toggle";
 import Header from "@/src/components/Common/Header";
 import Logout from "@/src/services/Logout";
@@ -109,7 +109,7 @@ function MySettings() {
           </div>
         </div>
         <div className="grid grid-cols-2 divide-x divide-gray-900/5 bg-gray-50">
-          <SettingModal>
+          <WithdrawModal>
             <div
               data-modal-target="authentication-modal"
               data-modal-toggle="authentication-modal"
@@ -119,7 +119,7 @@ function MySettings() {
               <WarningSvg width="15" height="15" />
               회원탈퇴
             </div>
-          </SettingModal>
+          </WithdrawModal>
 
           <div
             onClick={onClickLogOut}

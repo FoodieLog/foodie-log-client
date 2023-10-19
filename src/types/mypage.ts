@@ -1,4 +1,3 @@
-// mypage.ts
 export interface FeedImage {
   imageUrl: string;
 }
@@ -46,4 +45,49 @@ export interface myProfileState {
 export interface MyMap {
   userId: number;
   header: string;
+}
+
+export interface MyFriendListProps {
+  data: ListData[];
+  friendListTitle: string;
+  reload: boolean;
+  setReload: React.Dispatch<React.SetStateAction<boolean>>;
+  updateFollow: () => Promise<void>;
+  updateFollower: () => Promise<void>;
+}
+
+export interface ListData {
+  followed: boolean;
+  nickName: string;
+  profileImageUrl: string;
+  userId: number;
+}
+
+export interface MyMapProps {
+  userId: number;
+}
+
+export interface MyPageForm extends MyMapProps {
+  option: string;
+}
+
+export interface MyShopItemProps {
+  item: MapItem;
+  removeItem: (id: number) => void;
+}
+
+export interface MapItem {
+  isLiked: {
+    id: number;
+    liked: boolean;
+  };
+  restaurant: {
+    category: string;
+    id: number;
+    link: string;
+    mapX: string;
+    mapY: string;
+    name: string;
+    roadAddress: string;
+  };
 }

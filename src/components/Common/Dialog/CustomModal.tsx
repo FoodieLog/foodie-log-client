@@ -9,19 +9,13 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { useEffect } from "react";
-
-export interface ModalProps {
-  children: React.ReactNode;
-  showModal: boolean;
-  setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
-  reload: boolean;
-}
+import { ModalProps } from "@/src/types/common";
 
 function CustomModal({ children, showModal, setShowModal, reload }: ModalProps) {
   useEffect(() => {}, [reload]);
 
   const onClickBg = (e: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>) => {
-    if (e.target === e.currentTarget) {
+    if (setShowModal && e.target === e.currentTarget) {
       setShowModal(!showModal);
     }
   };

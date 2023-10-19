@@ -3,15 +3,9 @@ import { LiaAngleLeftSolid } from "react-icons/lia";
 import { BsArrowLeftCircle } from "react-icons/bs";
 import useSignUpStore from "../../../store/useSignUpStore";
 import { useRouter } from "next/navigation";
-import DropDown from "../../Common/Menu/DropDown";
+import DropDown from "../DropDown/DropDown";
 import usePostStore from "@/src/store/usePostStore";
-
-interface HeaderProps {
-  title: string;
-  type: string;
-  back: "preComponent" | "prePage";
-  option?: string;
-}
+import { HeaderProps } from "@/src/types/common";
 
 function Header({ title, type, back, option }: HeaderProps) {
   console.log("타이틀", title);

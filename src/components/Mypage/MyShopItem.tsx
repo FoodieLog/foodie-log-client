@@ -5,31 +5,11 @@ import useSignUpStore from "@/src/store/useSignUpStore";
 import { getIcon } from "../../utils/iconUtils";
 import Link from "next/link";
 import Image from "next/image";
-import DialogConfirm from "../Dialog/DialogConfirm";
+import DialogConfirm from "../Common/Dialog/DialogConfirm";
 import { likeRestaurant, unlikeRestaurant } from "@/src/services/apiFeed";
+import { MyShopItemProps } from "@/src/types/mypage";
 
-interface ShopProps {
-  item: MapItem;
-  removeItem: (id: number) => void;
-}
-
-interface MapItem {
-  isLiked: {
-    id: number;
-    liked: boolean;
-  };
-  restaurant: {
-    category: string;
-    id: number;
-    link: string;
-    mapX: string;
-    mapY: string;
-    name: string;
-    roadAddress: string;
-  };
-}
-
-function MyShopItem({ item, removeItem }: ShopProps) {
+function MyShopItem({ item, removeItem }: MyShopItemProps) {
   const { content, setContent } = usePostStore();
   const setNextComponent = useSignUpStore((state) => state.setNextComponent);
   const shopCategoryIcon = `/images/foodCategoryIcons/${getIcon(item.restaurant.category)}`;
@@ -37,7 +17,6 @@ function MyShopItem({ item, removeItem }: ShopProps) {
   const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
   const [like, setLike] = useState(item.isLiked.liked);
 
-  // console.log("shopCategoryIcon", shopCategoryIcon);
   const onClickShophandler = (e: React.MouseEvent) => {
     e.preventDefault();
     setNextComponent("PostImage");

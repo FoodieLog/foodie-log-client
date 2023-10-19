@@ -12,12 +12,12 @@ import {
 import { Input } from "@/components/ui/input";
 import Button from "@/src/components/Common/Button";
 import { withdraw } from "@/src/services/settings";
-import { SettingModalProps } from "@/src/types/user";
+import { WithdrawModalProps } from "@/src/types/settings";
 import { useUserStore } from "@/src/store/useUserStore";
 import { unlinkKaKaoToken } from "@/src/services/kakao";
 import { useToast } from "@/components/ui/use-toast";
 
-function SettingModal({ children }: SettingModalProps) {
+function WithdrawModal({ children }: WithdrawModalProps) {
   const [withdrawReason, setWithdrawReason] = useState("");
   const email = useUserStore((state) => state.user.email);
   const kakaoAccessToken = useUserStore((state) => state.user.kakaoAccessToken);
@@ -162,4 +162,4 @@ function SettingModal({ children }: SettingModalProps) {
     </Dialog>
   );
 }
-export default SettingModal;
+export default WithdrawModal;

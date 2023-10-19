@@ -1,31 +1,22 @@
 "use client";
-
 import Image from "next/image";
-import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
-import { FeedData } from "../../types/apiTypes";
-import ImageSlide from "./ImageSlide";
-import { getTimeDiff } from "../../utils/date";
+import Link from "next/link";
 import dayjs from "dayjs";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
-import { BsThreeDotsVertical } from "react-icons/bs";
 import { FaRegCommentDots } from "react-icons/fa";
 import { FiShare2 } from "react-icons/fi";
-import { getIcon } from "../../utils/iconUtils";
-import Button from "../Common/Button";
-import ShopCard from "../Restaurant/ShopCard";
-import { followUser, likeFeed, unfollowUser, unlikeFeed } from "@/src/services/apiFeed";
-import DropDown from "../Common/Menu/DropDown";
+import { FeedData } from "@/src/types/apiTypes";
+import { getTimeDiff } from "@/src/utils/date";
+import { likeFeed, unlikeFeed } from "@/src/services/apiFeed";
 import { useUserStore } from "@/src/store/useUserStore";
-import FeedModal from "./FeedModal";
-import useSignUpStore from "@/src/store/useSignUpStore";
 import { useToast } from "@/components/ui/use-toast";
-import Link from "next/link";
-
-type FeedProps = FeedData & {
-  updateFollowStatus?: (userId: number, newStatus: boolean) => void;
-  removeDeletedFeed?: (feedId: number) => void;
-};
+import ShopCard from "@/src/components/Restaurant/ShopCard";
+import DropDown from "@/src/components/Common/DropDown/DropDown";
+import FeedImageSlide from "@/src/components/Feed/FeedImageSlide";
+import useSignUpStore from "@/src/store/useSignUpStore";
+import { FeedProps } from "@/src/types/feed";
 
 const Feed: React.FC<FeedProps> = ({
   feed,
@@ -37,7 +28,6 @@ const Feed: React.FC<FeedProps> = ({
 }) => {
   const [likeCount, setLikeCount] = useState<number>(feed.likeCount);
   const [expandedFeed, setExpandedFeed] = useState(false);
-  // const [Follow, setFollow] = useState<boolean>(isFollowed);
   const [Like, setLike] = useState<boolean>(isLiked);
   const timeDifference = getTimeDiff(dayjs(feed.createdAt));
   const userId = useUserStore((state) => state.user.id);
@@ -138,7 +128,7 @@ const Feed: React.FC<FeedProps> = ({
         </div>
       </div>
       {/* image */}
-      <ImageSlide images={feed.feedImages} />
+      <FeedImageSlide images={feed.feedImages} />
       {/* restaurant */}
       <ShopCard
         id={restaurant.id}

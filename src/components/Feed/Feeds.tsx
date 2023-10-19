@@ -1,6 +1,6 @@
 "use client";
-import Feed from "./Feed";
-import React, { useEffect, useRef, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import {
   getFeedList,
   getFeedListByUserId,
@@ -11,18 +11,14 @@ import {
   followUser,
   unfollowUser,
 } from "@/src/services/apiFeed";
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import InfiniteScroll from "react-infinite-scroller";
 import useSignUpStore from "@/src/store/useSignUpStore";
-import FeedModal from "./FeedModal";
-
-type FeedsProps = {
-  id?: number;
-  startingFeedId?: number;
-  singleFeedId?: number;
-};
+import Feed from "@/src/components/Feed/Feed";
+import FeedEditModal from "@/src/components/Feed/FeedEditModal";
+import { FeedsProps } from "@/src/types/feed";
 
 const Feeds: React.FC<FeedsProps> = ({ id, startingFeedId, singleFeedId }) => {
+  const [reload, setReload] = useState(false);
   const [feedsData, setFeedsData] = useState<Content[]>([]);
   const [singleFeedData, setSingleFeedData] = useState<Content | null>(null);
   const nextComponent = useSignUpStore((state) => state.nextComponent);
@@ -90,7 +86,7 @@ const Feeds: React.FC<FeedsProps> = ({ id, startingFeedId, singleFeedId }) => {
       } else {
         response = await unfollowUser(userId);
       }
-  
+
       if ((newStatus && response.status === 201) || (!newStatus && response.status === 204)) {
         setFeedsData((prevData) => {
           return prevData.map((content) => {
@@ -150,7 +146,7 @@ const Feeds: React.FC<FeedsProps> = ({ id, startingFeedId, singleFeedId }) => {
               return null;
             }
             return (
-              <React.Fragment key={index}>
+              <Fragment key={index}>
                 {page.response.content.map((content: Content, i) => (
                   <div
                     key={content.feed.feedId}
@@ -172,12 +168,12 @@ const Feeds: React.FC<FeedsProps> = ({ id, startingFeedId, singleFeedId }) => {
                     />
                   </div>
                 ))}
-              </React.Fragment>
+              </Fragment>
             );
           })}
         </InfiniteScroll>
       )}
-      {nextComponent === "EditModal" && <FeedModal />}
+      {nextComponent === "EditModal" && <FeedEditModal reload={reload} setReload={setReload} />}
     </div>
   );
 };

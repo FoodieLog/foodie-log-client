@@ -1,32 +1,18 @@
 "use client";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { searchShop } from "@/src/services/post";
 import { AiOutlineSearch } from "react-icons/ai";
-
-import PostListItem from "./PostShopItem";
+import PostShopItem from "@/src/components/PostForm/PostShopItem";
 import useSignUpStore from "@/src/store/useSignUpStore";
-import PostImage from "./PostImage";
-import PostContent from "./PostContent";
-import Header from "../Common/Header";
-
-interface ShopItem {
-  id: string;
-  place_name: string;
-  place_url: string;
-  category_name: string;
-  address_name: string;
-  road_address_name: string;
-  phone: string;
-  x: string;
-  y: string;
-  content: string;
-  isLiked: boolean;
-}
+import PostImage from "@/src/components/PostForm/PostImage";
+import PostContent from "@/src/components/PostForm/PostContent";
+import Header from "@/src/components/Common/Header";
+import { ShopItemPlus } from "@/src/types/post";
 
 function PostSearch() {
   const [keyWord, setKeyword] = useState("");
-  const [ShopList, setShopList] = useState<ShopItem[]>([]);
+  const [ShopList, setShopList] = useState<ShopItemPlus[]>([]);
   const nextComponent = useSignUpStore((state) => state.nextComponent);
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -69,7 +55,7 @@ function PostSearch() {
         <ul>
           {ShopList.map((item) => (
             <li key={item.id}>
-              <PostListItem type="search" item={item} />
+              <PostShopItem type="search" item={item} />
             </li>
           ))}
         </ul>
