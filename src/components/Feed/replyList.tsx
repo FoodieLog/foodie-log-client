@@ -11,12 +11,9 @@ import { getTimeDiff } from "@/src/utils/date";
 import { APIReplyListResponse, getReplyList, saveReply, deleteReply, reportReply } from "@/src/services/apiFeed";
 import dayjs from "dayjs";
 import Link from "next/link";
-import DropDown from "../Common/Menu/DropDown";
+import DropDown from "../Common/DropDown/DropDown";
 import { useUserStore } from "@/src/store/useUserStore";
-
-interface ReplyListProps {
-  id: string;
-}
+import { ReplyListProps } from "@/src/types/feed";
 
 const Reply: React.FC<ReplyListProps> = ({ id: feedId }) => {
   const initialAuthorState: APIReplyListResponse["response"] = {

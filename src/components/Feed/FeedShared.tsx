@@ -1,17 +1,16 @@
 "use client";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { getFeedShared, FeedShared } from "@/src/services/apiFeed";
-import ImageSlide from "./ImageSlide";
+import FeedImageSlide from "@/src/components/Feed/FeedImageSlide";
 import dayjs from "dayjs";
-import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
+import { AiOutlineHeart } from "react-icons/ai";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { FaRegCommentDots } from "react-icons/fa";
 import { FiShare2 } from "react-icons/fi";
-import { PiUserCircleBold } from "react-icons/pi";
-import { getTimeDiff } from "../../utils/date";
-import ShopCard from "../Restaurant/ShopCard";
+import { getTimeDiff } from "@/src/utils/date";
+import ShopCard from "@/src/components/Restaurant/ShopCard";
 import {
   Dialog,
   DialogContent,
@@ -21,10 +20,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-
-interface FeedSharedProps {
-  Id: string;
-}
+import { FeedSharedProps } from "@/src/types/feed";
 
 const FeedShared: React.FC<FeedSharedProps> = ({ Id }) => {
   const feedId = Number(Id);
@@ -93,7 +89,7 @@ const FeedShared: React.FC<FeedSharedProps> = ({ Id }) => {
         </button>
         <BsThreeDotsVertical className="cursor-pointer ml-2" onClick={handleIconClick} />
       </div>
-      <ImageSlide images={feedData.feedImages} />
+      <FeedImageSlide images={feedData.feedImages} />
       {/* 여기서 restaurant 데이터에 따라서 ShopCard 컴포넌트를 수정해야 합니다. */}
       <button className="cursor-pointer" onClick={handleIconClick}>
         <ShopCard
