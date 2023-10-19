@@ -1,5 +1,4 @@
 "use client";
-
 import BackButtonMain from "@/src/components/Common/Button/BackButtonMain";
 import Feeds from "@/src/components/Feed/Feeds";
 import { useSearchParams } from "next/navigation";
