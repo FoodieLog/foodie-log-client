@@ -47,7 +47,7 @@ function SignUpTerms() {
   }
 
   return (
-    <section className="auth">
+    <section className="flex flex-col items-center justify-center p-10 h-4/5 sm:w-[600px] sm:border border-gray-300">
       <AuthHeader back="preComponent" />
       <div className="mb-10">
         <div className="title">

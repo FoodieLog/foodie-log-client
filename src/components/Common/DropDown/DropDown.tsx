@@ -10,22 +10,14 @@ import {
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { useRouter } from "next/navigation";
 import useSignUpStore from "@/src/store/useSignUpStore";
-import DialogReport from "../../Dialog/DialogReport";
-import DialogConfirm from "../../Dialog/DialogConfirm";
+import DialogReport from "../Dialog/DialogReport";
+import DialogConfirm from "../Dialog/DialogConfirm";
 import { deleteFeed } from "@/src/services/apiFeed";
 import { useToast } from "@/components/ui/use-toast";
 import useFeedStore from "@/src/store/useFeedStore";
+import { DialogProps } from "@/src/types/common";
 
-interface MenuProps {
-  name: string;
-  option: string;
-  id?: number;
-  type?: string;
-  content?: string;
-  removeDeletedFeed?: (feedId: number) => void;
-}
-
-function DropDown({ name, option, id = 0, type = "", content = "", removeDeletedFeed }: MenuProps) {
+function DropDown({ name, option, id = 0, type = "", content = "", removeDeletedFeed }: DialogProps) {
   const setNextComponent = useSignUpStore((state) => state.setNextComponent);
   const router = useRouter();
   const [showReportDialog, setShowReportDialog] = useState(false);
@@ -93,7 +85,7 @@ function DropDown({ name, option, id = 0, type = "", content = "", removeDeleted
         <DropdownMenuTrigger>
           <BsThreeDotsVertical size="1rem" />
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="absoluteright-3 bg-white">
+        <DropdownMenuContent className="bg-white">
           <DropdownMenuLabel>{name}</DropdownMenuLabel>
           <DropdownMenuSeparator className="bg-gray-100" />
           {items?.map((item, i) => (

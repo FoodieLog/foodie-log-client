@@ -53,7 +53,7 @@ function SignUpCode() {
     }
   };
   return (
-    <section className="auth">
+    <section className="flex flex-col items-center justify-center p-10 h-4/5 sm:w-[600px] sm:border border-gray-300">
       <AuthHeader back="preComponent" />
       <div className="title">
         <h2>인증코드</h2>
@@ -99,7 +99,7 @@ function SignUpCode() {
           />
         </div>
       </div>
-      <div>
+      <div className="w-full">
         <div className="flex justify-center mb-2">
           <Button type="button" variant={"text"} onClick={ResendClick}>
             코드 재전송

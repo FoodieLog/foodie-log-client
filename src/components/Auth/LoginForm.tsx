@@ -81,7 +81,7 @@ function LogInForm() {
             onChange={onChangeHandler}
             className={`authInput border-1 peer`}
             autoComplete="off"
-            placeholder=" "
+            placeholder=""
           />
           <label htmlFor="password" className={`authLabel`}>
             비밀번호
@@ -100,9 +100,6 @@ function LogInForm() {
         </div>
       </form>
       <Line />
-      {/* <Button type="button" variant={"text"} size={""} onClick={onClickHandler}>
-        <Image src={kakao} alt="카카오 로그인 버튼" />
-      </Button> */}
       <AuthButton onClick={onClickHandler} />
       <div className="flex justify-center my-10">
         <Link href={"/accounts/password"} className="underline underline-offset-1">

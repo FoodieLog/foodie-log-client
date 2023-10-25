@@ -1,12 +1,9 @@
 import React, { useRef, useState } from "react";
 import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
 import { RxDotFilled } from "react-icons/rx";
+import { FeedImageSlideProps } from "@/src/types/feed";
 
-interface ImageSlideProps {
-  images: { imageUrl: string }[];
-}
-
-const ImageSlide: React.FC<ImageSlideProps> = ({ images }) => {
+const FeedImageSlide: React.FC<FeedImageSlideProps> = ({ images }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const slideRef = useRef(null); // 슬라이드 div 참조
   const [isDragging, setIsDragging] = useState(false);
@@ -106,4 +103,4 @@ const ImageSlide: React.FC<ImageSlideProps> = ({ images }) => {
   );
 };
 
-export default ImageSlide;
+export default FeedImageSlide;

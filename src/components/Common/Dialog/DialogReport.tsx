@@ -12,14 +12,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { reportFeed, reportReply } from "@/src/services/apiFeed";
 import { useToast } from "@/components/ui/use-toast";
-
-interface DialogReportProps {
-  id: number;
-  name: string;
-  type: string;
-  isOpened: boolean;
-  onClose: () => void;
-}
+import { DialogReportProps } from "@/src/types/common";
 
 const translateReportReason = (reason: string): string => {
   switch (reason) {
@@ -63,8 +56,7 @@ const DialogReport = ({ id, name, type, isOpened = false, onClose }: DialogRepor
       } else if (type === "댓글") {
         await reportReply(id, combinedReportReason);
       }
-      toast({title: "신고정상 접수", description: "신고가 정상 접수 되었습니다." }
-      );
+      toast({ title: "신고정상 접수", description: "신고가 정상 접수 되었습니다." });
       // alert("신고가 정상 접수 되었습니다.");
       onClose();
     } catch (error) {
