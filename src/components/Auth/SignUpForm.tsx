@@ -68,7 +68,7 @@ function SignUpForm() {
   };
 
   return (
-    <section className="flex flex-col items-center justify-center p-10 h-4/5 sm:w-[600px] sm:border border-gray-300">
+    <section className="flex flex-col w-full items-center justify-center p-10 h-4/5 sm:w-[600px] sm:border border-gray-300">
       <div className="title">
         <h2>회원가입</h2>
         <p>맛집 정보를 이용하려면 가입하세요.</p>
