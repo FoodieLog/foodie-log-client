@@ -11,9 +11,9 @@ const Topbar = () => {
 
   return (
     <section
-      className={`z-20 flex w-full justify-between items-center bg-white max-w-[640px] px-4 pt-2 pb-1 
+      className={`z-20 flex w-full justify-between items-center bg-white max-w-[640px] px-4 pt-2 pb-2 
       sm:fixed sm:-top-2
-    ${isVisible ? "fixed top-0" : "fixed -top-16"} transition-top duration-300`}
+    ${isVisible ? "fixed -top-1" : "fixed -top-16"} transition-top duration-300`}
     >
       <div>
         <Image src={TextLogo} alt="logo" className="w-[100px] h-9/12 sm:hidden cursor-pointer" />
