@@ -158,13 +158,13 @@ const Feed: React.FC<FeedProps> = ({
       </div>
 
       <div className="flex flex-between gap-2 items-center text-[18px] p-3">
-        <button className="text-[24px]" onClick={handleLikeClick}>
-          {Like ? <AiFillHeart /> : <AiOutlineHeart />}
+        <button className="text-[27px] font-bold text-red-600" onClick={handleLikeClick}>
+          {Like ? <AiFillHeart /> : <AiOutlineHeart className="text-[#65676b]" />}
         </button>
         <p>{likeCount}</p>
-        <FaRegCommentDots className="text-[24px] cursor-pointer ml-5" onClick={handleReplyIconClick} />
+        <FaRegCommentDots className="text-[24px] cursor-pointer ml-5 text-[#65676b]" onClick={handleReplyIconClick} />
         <p className="flex-1">{feed.replyCount}</p>
-        <FiShare2 className="text-[24px] cursor-pointer" onClick={handleShareClick} />
+        <FiShare2 className="text-[24px] cursor-pointer  text-[#65676b]" onClick={handleShareClick} />
       </div>
     </div>
   );
