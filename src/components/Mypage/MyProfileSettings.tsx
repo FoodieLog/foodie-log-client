@@ -101,9 +101,14 @@ function MyProfileSettings() {
   };
 
   return (
-    <section className="w-full sm:max-w-[640px] mx-auto">
-      <form id="formElem" className="flex flex-col space-y-10" method="post" onSubmit={ProfileSubmit}>
-        <Haeder title="프로필 설정" type="arrow" back="prePage" />
+    <section className="sm:max-w-[640px] mx-auto">
+      <Haeder title="프로필 설정" type="arrow" back="prePage" />
+      <form
+        id="formElem"
+        className="w-full p-10 h-4/5  flex flex-col space-y-10"
+        method="post"
+        onSubmit={ProfileSubmit}
+      >
         <div className=" flex flex-col items-center justify-center ">
           <div className="relative">
             <div
