@@ -15,7 +15,8 @@ function MyProfileSettings() {
     nickName: "",
     aboutMe: "",
   });
-  const [previewImage, setPreviewImage] = useState("/images/userImage.png");
+
+  const [previewImage, setPreviewImage] = useState("");
   const [profileImage, setProfileImage] = useState<File>();
   const fileInput = useRef<HTMLInputElement>(null);
   const user = useUserStore((state) => state.user);
@@ -58,7 +59,7 @@ function MyProfileSettings() {
     const blob = new Blob([JSON.stringify(userData)], { type: "application/json" });
     formData.append("content", blob);
     formData.append("file", profileImage as File);
-    console.log("폼데이터", formData);
+
     try {
       await profileSetting(formData);
       router.replace("/main/mypage");
@@ -109,7 +110,13 @@ function MyProfileSettings() {
               onClick={pickImageHandler}
               className="flex justify-center items-center w-[200px] h-[200px] rounded-full overflow-hidden cursor-pointer"
             >
-              <Image src={previewImage} alt="프로필 사진" width={200} height={200} className="object-cover" />
+              <Image
+                src={previewImage || "/images/userImage.png"}
+                alt="프로필 사진"
+                width={200}
+                height={200}
+                className="object-cover"
+              />
               <input
                 type="file"
                 ref={fileInput}
