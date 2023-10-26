@@ -2,8 +2,8 @@
 import { useRef, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import Button from "../Common/Button";
-import Haeder from "../../components/Common/Header";
+import Button from "@/src/components/Common/Button";
+import Haeder from "@/src/components/Common/Header";
 import { MdAddPhotoAlternate } from "react-icons/md";
 import { getMyProfile } from "@/src/services/mypage";
 import { profileSetting } from "@/src/services/kakao";
