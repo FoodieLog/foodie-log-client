@@ -144,7 +144,7 @@ function SignUpProfile() {
   return (
     <form
       id="formElem"
-      className="flex flex-col items-center justify-center p-10 h-4/5 sm:w-[600px] sm:border border-gray-300"
+      className="w-full flex flex-col items-center justify-center p-10 h-4/5 sm:w-[600px] sm:border border-gray-300"
       method="post"
       onSubmit={kakaoToken ? ProfileSubmit : SignUpSubmit}
     >

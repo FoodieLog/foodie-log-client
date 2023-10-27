@@ -2,8 +2,8 @@
 import { useRef, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import Button from "../Common/Button";
-import Haeder from "../../components/Common/Header";
+import Button from "@/src/components/Common/Button";
+import Haeder from "@/src/components/Common/Header";
 import { MdAddPhotoAlternate } from "react-icons/md";
 import { getMyProfile } from "@/src/services/mypage";
 import { profileSetting } from "@/src/services/kakao";
@@ -15,7 +15,8 @@ function MyProfileSettings() {
     nickName: "",
     aboutMe: "",
   });
-  const [previewImage, setPreviewImage] = useState("/images/userImage.png");
+
+  const [previewImage, setPreviewImage] = useState("");
   const [profileImage, setProfileImage] = useState<File>();
   const fileInput = useRef<HTMLInputElement>(null);
   const user = useUserStore((state) => state.user);
@@ -58,7 +59,7 @@ function MyProfileSettings() {
     const blob = new Blob([JSON.stringify(userData)], { type: "application/json" });
     formData.append("content", blob);
     formData.append("file", profileImage as File);
-    console.log("폼데이터", formData);
+
     try {
       await profileSetting(formData);
       router.replace("/main/mypage");
@@ -100,16 +101,27 @@ function MyProfileSettings() {
   };
 
   return (
-    <section className="w-full sm:max-w-[640px] mx-auto">
-      <form id="formElem" className="flex flex-col space-y-10" method="post" onSubmit={ProfileSubmit}>
-        <Haeder title="프로필 설정" type="arrow" back="prePage" />
+    <section className="sm:max-w-[640px] mx-auto">
+      <Haeder title="프로필 설정" type="arrow" back="prePage" />
+      <form
+        id="formElem"
+        className="w-full p-10 h-4/5  flex flex-col space-y-10"
+        method="post"
+        onSubmit={ProfileSubmit}
+      >
         <div className=" flex flex-col items-center justify-center ">
           <div className="relative">
             <div
               onClick={pickImageHandler}
               className="flex justify-center items-center w-[200px] h-[200px] rounded-full overflow-hidden cursor-pointer"
             >
-              <Image src={previewImage} alt="프로필 사진" width={200} height={200} className="object-cover" />
+              <Image
+                src={previewImage || "/images/userImage.png"}
+                alt="프로필 사진"
+                width={200}
+                height={200}
+                className="object-cover"
+              />
               <input
                 type="file"
                 ref={fileInput}

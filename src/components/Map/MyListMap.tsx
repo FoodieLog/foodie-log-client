@@ -1,6 +1,4 @@
-import Image from "next/image";
 import { Map, MapMarker, CustomOverlayMap } from "react-kakao-maps-sdk";
-import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { Fragment } from "react";
 interface MapProps {
