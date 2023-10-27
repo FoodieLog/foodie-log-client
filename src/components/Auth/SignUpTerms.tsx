@@ -1,30 +1,31 @@
 "use client";
-import { useSearchParams } from "next/navigation";
+import { useState } from "react";
 import Image from "next/image";
 import Button from "@/src/components/Common/Button";
 import useSignUpStore from "@/src/store/useSignUpStore";
-import SignUpProfile from "./SignUpProfile";
-import AuthHeader from "../Common/Header/Auth";
-import { getKaKaoToken, postKakaoToken } from "@/src/services/kakao";
-import { toast } from "@/components/ui/use-toast";
-import { useState } from "react";
-import Link from "next/link";
-import CustomModal from "../Common/Dialog/CustomModal";
+import SignUpProfile from "@/src/components/Auth/SignUpProfile";
+import AuthHeader from "@/src/components/Common/Header/Auth";
+import { useToast } from "@/components/ui/use-toast";
+import CustomModal from "@/src/components/Common/Dialog/CustomModal";
 
 function SignUpTerms() {
   const [isLoading, setIsLoading] = useState(false);
   const [showServiceTerms, setShowServiceTerms] = useState(false);
   const [showInfoTerms, setShowInfoTerms] = useState(false);
+  const [isCheckedInfo, setIsCheckedInfo] = useState(false);
   const isChecked = useSignUpStore((state) => state.isChecked);
   const setIsChecked = useSignUpStore((state) => state.setIsChecked);
   const nextComponent = useSignUpStore((state) => state.nextComponent);
   const setNextComponent = useSignUpStore((state) => state.setNextComponent);
 
-  const params = useSearchParams();
-  const code = params.get("code");
+  const { toast } = useToast();
 
-  const onChangeHandler = () => {
+  const onChangeServiceHandler = () => {
     setIsChecked(!isChecked);
+  };
+
+  const onChangeInfoHandler = () => {
+    setIsCheckedInfo(!isCheckedInfo);
   };
 
   const onClickTermsBtn = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -33,22 +34,10 @@ function SignUpTerms() {
     setShowInfoTerms(false);
   };
 
-  // 카카오 로그인 로직은 추후 삭제 예정
   const onClickHandler = async (e: React.MouseEvent) => {
     e.preventDefault();
-    setIsLoading(true);
-    if (!isChecked) return toast({ description: "약관 동의는 필수입니다." });
-    if (isChecked && code) {
-      const { data } = await getKaKaoToken(code);
-      await postKakaoToken(data.access_token)
-        .then((res) => {
-          setNextComponent("SignUpProfile");
-          console.log("서버에 토큰 전송 성공", res);
-        })
-        .catch((err) => console.log("서버 토큰 전송 실패", err));
-    } else if (isChecked && !code) {
-      setNextComponent("SignUpProfile");
-    }
+    if (!isChecked || !isCheckedInfo) return alert("이용약관 동의는 필수입니다.");
+    setNextComponent("SignUpProfile");
     setIsLoading(false);
   };
 
@@ -69,7 +58,7 @@ function SignUpTerms() {
             <p>
               서비스 이용 약관 동의 <span className="text-red-500">(필수)</span>
             </p>
-            <input className="checkbox" type="checkbox" checked={isChecked} onChange={onChangeHandler} />
+            <input className="checkbox" type="checkbox" checked={isChecked} onChange={onChangeServiceHandler} />
           </label>
 
           <button
@@ -85,7 +74,7 @@ function SignUpTerms() {
             <p>
               개인정보 수집∙이용 동의 <span className="text-red-500">(필수)</span>
             </p>
-            <input className="checkbox" type="checkbox" checked={isChecked} onChange={onChangeHandler} />
+            <input className="checkbox" type="checkbox" checked={isCheckedInfo} onChange={onChangeInfoHandler} />
           </label>
           <button
             type="button"
