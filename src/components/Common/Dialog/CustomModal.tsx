@@ -1,13 +1,4 @@
 "use client";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
 import { useEffect } from "react";
 import { ModalProps } from "@/src/types/common";
 
@@ -19,6 +10,7 @@ function CustomModal({ children, showModal, setShowModal, reload }: ModalProps) 
       setShowModal(!showModal);
     }
   };
+
   return (
     <div
       onClick={onClickBg}
