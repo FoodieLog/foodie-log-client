@@ -1,3 +1,6 @@
+![foodie-log-상세이미지](https://github.com/FoodieLog/foodie-log-server/assets/65496092/89f52bbb-6ddc-4773-b4de-ba16ca61c620)
+
+
 # Foodie-Log (푸디로그)
 
 ## 프로젝트 소개

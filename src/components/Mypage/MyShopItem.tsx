@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import usePostStore from "@/src/store/usePostStore";
 import { PiStarThin, PiStarFill } from "react-icons/pi";
 import useSignUpStore from "@/src/store/useSignUpStore";
-import { getIcon } from "../../utils/iconUtils";
+import { getIcon } from "@/src/utils/iconUtils";
 import Link from "next/link";
 import Image from "next/image";
-import DialogConfirm from "../Common/Dialog/DialogConfirm";
+import DialogConfirm from "@/src/components/Common/Dialog/DialogConfirm";
 import { likeRestaurant, unlikeRestaurant } from "@/src/services/apiFeed";
 import { MyShopItemProps } from "@/src/types/mypage";
 
