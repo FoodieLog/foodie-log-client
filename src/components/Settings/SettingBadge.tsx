@@ -19,7 +19,7 @@ function SettingBadge() {
   return (
     <div className="w-full sm:max-w-[640px] mx-auto flex flex-col space-y-10">
       <Header title="" type="" back="prePage" />
-      <div className="px-2">
+      <div className="px-10">
         <h4 className="mb-4 text-xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-5xl dark:text-white">
           푸디로그 뱃지 신청
         </h4>

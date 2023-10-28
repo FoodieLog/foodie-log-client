@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import { useState, useRef } from "react";
 import Button from "@/src/components/Common/Button";
 import Link from "next/link";
 import { getPasswordCode, getVerificationEmail } from "@/src/services/auth";
@@ -7,8 +7,11 @@ import useSignUpStore from "@/src/store/useSignUpStore";
 import ChangePassword from "./ChangePassword";
 import AuthHeader from "../Common/Header/Auth";
 import { useToast } from "@/components/ui/use-toast";
+
 function FindPassword() {
+  const [isLoading, setIsLoading] = useState(false);
   const [showCodeInput, setShowCodeInput] = useState(false);
+  const [focusedIndex, setFocusedIndex] = useState(0);
   const [codeData, setCodeData] = useState({
     email: "",
     firstCode: "",
@@ -16,6 +19,13 @@ function FindPassword() {
     thirdCode: "",
     fourthCode: "",
   });
+  const inputRefs: React.RefObject<HTMLInputElement>[] = [
+    useRef(null),
+    useRef(null),
+    useRef(null),
+    useRef(null),
+    useRef(null),
+  ];
   const { toast } = useToast();
 
   const nextComponent = useSignUpStore((state) => state.nextComponent);
@@ -23,18 +33,26 @@ function FindPassword() {
 
   const sendPasswordCodeHandler = async (e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    setIsLoading(true);
     try {
       const res = await getPasswordCode(codeData.email);
       setShowCodeInput(true);
       showCodeInput && setCodeData({ ...codeData, firstCode: "", secondCode: "", thirdCode: "", fourthCode: "" });
     } catch (err) {
       toast({ title: "이메일 인증 코드 발송 실패", description: "이메일을 다시 입력해 주세요!" });
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setCodeData({ ...codeData, [name]: value });
+
+    if (value.length >= e.target.maxLength && focusedIndex < inputRefs.length - 1) {
+      inputRefs[focusedIndex + 1].current?.focus();
+      setFocusedIndex(focusedIndex + 1);
+    }
   };
 
   const onVerificationClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -55,7 +73,7 @@ function FindPassword() {
   }
 
   return (
-    <section className="flex flex-col items-center justify-center p-10 h-4/5 sm:w-[600px] sm:border border-gray-300">
+    <section className="w-full flex flex-col items-center justify-center p-10 h-4/5 sm:w-[600px] sm:border border-gray-300">
       <AuthHeader back="prePage" />
       <h2>비밀번호 재설정</h2>
       <h4>가입한 이메일로 인증코드 보내세요!</h4>
@@ -67,8 +85,8 @@ function FindPassword() {
           className="inputStyles"
           placeholder="이메일 확인"
         />
-        <Button type="submit" variant={"secondary"}>
-          인증코드 보내기
+        <Button type="submit" variant={"secondary"} disabled={isLoading}>
+          {isLoading ? "로딩중..." : "인증코드 보내기"}
         </Button>
         <Link href={"/accounts/signup"} className="mb-10 flex justify-center underline underline-offset-1">
           새 계정 만들기
