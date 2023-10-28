@@ -16,8 +16,12 @@ function KaKaoCode() {
     const checkUserEmail = async () => {
       if (!code) return;
       const { data } = await getKaKaoToken(code);
-      console.log("카카오 토큰", data);
+
       localStorage.setItem("kakaoRefresh", data.refresh_token);
+      const expiration = new Date();
+      expiration.setHours(expiration.getHours() + 6);
+      localStorage.setItem("expiration", expiration.toISOString());
+
       await postKakaoToken(data.access_token)
         .then(async (res) => {
           console.log("카카오 이메일 중복 체크 성공", res);
@@ -27,10 +31,10 @@ function KaKaoCode() {
               .then((res) => {
                 setUser(res.data.response);
                 console.log("카카오 로그인 성공", res);
-                const minutesInMilliseconds = 1000 * 60 * 29;
-                const expiryTime = Date.now() + minutesInMilliseconds;
-                setTokenExpiry(expiryTime); // 만료 시간 설정
-                initializePushNotifications();
+                // const minutesInMilliseconds = 1000 * 60 * 29;
+                // const expiryTime = Date.now() + minutesInMilliseconds;
+                // setTokenExpiry(expiryTime); // 만료 시간 설정
+                // initializePushNotifications();
 
                 router.replace("/main/home");
               })
