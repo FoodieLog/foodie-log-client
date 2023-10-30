@@ -15,7 +15,6 @@ const UserSingleFeed = () => {
   const params = useSearchParams();
   const feedId = params.get("feedId") || undefined;
 
-  console.log("router.query:", feedId);
   const singleFeedId = feedId ? Number(feedId) : undefined;
 
   return (

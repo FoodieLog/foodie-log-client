@@ -19,7 +19,6 @@ function Toggle() {
     }
     try {
       const res = await putNotification(flag);
-      console.log("알림 성공", res);
     } catch (err) {
       console.log("알림 에러", err);
     }
@@ -27,7 +26,6 @@ function Toggle() {
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setIsChecked(e.target.checked);
-    console.log("onChange", isChecked);
   };
   return (
     <label className="relative inline-flex items-center cursor-pointer">

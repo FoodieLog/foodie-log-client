@@ -2,7 +2,7 @@
 
 import BackButtonMain from "@/src/components/Common/Button/BackButtonMain";
 import Feeds from "@/src/components/Feed/Feeds";
-import {  useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
 interface userFeedListProps {
   params: {
@@ -12,10 +12,7 @@ interface userFeedListProps {
 
 const UserFeedList = ({ params: { id } }: userFeedListProps) => {
   const params = useSearchParams();
-  const feedId = params.get('feedId') || undefined;
-
-  console.log("params:", { id });
-  console.log("router.query:", feedId);
+  const feedId = params.get("feedId") || undefined;
 
   const userId = Number(id);
   const startingFeedId = feedId ? Number(feedId) : undefined;

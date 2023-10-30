@@ -26,7 +26,6 @@ const SearchUser: React.FC = () => {
       if (value) {
         searchUser(value).then((response) => {
           setSearchResults(response.response.content);
-          console.log("[serchResult resopnse] : ", response.response.content);
         });
       } else {
         setSearchResults([]); // 검색어가 비었을 때는 결과를 비웁니다.

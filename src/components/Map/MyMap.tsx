@@ -26,7 +26,6 @@ function MyMap({ userId, header }: MyMap) {
       const { data } = await getMyMap(userId);
       setMapData(data.response.content);
       setNickName(data.response.nickName);
-      console.log("마미 맵 성공", data);
     } catch (err) {
       console.log("마이 맵 실패", err);
     }
@@ -37,7 +36,6 @@ function MyMap({ userId, header }: MyMap) {
     try {
       const { response } = (await getLikedShop()) as LikedMapResponse;
       setMapData(response.content);
-      console.log("나의 좋아요", response.content);
     } catch (err) {
       console.log("나의 좋아요 에러");
     }

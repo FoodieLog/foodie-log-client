@@ -19,7 +19,6 @@ const NotificationList = () => {
       try {
         setIsLoading(true);
         const response = await getNotificationList();
-        console.log("response : ", response);
         setNotifications(response.response.content);
       } catch (error) {
         console.error("Failed to fetch notifications:", error);
