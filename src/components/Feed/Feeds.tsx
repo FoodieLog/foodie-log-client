@@ -30,11 +30,9 @@ const Feeds: React.FC<FeedsProps> = ({ id, startingFeedId, singleFeedId }) => {
       try {
         const response = await getSingleFeed(singleFeedId!);
         if (response.status === 200) {
-          console.log("response.response.content : ", response.response.content);
           const apiResponse = response as APISingleFeedResponse;
           setSingleFeedData(apiResponse.response.content);
         }
-        console.log("Direct API call:", response);
       } catch (error) {
         console.error("API Error:", error);
       }
@@ -58,7 +56,7 @@ const Feeds: React.FC<FeedsProps> = ({ id, startingFeedId, singleFeedId }) => {
       const apiResponse = response as APIFeedResponse;
       setFeedsData(apiResponse.response.content);
       // 여기서 전체 feed 데이터 목록을 출력
-      console.log("Current feed data list:", apiResponse.response.content);
+
       return apiResponse;
     },
     {

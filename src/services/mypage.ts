@@ -1,6 +1,5 @@
-import { userRequest, formDataRequest } from "@/src/services";
+import { userRequest } from "@/src/services";
 import { useUserStore } from "@/src/store/useUserStore";
-import { makeFeedFetchRequest } from "@/src/services/apiFeed";
 
 const accessToken = useUserStore.getState().user.accessToken;
 const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL as string;
@@ -41,7 +40,7 @@ export const settingProfile = async (body: FormData) => {
       "Content-Type": "multipart/form-data;charset=utf-8",
     },
   });
-  console.log("프로필 서버 응답데이터", res);
+
   return res;
 };
 
@@ -62,14 +61,3 @@ export const getFollowerList = async (userId: number) => {
   const res = await userRequest.get(`/api/user/follower/list?userId=${userId}`);
   return res.data;
 };
-
-// export const getMyMap = async (userId: number) => {
-//   const res =makeFeedFetchRequest(`/api/user/${userId}/map`);
-//   return res
-// };
-
-// export const profileSetting = async (body: FormData) => {
-//   const res = await makeFeedFetchRequest("​/api​/user​/setting​/profile", "PUT", body);
-//   console.log("프로필 서버 응답데이터", res);
-//   return res;
-// };

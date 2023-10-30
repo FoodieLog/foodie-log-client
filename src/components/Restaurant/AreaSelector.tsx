@@ -42,7 +42,7 @@ const AreaSelector: React.FC<AreaSelectorProps> = ({ onSelectedAreaChange }) => 
   const handleSearch = () => {
     if (onSelectedAreaChange) {
       const searchQuery = selectedSiGunGu ? `${selectedDo} ${selectedSiGunGu}` : selectedDo;
-      console.log("searchQuery : ", searchQuery);
+
       onSelectedAreaChange(searchQuery);
     }
   };

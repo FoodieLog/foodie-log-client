@@ -51,11 +51,11 @@ function MySettings() {
       }
     } else {
       try {
-        const res = await logoutKaKaoToken();
+        await logoutKaKaoToken();
         await Logout();
         clearUser();
         router.replace("/accounts/login");
-        console.log("로그아웃", res);
+
         toast({ title: "로그아웃", description: "로그아웃되었습니다!" });
       } catch (error) {
         clearUser();

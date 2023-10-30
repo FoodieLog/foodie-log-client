@@ -54,7 +54,7 @@ export const profileSetting = async (body: FormData) => {
       "Content-Type": "multipart/form-data;charset=utf-8",
     },
   });
-  console.log("프로필 서버 응답데이터", res);
+
   return res;
 };
 

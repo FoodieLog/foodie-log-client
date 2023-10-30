@@ -50,7 +50,7 @@ const DialogReport = ({ id, name, type, isOpened = false, onClose }: DialogRepor
 
       const translatedReason = translateReportReason(reason);
       const combinedReportReason = `${translatedReason}${details ? "," + details : ""}`;
-      console.log(id, name, combinedReportReason);
+
       if (type === "게시글") {
         await reportFeed(id, combinedReportReason);
       } else if (type === "댓글") {

@@ -36,7 +36,6 @@ function MyProfileSettings() {
             aboutMe: response.aboutMe,
           });
           setPreviewImage(response.profileImageUrl);
-          console.log("마이프로필 성공", response);
         }
       } catch (error) {
         console.log("마이프로필 실패", error);

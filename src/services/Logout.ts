@@ -7,8 +7,7 @@ const logoutUser = async () => {
   const messaging = getMessaging(firebaseApp);
 
   try {
-    const res = await logOut();
-    console.log("Successfully logged out:", res);
+    await logOut();
   } catch (error) {
     console.error("Error during logout:", error);
   } finally {

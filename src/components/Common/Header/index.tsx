@@ -8,7 +8,6 @@ import usePostStore from "@/src/store/usePostStore";
 import { HeaderProps } from "@/src/types/common";
 
 function Header({ title, type, back, option }: HeaderProps) {
-  console.log("타이틀", title);
   const router = useRouter();
   const setFiles = usePostStore((state) => state.setFiles);
   let headerStyle;

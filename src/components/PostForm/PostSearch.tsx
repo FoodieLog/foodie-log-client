@@ -19,7 +19,6 @@ function PostSearch() {
     try {
       const res = await searchShop(keyWord);
       setShopList(res.response.documents);
-      console.log("shop search success", res);
     } catch (err) {
       console.log("shop search error", err);
     }

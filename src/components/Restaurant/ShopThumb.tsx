@@ -15,8 +15,6 @@ const ShopThumb: React.FC<ExtendedShopThumbData> = ({
   roadAddress,
   feedList,
 }) => {
-  console.log(id, name, category, roadAddress, feedList);
-
   const fillDefaultThumbnails = () => {
     const defaultImgCount = 3 - feedList.length;
     const defaultImgs = new Array(defaultImgCount).fill("/icon-256x256.png");
@@ -63,7 +61,6 @@ const ShopThumb: React.FC<ExtendedShopThumbData> = ({
                     objectFit: "cover",
                   }}
                   onError={(e) => console.error(e.currentTarget.id)}
-                  onLoadingComplete={(img) => console.log(img.naturalWidth)}
                 />
               )}
             </Link>

@@ -20,30 +20,8 @@ const AuthCheck: React.FC = () => {
 
   // const kakaoRefreshToken = tokenLoader();
 
-  // 카카오 리프레쉬 토큰 로직
-  // useEffect(() => {
-  //   const token = localStorage.getItem("kakaoRefresh");
-  //   if (!token) return;
-
-  //   if (kakaoRefreshToken === "EXPIRED" && token) {
-  //     const getKakaoRefresh = async () => {
-  //       try {
-  //         const { data } = await getKaKaoRefreshToken(token);
-
-  //         setUser({ accessToken: data.access_token });
-  //         localStorage.setItem("kakaoRefresh", data.refresh_token);
-  //       } catch (err) {
-  //         toast({ description: "토큰이 유효하지 않습니다.\n다시 로그인해 주세요!" });
-  //         Logout();
-  //       }
-  //     };
-  //     getKakaoRefresh();
-  //   }
-  // }, [kakaoRefreshToken, setUser, toast]);
-
   // 일반 로그인
   useEffect(() => {
-    console.log("[AuthCheck] user.accessToken : ", user.accessToken);
     const validateTokens = async () => {
       if (!user.accessToken) {
         Logout();
@@ -54,7 +32,6 @@ const AuthCheck: React.FC = () => {
 
       if (isTokenExpired) {
         try {
-          console.log("[AuthCheck] Token is expired, reissueTokens");
           const reissueResponse = await reissueTokens();
 
           if (reissueResponse.status === 201 && reissueResponse.response && reissueResponse.response.accessToken) {
@@ -82,6 +59,28 @@ const AuthCheck: React.FC = () => {
 
     validateTokens();
   }, [user.accessToken, user.tokenExpiry, router, pathname]);
+
+  //카카오 리프레쉬 토큰 로직
+
+  // useEffect(() => {
+  //   const token = localStorage.getItem("kakaoRefresh");
+
+  //   if (kakaoRefreshToken === "EXPIRED" && token) {
+  //     const getKakaoRefresh = async () => {
+  //       try {
+  //         const { data } = await getKaKaoRefreshToken(token);
+
+  //         setUser({ accessToken: data.access_token });
+  //         localStorage.setItem("kakaoRefresh", data.refresh_token);
+  //       } catch (err) {
+  //         toast({ description: "토큰이 유효하지 않습니다.\n다시 로그인해 주세요!" });
+  //         Logout();
+  //       }
+  //     };
+  //     getKakaoRefresh();
+  //   }
+
+  // }, []);
 
   return null;
 };
