@@ -1,24 +1,25 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import { useQuery, useMutation, useQueryClient, QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
 import { getMyMap } from "../../services/mypage";
-import { postFeed } from "../../services/post";
-import { useUserStore } from "../../store/useUserStore";
 import { getLikedShop } from "../../services/apiFeed";
 import { LikedMapResponse, MapItem } from "@/src/types/apiTypes";
 import { MyMap } from "@/src/types/mypage";
 import MyListMap from "./MyListMap";
 import MyShopItem from "../Mypage/MyShopItem";
 import Header from "../Common/Header";
+import { useToast } from "@/components/ui/use-toast";
 
 function MyMap({ userId, header }: MyMap) {
   const [mapData, setMapData] = useState<MapItem[]>([]);
   const [nickName, setNickName] = useState("");
+  const [reload, setReload] = useState(false);
+
+  const { toast } = useToast();
 
   useEffect(() => {
     checkMyMap();
     getMyLiked();
-  }, []);
+  }, [reload]);
 
   const checkMyMap = async () => {
     if (!userId) return;
@@ -27,7 +28,7 @@ function MyMap({ userId, header }: MyMap) {
       setMapData(data.response.content);
       setNickName(data.response.nickName);
     } catch (err) {
-      console.log("마이 맵 실패", err);
+      toast({ description: "에러가 발생했습니다. 다시 시도해주세요!" });
     }
   };
 
@@ -37,29 +38,9 @@ function MyMap({ userId, header }: MyMap) {
       const { response } = (await getLikedShop()) as LikedMapResponse;
       setMapData(response.content);
     } catch (err) {
-      console.log("나의 좋아요 에러");
+      toast({ description: "에러가 발생했습니다. 다시 시도해주세요!" });
     }
   };
-
-  const removeItemFromList = (id: number) => {
-    setMapData((prevData) => prevData.filter((item) => item.restaurant.id !== id));
-  };
-
-  // const queryClient = useQueryClient();
-
-  // const { data, isLoading, isError, error } = useQuery({ queryKey: ["mapData"], queryFn: () => getMyMap(userId) });
-
-  // const mutation = useMutation({
-  //   mutationFn: postFeed,
-  //   onSuccess: () => {
-  //     // Invalidate and refetch
-  //     queryClient.invalidateQueries({ queryKey: ["mapData"] });
-  //   },
-  // });
-
-  // if (isLoading) {
-  //   return <div>로딩중</div>;
-  // }
 
   return (
     <section className="w-full sm:max-w-[640px] mx-auto">
@@ -68,7 +49,7 @@ function MyMap({ userId, header }: MyMap) {
         <MyListMap mapData={mapData} />
         <div className="w-full sm:max-w-[640px] overflow-y-auto max-h-[calc(100vh-55vh)]">
           {mapData.map((data: MapItem) => (
-            <MyShopItem key={data.restaurant.id} item={data} removeItem={removeItemFromList} />
+            <MyShopItem key={data.restaurant.id} item={data} setReload={setReload} />
           ))}
         </div>
       </div>

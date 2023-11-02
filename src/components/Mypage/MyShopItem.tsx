@@ -1,21 +1,19 @@
-import React, { useState } from "react";
-import usePostStore from "@/src/store/usePostStore";
-import { PiStarThin, PiStarFill } from "react-icons/pi";
-import useSignUpStore from "@/src/store/useSignUpStore";
-import { getIcon } from "@/src/utils/iconUtils";
 import Link from "next/link";
 import Image from "next/image";
-import DialogConfirm from "@/src/components/Common/Dialog/DialogConfirm";
+import usePostStore from "@/src/store/usePostStore";
+import useSignUpStore from "@/src/store/useSignUpStore";
+import { PiStarThin, PiStarFill } from "react-icons/pi";
+import { getIcon } from "@/src/utils/iconUtils";
 import { likeRestaurant, unlikeRestaurant } from "@/src/services/apiFeed";
 import { MyShopItemProps } from "@/src/types/mypage";
+import { useToast } from "@/components/ui/use-toast";
 
-function MyShopItem({ item, removeItem }: MyShopItemProps) {
+function MyShopItem({ item, setReload }: MyShopItemProps) {
   const { content, setContent } = usePostStore();
   const setNextComponent = useSignUpStore((state) => state.setNextComponent);
   const shopCategoryIcon = `/images/foodCategoryIcons/${getIcon(item.restaurant.category)}`;
 
-  const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
-  const [like, setLike] = useState(item.isLiked.liked);
+  const { toast } = useToast();
 
   const onClickShophandler = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -23,31 +21,21 @@ function MyShopItem({ item, removeItem }: MyShopItemProps) {
     setContent({ ...content, ...item });
   };
 
-  const handleLikeToggle = async () => {
-    if (like) {
-      // 현재 좋아요 상태이므로 DialogConfirm를 열어서 한 번 더 확인
-      setConfirmDialogOpen(true);
-    } else {
-      // 현재 좋아요 상태가 아니므로 바로 좋아요 설정 로직 수행
-      try {
-        await likeRestaurant(item.isLiked.id);
-        setLike(true);
-      } catch (error) {
-        console.error("식당 좋아요 설정 동작 중 오류가 발생했습니다.", error);
-      }
+  const onClickUnLike = async () => {
+    try {
+      await unlikeRestaurant(item.restaurant.id);
+      setReload((pre) => !pre);
+    } catch (error) {
+      toast({ description: "에러가 발생했습니다. 다시 시도해주세요!" });
     }
   };
 
-  const handleConfirmUnLike = async () => {
-    // DialogConfirm에서 확인을 눌렀을 때만 좋아요 취소 로직 수행
+  const onClickLike = async () => {
     try {
-      await unlikeRestaurant(item.isLiked.id);
-      setLike(false);
-      setConfirmDialogOpen(false);
-      removeItem(item.restaurant.id);
+      await likeRestaurant(item.restaurant.id);
+      setReload((pre) => !pre);
     } catch (error) {
-      console.error("식당 좋아요 취소 동작 중 오류가 발생했습니다.", error);
-      setConfirmDialogOpen(false);
+      toast({ description: "에러가 발생했습니다. 다시 시도해주세요!" });
     }
   };
 
@@ -80,16 +68,16 @@ function MyShopItem({ item, removeItem }: MyShopItemProps) {
           </Link>
         </div>
       </div>
-      <div onClick={handleLikeToggle}>
-        {like ? <PiStarFill size="2rem" color="#FF6D60" /> : <PiStarThin size="2rem" />}
-      </div>
 
-      <DialogConfirm
-        content="정말로 좋아요를 취소하시겠습니까?"
-        isOpened={confirmDialogOpen}
-        onClose={() => setConfirmDialogOpen(false)}
-        onConfirm={handleConfirmUnLike}
-      />
+      {item.isLiked.liked ? (
+        <button type="button" onClick={onClickUnLike}>
+          <PiStarFill size="2rem" color="#FF6D60" />
+        </button>
+      ) : (
+        <button type="button" onClick={onClickLike}>
+          <PiStarThin size="2rem" />
+        </button>
+      )}
     </div>
   );
 }
