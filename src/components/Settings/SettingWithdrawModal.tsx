@@ -46,14 +46,12 @@ function WithdrawModal({ children }: WithdrawModalProps) {
 
     if (!kakaoAccessToken) {
       try {
-        const res = await withdraw({ withdrawReason });
-        console.log(res);
+        await withdraw({ withdrawReason });
 
         router.replace("/accounts/login");
         clearUser();
         toast({ title: "푸드로그 탈퇴", description: "회원 탈퇴되었습니다." });
       } catch (error) {
-        console.log("탈퇴 실패", error);
         toast({ title: "탈퇴 실패", description: "탈퇴 실패하였습니다." });
       }
     } else {
@@ -61,9 +59,8 @@ function WithdrawModal({ children }: WithdrawModalProps) {
         await unlinkKaKaoToken();
 
         const body = { withdrawReason };
-        const response = await withdraw(body);
+        await withdraw(body);
 
-        console.log("회원탈퇴 ", response);
         router.replace("/accounts/login");
         toast({ title: "푸드로그 탈퇴", description: "회원 탈퇴되었습니다." });
         clearUser();
@@ -72,8 +69,6 @@ function WithdrawModal({ children }: WithdrawModalProps) {
       }
     }
   };
-
-  console.log("reasons", withdrawReason);
 
   return (
     <Dialog>

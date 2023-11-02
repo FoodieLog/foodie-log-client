@@ -1,5 +1,5 @@
 import { useUserStore } from "../store/useUserStore";
-import { multipartrequest, userRequest } from "./index";
+import { multipartrequest } from "./index";
 
 // Fetch 기본 설정
 const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
@@ -10,9 +10,9 @@ export const postFeed = async (body: FormData) => {
   const headers = {
     Authorization: `Bearer ${accessToken}`,
   };
-  console.log("[feed등록시 accessToken]", accessToken);
+
   const res = await multipartrequest.post("/api/feed/save", body, { headers });
-  console.log("feed 등록 서버 응답데이터", res);
+
   return res;
 };
 
@@ -24,7 +24,6 @@ export const searchShop = async (keyword: string) => {
     Authorization: `Bearer ${accessToken}`,
   };
 
-  console.log("searchShop", keyword);
   const res = await fetch(`${BASE_URL}/api/feed/search/restaurant?keyword=${keyword}`, {
     method: "GET",
     headers,

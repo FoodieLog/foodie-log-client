@@ -13,9 +13,8 @@ export const kakaoLogin = async () => {
 
 // 카카오 코드 전송
 export const sendKakaoCode = (code: string) => {
-  console.log(`sendKakaoCode`, code);
   const res = axiosRequest.get(`/api/auth/login/kakao?code=${code}`);
-  console.log("카카오 코드 응답데이터", res);
+
   return res;
 };
 
@@ -55,12 +54,23 @@ export const profileSetting = async (body: FormData) => {
       "Content-Type": "multipart/form-data;charset=utf-8",
     },
   });
-  console.log("프로필 서버 응답데이터", res);
+
   return res;
 };
 
 //카카오 회원 탈퇴
 export const unlinkKaKaoToken = async () => {
   const res = await kakaoLogoutRequest.post(`/unlink`);
+  return res;
+};
+
+// 카카오 토큰 발급
+export const getKaKaoRefreshToken = async (token: string) => {
+  const res = await kakaoRequest.post("https://kauth.kakao.com/oauth/token", {
+    grant_type: "refresh_token",
+    client_id: process.env.NEXT_PUBLIC_REST_API_KEY, // REST_API_KEY 변수를 사용하세요.
+    refresh_token: token,
+  });
+
   return res;
 };

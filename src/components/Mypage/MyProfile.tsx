@@ -50,7 +50,6 @@ function MyPageForm({ userId, option }: MyPageForm) {
     async ({ pageParam = 0 }) => {
       if (userId) {
         const response = await getThumbnailByUserId(userId, pageParam);
-        console.log("Thumbnail : ", response);
         return response.response;
       }
       throw new Error("User ID is not provided");
@@ -68,7 +67,6 @@ function MyPageForm({ userId, option }: MyPageForm) {
       if (userId) {
         const response = await getMyProfile(userId);
         setMyProfile(response.data.response);
-        console.log("마이프로필 성공", response.data.response);
       }
     } catch (error) {
       console.log("마이프로필 실패", error);

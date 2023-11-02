@@ -170,7 +170,6 @@ export const makeFeedFetchRequest = async <T>(
     }
 
     if (response.status === 400 && !skipReissue) {
-      console.log("400 error, reissuing token");
       if (retryCount >= 2) {
         throw new Error("Maximum retry attempts reached.");
       }
@@ -186,9 +185,7 @@ export const makeFeedFetchRequest = async <T>(
           // 토큰 재발급 후 다시 해당 API를 호출
           return await makeFeedFetchRequest(endpoint, method, body, retryCount + 1);
         } else {
-          console.log("Reissue failed:", reissueResponse.status, reissueResponse.response);
           if (retryCount >= 2) {
-            console.log("Showing alert");
             alert("토큰이 유효하지 않습니다. 다시 로그인해 주세요!");
             Logout();
           }

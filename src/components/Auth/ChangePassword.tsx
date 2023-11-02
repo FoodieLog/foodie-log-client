@@ -32,7 +32,7 @@ function ChangePassword({ email }: ChangePassword) {
   };
 
   return (
-    <section className="w-full sm:max-w-[640px] mx-auto px-2">
+    <section className="w-full sm:max-w-[640px] mx-auto px-10">
       <AuthHeader back="preComponent" />
       <div className="flex flex-col items-center">
         <h2>비밀번호 재설정</h2>

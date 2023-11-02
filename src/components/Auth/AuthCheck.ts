@@ -3,8 +3,10 @@ import React, { useEffect } from "react";
 import { useUserStore } from "@/src/store/useUserStore";
 import { useRouter, usePathname } from "next/navigation";
 import { reissueTokens } from "@/src/services/apiFeed";
+import { tokenLoader } from "@/src/utils/token";
 import Logout from "@/src/services/Logout";
 import { useToast } from "@/components/ui/use-toast";
+import { getKaKaoRefreshToken } from "@/src/services/kakao";
 
 const AuthCheck: React.FC = () => {
   const { toast } = useToast();
@@ -16,8 +18,10 @@ const AuthCheck: React.FC = () => {
   const router = useRouter();
   const pathname = usePathname();
 
+  // const kakaoRefreshToken = tokenLoader();
+
+  // 일반 로그인
   useEffect(() => {
-    console.log("[AuthCheck] user.accessToken : ", user.accessToken);
     const validateTokens = async () => {
       if (!user.accessToken) {
         Logout();
@@ -28,7 +32,6 @@ const AuthCheck: React.FC = () => {
 
       if (isTokenExpired) {
         try {
-          console.log("[AuthCheck] Token is expired, reissueTokens");
           const reissueResponse = await reissueTokens();
 
           if (reissueResponse.status === 201 && reissueResponse.response && reissueResponse.response.accessToken) {
@@ -56,6 +59,28 @@ const AuthCheck: React.FC = () => {
 
     validateTokens();
   }, [user.accessToken, user.tokenExpiry, router, pathname]);
+
+  //카카오 리프레쉬 토큰 로직
+
+  // useEffect(() => {
+  //   const token = localStorage.getItem("kakaoRefresh");
+
+  //   if (kakaoRefreshToken === "EXPIRED" && token) {
+  //     const getKakaoRefresh = async () => {
+  //       try {
+  //         const { data } = await getKaKaoRefreshToken(token);
+
+  //         setUser({ accessToken: data.access_token });
+  //         localStorage.setItem("kakaoRefresh", data.refresh_token);
+  //       } catch (err) {
+  //         toast({ description: "토큰이 유효하지 않습니다.\n다시 로그인해 주세요!" });
+  //         Logout();
+  //       }
+  //     };
+  //     getKakaoRefresh();
+  //   }
+
+  // }, []);
 
   return null;
 };

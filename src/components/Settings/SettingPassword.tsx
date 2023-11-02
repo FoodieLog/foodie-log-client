@@ -37,7 +37,7 @@ function SettingPassword() {
     <section className="w-full sm:max-w-[640px] mx-auto space-y-10">
       <Header title="비밀번호 재설정" type="arrow" back="prePage" />
       <div className="title">
-        <form onSubmit={handleSubmit(onSubmit)} className="w-full flex flex-col  gap-4 px-2">
+        <form onSubmit={handleSubmit(onSubmit)} className="w-full flex flex-col gap-4 px-10">
           <label>
             <p>회원이메일</p>
             <input type="text" className="inputStyles" value={email} disabled />

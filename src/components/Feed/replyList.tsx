@@ -35,7 +35,6 @@ const Reply: React.FC<ReplyListProps> = ({ id: feedId }) => {
 
   useEffect(() => {
     getReplyList(Number(feedId)).then((data) => {
-      console.log("[댓글 목록] :", data);
       setAuthor(data.response);
       setReplies(data.response.replyList);
     });

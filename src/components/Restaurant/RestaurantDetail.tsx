@@ -28,10 +28,9 @@ const RestaurantDetail = ({ Id }: RestaurantDetailProps) => {
     // const data = generateRestaurantDetailDummyData();
     const fetchData = async () => {
       const data = await getRestaurantDetail(restaurantId);
-      console.log("[getRestaurant] : ", data.response);
+
       setRestaurantDetail(data.response.restaurantInfo);
       setFeedList(data.response.content);
-      console.log("[setFeedList] : ", data.response.content);
     };
 
     fetchData();
@@ -40,7 +39,7 @@ const RestaurantDetail = ({ Id }: RestaurantDetailProps) => {
   if (!restaurantDetail) return <div>Loading...</div>;
 
   const updateFollowStatus = (userId: number, newStatus: boolean) => {
-    setFeedList((prevData : any[]) => {
+    setFeedList((prevData: any[]) => {
       return prevData.map((content) => {
         if (content.feed.userId === userId) {
           return { ...content, followed: newStatus };

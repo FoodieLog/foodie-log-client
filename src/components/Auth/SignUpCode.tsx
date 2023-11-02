@@ -9,6 +9,7 @@ import { useToast } from "@/components/ui/use-toast";
 function SignUpCode() {
   const setNextComponent = useSignUpStore((state) => state.setNextComponent);
   const email = useSignUpStore((state) => state.user.email);
+  const [isLoading, setIsLoading] = useState(false);
   const [codeData, setCodeData] = useState({
     firstCode: "",
     secondCode: "",
@@ -26,21 +27,23 @@ function SignUpCode() {
   const { toast } = useToast();
 
   const ResendClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    setIsLoading(true);
     await sendEmailCode(email)
-      .then((res) =>
-        toast({ title: "이메일 인증 코드 발송", description: "입력한 이메일로 인증코드가 발송되었습니다!" })
-      )
-      .catch((err) => toast({ title: "이메일 인증 코드 발송 실패", description: "이메일을 다시 입력해 주세요!" }));
+      .then(() => toast({ title: "이메일 인증 코드 발송", description: "입력한 이메일로 인증코드가 발송되었습니다!" }))
+      .catch(() => toast({ title: "이메일 인증 코드 발송 실패", description: "이메일을 다시 입력해 주세요!" }))
+      .finally(() => setIsLoading(false));
   };
 
   const NextClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    setIsLoading(true);
     const code = codeData.firstCode + codeData.secondCode + codeData.thirdCode + codeData.fourthCode;
     await getVerificationEmail(email, code)
-      .then((res) => {
+      .then(() => {
         setNextComponent("SignUpTerms");
       })
-      .catch((err) => toast({ title: "이메일 인증 실패", description: "인증코드를 다시 확인해 주세요!" }));
+      .catch(() => toast({ title: "이메일 인증 실패", description: "인증코드를 다시 확인해 주세요!" }));
+    setIsLoading(false);
   };
 
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -101,7 +104,7 @@ function SignUpCode() {
       </div>
       <div className="w-full">
         <div className="flex justify-center mb-2">
-          <Button type="button" variant={"text"} onClick={ResendClick}>
+          <Button type="button" variant={"text"} onClick={ResendClick} disabled={isLoading}>
             코드 재전송
           </Button>
         </div>

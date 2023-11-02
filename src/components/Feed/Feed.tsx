@@ -79,7 +79,7 @@ const Feed: React.FC<FeedProps> = ({
 
   const handleShareClick = () => {
     const fullPath = `${CLIENT_BASE_URL}/entrance/${feed.feedId}`;
-    console.log("fullPath", fullPath);
+
     navigator.clipboard.writeText(fullPath).then(
       () => {
         toast({ title: "클립보드에 링크 저장💌!", description: "'붙여넣기'로 피드를 공유해보세요👍!" });
