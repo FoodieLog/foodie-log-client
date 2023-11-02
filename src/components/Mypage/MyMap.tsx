@@ -10,6 +10,7 @@ import { MyMapProps } from "@/src/types/mypage";
 
 function MyMap({ userId }: MyMapProps) {
   const [mapData, setMapData] = useState<MapItem[]>([]);
+  const [reload, setReload] = useState(false);
 
   useEffect(() => {
     checkMyMap();
@@ -36,10 +37,6 @@ function MyMap({ userId }: MyMapProps) {
     }
   };
 
-  const removeItemFromList = (id: number) => {
-    setMapData((prevData) => prevData.filter((item) => item.restaurant.id !== id));
-  };
-
   return (
     <section className="w-full sm:max-w-[640px] mx-auto">
       <Header title="나의 맛집 리스트" type="arrow" back="prePage" />
@@ -47,7 +44,7 @@ function MyMap({ userId }: MyMapProps) {
         <MyListMap mapData={mapData} />
         <div className="w-full sm:max-w-[640px] ">
           {mapData.map((data: MapItem) => (
-            <MyShopItem key={data.restaurant.id} item={data} removeItem={removeItemFromList} />
+            <MyShopItem key={data.restaurant.id} item={data} setReload={setReload} />
           ))}
         </div>
       </div>

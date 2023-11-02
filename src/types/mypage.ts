@@ -73,7 +73,7 @@ export interface MyPageForm extends MyMapProps {
 
 export interface MyShopItemProps {
   item: MapItem;
-  removeItem: (id: number) => void;
+  setReload: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export interface MapItem {
