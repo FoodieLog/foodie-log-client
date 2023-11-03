@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -6,12 +6,12 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "../../../../components/ui/dropdown-menu";
+} from "@/components/ui/dropdown-menu";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { useRouter } from "next/navigation";
 import useSignUpStore from "@/src/store/useSignUpStore";
-import DialogReport from "../Dialog/DialogReport";
-import DialogConfirm from "../Dialog/DialogConfirm";
+import DialogReport from "@/src/components/Common/Dialog/DialogReport";
+import DialogConfirm from "@/src/components/Common/Dialog/DialogConfirm";
 import { deleteFeed } from "@/src/services/apiFeed";
 import { useToast } from "@/components/ui/use-toast";
 import useFeedStore from "@/src/store/useFeedStore";
@@ -65,19 +65,31 @@ function DropDown({ name, option, id = 0, type = "", content = "", removeDeleted
 
   const handleConfirmDelete = async () => {
     try {
-      const response = await deleteFeed(id); // API 호출
-      console.log("response", response);
-      if (response.status === 200) {
-        toast({ description: "피드가 정상 삭제 되었습니다👍!" });
-        if (removeDeletedFeed) removeDeletedFeed(id);
-      } else {
-        alert(response.error.message); // API에서 반환된 에러 메시지를 알림으로 표시
-      }
+      const response = await deleteFeed(id);
+      console.log("삭제", response);
+      toast({ description: "피드가 정상 삭제 되었습니다👍!" });
       setShowConfirmDialog(false);
     } catch (error) {
       toast({ description: "게시글 삭제 중 에러가 발생했습니다. 다시 시도해주세요!🙄" });
     }
   };
+
+  // const handleConfirmDelete = async () => {
+  //   try {
+  //     const response = await deleteFeed(id); // API 호출
+  //     console.log("삭제", response);
+  //     if (response.status === 200) {
+  //       toast({ description: "피드가 정상 삭제 되었습니다👍!" });
+  //       if (removeDeletedFeed) removeDeletedFeed(id);
+  //     } else {
+  //       alert(response.error.message); // API에서 반환된 에러 메시지를 알림으로 표시
+  //     }
+  //     setShowConfirmDialog(false);
+  //   } catch (error) {
+  //     console.log("삭제", error);
+  //     toast({ description: "게시글 삭제 중 에러가 발생했습니다. 다시 시도해주세요!🙄" });
+  //   }
+  // };
 
   return (
     <>
