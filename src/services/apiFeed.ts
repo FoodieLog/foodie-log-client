@@ -233,7 +233,7 @@ export const getFeedListByUserId = (userId: number, feedId: number): Promise<API
 };
 
 export const getNotificationList = (): Promise<APIResponse<Notification[]>> => {
-  return makeFeedFetchRequest<APIResponse<Notification[]>>("/notification/list");
+  return makeFeedFetchRequest("/notification/list");
 };
 
 export const sendFcmToken = async (fcmToken: string): Promise<any> => {
@@ -253,7 +253,7 @@ export const unlikeFeed = async (feedId: number): Promise<APIFeedResponse> => {
 };
 
 export const deleteFeed = async (feedId: number): Promise<any> => {
-  return makeFeedFetchRequest(`/feed/delete?feedId=${feedId}`, "POST");
+  return makeFeedFetchRequest(`/feed/delete/${feedId}`, "DELETE");
 };
 
 export const followUser = async (userId: number): Promise<APIFeedResponse> => {
@@ -289,7 +289,7 @@ export const searchUser = async (keyword: string): Promise<APIUserSearchResponse
 };
 
 export const updateFeed = async (feedId: number, content: string): Promise<APIReplyPostResponse> => {
-  return makeFeedFetchRequest(`/feed/update`, "PATCH", { content, feedId });
+  return makeFeedFetchRequest(`api/feed/${feedId}`, "PATCH", { content });
 };
 
 export const getLikedShop = async () => {
