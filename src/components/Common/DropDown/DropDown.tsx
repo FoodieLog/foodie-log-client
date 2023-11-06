@@ -66,30 +66,13 @@ function DropDown({ name, option, id = 0, type = "", content = "", removeDeleted
   const handleConfirmDelete = async () => {
     try {
       const response = await deleteFeed(id);
-      console.log("삭제", response);
+
       toast({ description: "피드가 정상 삭제 되었습니다👍!" });
       setShowConfirmDialog(false);
     } catch (error) {
       toast({ description: "게시글 삭제 중 에러가 발생했습니다. 다시 시도해주세요!🙄" });
     }
   };
-
-  // const handleConfirmDelete = async () => {
-  //   try {
-  //     const response = await deleteFeed(id); // API 호출
-  //     console.log("삭제", response);
-  //     if (response.status === 200) {
-  //       toast({ description: "피드가 정상 삭제 되었습니다👍!" });
-  //       if (removeDeletedFeed) removeDeletedFeed(id);
-  //     } else {
-  //       alert(response.error.message); // API에서 반환된 에러 메시지를 알림으로 표시
-  //     }
-  //     setShowConfirmDialog(false);
-  //   } catch (error) {
-  //     console.log("삭제", error);
-  //     toast({ description: "게시글 삭제 중 에러가 발생했습니다. 다시 시도해주세요!🙄" });
-  //   }
-  // };
 
   return (
     <>
