@@ -11,7 +11,7 @@ export const postFeed = async (body: FormData) => {
     Authorization: `Bearer ${accessToken}`,
   };
 
-  const res = await multipartrequest.post("/api/feed/save", body, { headers });
+  const res = await multipartrequest.post("/api/feed", body, { headers });
 
   return res;
 };
