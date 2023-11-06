@@ -3,6 +3,7 @@ import { userRequest } from "@/src/services";
 import { useUserStore } from "@/src/store/useUserStore";
 import { Notification } from "@/src/types/apiTypes";
 import Logout from "@/src/services/Logout";
+import { getCookie } from "../utils/token";
 
 const BASE_URL = "https://api.foodielog-server.monster/api";
 
@@ -306,6 +307,12 @@ export const unlikeRestaurant = async (restaurantId: number): Promise<void> => {
   await makeFeedFetchRequest(`/restaurant/unlike?restaurantId=${restaurantId}`, "DELETE");
 };
 
-export const reissueTokens = async (): Promise<any> => {
-  return makeFeedFetchRequest("/auth/reissue", "GET", undefined, 0, true);
+// export const reissueTokens = async (): Promise<any> => {
+//   return makeFeedFetchRequest("/auth/reissue", "GET", undefined, 0, true);
+// };
+
+export const reissueTokens = async () => {
+  const refreshToken = getCookie("refreshToken");
+  const res = await userRequest.get(`/api/auth/reissue?refreshToken=${refreshToken}`);
+  return res.data;
 };
