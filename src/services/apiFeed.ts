@@ -1,8 +1,8 @@
 // apiFeed.ts
-
-import { useUserStore } from "../store/useUserStore";
-import { Notification } from "../types/apiTypes";
-import Logout from "./Logout";
+import { userRequest } from "@/src/services";
+import { useUserStore } from "@/src/store/useUserStore";
+import { Notification } from "@/src/types/apiTypes";
+import Logout from "@/src/services/Logout";
 
 const BASE_URL = "https://api.foodielog-server.monster/api";
 
@@ -252,8 +252,9 @@ export const unlikeFeed = async (feedId: number): Promise<APIFeedResponse> => {
   return makeFeedFetchRequest(`/feed/unlike?feedId=${feedId}`, "DELETE");
 };
 
-export const deleteFeed = async (feedId: number): Promise<any> => {
-  return makeFeedFetchRequest(`/feed/delete/${feedId}`, "DELETE");
+export const deleteFeed = async (feedId: number) => {
+  const res = await userRequest.delete(`api/feed/${feedId}`);
+  return res.data;
 };
 
 export const followUser = async (userId: number): Promise<APIFeedResponse> => {
@@ -288,8 +289,9 @@ export const searchUser = async (keyword: string): Promise<APIUserSearchResponse
   return makeFeedFetchRequest(`/user/search?keyword=${keyword}`);
 };
 
-export const updateFeed = async (feedId: number, content: string): Promise<APIReplyPostResponse> => {
-  return makeFeedFetchRequest(`api/feed/${feedId}`, "PATCH", { content });
+export const updateFeed = async (feedId: number, content: string) => {
+  const res = await userRequest.patch(`api/feed/${feedId}`, { content });
+  return res.data;
 };
 
 export const getLikedShop = async () => {
