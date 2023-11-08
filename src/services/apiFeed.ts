@@ -3,7 +3,7 @@ import { userRequest } from "@/src/services";
 import { useUserStore } from "@/src/store/useUserStore";
 import { Notification } from "@/src/types/apiTypes";
 import Logout from "@/src/services/Logout";
-import { getCookie } from "../utils/token";
+import { getCookie } from "@/src/utils/token";
 
 const BASE_URL = "https://api.foodielog-server.monster/api";
 
@@ -313,6 +313,10 @@ export const unlikeRestaurant = async (restaurantId: number): Promise<void> => {
 
 export const reissueTokens = async () => {
   const refreshToken = getCookie("refreshToken");
-  const res = await userRequest.get(`/api/auth/reissue?refreshToken=${refreshToken}`);
+  const res = await userRequest.get(`/api/auth/reissue`, {
+    headers: {
+      Cookie: refreshToken,
+    },
+  });
   return res.data;
 };
