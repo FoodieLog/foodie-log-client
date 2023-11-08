@@ -1,51 +1,9 @@
-// import axios, { AxiosRequestConfig } from "axios";
-// import { useUserStore } from "../store/useUserStore";
-
-// const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
-// const accessToken = useUserStore.getState().user.accessToken;
-
-// const axiosConfig: AxiosRequestConfig = {
-//   baseURL: BASE_URL,
-//   headers: {
-//     "Content-Type": "application/json",
-//   },
-// };
-
-// const multipartConfig: AxiosRequestConfig = {
-//   baseURL: BASE_URL,
-//   headers: {
-//     Authorization: `Bearer ${accessToken}`,
-//   },
-// };
-
-// const userConfig: AxiosRequestConfig = {
-//   baseURL: BASE_URL,
-//   headers: {
-//     Authorization: `Bearer ${accessToken}`,
-//   },
-// };
-
-// const formDataConfig: AxiosRequestConfig = {
-//   baseURL: BASE_URL,
-//   headers: {
-//     Authorization: `Bearer ${accessToken}`,
-//   },
-// };
-
-// const axiosRequest = axios.create(axiosConfig);
-// const multipartrequest = axios.create(multipartConfig);
-// const userRequest = axios.create(userConfig);
-// const formDataRequest = axios.create(formDataConfig);
-
-// // axios 인스턴스 headers - 토큰 설정
-// // userRequest.defaults.headers.common["Authorization"] = AUTH_TOKEN;
-
-// export { axiosRequest, multipartrequest, userRequest, formDataRequest };
-
 import axios, { AxiosRequestConfig } from "axios";
-import { useUserStore } from "../store/useUserStore";
+import { useUserStore } from "@/src/store/useUserStore";
+import { getCookie } from "@/src/utils/token";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+// const refreshToken = getCookie("refreshToken");
 
 const axiosConfig: AxiosRequestConfig = {
   baseURL: BASE_URL,
@@ -72,6 +30,14 @@ const kakaoLogoutConfig: AxiosRequestConfig = {
   },
 };
 
+// const refreshConfig: AxiosRequestConfig = {
+//   baseURL: BASE_URL,
+//   headers: {
+//     "Content-Type": "application/json",
+//     Cookie: refreshToken,
+//   },
+// };
+
 const axiosRequest = axios.create(axiosConfig);
 const multipartrequest = axios.create(multipartConfig);
 
@@ -81,6 +47,8 @@ const formDataRequest = axios.create(axiosConfig);
 const kakaoRequest = axios.create(kakaoConfig);
 
 const kakaoLogoutRequest = axios.create(kakaoLogoutConfig);
+
+// const refreshRequest = axios.create(refreshConfig);
 
 // Axios 인터셉터를 사용하여 매 요청 전에 토큰 값을 가져와 `Authorization` 헤더에 설정
 const setAuthTokenInterceptor = (config: any) => {
