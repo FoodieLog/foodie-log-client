@@ -47,7 +47,7 @@
 ![푸디로그-4](https://github.com/FoodieLog/foodie-log-client/assets/128155681/21ba647b-5557-4b8f-a2e4-41fd2941d30e)
 ![푸디로그-5](https://github.com/FoodieLog/foodie-log-client/assets/128155681/f21d0883-a352-48f1-9ba0-74501ee7800e)
 ![푸디로그-6](https://github.com/FoodieLog/foodie-log-client/assets/128155681/f7e832eb-23fc-4e69-acbc-da1a6ead8343)
-![푸디로그-7](https://github.com/FoodieLog/foodie-log-client/assets/128155681/5b67d453-9e66-44e8-80b8-8c6b0c234702)
+![푸디로그-7](https://github.com/FoodieLog/foodie-log-client/assets/128155681/d9c17065-3827-4f49-a357-fefca0d790d3)
 
 ## 개발팀
 > 🧑‍💻 [프론트엔드](https://github.com/FoodieLog/foodie-log-client/) <br/>
