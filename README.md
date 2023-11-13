@@ -49,8 +49,6 @@
 ![푸디로그-6](https://github.com/FoodieLog/foodie-log-client/assets/128155681/f7e832eb-23fc-4e69-acbc-da1a6ead8343)
 ![푸디로그-7](https://github.com/FoodieLog/foodie-log-client/assets/128155681/5b67d453-9e66-44e8-80b8-8c6b0c234702)
 
-## 프론트엔드 아키텍처
-
 ## 개발팀
 > 🧑‍💻 [프론트엔드](https://github.com/FoodieLog/foodie-log-client/) <br/>
 
