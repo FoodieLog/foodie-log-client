@@ -1,6 +1,5 @@
 "use client";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { searchShop } from "@/src/services/post";
 import { AiOutlineSearch } from "react-icons/ai";
 import PostShopItem from "@/src/components/PostForm/PostShopItem";
@@ -14,6 +13,7 @@ function PostSearch() {
   const [keyWord, setKeyword] = useState("");
   const [ShopList, setShopList] = useState<ShopItemPlus[]>([]);
   const nextComponent = useSignUpStore((state) => state.nextComponent);
+
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
@@ -23,7 +23,6 @@ function PostSearch() {
       console.log("shop search error", err);
     }
   };
-  const router = useRouter();
 
   const searchChangehandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setKeyword(e.target.value);

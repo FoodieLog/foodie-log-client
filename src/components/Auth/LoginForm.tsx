@@ -16,6 +16,7 @@ function LogInForm() {
     email: "",
     password: "",
   });
+
   const { toast } = useToast();
 
   const router = useRouter();

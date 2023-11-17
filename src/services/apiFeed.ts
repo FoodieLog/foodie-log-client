@@ -312,11 +312,6 @@ export const unlikeRestaurant = async (restaurantId: number): Promise<void> => {
 // };
 
 export const reissueTokens = async () => {
-  const refreshToken = getCookie("refreshToken");
-  const res = await userRequest.get(`/api/auth/reissue`, {
-    headers: {
-      Cookie: refreshToken,
-    },
-  });
+  const res = await userRequest.get(`/api/auth/reissue`);
   return res.data;
 };
