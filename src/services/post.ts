@@ -1,5 +1,5 @@
-import { useUserStore } from "../store/useUserStore";
-import { multipartrequest } from "./index";
+import { useUserStore } from "@/src/store/useUserStore";
+import { multipartRequest } from "@/src/services";
 
 // Fetch 기본 설정
 const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
@@ -11,7 +11,7 @@ export const postFeed = async (body: FormData) => {
     Authorization: `Bearer ${accessToken}`,
   };
 
-  const res = await multipartrequest.post("/api/feed", body, { headers });
+  const res = await multipartRequest.post("/api/feed", body, { headers });
 
   return res;
 };
