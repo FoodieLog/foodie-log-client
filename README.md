@@ -55,6 +55,8 @@
 |<a href="https://github.com/ChoEun-Sang"><img src="https://avatars.githubusercontent.com/u/128155681?v=4" width=150px alt="조은상" />|<a href="https://github.com/iskra17"><img src="https://avatars.githubusercontent.com/u/128365197?v=4" width=150px alt="정재현" />|
 |:---------------------------------------------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------------------------------------------:|
 |                                             **[조은상](https://github.com/ChoEun-Sang)**                                             |                                             **[정재현](https://github.com/iskra17)**                                             |
+|인증/인가 <br/> 피드 수정/삭제 <br/> 맛집 지도 <br/> 마이페이지 <br/> 개인정보 설정| 피드 목록 <br/> 댓글 작성/삭제<br/> 지역별 식당 추천|
+
 > 🧑‍💻 [백엔드](https://github.com/FoodieLog/foodie-log-server) <br/>
 
 |<a href="https://github.com/chaewon12"><img src="https://avatars.githubusercontent.com/u/65496092?v=4" width=150px alt="엄채원" />|<a href="https://github.com/sohn919"><img src="https://avatars.githubusercontent.com/u/84082544?v=4" width=150px alt="손영준" />|<a href="[https://github.com/ChoEun-Sang](https://github.com/inyoung0215)"><img src="https://avatars.githubusercontent.com/u/86757234?v=4" width=150px alt="정재현" />|
