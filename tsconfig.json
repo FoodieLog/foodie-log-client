@@ -22,9 +22,15 @@
     ],
     "paths": {
       "@/*": ["./*"]
-    },
-    
+    }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "public/firebase-messaging-sw.js"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "public/firebase-messaging-sw.js",
+    "__test__/index.test.js"
+  ],
   "exclude": ["node_modules"]
 }
