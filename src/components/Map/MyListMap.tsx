@@ -2,6 +2,7 @@ import { Map, MapMarker, CustomOverlayMap } from "react-kakao-maps-sdk";
 import { useRouter } from "next/navigation";
 import { Fragment } from "react";
 import { MapItem } from "@/src/types/apiTypes";
+import { markerSize, markerImageSrc, onMarkerClick } from "./common";
 
 interface MapProps {
   mapData: MapItem[];
@@ -9,10 +10,6 @@ interface MapProps {
 
 function MyListMap({ mapData }: MapProps) {
   const router = useRouter();
-
-  const onMarkerClick = (restaurantId: number) => {
-    router.push(`/main/restaurants/${restaurantId}`);
-  };
 
   return (
     <div className="w-full h-[360px] p-1 bg-slate-300">
@@ -25,20 +22,19 @@ function MyListMap({ mapData }: MapProps) {
               <MapMarker // 마커를 생성합니다
                 position={{ lat, lng }}
                 title={restaurant.name}
-                draggable={true}
+                zIndex={1}
                 clickable={true}
-                onClick={() => onMarkerClick(restaurant.id)}
+                onClick={() => onMarkerClick(router, restaurant.id)}
                 image={{
-                  src: "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png", // 마커이미지의 주소입니다
-                  size: {
-                    width: 24,
-                    height: 35,
-                  }, // 마커이미지의 크기입니다
+                  src: markerImageSrc, // 마커이미지의 주소입니다
+                  size: markerSize, // 마커이미지의 크기입니다
                 }}
               />
-              <CustomOverlayMap yAnchor={1} position={{ lat, lng }}>
+
+              {/* Marker 위 가게 명 */}
+              <CustomOverlayMap yAnchor={1} position={{ lat, lng }} zIndex={0}>
                 <div
-                  onClick={() => onMarkerClick(restaurant.id)}
+                  onClick={() => onMarkerClick(router, restaurant.id)}
                   style={{
                     color: "191919",
                     backgroundColor: "#F6C443",
