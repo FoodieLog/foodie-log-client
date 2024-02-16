@@ -6,11 +6,14 @@ import { PiUserCircleBold } from "react-icons/pi";
 import { SlClose } from "react-icons/sl";
 import Link from "next/link";
 import { UserImage } from "@/public/images";
+import UserThumbImg from "../Common/Profile/UserThumbImg";
 
 const SearchUser: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [searchResults, setSearchResults] = useState<APIUserSearchResponse["response"]["content"] | []>([]);
+
   let timeoutId: NodeJS.Timeout;
+  const profileSize: { width: number; height: number } = { width: 48, height: 48 };
 
   const handleClearInput = () => {
     setSearchTerm("");
@@ -51,21 +54,9 @@ const SearchUser: React.FC = () => {
           <div key={user.id} className="w-full flex items-center mt-2 hover:bg-slate-100">
             <Link href={`/main/${user.id}`} className="flex w-12 h-12 flex-shrink-0">
               {user.profileImageUrl ? (
-                <Image
-                  src={user.profileImageUrl}
-                  alt="사용자 썸네일"
-                  width={48}
-                  height={48}
-                  className="border rounded-full cursor-pointer"
-                />
+                <UserThumbImg src={user.profileImageUrl} width={profileSize.width} height={profileSize.height} />
               ) : (
-                <Image
-                  src={UserImage}
-                  alt="사용자 썸네일"
-                  width={48}
-                  height={48}
-                  className="w-12 h-12 border p-1 rounded-full cursor-pointer"
-                />
+                <UserThumbImg src={UserImage} width={profileSize.width} height={profileSize.height} style="p-1" />
               )}
             </Link>
 
