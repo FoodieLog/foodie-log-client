@@ -1,6 +1,6 @@
 import { ShopItem } from "@/src/types/post";
 import React from "react";
-import PostShopItem from "./PostShopItem";
+import PostShopItem from "@/src/components/PostForm/PostShopItem";
 
 function PostShopList({ shopList }: { shopList: ShopItem[] }) {
   return (

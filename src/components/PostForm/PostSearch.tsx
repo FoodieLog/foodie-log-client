@@ -7,7 +7,7 @@ import PostImage from "@/src/components/PostForm/PostImage";
 import PostContent from "@/src/components/PostForm/PostContent";
 import Header from "@/src/components/Common/Header";
 import { ShopItem } from "@/src/types/post";
-import PostShopList from "./PostShopList";
+import PostShopList from "@/src/components/PostForm/PostShopList";
 
 function PostSearch() {
   const [keyword, setKeyword] = useState("");

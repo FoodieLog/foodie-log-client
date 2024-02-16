@@ -3,9 +3,9 @@ import React, { useRef } from "react";
 import { AiFillCamera, AiFillCloseCircle } from "react-icons/ai";
 import Image from "next/image";
 import usePostStore from "@/src/store/usePostStore";
-import Button from "../Common/Button";
+import Button from "@/src/components/Common/Button";
 import useSignUpStore from "@/src/store/useSignUpStore";
-import Header from "../Common/Header";
+import Header from "@/src/components/Common/Header";
 
 function PostImage() {
   const fileInput = useRef<HTMLInputElement>(null);

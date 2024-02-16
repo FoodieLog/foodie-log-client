@@ -3,7 +3,7 @@ import { postFeed } from "@/src/services/post";
 import usePostStore from "@/src/store/usePostStore";
 import { useRouter } from "next/navigation";
 import Button from "@/src/components/Common/Button";
-import PostShopItem from "./PostShopItem";
+import PostShopItem from "@/src/components/PostForm/PostShopItem";
 import useSignUpStore from "@/src/store/useSignUpStore";
 import PostSearch from "@/src/components/PostForm/PostSearch";
 import FeedImageSlide from "@/src/components/Feed/FeedImageSlide";
