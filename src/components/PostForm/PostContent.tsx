@@ -11,43 +11,30 @@ import Header from "@/src/components/Common/Header";
 import { useToast } from "@/components/ui/use-toast";
 
 function PostContent() {
+  const router = useRouter();
   const [isChecked, setIsChecked] = useState(false);
   const [text, setText] = useState("");
   const { content, files, previews, resetContent } = usePostStore();
+  const { nextComponent, setNextComponent } = useSignUpStore();
   const { toast } = useToast();
 
-  const nextComponent = useSignUpStore((state) => state.nextComponent);
-  const setNextComponent = useSignUpStore((state) => state.setNextComponent);
-
-  const router = useRouter();
-
-  const onClickHandler = async (e: React.MouseEvent<HTMLButtonElement>) => {
+  const registerFeedHandler = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     try {
       const formData = new FormData();
 
-      const userData = {
-        selectedSearchPlace: {
-          id: content.id,
-          place_name: content.place_name,
-          place_url: content.place_url,
-          category_name: content.category_name,
-          address_name: content.address_name,
-          road_address_name: content.road_address_name,
-          phone: content.phone,
-          x: content.x,
-          y: content.y,
-        },
+      const feedData = {
+        selectedSearchPlace: { ...content },
         content: text,
         isLiked: isChecked,
       };
 
-      const blob = new Blob([JSON.stringify(userData)], { type: "application/json" });
+      const blob = new Blob([JSON.stringify(feedData)], { type: "application/json" });
       formData.append("content", blob);
       for (let i = 0; i < files.length; i++) {
         formData.append("files", files[i]);
       }
-      const res = await postFeed(formData);
+      await postFeed(formData);
       toast({ description: "게시글 등록되었습니다!" });
       resetContent();
       setNextComponent("");
@@ -57,16 +44,12 @@ function PostContent() {
     }
   };
 
-  const onChangeText = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const changeTextHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setText(e.target.value);
   };
 
-  const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.checked) {
-      setIsChecked(true);
-    } else {
-      setIsChecked(false);
-    }
+  const changeCheckboxHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setIsChecked(e.target.checked);
   };
 
   const images = previews.map((item) => {
@@ -86,16 +69,16 @@ function PostContent() {
         <FeedImageSlide images={images} />
         <PostShopItem type="selected" item={content} />
         <label className="my-5 ml-3 flex items-center gap-x-3 text-lg">
-          <input type="checkbox" className="w-4 h-4" checked={isChecked} onChange={onChangeHandler} />
+          <input type="checkbox" className="w-4 h-4" checked={isChecked} onChange={changeCheckboxHandler} />
           <span>나의 맛집 리스트에 추가</span>
         </label>
         <textarea
-          onChange={onChangeText}
+          onChange={changeTextHandler}
           className="w-full h-[130px] p-3 border rounded-lg border-gray-400 resize-none focus:outline-none"
           placeholder="문구 입력"
         />
         <div className="mt-5">
-          <Button type="button" variant="primary" onClick={onClickHandler}>
+          <Button type="button" variant="primary" onClick={registerFeedHandler}>
             게시글 등록
           </Button>
         </div>
