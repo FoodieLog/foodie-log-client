@@ -1,5 +1,5 @@
 "use client";
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { searchShop } from "@/src/services/post";
 import { AiOutlineSearch } from "react-icons/ai";
 import useSignUpStore from "@/src/store/useSignUpStore";
@@ -10,16 +10,19 @@ import { ShopItem } from "@/src/types/post";
 import PostShopList from "./PostShopList";
 
 function PostSearch() {
-  const keywordRef = useRef<HTMLInputElement>(null);
+  const [keyword, setKeyword] = useState("");
   // ?: 기존 ShopItemPlus 타입으로 사용한 이유는?
   const [shopList, setShopList] = useState<ShopItem[]>([]);
   const nextComponent = useSignUpStore((state) => state.nextComponent);
 
+  const inputKeywordHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setKeyword(e.target.value);
+  };
+
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!keywordRef.current) return;
     try {
-      const res = await searchShop(keywordRef.current.value);
+      const res = await searchShop(keyword);
       setShopList(res.response.documents);
     } catch (err) {
       // todo: 사용자 에러 표시
@@ -42,7 +45,8 @@ function PostSearch() {
           <input
             type="text"
             name="search"
-            ref={keywordRef}
+            value={keyword}
+            onChange={inputKeywordHandler}
             className="inputStyles"
             placeholder="주소 또는 식당명을 검색"
           />
