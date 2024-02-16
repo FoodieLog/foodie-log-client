@@ -5,6 +5,7 @@ import Image from "next/image";
 import { PiUserCircleBold } from "react-icons/pi";
 import { SlClose } from "react-icons/sl";
 import Link from "next/link";
+import { UserImage } from "@/public/images";
 
 const SearchUser: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -59,7 +60,7 @@ const SearchUser: React.FC = () => {
                 />
               ) : (
                 <Image
-                  src="/images/userImage.png"
+                  src={UserImage}
                   alt="사용자 썸네일"
                   width={48}
                   height={48}
