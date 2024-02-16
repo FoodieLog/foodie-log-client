@@ -12,7 +12,9 @@ const SearchUser: React.FC = () => {
   const [searchResults, setSearchResults] = useState<APIUserSearchResponse["response"]["content"] | []>([]);
   //#endregion
 
+  //#region variables
   let timeoutId: NodeJS.Timeout;
+  //#endregion
 
   //#region functions
   const handleClearInput = () => {

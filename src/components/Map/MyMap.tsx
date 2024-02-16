@@ -10,17 +10,24 @@ import { getMyMap } from "@services/mypage";
 import { MyMap } from "@/src/types/mypage";
 
 function MyMap({ userId, header }: MyMap) {
+  //#region useState
   const [mapData, setMapData] = useState<MapItem[]>([]);
   const [nickName, setNickName] = useState("");
   const [reload, setReload] = useState(false);
+  //#endregion
 
+  //#region Variables
   const { toast } = useToast();
+  //#endregion
 
+  //#region useEffect
   useEffect(() => {
     checkMyMap();
     getMyLiked();
   }, [reload]);
+  //#endregion
 
+  //#region Functions
   const checkMyMap = async () => {
     if (!userId) return;
     try {
@@ -41,6 +48,7 @@ function MyMap({ userId, header }: MyMap) {
       toast({ description: "에러가 발생했습니다. 다시 시도해주세요!" });
     }
   };
+  //#endregion
 
   return (
     <section className="w-full sm:max-w-[640px] mx-auto">
