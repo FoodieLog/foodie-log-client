@@ -3,7 +3,7 @@ import { useRef, useEffect, useState, MutableRefObject } from "react";
 import { useRouter } from "next/navigation";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context";
-import { markerImageSrc, markerSize, onMarkerClick } from "./common";
+import { markerImageSrc, markerSize, onMarkerClick } from "@components/Map/common";
 
 const KakaoMap = ({
   latitude,
