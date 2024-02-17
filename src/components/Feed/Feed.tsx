@@ -7,7 +7,6 @@ import { useRouter } from "next/navigation";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { FaRegCommentDots } from "react-icons/fa";
 import { FiShare2 } from "react-icons/fi";
-import { FeedData } from "@/src/types/apiTypes";
 import { getTimeDiff } from "@/src/utils/date";
 import { likeFeed, unlikeFeed } from "@/src/services/apiFeed";
 import { useUserStore } from "@/src/store/useUserStore";
@@ -15,9 +14,10 @@ import { useToast } from "@/components/ui/use-toast";
 import ShopCard from "@/src/components/Restaurant/ShopCard";
 import DropDown from "@/src/components/Common/DropDown/DropDown";
 import FeedImageSlide from "@/src/components/Feed/FeedImageSlide";
-import useSignUpStore from "@/src/store/useSignUpStore";
 import { FeedProps } from "@/src/types/feed";
+import { followButtonClass } from "@/src/styles/feed";
 
+// React.FC 지양하기
 const Feed: React.FC<FeedProps> = ({
   feed,
   restaurant,
@@ -28,20 +28,19 @@ const Feed: React.FC<FeedProps> = ({
 }) => {
   const [likeCount, setLikeCount] = useState<number>(feed.likeCount);
   const [expandedFeed, setExpandedFeed] = useState(false);
-  const [Like, setLike] = useState<boolean>(isLiked);
+  const [like, setLike] = useState<boolean>(isLiked);
+
   const timeDifference = getTimeDiff(dayjs(feed.createdAt));
   const userId = useUserStore((state) => state.user.id);
-  const nextComponent = useSignUpStore((state) => state.nextComponent);
 
-  const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
   const { toast } = useToast();
 
   const router = useRouter();
-  const CLIENT_BASE_URL = "https://foodielog.shop";
 
+  // 좋아요 클릭 핸들러
   const handleLikeClick = async () => {
     try {
-      if (Like) {
+      if (like) {
         const response = await unlikeFeed(feed.feedId);
         if (response.status === 204) {
           setLike(false);
@@ -59,31 +58,25 @@ const Feed: React.FC<FeedProps> = ({
     }
   };
 
-  // 팔로우 버튼의 기본 클래스 설정
-  const followButtonClass = `text-gray-900 border border-gray-300 focus:outline-none font-medium rounded-full text-sm px-5 py-2.5 mr-3 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:focus:ring-gray-700 bg-white`;
-
-  // 팔로우 상태에 따른 호버 버튼의 클래스 설정
-  const buttonClass = isFollowed
-    ? `${followButtonClass} hover:bg-slate-200 opacity-0`
-    : `${followButtonClass} hover:bg-gray-100`;
-
+  // 팔로우 버튼 클릭 핸들러
   const handleFollowButtonClick = async () => {
     if (updateFollowStatus) {
       updateFollowStatus(feed.userId, !isFollowed);
     }
   };
 
+  // 댓글 클릭 핸들러
   const handleReplyIconClick = () => {
     router.push(`/main/reply/${feed.feedId}`);
   };
 
+  // 공유 버튼 클릭 핸들러
   const handleShareClick = () => {
-    const fullPath = `${CLIENT_BASE_URL}/entrance/${feed.feedId}`;
+    const fullPath = `https://foodielog.shop/entrance/${feed.feedId}`;
 
     navigator.clipboard.writeText(fullPath).then(
       () => {
         toast({ title: "클립보드에 링크 저장💌!", description: "'붙여넣기'로 피드를 공유해보세요👍!" });
-        // alert("클립보드에 링크가 저장되었습니다.\n\n피드를 공유해보세요!");
       },
       (error) => {
         console.error("Failed to copy text: ", error);
@@ -112,7 +105,7 @@ const Feed: React.FC<FeedProps> = ({
         </div>
         {/* isFollowed 가 true 면 버튼 label이 "팔로잉", 아니면 "팔로우" */}
         {userId !== feed.userId ? (
-          <button className={buttonClass} onClick={handleFollowButtonClick} disabled={isFollowed}>
+          <button className={followButtonClass} onClick={handleFollowButtonClick} disabled={isFollowed}>
             {isFollowed ? "팔로잉" : "팔로우"}
           </button>
         ) : null}
@@ -159,7 +152,7 @@ const Feed: React.FC<FeedProps> = ({
 
       <div className="flex flex-between gap-2 items-center text-[18px] p-3">
         <button className="text-[27px] font-bold text-red-600" onClick={handleLikeClick}>
-          {Like ? <AiFillHeart /> : <AiOutlineHeart className="text-[#65676b]" />}
+          {like ? <AiFillHeart /> : <AiOutlineHeart className="text-[#65676b]" />}
         </button>
         <p>{likeCount}</p>
         <FaRegCommentDots className="text-[24px] cursor-pointer ml-5 text-[#65676b]" onClick={handleReplyIconClick} />
