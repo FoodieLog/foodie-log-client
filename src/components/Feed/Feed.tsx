@@ -8,7 +8,7 @@ import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { FaRegCommentDots } from "react-icons/fa";
 import { FiShare2 } from "react-icons/fi";
 import { getTimeDiff } from "@/src/utils/date";
-import { likeFeed, unlikeFeed } from "@/src/services/apiFeed";
+import { likeFeed, unlikeFeed } from "@/src/services/feed";
 import { useUserStore } from "@/src/store/useUserStore";
 import { useToast } from "@/components/ui/use-toast";
 import ShopCard from "@/src/components/Restaurant/ShopCard";
@@ -34,27 +34,22 @@ const Feed: React.FC<FeedProps> = ({
   const userId = useUserStore((state) => state.user.id);
 
   const { toast } = useToast();
-
   const router = useRouter();
 
   // 좋아요 클릭 핸들러
   const handleLikeClick = async () => {
     try {
       if (like) {
-        const response = await unlikeFeed(feed.feedId);
-        if (response.status === 204) {
-          setLike(false);
-          setLikeCount((prevCount) => prevCount - 1);
-        }
+        await unlikeFeed(feed.feedId);
+        setLike(false);
+        setLikeCount((prevCount) => prevCount - 1);
       } else {
-        const response = await likeFeed(feed.feedId);
-        if (response.status === 201) {
-          setLike(true);
-          setLikeCount((prevCount) => prevCount + 1);
-        }
+        await likeFeed(feed.feedId);
+        setLike(true);
+        setLikeCount((prevCount) => prevCount + 1);
       }
     } catch (error) {
-      toast({ title: "좋아요 실패", description: "좋아요 처리 중에 오류가 발생하였습니다." });
+      toast({ title: "좋아요 오류 발생", description: "처리 중에 오류가 발생하였습니다." });
     }
   };
 
