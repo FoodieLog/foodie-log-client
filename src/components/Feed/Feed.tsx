@@ -54,7 +54,7 @@ const Feed: React.FC<FeedProps> = ({
         }
       }
     } catch (error) {
-      console.error("Failed to update like:", error);
+      toast({ title: "좋아요 실패", description: "좋아요 처리 중에 오류가 발생하였습니다." });
     }
   };
 
@@ -74,14 +74,12 @@ const Feed: React.FC<FeedProps> = ({
   const handleShareClick = () => {
     const fullPath = `https://foodielog.shop/entrance/${feed.feedId}`;
 
-    navigator.clipboard.writeText(fullPath).then(
-      () => {
-        toast({ title: "클립보드에 링크 저장💌!", description: "'붙여넣기'로 피드를 공유해보세요👍!" });
-      },
-      (error) => {
-        console.error("Failed to copy text: ", error);
-      }
-    );
+    try {
+      navigator.clipboard.writeText(fullPath);
+      toast({ title: "클립보드에 링크 저장💌!", description: "'붙여넣기'로 피드를 공유해보세요👍!" });
+    } catch (error) {
+      toast({ title: "공유 링크 복사 오류", description: "공유 링크를 복사할 수 없습니다." });
+    }
   };
 
   return (
