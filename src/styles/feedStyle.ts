@@ -1,0 +1,1 @@
+export const followButtonClass = `text-gray-900 border border-gray-300 focus:outline-none font-medium rounded-full text-sm px-5 py-2.5 mr-3 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:focus:ring-gray-700 bg-white`;

@@ -15,7 +15,7 @@ import ShopCard from "@/src/components/Restaurant/ShopCard";
 import DropDown from "@/src/components/Common/DropDown/DropDown";
 import FeedImageSlide from "@/src/components/Feed/FeedImageSlide";
 import { FeedProps } from "@/src/types/feed";
-import { followButtonClass } from "@/src/styles/feed";
+import { followButtonClass } from "@/src/styles/feedStyle";
 
 // React.FC 지양하기
 const Feed: React.FC<FeedProps> = ({
