@@ -1,5 +1,5 @@
-
-import { useUserStore } from '../store/useUserStore';
+import { useUserStore } from "../store/useUserStore";
+import { APIRecommendedResponse } from "@/src/types/recommend";
 
 const BASE_URL = "https://api.foodielog-server.monster/api/restaurant";
 
@@ -12,7 +12,7 @@ export type APIResponse = {
     };
     content: Content[];
   };
-  error: any;  
+  error: any;
 };
 
 export type Restaurant = {
@@ -43,7 +43,7 @@ export type Feed = {
   content: string;
   likeCount: number;
   replyCount: number;
-  share: any;  
+  share: any;
 };
 
 export type Content = {
@@ -53,23 +53,21 @@ export type Content = {
   liked: boolean;
 };
 
-
-
 export const makeFetchRequest = async <T>(
   endpoint: string,
   method: "GET" | "POST" | "PUT" | "DELETE" = "GET",
   body?: any
 ): Promise<T> => {
   const accessToken = useUserStore.getState().user.accessToken;
- 
+
   try {
     const response = await fetch(`${BASE_URL}${endpoint}`, {
       method,
       headers: {
         Authorization: `Bearer ${accessToken}`,
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
-      body: body ? JSON.stringify(body) : null
+      body: body ? JSON.stringify(body) : null,
     });
 
     if (!response.ok) {
@@ -86,30 +84,9 @@ export const getRestaurantDetail = (restaurantId: number): Promise<APIResponse> 
   return makeFetchRequest(`/${restaurantId}`);
 };
 
-
-export type RecommendedRestaurant = {
-  restaurantId: number;
-  name: string;
-  roadAddress: string;
-  feedList: {
-    feedId: number;
-    thumbnailUrl: string;
-  }[];
-};
-
-export type APIRecommendedResponse = {
-  status: number;
-  response: {
-    restaurantList: RecommendedRestaurant[];
-  };
-  error: any;  
-};
-
 export const getRestaurantRecommended = async (region: string): Promise<APIRecommendedResponse> => {
   return makeFetchRequest<APIRecommendedResponse>(`/recommended?address=${region}`);
 };
-
-
 
 // export const likeRestaurant = (data: LikeRestaurantBody): Promise<APIResponse> => {
 //   return makeFetchRequest(`/like`, "POST", data);

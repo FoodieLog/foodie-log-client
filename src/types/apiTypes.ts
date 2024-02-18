@@ -34,7 +34,7 @@ export interface ChangePassword {
 export type FeedData = {
   feed: {
     feedId: number;
-    userId : number;
+    userId: number;
     nickName: string;
     profileImageUrl: string | null;
     createdAt: Date | string;
@@ -60,14 +60,6 @@ export type FeedData = {
 export type FeedThumbnail = {
   id: number;
   thumbnailUrl: string;
-};
-
-export type ShopThumbData = {
-  id: number;
-  name: string;
-  category: string;
-  roadAddress: string;
-  feedList: FeedThumbnail[];
 };
 
 export type UserResponse = {

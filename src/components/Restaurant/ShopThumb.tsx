@@ -1,14 +1,9 @@
 import Link from "next/link";
-import { ShopThumbData } from "../../types/apiTypes";
-import { getIcon } from "../../utils/iconUtils";
 import ShopCard from "./ShopCard";
 import Image from "next/image";
+import { RecommendedRestaurant } from "@/src/types/recommend";
 
-type ExtendedShopThumbData = ShopThumbData & {
-  restaurantId: number;
-};
-
-const ShopThumb: React.FC<ExtendedShopThumbData> = ({
+const ShopThumb: React.FC<RecommendedRestaurant> = ({
   restaurantId: id,
   name,
   category = "",

@@ -15,3 +15,24 @@ export interface AreaListProps {
 export interface AreaOptionItemProps {
   optionItem: string;
 }
+
+export interface RestaurantFeed {
+  feedId: number;
+  thumbnailUrl: string;
+}
+
+export interface RecommendedRestaurant {
+  restaurantId: number;
+  name: string;
+  roadAddress: string;
+  category: string;
+  feedList: RestaurantFeed[];
+}
+
+export interface APIRecommendedResponse {
+  status: number;
+  response: {
+    restaurantList: RecommendedRestaurant[];
+  };
+  error: any;
+}
