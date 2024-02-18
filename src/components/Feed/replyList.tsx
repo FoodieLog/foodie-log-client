@@ -38,7 +38,7 @@ const Reply: React.FC<ReplyListProps> = ({ id: feedId }) => {
 
   const timeDifference = getTimeDiff(dayjs(author.createdAt));
 
-  const handleSubmitReply = () => {
+  const submitReplyHandler = () => {
     if (newReply) {
       saveReply(Number(feedId), newReply).then((data) => {
         // FIXME : saveReply 응답값에 userId가 없어서 임시로 0으로 설정
@@ -48,7 +48,7 @@ const Reply: React.FC<ReplyListProps> = ({ id: feedId }) => {
     }
   };
 
-  const handleDeleteReply = async (replyId: number) => {
+  const deleteReplyHandler = async (replyId: number) => {
     try {
       await deleteReply(replyId);
       setReplies((prevReplies) => prevReplies.filter((reply) => reply.id !== replyId));
@@ -182,7 +182,7 @@ const Reply: React.FC<ReplyListProps> = ({ id: feedId }) => {
                 {nickName === reply.nickName ? (
                   <RiDeleteBin6Line
                     className="text-xl ml-3 mr-4 cursor-pointer"
-                    onClick={() => handleDeleteReply(reply.id)}
+                    onClick={() => deleteReplyHandler(reply.id)}
                   />
                 ) : null}
                 <DropDown
@@ -200,7 +200,7 @@ const Reply: React.FC<ReplyListProps> = ({ id: feedId }) => {
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          handleSubmitReply();
+          submitReplyHandler();
         }}
         className="flex items-center p-4  mt-auto"
       >
