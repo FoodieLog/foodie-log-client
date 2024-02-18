@@ -5,7 +5,7 @@ export type AreaType = {
 };
 
 export interface AreaSelectorProps {
-  onSelectedAreaChange?: (searchQuery: string) => void;
+  onSelectedAreaChange: (searchQuery: string) => void;
 }
 
 export interface AreaListProps {

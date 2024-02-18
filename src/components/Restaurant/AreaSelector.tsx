@@ -16,18 +16,19 @@ const AreaSelector: React.FC<AreaSelectorProps> = ({ onSelectedAreaChange }) => 
   const doList = selectedRegion ? Object.keys((area as AreaType)[selectedRegion]) : [];
   const siGunGuList = (selectedRegion && selectedDo ? (area as AreaType)[selectedRegion][selectedDo] : []) || [];
 
+  const isAllRequiredSelected = selectedRegion && selectedDo;
+
   const isVisible = useHideOnScroll();
 
-  const allValuesSelected = () => {
-    return selectedRegion && selectedDo;
+  const handleSearch = () => {
+    const searchQuery = selectedSiGunGu ? `${selectedDo} ${selectedSiGunGu}` : selectedDo;
+    onSelectedAreaChange(searchQuery);
   };
 
-  const handleSearch = () => {
-    if (onSelectedAreaChange) {
-      const searchQuery = selectedSiGunGu ? `${selectedDo} ${selectedSiGunGu}` : selectedDo;
-
-      onSelectedAreaChange(searchQuery);
-    }
+  const resetSelection = () => {
+    setSelectedRegion("");
+    setSelectedDo("");
+    setSelectedSiGunGu("");
   };
 
   return (
@@ -62,21 +63,14 @@ const AreaSelector: React.FC<AreaSelectorProps> = ({ onSelectedAreaChange }) => 
         </select>
 
         <button
-          className={`ml-2 px-2 py-1 text-lg ${allValuesSelected() ? "text-blue-500" : ""}`}
+          className={`ml-2 px-2 py-1 text-lg ${isAllRequiredSelected ? "text-blue-500" : "cursor-not-allowed"}`}
           onClick={handleSearch}
-          disabled={!allValuesSelected()}
+          disabled={!isAllRequiredSelected}
         >
           <BiSearch />
         </button>
 
-        <button
-          className="px-2 py-1 text-lg "
-          onClick={() => {
-            setSelectedRegion("");
-            setSelectedDo("");
-            setSelectedSiGunGu("");
-          }}
-        >
+        <button className="px-2 py-1 text-lg " onClick={resetSelection}>
           <GrPowerReset />
         </button>
       </div>
@@ -85,7 +79,7 @@ const AreaSelector: React.FC<AreaSelectorProps> = ({ onSelectedAreaChange }) => 
 };
 
 AreaSelector.propTypes = {
-  onSelectedAreaChange: PropTypes.func,
+  onSelectedAreaChange: PropTypes.func.isRequired,
 };
 
 export default AreaSelector;
