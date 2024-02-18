@@ -5,6 +5,7 @@ import { BiSearch } from "react-icons/bi";
 import { GrPowerReset } from "react-icons/gr";
 import useHideOnScroll from "@/src/hooks/useHideOnScroll";
 import { AreaType, AreaSelectorProps } from "@/src/types/recommend";
+import AreaList from "@/src/components/Restaurant/AreaList";
 
 const AreaSelector: React.FC<AreaSelectorProps> = ({ onSelectedAreaChange }) => {
   const [selectedRegion, setSelectedRegion] = useState<string>("수도권");
@@ -41,12 +42,7 @@ const AreaSelector: React.FC<AreaSelectorProps> = ({ onSelectedAreaChange }) => 
           onChange={(e) => setSelectedRegion(e.target.value)}
           className="border-none outline-none bg-transparent w-16 text-sm items-center"
         >
-          <option value="">선택</option>
-          {regionList.map((region) => (
-            <option key={region} value={region}>
-              {region}
-            </option>
-          ))}
+          <AreaList optionList={regionList} />
         </select>
 
         <select
@@ -54,12 +50,7 @@ const AreaSelector: React.FC<AreaSelectorProps> = ({ onSelectedAreaChange }) => 
           onChange={(e) => setSelectedDo(e.target.value)}
           className="border-none outline-none bg-transparent w-24 text-sm items-center"
         >
-          <option value="">선택</option>
-          {doList.map((region) => (
-            <option key={region} value={region}>
-              {region}
-            </option>
-          ))}
+          <AreaList optionList={doList} />
         </select>
 
         <select
@@ -67,12 +58,7 @@ const AreaSelector: React.FC<AreaSelectorProps> = ({ onSelectedAreaChange }) => 
           onChange={(e) => setSelectedSiGunGu(e.target.value)}
           className="border-none outline-none bg-transparent w-20 text-sm items-center"
         >
-          <option value="">선택</option>
-          {siGunGuList.map((region) => (
-            <option key={region} value={region}>
-              {region}
-            </option>
-          ))}
+          <AreaList optionList={siGunGuList} />
         </select>
 
         <button
