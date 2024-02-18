@@ -1,39 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { area } from "@/src/constants";
 import { BiSearch } from "react-icons/bi";
 import { GrPowerReset } from "react-icons/gr";
-import useHideOnScroll from "../../hooks/useHideOnScroll";
-
-type AreaType = {
-  [key: string]: {
-    [key: string]: string[];
-  };
-};
-
-interface AreaSelectorProps {
-  onSelectedAreaChange?: (searchQuery: string) => void;
-}
+import useHideOnScroll from "@/src/hooks/useHideOnScroll";
+import { AreaType, AreaSelectorProps } from "@/src/types/recommend";
 
 const AreaSelector: React.FC<AreaSelectorProps> = ({ onSelectedAreaChange }) => {
   const [selectedRegion, setSelectedRegion] = useState<string>("수도권");
   const [selectedDo, setSelectedDo] = useState<string>("");
   const [selectedSiGunGu, setSelectedSiGunGu] = useState<string>("");
 
-  const [doOptions, setDoOptions] = useState<string[]>([]);
-  const [siGunGuOptions, setSiGunGuOptions] = useState<string[]>([]);
+  const regionList = Object.keys(area);
+  const doList = selectedRegion ? Object.keys((area as AreaType)[selectedRegion]) : [];
+  const siGunGuList = (selectedRegion && selectedDo ? (area as AreaType)[selectedRegion][selectedDo] : []) || [];
 
   const isVisible = useHideOnScroll();
-
-  useEffect(() => {
-    setDoOptions(selectedRegion ? Object.keys((area as AreaType)[selectedRegion]) : []);
-  }, [selectedRegion]);
-
-  useEffect(() => {
-    const selectedOptions =
-      selectedDo && (area as AreaType)[selectedRegion] ? (area as AreaType)[selectedRegion][selectedDo] : [];
-    setSiGunGuOptions(selectedOptions || []);
-  }, [selectedDo, selectedRegion]);
 
   const allValuesSelected = () => {
     return selectedRegion && selectedDo;
@@ -60,7 +42,7 @@ const AreaSelector: React.FC<AreaSelectorProps> = ({ onSelectedAreaChange }) => 
           className="border-none outline-none bg-transparent w-16 text-sm items-center"
         >
           <option value="">선택</option>
-          {Object.keys(area).map((region) => (
+          {regionList.map((region) => (
             <option key={region} value={region}>
               {region}
             </option>
@@ -73,9 +55,9 @@ const AreaSelector: React.FC<AreaSelectorProps> = ({ onSelectedAreaChange }) => 
           className="border-none outline-none bg-transparent w-24 text-sm items-center"
         >
           <option value="">선택</option>
-          {doOptions.map((doOption) => (
-            <option key={doOption} value={doOption}>
-              {doOption}
+          {doList.map((region) => (
+            <option key={region} value={region}>
+              {region}
             </option>
           ))}
         </select>
@@ -86,9 +68,9 @@ const AreaSelector: React.FC<AreaSelectorProps> = ({ onSelectedAreaChange }) => 
           className="border-none outline-none bg-transparent w-20 text-sm items-center"
         >
           <option value="">선택</option>
-          {siGunGuOptions.map((siGunGuOption) => (
-            <option key={siGunGuOption} value={siGunGuOption}>
-              {siGunGuOption}
+          {siGunGuList.map((region) => (
+            <option key={region} value={region}>
+              {region}
             </option>
           ))}
         </select>
