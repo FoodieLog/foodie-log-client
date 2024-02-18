@@ -36,8 +36,7 @@ const Feed: React.FC<FeedProps> = ({
   const { toast } = useToast();
   const router = useRouter();
 
-  // 좋아요 클릭 핸들러
-  const handleLikeClick = async () => {
+  const clickLikeBtnHandler = async () => {
     try {
       if (like) {
         await unlikeFeed(feed.feedId);
@@ -53,20 +52,17 @@ const Feed: React.FC<FeedProps> = ({
     }
   };
 
-  // 팔로우 버튼 클릭 핸들러
-  const handleFollowButtonClick = async () => {
+  const clickFollowBtnHandler = async () => {
     if (updateFollowStatus) {
       updateFollowStatus(feed.userId, !isFollowed);
     }
   };
 
-  // 댓글 클릭 핸들러
-  const handleReplyIconClick = () => {
+  const clickReplyBtnHandler = () => {
     router.push(`/main/reply/${feed.feedId}`);
   };
 
-  // 공유 버튼 클릭 핸들러
-  const handleShareClick = () => {
+  const clickShareBtnHandler = () => {
     const fullPath = `https://foodielog.shop/entrance/${feed.feedId}`;
 
     try {
@@ -96,9 +92,8 @@ const Feed: React.FC<FeedProps> = ({
           </Link>
           <p className="text-sm">{timeDifference}</p>
         </div>
-        {/* isFollowed 가 true 면 버튼 label이 "팔로잉", 아니면 "팔로우" */}
         {userId !== feed.userId ? (
-          <button className={followButtonClass} onClick={handleFollowButtonClick} disabled={isFollowed}>
+          <button className={followButtonClass} onClick={clickFollowBtnHandler} disabled={isFollowed}>
             {isFollowed ? "팔로잉" : "팔로우"}
           </button>
         ) : null}
@@ -144,13 +139,17 @@ const Feed: React.FC<FeedProps> = ({
       </div>
 
       <div className="flex flex-between gap-2 items-center text-[18px] p-3">
-        <button className="text-[27px] font-bold text-red-600" onClick={handleLikeClick}>
+        <button className="text-[27px] font-bold text-red-600" onClick={clickLikeBtnHandler}>
           {like ? <AiFillHeart /> : <AiOutlineHeart className="text-[#65676b]" />}
         </button>
         <p>{likeCount}</p>
-        <FaRegCommentDots className="text-[24px] cursor-pointer ml-5 text-[#65676b]" onClick={handleReplyIconClick} />
+        <button onClick={clickReplyBtnHandler}>
+          <FaRegCommentDots className="text-[24px] cursor-pointer ml-5 text-[#65676b]" />
+        </button>
         <p className="flex-1">{feed.replyCount}</p>
-        <FiShare2 className="text-[24px] cursor-pointer  text-[#65676b]" onClick={handleShareClick} />
+        <button onClick={clickShareBtnHandler}>
+          <FiShare2 className="text-[24px] cursor-pointer text-[#65676b]" />
+        </button>
       </div>
     </div>
   );
