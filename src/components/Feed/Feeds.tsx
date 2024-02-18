@@ -68,7 +68,7 @@ const Feeds: React.FC<FeedsProps> = ({ id, startingFeedId, singleFeedId }) => {
     }
   );
 
-  const loadMore = (page: number) => {
+  const loadMore = () => {
     fetchNextPage();
   };
 
