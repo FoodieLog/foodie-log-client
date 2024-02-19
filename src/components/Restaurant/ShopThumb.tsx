@@ -1,7 +1,9 @@
-import Link from "next/link";
 import ShopCard from "@/src/components/Restaurant/ShopCard";
-import Image from "next/image";
 import { RecommendedRestaurant } from "@/src/types/recommend";
+import ShopFeedList from "@/src/components/Restaurant/ShopFeedList";
+
+export const defaultThumbnailImage = "/icon-256x256.png";
+const MIN_LIST_COUNT = 3;
 
 const ShopThumb: React.FC<RecommendedRestaurant> = ({
   restaurantId: id,
@@ -11,56 +13,21 @@ const ShopThumb: React.FC<RecommendedRestaurant> = ({
   feedList,
 }) => {
   const fillDefaultThumbnails = () => {
-    const defaultImgCount = 3 - feedList.length;
-    const defaultImgs = new Array(defaultImgCount).fill("/icon-256x256.png");
+    const defaultImgCount = MIN_LIST_COUNT - feedList.length;
+    const defaultImgs = Array.from({ length: defaultImgCount }, (_, idx) => ({
+      feedId: idx,
+      thumbnailUrl: defaultThumbnailImage,
+    }));
     return [...feedList, ...defaultImgs];
   };
 
-  const thumbnailsToShow = fillDefaultThumbnails();
+  const feedListToShow = feedList.length < MIN_LIST_COUNT ? fillDefaultThumbnails() : feedList;
 
   return (
     <div className="mt-2 w-full max-w-[640px] border-b rounded-sm px-1 pb-1">
       <ShopCard id={id} name={name} category={category} roadAddress={roadAddress} />
       <div className="flex gap-1">
-        {thumbnailsToShow.map((thumbnail, index) => (
-          <div className="w-1/3 border" key={index} style={{ position: "relative" }}>
-            <div style={{ paddingBottom: "100%" }}></div>
-            <Link href={`/main/restaurants/${id}`}>
-              {typeof thumbnail === "string" ? (
-                <Image
-                  src={thumbnail}
-                  alt="Default thumbnail"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  fill
-                  style={{
-                    position: "absolute",
-                    top: 0,
-                    left: 0,
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                  }}
-                />
-              ) : (
-                <Image
-                  src={thumbnail.thumbnailUrl}
-                  alt="Feed thumbnail"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  fill
-                  style={{
-                    position: "absolute",
-                    top: 0,
-                    left: 0,
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                  }}
-                  onError={(e) => console.error(e.currentTarget.id)}
-                />
-              )}
-            </Link>
-          </div>
-        ))}
+        <ShopFeedList feedList={feedListToShow} name={name} />
       </div>
     </div>
   );

@@ -36,3 +36,13 @@ export interface APIRecommendedResponse {
   };
   error: any;
 }
+
+export interface ShopFeedListProps {
+  feedList: RestaurantFeed[];
+  name: string;
+}
+
+export interface ShopFeedItemProps {
+  feed: RestaurantFeed;
+  name: string;
+}
