@@ -1,59 +1,31 @@
 import { create } from "zustand";
+import { PostStore } from "@/src/types/post";
 
-interface PostStore {
-  content: PostData;
-  setContent: (content: PostData) => void;
-  files: File[];
-  setFiles: (files: File[]) => void;
-  previews: string[];
-  setPreviews: (previews: string[]) => void;
-  resetContent: () => void;
-}
-
-interface PostData {
-  id: string;
-  place_name: string;
-  place_url: string;
-  category_name: string;
-  address_name: string;
-  road_address_name: string;
-  phone: string;
-  x: string;
-  y: string;
-}
+const initialContent = {
+  id: "",
+  place_name: "",
+  place_url: "",
+  category_name: "",
+  address_name: "",
+  road_address_name: "",
+  phone: "",
+  x: "",
+  y: "",
+};
 
 const usePostStore = create<PostStore>((set) => ({
-  content: {
-    id: "",
-    place_name: "",
-    place_url: "",
-    category_name: "",
-    address_name: "",
-    road_address_name: "",
-    phone: "",
-    x: "",
-    y: "",
-  },
+  content: initialContent,
   files: [],
   previews: [],
   setContent: (selectedContent) => set({ content: selectedContent }),
   setFiles: (selectedFiles) => set({ files: selectedFiles }),
   setPreviews: (selectedPreviews) => set({ previews: selectedPreviews }),
-  resetContent: () => set({
-    content: {
-      id: "",
-      place_name: "",
-      place_url: "",
-      category_name: "",
-      address_name: "",
-      road_address_name: "",
-      phone: "",
-      x: "",
-      y: "",
-    },
-    files: [],
-    previews: []
-  }),
+  resetContent: () =>
+    set({
+      content: initialContent,
+      files: [],
+      previews: [],
+    }),
 }));
 
 export default usePostStore;
