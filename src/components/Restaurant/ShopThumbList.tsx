@@ -1,4 +1,4 @@
-import ShopThumb from "./ShopThumb";
+import ShopThumb from "@/src/components/Restaurant/ShopThumb";
 import { RecommendedRestaurant } from "@/src/types/recommend";
 
 const ShopThumbList = ({ restaurants }: { restaurants: RecommendedRestaurant[] }) => {

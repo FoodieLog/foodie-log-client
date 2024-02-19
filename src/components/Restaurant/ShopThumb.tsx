@@ -1,5 +1,5 @@
 import Link from "next/link";
-import ShopCard from "./ShopCard";
+import ShopCard from "@/src/components/Restaurant/ShopCard";
 import Image from "next/image";
 import { RecommendedRestaurant } from "@/src/types/recommend";
 
