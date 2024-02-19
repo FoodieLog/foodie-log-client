@@ -1,28 +1,20 @@
 "use client";
 import { Fragment, useEffect, useRef, useState } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import {
-  getFeedList,
-  getFeedListByUserId,
-  Content,
-  APIFeedResponse,
-  getSingleFeed,
-  APISingleFeedResponse,
-  followUser,
-  unfollowUser,
-} from "@/src/services/apiFeed";
+/** 피드 관련 api 추후 정리 예정 */
+import { getFeedList, getFeedListByUserId, getSingleFeed, followUser, unfollowUser } from "@/src/services/apiFeed";
+// import { getFeedList, getFeedListByUserId, getSingleFeed, followUser, unfollowUser } from "@/src/services/feed";
 import InfiniteScroll from "react-infinite-scroller";
 import useSignUpStore from "@/src/store/useSignUpStore";
 import Feed from "@/src/components/Feed/Feed";
 import FeedEditModal from "@/src/components/Feed/FeedEditModal";
-import { FeedsProps } from "@/src/types/feed";
+import { FeedsProps, Content, APISingleFeedResponse, APIFeedResponse } from "@/src/types/feed";
 
 const Feeds: React.FC<FeedsProps> = ({ id, startingFeedId, singleFeedId }) => {
   const [reload, setReload] = useState(false);
   const [feedsData, setFeedsData] = useState<Content[]>([]);
   const [singleFeedData, setSingleFeedData] = useState<Content | null>(null);
   const nextComponent = useSignUpStore((state) => state.nextComponent);
-  const [followedUsers, setFollowedUsers] = useState<Set<number>>(new Set());
   const feedRef = useRef<{ [key: number]: HTMLDivElement | null }>({});
 
   useEffect(() => {
@@ -30,7 +22,7 @@ const Feeds: React.FC<FeedsProps> = ({ id, startingFeedId, singleFeedId }) => {
       try {
         const response = await getSingleFeed(singleFeedId!);
         if (response.status === 200) {
-          const apiResponse = response as APISingleFeedResponse;
+          const apiResponse = response as unknown as APISingleFeedResponse;
           setSingleFeedData(apiResponse.response.content);
         }
       } catch (error) {
@@ -53,8 +45,8 @@ const Feeds: React.FC<FeedsProps> = ({ id, startingFeedId, singleFeedId }) => {
         response = await getFeedList(pageParam);
       }
 
-      const apiResponse = response as APIFeedResponse;
-      setFeedsData(apiResponse.response.content);
+      const apiResponse = response as unknown as APIFeedResponse;
+      setFeedsData(apiResponse.data);
       // 여기서 전체 feed 데이터 목록을 출력
 
       return apiResponse;

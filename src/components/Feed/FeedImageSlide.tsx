@@ -5,7 +5,7 @@ import { FeedImageSlideProps } from "@/src/types/feed";
 
 const FeedImageSlide: React.FC<FeedImageSlideProps> = ({ images }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const slideRef = useRef(null); // 슬라이드 div 참조
+  const slideRef = useRef(null);
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
   const DISTANCE_TOUCH = 30;

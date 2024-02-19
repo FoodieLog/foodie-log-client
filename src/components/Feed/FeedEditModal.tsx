@@ -1,8 +1,9 @@
 "use client";
 import { useState } from "react";
-import { updateFeed } from "@/src/services/apiFeed";
+// import { updateFeed } from "@/src/services/apiFeed";
+import { updateFeed } from "@/src/services/feed";
 import { useToast } from "@/components/ui/use-toast";
-import CustomModal from "../Common/Dialog/CustomModal";
+import CustomModal from "@/src/components/Common/Dialog/CustomModal";
 import useSignUpStore from "@/src/store/useSignUpStore";
 import useFeedStore from "@/src/store/useFeedStore";
 import { FeedEditModalProps } from "@/src/types/feed";
