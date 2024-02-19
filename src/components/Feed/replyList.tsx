@@ -7,9 +7,11 @@ import { useState, useEffect } from "react";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { VscSend } from "react-icons/vsc";
 import { getTimeDiff } from "@/src/utils/date";
-import { APIReplyListResponse, getReplyList, saveReply, deleteReply } from "@/src/services/apiFeed";
+import { getReplyList, saveReply, deleteReply } from "@/src/services/apiFeed";
 import { useUserStore } from "@/src/store/useUserStore";
 import { ReplyListProps } from "@/src/types/feed";
+import { APIReplyListResponse } from "@/src/types/reply";
+import { useToast } from "@/components/ui/use-toast";
 
 const Reply: React.FC<ReplyListProps> = ({ id: feedId }) => {
   const initialAuthorState: APIReplyListResponse["response"] = {
@@ -20,7 +22,6 @@ const Reply: React.FC<ReplyListProps> = ({ id: feedId }) => {
     createdAt: "",
     replyList: [],
   };
-
   const [author, setAuthor] = useState<APIReplyListResponse["response"]>(initialAuthorState);
   const [replies, setReplies] = useState<APIReplyListResponse["response"]["replyList"]>([]);
   const [newReply, setNewReply] = useState<string>("");
@@ -28,6 +29,7 @@ const Reply: React.FC<ReplyListProps> = ({ id: feedId }) => {
   const [expandedReplies, setExpandedReplies] = useState<number[]>([]);
   const nickName = useUserStore((state) => state.user.nickName);
   const id = useUserStore((state) => state.user.id);
+  const { toast } = useToast();
 
   useEffect(() => {
     getReplyList(Number(feedId)).then((data) => {
@@ -53,7 +55,7 @@ const Reply: React.FC<ReplyListProps> = ({ id: feedId }) => {
       await deleteReply(replyId);
       setReplies((prevReplies) => prevReplies.filter((reply) => reply.id !== replyId));
     } catch (error) {
-      console.error("Failed to delete the reply", error);
+      toast({ title: "삭제 오류 발생", description: "처리 중에 오류가 발생하였습니다." });
     }
   };
 

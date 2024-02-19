@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { getFeedShared, FeedShared } from "@/src/services/apiFeed";
+import { getFeedShared } from "@/src/services/apiFeed";
 import FeedImageSlide from "@/src/components/Feed/FeedImageSlide";
 import dayjs from "dayjs";
 import { AiOutlineHeart } from "react-icons/ai";
@@ -20,13 +20,17 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { FeedSharedProps } from "@/src/types/feed";
+import { FeedSharedProps, FeedShared } from "@/src/types/feed";
+import { useToast } from "@/components/ui/use-toast";
 
 const FeedShared: React.FC<FeedSharedProps> = ({ Id }) => {
-  const feedId = Number(Id);
   const [feedData, setFeedData] = useState<FeedShared | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  const { toast } = useToast();
   const router = useRouter();
+
+  const feedId = Number(Id);
 
   useEffect(() => {
     async function fetchData() {
@@ -36,7 +40,7 @@ const FeedShared: React.FC<FeedSharedProps> = ({ Id }) => {
           setFeedData(response.response);
         }
       } catch (error) {
-        console.error("Failed to fetch feed data:", error);
+        toast({ title: "오류 발생", description: "처리 중에 오류가 발생하였습니다." });
       }
     }
 
