@@ -8,9 +8,9 @@ import { useToast } from "@/components/ui/use-toast";
 function SettingBadge() {
   const { toast } = useToast();
 
-  const onClick = async () => {
+  const clickApplyBadgeHandler = async () => {
     try {
-      const res = await applyBadge();
+      await applyBadge();
       toast({ description: "뱃지 신청되었습니다!" });
     } catch (err) {
       toast({ description: "이미 뱃지 신청하셨습니다!" });
@@ -34,7 +34,7 @@ function SettingBadge() {
         </p>
         <div className="mt-10">
           <button
-            onClick={onClick}
+            onClick={clickApplyBadgeHandler}
             className="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900"
           >
             뱃지 신청
