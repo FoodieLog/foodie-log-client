@@ -19,54 +19,43 @@ import { useToast } from "@/components/ui/use-toast";
 
 function WithdrawModal({ children }: WithdrawModalProps) {
   const [withdrawReason, setWithdrawReason] = useState("");
-  const email = useUserStore((state) => state.user.email);
-  const kakaoAccessToken = useUserStore((state) => state.user.kakaoAccessToken);
-  const clearUser = useUserStore((state) => state.clearUser);
+  const {
+    user: { email, kakaoAccessToken },
+    clearUser,
+  } = useUserStore();
   const router = useRouter();
   const { toast } = useToast();
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const selectReasonHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id } = e.target;
     if (id) {
       setWithdrawReason(e.target.id);
     }
   };
 
-  const onClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
+  const clickWithdrawHandler = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
     if (withdrawReason.trim() === "") {
       toast({ description: "🥲 탈퇴 사유를 입력해주세요." });
       return;
     }
-    confirm("탈퇴하시겠습니까?");
-    if (!confirm) {
+
+    if (!confirm("탈퇴하시겠습니까?")) {
+      toast({ description: "탈퇴를 취소했습니다." });
       return;
     }
 
-    if (!kakaoAccessToken) {
-      try {
-        await withdraw({ withdrawReason });
-
-        router.replace("/accounts/login");
-        clearUser();
-        toast({ title: "푸드로그 탈퇴", description: "회원 탈퇴되었습니다." });
-      } catch (error) {
-        toast({ title: "탈퇴 실패", description: "탈퇴 실패하였습니다." });
-      }
-    } else {
-      try {
+    try {
+      if (kakaoAccessToken) {
         await unlinkKaKaoToken();
-
-        const body = { withdrawReason };
-        await withdraw(body);
-
-        router.replace("/accounts/login");
-        toast({ title: "푸드로그 탈퇴", description: "회원 탈퇴되었습니다." });
-        clearUser();
-      } catch (error) {
-        toast({ title: "탈퇴 실패", description: "탈퇴 실패하였습니다." });
       }
+      await withdraw({ withdrawReason });
+      router.replace("/accounts/login");
+      clearUser();
+      toast({ title: "푸드로그 탈퇴", description: "회원 탈퇴되었습니다." });
+    } catch (error) {
+      toast({ title: "탈퇴 실패", description: "탈퇴 실패하였습니다." });
     }
   };
 
@@ -80,14 +69,14 @@ function WithdrawModal({ children }: WithdrawModalProps) {
             탈퇴한 이메일로 재가입이 불가능합니다. <br /> 그래도 탈퇴하시겠습니까?
           </DialogDescription>
         </DialogHeader>
-        <div className="">
-          <div className="">
+        <div>
+          <div>
             <label htmlFor="name" className="text-right flex-shrink-0 text-sm w-10">
               이메일
             </label>
             <Input id="name" value={email} className="col-span-3 border border-none text-sm" disabled />
           </div>
-          <div className="">
+          <div>
             <p className="text-sm">
               탈퇴 사유<span className="text-red-500">*</span>
             </p>
@@ -97,7 +86,7 @@ function WithdrawModal({ children }: WithdrawModalProps) {
                 id="UNSATISFACTORY_SUPPORT"
                 name="reason"
                 value={withdrawReason}
-                onChange={onChange}
+                onChange={selectReasonHandler}
                 className="w-[10px]"
               />
               고객 지원이 만족스럽지 않아서
@@ -108,7 +97,7 @@ function WithdrawModal({ children }: WithdrawModalProps) {
                 id="INFREQUENTLY_USED"
                 name="reason"
                 value={withdrawReason}
-                onChange={onChange}
+                onChange={selectReasonHandler}
                 className="w-[10px]"
               />
               자주 이용하지 않아서
@@ -119,7 +108,7 @@ function WithdrawModal({ children }: WithdrawModalProps) {
                 id="USE_OTHER_SITES"
                 name="reason"
                 value={withdrawReason}
-                onChange={onChange}
+                onChange={selectReasonHandler}
                 className="w-[10px]"
               />
               비슷한 타 사이트를 이용하기 위해서
@@ -130,7 +119,7 @@ function WithdrawModal({ children }: WithdrawModalProps) {
                 id="ADVERTISEMENT"
                 name="reason"
                 value={withdrawReason}
-                onChange={onChange}
+                onChange={selectReasonHandler}
                 className="w-[10px]"
               />
               광고가 많아서
@@ -141,7 +130,7 @@ function WithdrawModal({ children }: WithdrawModalProps) {
                 id="ETC"
                 name="reason"
                 value={withdrawReason}
-                onChange={onChange}
+                onChange={selectReasonHandler}
                 className="w-[10px]"
               />
               기타
@@ -149,7 +138,7 @@ function WithdrawModal({ children }: WithdrawModalProps) {
           </div>
         </div>
         <DialogFooter>
-          <Button type="button" variant="primary" onClick={onClick}>
+          <Button type="button" variant="primary" onClick={clickWithdrawHandler}>
             회원 탈퇴 하기
           </Button>
         </DialogFooter>
