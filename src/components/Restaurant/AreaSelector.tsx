@@ -1,50 +1,34 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { area } from "@/src/constants";
 import { BiSearch } from "react-icons/bi";
 import { GrPowerReset } from "react-icons/gr";
-import useHideOnScroll from "../../hooks/useHideOnScroll";
-
-type AreaType = {
-  [key: string]: {
-    [key: string]: string[];
-  };
-};
-
-interface AreaSelectorProps {
-  onSelectedAreaChange?: (searchQuery: string) => void;
-}
+import useHideOnScroll from "@/src/hooks/useHideOnScroll";
+import { AreaType, AreaSelectorProps } from "@/src/types/recommend";
+import AreaList from "@/src/components/Restaurant/AreaList";
 
 const AreaSelector: React.FC<AreaSelectorProps> = ({ onSelectedAreaChange }) => {
   const [selectedRegion, setSelectedRegion] = useState<string>("수도권");
   const [selectedDo, setSelectedDo] = useState<string>("");
   const [selectedSiGunGu, setSelectedSiGunGu] = useState<string>("");
 
-  const [doOptions, setDoOptions] = useState<string[]>([]);
-  const [siGunGuOptions, setSiGunGuOptions] = useState<string[]>([]);
+  const regionList = Object.keys(area);
+  const doList = selectedRegion ? Object.keys((area as AreaType)[selectedRegion]) : [];
+  const siGunGuList = (selectedRegion && selectedDo ? (area as AreaType)[selectedRegion][selectedDo] : []) || [];
+
+  const isAllRequiredSelected = selectedRegion && selectedDo;
 
   const isVisible = useHideOnScroll();
 
-  useEffect(() => {
-    setDoOptions(selectedRegion ? Object.keys((area as AreaType)[selectedRegion]) : []);
-  }, [selectedRegion]);
-
-  useEffect(() => {
-    const selectedOptions =
-      selectedDo && (area as AreaType)[selectedRegion] ? (area as AreaType)[selectedRegion][selectedDo] : [];
-    setSiGunGuOptions(selectedOptions || []);
-  }, [selectedDo, selectedRegion]);
-
-  const allValuesSelected = () => {
-    return selectedRegion && selectedDo;
+  const handleSearch = () => {
+    const searchQuery = selectedSiGunGu ? `${selectedDo} ${selectedSiGunGu}` : selectedDo;
+    onSelectedAreaChange(searchQuery);
   };
 
-  const handleSearch = () => {
-    if (onSelectedAreaChange) {
-      const searchQuery = selectedSiGunGu ? `${selectedDo} ${selectedSiGunGu}` : selectedDo;
-
-      onSelectedAreaChange(searchQuery);
-    }
+  const resetSelection = () => {
+    setSelectedRegion("");
+    setSelectedDo("");
+    setSelectedSiGunGu("");
   };
 
   return (
@@ -59,12 +43,7 @@ const AreaSelector: React.FC<AreaSelectorProps> = ({ onSelectedAreaChange }) => 
           onChange={(e) => setSelectedRegion(e.target.value)}
           className="border-none outline-none bg-transparent w-16 text-sm items-center"
         >
-          <option value="">선택</option>
-          {Object.keys(area).map((region) => (
-            <option key={region} value={region}>
-              {region}
-            </option>
-          ))}
+          <AreaList optionList={regionList} />
         </select>
 
         <select
@@ -72,12 +51,7 @@ const AreaSelector: React.FC<AreaSelectorProps> = ({ onSelectedAreaChange }) => 
           onChange={(e) => setSelectedDo(e.target.value)}
           className="border-none outline-none bg-transparent w-24 text-sm items-center"
         >
-          <option value="">선택</option>
-          {doOptions.map((doOption) => (
-            <option key={doOption} value={doOption}>
-              {doOption}
-            </option>
-          ))}
+          <AreaList optionList={doList} />
         </select>
 
         <select
@@ -85,30 +59,18 @@ const AreaSelector: React.FC<AreaSelectorProps> = ({ onSelectedAreaChange }) => 
           onChange={(e) => setSelectedSiGunGu(e.target.value)}
           className="border-none outline-none bg-transparent w-20 text-sm items-center"
         >
-          <option value="">선택</option>
-          {siGunGuOptions.map((siGunGuOption) => (
-            <option key={siGunGuOption} value={siGunGuOption}>
-              {siGunGuOption}
-            </option>
-          ))}
+          <AreaList optionList={siGunGuList} />
         </select>
 
         <button
-          className={`ml-2 px-2 py-1 text-lg ${allValuesSelected() ? "text-blue-500" : ""}`}
+          className={`ml-2 px-2 py-1 text-lg ${isAllRequiredSelected ? "text-blue-500" : "cursor-not-allowed"}`}
           onClick={handleSearch}
-          disabled={!allValuesSelected()}
+          disabled={!isAllRequiredSelected}
         >
           <BiSearch />
         </button>
 
-        <button
-          className="px-2 py-1 text-lg "
-          onClick={() => {
-            setSelectedRegion("");
-            setSelectedDo("");
-            setSelectedSiGunGu("");
-          }}
-        >
+        <button className="px-2 py-1 text-lg " onClick={resetSelection}>
           <GrPowerReset />
         </button>
       </div>
@@ -117,7 +79,7 @@ const AreaSelector: React.FC<AreaSelectorProps> = ({ onSelectedAreaChange }) => 
 };
 
 AreaSelector.propTypes = {
-  onSelectedAreaChange: PropTypes.func,
+  onSelectedAreaChange: PropTypes.func.isRequired,
 };
 
 export default AreaSelector;
