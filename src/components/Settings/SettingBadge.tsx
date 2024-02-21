@@ -13,7 +13,7 @@ function SettingBadge() {
       await applyBadge();
       toast({ description: "뱃지 신청되었습니다!" });
     } catch (err) {
-      toast({ description: "이미 뱃지 신청하셨습니다!" });
+      toast({ description: "뱃지 신청을 실패했습니다. 다시 시도해주세요." });
     }
   };
   return (
