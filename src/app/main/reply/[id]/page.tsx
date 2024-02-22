@@ -1,5 +1,5 @@
-import BackButtonMain from "@/src/components/Common/Button/BackButtonMain";
-import ReplyList from "@/src/components/Feed/FeedReplyList";
+import BackButtonMain from "@components/Common/Button/BackButtonMain";
+import ReplyList from "@components/Feed/FeedReplyList";
 
 interface ReplyProps {
   params: {
