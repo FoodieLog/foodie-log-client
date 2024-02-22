@@ -35,7 +35,7 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "public/firebase-messaging-sw.js",
-    "__test__/index.test.js"
+    "__tests__/index.test.js"
   ],
   "exclude": ["node_modules"]
 }

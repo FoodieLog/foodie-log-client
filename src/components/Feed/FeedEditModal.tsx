@@ -1,8 +1,9 @@
 "use client";
 import { useState } from "react";
-import { updateFeed } from "@/src/services/apiFeed";
+// import { updateFeed } from "@/src/services/apiFeed";
+import { updateFeed } from "@/src/services/feed";
 import { useToast } from "@/components/ui/use-toast";
-import CustomModal from "../Common/Dialog/CustomModal";
+import CustomModal from "@/src/components/Common/Dialog/CustomModal";
 import useSignUpStore from "@/src/store/useSignUpStore";
 import useFeedStore from "@/src/store/useFeedStore";
 import { FeedEditModalProps } from "@/src/types/feed";
@@ -14,19 +15,20 @@ function FeedEditModal({ reload, setReload }: FeedEditModalProps) {
 
   const { toast } = useToast();
 
-  const onChangeTextArea = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const changeTextAreaHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setContent(e.target.value);
   };
-  const onClickClose = (e: React.MouseEvent<HTMLButtonElement>) => {
+
+  const clickCloseBtnHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setNextComponent("");
   };
 
-  const onClickEdit = async (e: React.MouseEvent<HTMLButtonElement>) => {
+  const clickEditBtnHandler = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
     try {
-      const res = await updateFeed(feed.id, content);
+      await updateFeed(feed.id, content);
       setNextComponent("");
       setReload(!reload);
       toast({ description: "게시글 수정되었습니다!" });
@@ -47,7 +49,7 @@ function FeedEditModal({ reload, setReload }: FeedEditModalProps) {
               Your comment
             </label>
             <textarea
-              onChange={onChangeTextArea}
+              onChange={changeTextAreaHandler}
               value={content}
               id="comment"
               className="w-full px-0 text-sm resize-none text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400"
@@ -60,7 +62,7 @@ function FeedEditModal({ reload, setReload }: FeedEditModalProps) {
 
       <div className="flex items-center p-6 rounded-b gap-3">
         <button
-          onClick={onClickClose}
+          onClick={clickCloseBtnHandler}
           data-modal-hide="defaultModal"
           type="button"
           className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
@@ -68,7 +70,7 @@ function FeedEditModal({ reload, setReload }: FeedEditModalProps) {
           취소
         </button>
         <button
-          onClick={onClickEdit}
+          onClick={clickEditBtnHandler}
           data-modal-hide="defaultModal"
           type="button"
           className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
