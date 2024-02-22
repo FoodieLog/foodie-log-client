@@ -10,11 +10,11 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import Button from "@/src/components/Common/Button";
-import { withdraw } from "@/src/services/settings";
-import { WithdrawModalProps } from "@/src/types/settings";
-import { useUserStore } from "@/src/store/useUserStore";
-import { unlinkKaKaoToken } from "@/src/services/kakao";
+import Button from "@components/Common/Button";
+import { withdraw } from "@services/settings";
+import { WithdrawModalProps } from "@@types/settings";
+import { useUserStore } from "@store/useUserStore";
+import { unlinkKaKaoToken } from "@services/kakao";
 import { useToast } from "@/components/ui/use-toast";
 
 function WithdrawModal({ children }: WithdrawModalProps) {

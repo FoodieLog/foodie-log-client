@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ShopFeedItemProps } from "@/src/types/recommend";
-import { defaultThumbnailImage } from "@/src/components/Restaurant/ShopThumb";
+import { ShopFeedItemProps } from "@@types/recommend";
+import { defaultThumbnailImage } from "@components/Restaurant/ShopThumb";
 
 const ShopFeedItem: React.FC<ShopFeedItemProps> = ({ feed, name }) => {
   const { feedId, thumbnailUrl } = feed;

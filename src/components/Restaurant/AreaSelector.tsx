@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { area } from "@/src/constants";
+import { area } from "@constants";
 import { BiSearch } from "react-icons/bi";
 import { GrPowerReset } from "react-icons/gr";
-import useHideOnScroll from "@/src/hooks/useHideOnScroll";
-import { AreaType, AreaSelectorProps } from "@/src/types/recommend";
-import AreaList from "@/src/components/Restaurant/AreaList";
+import useHideOnScroll from "@hooks/useHideOnScroll";
+import { AreaType, AreaSelectorProps } from "@@types/recommend";
+import AreaList from "@components/Restaurant/AreaList";
 
 const AreaSelector: React.FC<AreaSelectorProps> = ({ onSelectedAreaChange }) => {
   const [selectedRegion, setSelectedRegion] = useState<string>("수도권");

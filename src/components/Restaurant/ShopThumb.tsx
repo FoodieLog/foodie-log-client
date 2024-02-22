@@ -1,6 +1,6 @@
-import ShopCard from "@/src/components/Restaurant/ShopCard";
-import { RecommendedRestaurant } from "@/src/types/recommend";
-import ShopFeedList from "@/src/components/Restaurant/ShopFeedList";
+import ShopCard from "@components/Restaurant/ShopCard";
+import { RecommendedRestaurant } from "@@types/recommend";
+import ShopFeedList from "@components/Restaurant/ShopFeedList";
 
 export const defaultThumbnailImage = "/icon-256x256.png";
 const MIN_LIST_COUNT = 3;

@@ -1,13 +1,13 @@
 "use client";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { FatchChangePassword } from "@/src/services/settings";
-import { ChangePassword } from "@/src/types/apiTypes";
-import { passwordValidation } from "@/src/constants";
+import { FatchChangePassword } from "@services/settings";
+import { ChangePassword } from "@@types/apiTypes";
+import { passwordValidation } from "@constants";
 import { useRouter } from "next/navigation";
-import { useUserStore } from "@/src/store/useUserStore";
-import Button from "@/src/components/Common/Button";
-import Header from "@/src/components/Common/Header";
+import { useUserStore } from "@store/useUserStore";
+import Button from "@components/Common/Button";
+import Header from "@components/Common/Header";
 import { useToast } from "@/components/ui/use-toast";
 
 function SettingPassword() {

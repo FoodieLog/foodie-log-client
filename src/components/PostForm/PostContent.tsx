@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import { postFeed } from "@/src/services/post";
-import usePostStore from "@/src/store/usePostStore";
+import { postFeed } from "@services/post";
+import usePostStore from "@store/usePostStore";
 import { useRouter } from "next/navigation";
-import Button from "@/src/components/Common/Button";
-import PostShopItem from "@/src/components/PostForm/PostShopItem";
-import useSignUpStore from "@/src/store/useSignUpStore";
-import PostSearch from "@/src/components/PostForm/PostSearch";
-import FeedImageSlide from "@/src/components/Feed/FeedImageSlide";
-import Header from "@/src/components/Common/Header";
+import Button from "@components/Common/Button";
+import PostShopItem from "@components/PostForm/PostShopItem";
+import useSignUpStore from "@store/useSignUpStore";
+import PostSearch from "@components/PostForm/PostSearch";
+import FeedImageSlide from "@components/Feed/FeedImageSlide";
+import Header from "@components/Common/Header";
 import { useToast } from "@/components/ui/use-toast";
 
 function PostContent() {

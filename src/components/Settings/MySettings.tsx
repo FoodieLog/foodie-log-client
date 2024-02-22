@@ -1,13 +1,13 @@
 "use client";
 import { useEffect, useState } from "react";
-import { useUserStore } from "@/src/store/useUserStore";
+import { useUserStore } from "@store/useUserStore";
 import { useRouter } from "next/navigation";
-import { BadgeSvg, ChangeSvg, NotificationSvg, OutSvg, WarningSvg } from "@/src/assets/svgs";
-import WithdrawModal from "@/src/components/Settings/SettingWithdrawModal";
-import Toggle from "@/src/components/Common/Toggle";
-import Header from "@/src/components/Common/Header";
-import logout from "@/src/services/Logout";
-import { logoutKaKaoToken } from "@/src/services/kakao";
+import { BadgeSvg, ChangeSvg, NotificationSvg, OutSvg, WarningSvg } from "@assets/svgs";
+import WithdrawModal from "@components/Settings/SettingWithdrawModal";
+import Toggle from "@components/Common/Toggle";
+import Header from "@components/Common/Header";
+import logout from "@services/Logout";
+import { logoutKaKaoToken } from "@services/kakao";
 import { useToast } from "@/components/ui/use-toast";
 
 function MySettings() {

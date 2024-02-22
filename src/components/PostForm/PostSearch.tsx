@@ -1,13 +1,13 @@
 "use client";
 import { useState } from "react";
-import { searchShop } from "@/src/services/post";
+import { searchShop } from "@services/post";
 import { AiOutlineSearch } from "react-icons/ai";
-import useSignUpStore from "@/src/store/useSignUpStore";
-import PostImage from "@/src/components/PostForm/PostImage";
-import PostContent from "@/src/components/PostForm/PostContent";
-import Header from "@/src/components/Common/Header";
-import { ShopItem } from "@/src/types/post";
-import PostShopList from "@/src/components/PostForm/PostShopList";
+import useSignUpStore from "@store/useSignUpStore";
+import PostImage from "@components/PostForm/PostImage";
+import PostContent from "@components/PostForm/PostContent";
+import Header from "@components/Common/Header";
+import { ShopItem } from "@@types/post";
+import PostShopList from "@components/PostForm/PostShopList";
 
 function PostSearch() {
   const [keyword, setKeyword] = useState("");
