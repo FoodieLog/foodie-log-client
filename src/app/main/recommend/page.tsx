@@ -2,7 +2,8 @@
 import React, { useState } from "react";
 import AreaSelector from "@/src/components/Restaurant/AreaSelector";
 import ShopThumbList from "@/src/components/Restaurant/ShopThumbList";
-import { RecommendedRestaurant, getRestaurantRecommended } from "@/src/services/apiRestaurant";
+import { getRestaurantRecommended } from "@/src/services/apiRestaurant";
+import { RecommendedRestaurant } from "@/src/types/recommend";
 
 const Recommend = () => {
   const [recommendedRestaurants, setRecommendedRestaurants] = useState<RecommendedRestaurant[]>([]);
@@ -27,6 +28,5 @@ const Recommend = () => {
     </div>
   );
 };
-
 
 export default Recommend;

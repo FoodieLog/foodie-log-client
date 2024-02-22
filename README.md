@@ -41,10 +41,13 @@
 </p>
 
 ## 기능 소개
-
-
-
-## 프론트엔드 아키텍처
+![푸디로그-1](https://github.com/FoodieLog/foodie-log-client/assets/128155681/adaabaf1-74fe-47c4-a686-d22eb0a7afcf)
+![푸디로그-2](https://github.com/FoodieLog/foodie-log-client/assets/128155681/ac28a80c-adc0-4e3a-954e-f70e12c20808)
+![푸디로그-3](https://github.com/FoodieLog/foodie-log-client/assets/128155681/6ebafc47-f18b-43be-a35c-366058399062)
+![푸디로그-4](https://github.com/FoodieLog/foodie-log-client/assets/128155681/21ba647b-5557-4b8f-a2e4-41fd2941d30e)
+![푸디로그-5](https://github.com/FoodieLog/foodie-log-client/assets/128155681/f21d0883-a352-48f1-9ba0-74501ee7800e)
+![푸디로그-6](https://github.com/FoodieLog/foodie-log-client/assets/128155681/f7e832eb-23fc-4e69-acbc-da1a6ead8343)
+![푸디로그-7](https://github.com/FoodieLog/foodie-log-client/assets/128155681/d9c17065-3827-4f49-a357-fefca0d790d3)
 
 ## 개발팀
 > 🧑‍💻 [프론트엔드](https://github.com/FoodieLog/foodie-log-client/) <br/>
@@ -52,6 +55,8 @@
 |<a href="https://github.com/ChoEun-Sang"><img src="https://avatars.githubusercontent.com/u/128155681?v=4" width=150px alt="조은상" />|<a href="https://github.com/iskra17"><img src="https://avatars.githubusercontent.com/u/128365197?v=4" width=150px alt="정재현" />|
 |:---------------------------------------------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------------------------------------------:|
 |                                             **[조은상](https://github.com/ChoEun-Sang)**                                             |                                             **[정재현](https://github.com/iskra17)**                                             |
+|인증/인가 <br/> 피드 등록/수정/삭제 <br/> 맛집 지도 <br/> 마이페이지 <br/> 개인정보 설정| 피드 목록 <br/> 댓글 작성/삭제<br/> 지역별 식당 추천|
+
 > 🧑‍💻 [백엔드](https://github.com/FoodieLog/foodie-log-server) <br/>
 
 |<a href="https://github.com/chaewon12"><img src="https://avatars.githubusercontent.com/u/65496092?v=4" width=150px alt="엄채원" />|<a href="https://github.com/sohn919"><img src="https://avatars.githubusercontent.com/u/84082544?v=4" width=150px alt="손영준" />|<a href="[https://github.com/ChoEun-Sang](https://github.com/inyoung0215)"><img src="https://avatars.githubusercontent.com/u/86757234?v=4" width=150px alt="정재현" />|

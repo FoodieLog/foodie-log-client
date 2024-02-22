@@ -1,12 +1,11 @@
-"use client";
-import ShopThumb from "./ShopThumb";
-import { useState } from "react";
+import ShopThumb from "@/src/components/Restaurant/ShopThumb";
+import { RecommendedRestaurant } from "@/src/types/recommend";
 
-const ShopThumbList = ({ restaurants }: { restaurants: any[] }) => {
+const ShopThumbList = ({ restaurants }: { restaurants: RecommendedRestaurant[] }) => {
   return (
     <div className="w-full flex flex-col items-center p-1 max-w-[640px] pt-[44px]">
-      {restaurants.map((restaurant, index) => (
-        <ShopThumb key={index} {...restaurant} />
+      {restaurants.map((restaurant) => (
+        <ShopThumb key={restaurant.restaurantId} {...restaurant} />
       ))}
     </div>
   );
