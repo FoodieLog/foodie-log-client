@@ -13,7 +13,7 @@ import { ReplyListProps } from "@/src/types/feed";
 import { APIReplyListResponse } from "@/src/types/reply";
 import { useToast } from "@/components/ui/use-toast";
 
-const Reply: React.FC<ReplyListProps> = ({ id: feedId }) => {
+const FeedReplyList: React.FC<ReplyListProps> = ({ id: feedId }) => {
   const initialAuthorState: APIReplyListResponse["response"] = {
     userId: 0,
     nickName: "",
@@ -228,4 +228,4 @@ const Reply: React.FC<ReplyListProps> = ({ id: feedId }) => {
   );
 };
 
-export default Reply;
+export default FeedReplyList;

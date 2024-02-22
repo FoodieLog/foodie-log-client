@@ -1,8 +1,8 @@
 "use client";
 import React from "react";
-import { applyBadge } from "@/src/services/settings";
-import { StarSvg } from "@/src/assets/svgs";
-import Header from "@/src/components/Common/Header";
+import { applyBadge } from "@services/settings";
+import { StarSvg } from "@assets/svgs";
+import Header from "@components/Common/Header";
 import { useToast } from "@/components/ui/use-toast";
 
 function SettingBadge() {

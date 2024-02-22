@@ -22,10 +22,15 @@
     ],
     "paths": {
       "@/*": ["./*"],
+      "@assets": ["./src/assets/"],
+      "@assets/*": ["./src/assets/*"],
       "@components/*": ["./src/components/*"],
+      "@constants": ["./src/constants"],
+      "@constants/*": ["./src/constants/*"],
       "@hooks/*": ["./src/hooks/*"],
       "@services/*": ["./src/services/*"],
-      "@types/*": ["./src/types/*"],
+      "@store/*": ["./src/store/*"],
+      "@@types/*": ["./src/types/*"],
       "@utils/*": ["./src/utils/*"]
     }
   },

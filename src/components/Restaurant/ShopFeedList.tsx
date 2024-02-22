@@ -1,5 +1,5 @@
-import { ShopFeedListProps } from "@/src/types/recommend";
-import ShopFeedItem from "@/src/components/Restaurant/ShopFeedItem";
+import { ShopFeedListProps } from "@@types/recommend";
+import ShopFeedItem from "@components/Restaurant/ShopFeedItem";
 
 const ShopFeedList: React.FC<ShopFeedListProps> = ({ feedList, name }) => {
   return (

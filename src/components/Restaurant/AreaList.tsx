@@ -1,5 +1,5 @@
-import { AreaListProps } from "@/src/types/recommend";
-import AreaOptionItem from "./AreaOptionItem";
+import { AreaListProps } from "@@types/recommend";
+import AreaOptionItem from "@components/Restaurant/AreaOptionItem";
 
 const AreaList: React.FC<AreaListProps> = ({ optionList }) => {
   return (
