@@ -1,16 +1,22 @@
 "use client";
-import { useState, useEffect } from "react";
-import { searchUser, APIUserSearchResponse } from "@/src/services/apiFeed";
-import Image from "next/image";
-import { PiUserCircleBold } from "react-icons/pi";
+import { useState } from "react";
 import { SlClose } from "react-icons/sl";
+import { UserImage } from "@/public/images";
+import { searchUser, APIUserSearchResponse } from "@/src/services/apiFeed";
+import UserThumbImg from "@components/Common/Profile/UserThumbImg";
 import Link from "next/link";
 
 const SearchUser: React.FC = () => {
+  //#region useState
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [searchResults, setSearchResults] = useState<APIUserSearchResponse["response"]["content"] | []>([]);
-  let timeoutId: NodeJS.Timeout;
+  //#endregion
 
+  //#region variables
+  let timeoutId: NodeJS.Timeout;
+  //#endregion
+
+  //#region functions
   const handleClearInput = () => {
     setSearchTerm("");
     setSearchResults([]);
@@ -32,6 +38,7 @@ const SearchUser: React.FC = () => {
       }
     }, 300);
   };
+  //#endregion
 
   return (
     <div className="w-full flex flex-col items-center justify-between px-4 mt-3">
@@ -50,21 +57,9 @@ const SearchUser: React.FC = () => {
           <div key={user.id} className="w-full flex items-center mt-2 hover:bg-slate-100">
             <Link href={`/main/${user.id}`} className="flex w-12 h-12 flex-shrink-0">
               {user.profileImageUrl ? (
-                <Image
-                  src={user.profileImageUrl}
-                  alt="사용자 썸네일"
-                  width={48}
-                  height={48}
-                  className="border rounded-full cursor-pointer"
-                />
+                <UserThumbImg src={user.profileImageUrl} />
               ) : (
-                <Image
-                  src="/images/userImage.png"
-                  alt="사용자 썸네일"
-                  width={48}
-                  height={48}
-                  className="w-12 h-12 border p-1 rounded-full cursor-pointer"
-                />
+                <UserThumbImg src={UserImage} style="p-1" />
               )}
             </Link>
 

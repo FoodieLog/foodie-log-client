@@ -14,5 +14,6 @@ import FoodieLogoCrop from "./image60.png";
 import FoodieLogoTP from "./foodietransparent.png";
 import FoodieLogo from "./userImage.png";
 import TextLogo from "./textLogo.png";
+import UserImage from "./userImage.png";
 
-export { FoodieLogoFull, FoodieLogoCrop, FoodieLogoTP, FoodieLogo, TextLogo };
+export { FoodieLogoFull, FoodieLogoCrop, FoodieLogoTP, FoodieLogo, TextLogo, UserImage };

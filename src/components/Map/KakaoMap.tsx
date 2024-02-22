@@ -3,7 +3,7 @@ import { useRef, useEffect, useState, MutableRefObject } from "react";
 import { useRouter } from "next/navigation";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context";
-import { markerImageSrc, markerSize, onMarkerClick } from "./common";
+import { markerImageSrc, markerSize, onMarkerClick } from "@components/Map/common";
 
 const KakaoMap = ({
   latitude,
@@ -14,17 +14,22 @@ const KakaoMap = ({
   longitude: string;
   restaurantId: number;
 }) => {
+  //#region States
   const mapRef: MutableRefObject<undefined> = useRef();
-  const level: number = 3;
   const [mapSize, setMapSize] = useState({
     width: "100%",
     height: "360px",
   });
+  //#endregion
 
+  //#region Variables
   const router: AppRouterInstance = useRouter();
   const parsedLat: number = parseFloat(latitude);
   const parsedLng: number = parseFloat(longitude);
+  const level: number = 3;
+  //#endregion
 
+  //#region useEffect
   useEffect(() => {
     const map = mapRef.current;
     if (map) {
@@ -32,6 +37,7 @@ const KakaoMap = ({
       // map.relayout();
     }
   }, [mapSize]);
+  //#endregion
 
   return (
     <div>
