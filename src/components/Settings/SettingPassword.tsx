@@ -1,13 +1,13 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
-import { FatchChangePassword } from "../../services/settings";
-import { ChangePassword } from "../../types/apiTypes";
-import { passwordValidation } from "../../constants";
+import { FatchChangePassword } from "@/src/services/settings";
+import { ChangePassword } from "@/src/types/apiTypes";
+import { passwordValidation } from "@/src/constants";
 import { useRouter } from "next/navigation";
-import { useUserStore } from "../../store/useUserStore";
-import Button from "../Common/Button";
-import Header from "../Common/Header";
+import { useUserStore } from "@/src/store/useUserStore";
+import Button from "@/src/components/Common/Button";
+import Header from "@/src/components/Common/Header";
 import { useToast } from "@/components/ui/use-toast";
 
 function SettingPassword() {
@@ -25,7 +25,7 @@ function SettingPassword() {
 
   const onSubmit = async ({ oldPassword, newPassword }: ChangePassword) => {
     try {
-      const res = await FatchChangePassword({ oldPassword, newPassword });
+      await FatchChangePassword({ oldPassword, newPassword });
       router.replace("/accounts/login");
       toast({ description: "비밀번호 변경되었습니다!\n다시 로그인해 주세요!" });
     } catch (err) {
