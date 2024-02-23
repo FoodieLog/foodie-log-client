@@ -1,9 +1,9 @@
-import { axiosRequest, multipartrequest } from "./index";
-import { LogInBody, ResetPasswordBody } from "../types/apiTypes";
+import { axiosRequest } from "@services/index";
+import { LogInBody, ResetPasswordBody } from "@@types/apiTypes";
 
 //회원가입
 export const signUp = async (body: FormData) => {
-  const res = await multipartrequest.post("/api/auth/signup", body, {
+  const res = await axiosRequest.post("/api/auth/signup", body, {
     headers: {
       "Content-Type": "multipart/form-data",
     },
