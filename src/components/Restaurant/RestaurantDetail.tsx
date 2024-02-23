@@ -1,13 +1,13 @@
 "use client";
 import { useRouter, usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import BackButtonMain from "../Common/Button/BackButtonMain";
-import KakaoMap from "../Map/KakaoMap";
-import ShopCard from "./ShopCard";
-import Feeds from "../Feed/Feeds";
-import { generateRestaurantDetailDummyData } from "../../utils/dummyDataUtils";
-import { getRestaurantDetail } from "../../services/apiRestaurant";
-import Feed from "../Feed/Feed";
+import BackButtonMain from "@components/Common/Button/BackButtonMain";
+import KakaoMap from "@components/Map/KakaoMap";
+import ShopCard from "@components/Restaurant/ShopCard";
+import Feeds from "@components/Feed/Feeds";
+import { generateRestaurantDetailDummyData } from "@utils/dummyDataUtils";
+import { getRestaurantDetail } from "@services/restaurant";
+import Feed from "@components/Feed/Feed";
 interface RestaurantDetailProps {
   Id: string;
 }
@@ -29,8 +29,8 @@ const RestaurantDetail = ({ Id }: RestaurantDetailProps) => {
     const fetchData = async () => {
       const data = await getRestaurantDetail(restaurantId);
 
-      setRestaurantDetail(data.response.restaurantInfo);
-      setFeedList(data.response.content);
+      setRestaurantDetail(data.data.response.restaurantInfo);
+      setFeedList(data.data.response.content);
     };
 
     fetchData();

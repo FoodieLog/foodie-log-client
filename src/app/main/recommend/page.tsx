@@ -1,18 +1,17 @@
 "use client";
 import React, { useState } from "react";
-import AreaSelector from "@/src/components/Restaurant/AreaSelector";
-import ShopThumbList from "@/src/components/Restaurant/ShopThumbList";
-import { getRestaurantRecommended } from "@/src/services/apiRestaurant";
-import { RecommendedRestaurant } from "@/src/types/recommend";
+import AreaSelector from "@components/Restaurant/AreaSelector";
+import ShopThumbList from "@components/Restaurant/ShopThumbList";
+import { getRecommendedRestaurant } from "@services/restaurant";
 
 const Recommend = () => {
-  const [recommendedRestaurants, setRecommendedRestaurants] = useState<RecommendedRestaurant[]>([]);
+  const [recommendedRestaurants, setRecommendedRestaurants] = useState([]);
 
   const handleSelectedAreaChange = async (searchQuery: string) => {
     try {
-      const response = await getRestaurantRecommended(searchQuery);
-      if (response.status === 200) {
-        setRecommendedRestaurants(response.response.restaurantList);
+      const response = await getRecommendedRestaurant(searchQuery);
+      if (response.data.status === 200) {
+        setRecommendedRestaurants(response.data.response.restaurantList);
       } else {
         console.error("추천 정보 가져오기 실패");
       }
