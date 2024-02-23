@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { searchShop } from "@services/post";
+import { getSearchShop } from "@services/post";
 import { AiOutlineSearch } from "react-icons/ai";
 import useSignUpStore from "@store/useSignUpStore";
 import PostImage from "@components/PostForm/PostImage";
@@ -22,8 +22,8 @@ function PostSearch() {
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const res = await searchShop(keyword);
-      setShopList(res.response.documents);
+      const res = await getSearchShop(keyword);
+      setShopList(res.data.response.documents);
     } catch (err) {
       // todo: 사용자 에러 표시
       console.log("shop search error", err);
