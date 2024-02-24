@@ -23,14 +23,27 @@ import Notifications_2 from "@assets/icons/common/notifications-2.png";
 import HeartWithCircle from "@assets/icons/common/HeartWithCircle.png";
 import OpenInNew from "@assets/icons/common/open_in_new.png";
 import PhotoCamera from "@assets/icons/common/photo_camera.png";
-import Restaurant from "@assets/icons/common/restaurant.png";
-import Search from "@assets/icons/common/search.png";
+import RestaurantIcon from "@assets/icons/common/restaurant.png";
+import SearchIcon from "@assets/icons/common/search.png";
 import Dissatisfied from "@assets/icons/common/dissatisfied.png";
-import Settings from "@assets/icons/common/settings.png";
+import SettingsIcon from "@assets/icons/common/settings.png";
+
+//============ 아이콘 - GNB ============
+
+import Person from "@assets/icons/gnb/person.png";
+import PersonCheck from "@assets/icons/gnb/person_check.png";
+import SpaceDashboard from "@assets/icons/gnb/space_dashboard.png";
+import SpaceDashboardCheck from "@assets/icons/gnb/space_dashboard_check.png";
+import ThumbUp from "@assets/icons/gnb/thumb_up.png";
+import ThumbUpCheck from "@assets/icons/gnb/thumb_up_check.png";
+import MapIcon from "@assets/icons/gnb/map.png";
+import MapIconCheck from "@assets/icons/gnb/map_check.png";
 
 //============ 아이콘 - Tag ============
+// 추가 예정
 
 export {
+  // Common
   CaretDown,
   ChatCircleText,
   CheckCircle,
@@ -55,8 +68,18 @@ export {
   HeartWithCircle,
   OpenInNew,
   PhotoCamera,
-  Restaurant,
-  Search,
+  RestaurantIcon,
+  SearchIcon,
   Dissatisfied,
-  Settings,
+  SettingsIcon,
+
+  //GNB
+  Person,
+  PersonCheck,
+  SpaceDashboard,
+  SpaceDashboardCheck,
+  ThumbUp,
+  ThumbUpCheck,
+  MapIcon,
+  MapIconCheck,
 };
