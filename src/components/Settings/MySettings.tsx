@@ -6,19 +6,17 @@ import { BadgeSvg, ChangeSvg, NotificationSvg, OutSvg, WarningSvg } from "@asset
 import WithdrawModal from "@components/Settings/SettingWithdrawModal";
 import Toggle from "@components/Common/Toggle";
 import Header from "@components/Common/Header";
-import logout from "@services/Logout";
 import { logoutKaKaoToken } from "@services/kakao";
-import { useToast } from "@/components/ui/use-toast";
+import useLogout from "@/src/hooks/useLogout";
 
 function MySettings() {
   const [isClient, setIsClient] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const {
     user: { nickName, kakaoAccessToken },
-    clearUser,
   } = useUserStore();
   const router = useRouter();
-  const { toast } = useToast();
+  const { logout } = useLogout();
 
   const onClickBadge = () => {
     router.push("/main/settings/badge");
@@ -43,11 +41,8 @@ function MySettings() {
       }
       await logout();
     } catch (error) {
-      // todo: logout api 수정 후 에러 처리
+      console.error("로그아웃 실패");
     }
-    clearUser();
-    router.replace("/accounts/login");
-    toast({ title: "로그아웃", description: "로그아웃되었습니다!" });
   };
 
   useEffect(() => {
