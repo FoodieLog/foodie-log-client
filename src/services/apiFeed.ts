@@ -2,7 +2,6 @@
 import { userRequest } from "@/src/services";
 import { useUserStore } from "@/src/store/useUserStore";
 import { Notification } from "@/src/types/apiTypes";
-import Logout from "@/src/services/Logout";
 import { getCookie } from "@/src/utils/token";
 
 const BASE_URL = "https://api.foodielog-server.monster/api";
@@ -188,7 +187,7 @@ export const makeFeedFetchRequest = async <T>(
         } else {
           if (retryCount >= 2) {
             alert("토큰이 유효하지 않습니다. 다시 로그인해 주세요!");
-            Logout();
+            // Logout();
           }
         }
       } catch (reissueError) {

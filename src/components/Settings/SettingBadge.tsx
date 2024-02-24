@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { applyBadge } from "@services/settings";
+import { postApplyBadge } from "@services/settings";
 import { StarSvg } from "@assets/svgs";
 import Header from "@components/Common/Header";
 import { useToast } from "@/components/ui/use-toast";
@@ -10,7 +10,7 @@ function SettingBadge() {
 
   const clickApplyBadgeHandler = async () => {
     try {
-      await applyBadge();
+      await postApplyBadge();
       toast({ description: "뱃지 신청되었습니다!" });
     } catch (err) {
       toast({ description: "뱃지 신청을 실패했습니다. 다시 시도해주세요." });

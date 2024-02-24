@@ -1,45 +1,33 @@
-import { userRequest } from "../services";
-import { useUserStore } from "../store/useUserStore";
-import { makeFeedFetchRequest } from "../services/apiFeed";
+import { userRequest } from "@services";
+import { PasswordType, WithdrawRequestBodyType } from "@@types/settings";
+import { getMessaging, deleteToken } from "firebase/messaging";
+import firebaseApp from "@/firebaseConfig";
 
-const accessToken = useUserStore.getState().user.accessToken;
-
-const headers = {
-  "content-type": "application/json",
-  Authorization: `Bearer ${accessToken}`,
-};
-
-export const applyBadge = async () => {
+export const postApplyBadge = async () => {
   const res = await userRequest.post("/api/user/setting/badge");
   return res;
 };
 
-// 비밀번호 변경
-interface SettingPassword {
-  oldPassword: string;
-  newPassword: string;
-}
-
-export const FatchChangePassword = async ({ oldPassword, newPassword }: SettingPassword) => {
-  return await makeFeedFetchRequest("/user/setting/password", "PUT", { oldPassword, newPassword });
+export const putChangePassword = async ({ oldPassword, newPassword }: PasswordType) => {
+  const res = await userRequest.put("/api/user/setting/password", { oldPassword, newPassword });
+  return res;
 };
 
-// 로그아웃
-export const logOut = async () => {
+export const postLogout = async () => {
   const res = await userRequest.post("/api/user/setting/logout");
   return res;
 };
 
-// 회원 탈퇴
-interface WithdrawBody {
-  withdrawReason: string;
-}
-
-export const withdraw = async (body: WithdrawBody) => {
-  return await userRequest.post("/api/user/setting/withdraw", body);
+export const postDeleteToken = async () => {
+  const messaging = getMessaging(firebaseApp);
+  await deleteToken(messaging);
 };
 
-// 알림
+export const postWithdraw = async (body: WithdrawRequestBodyType) => {
+  const res = await userRequest.post("/api/user/setting/withdraw", body);
+  return res;
+};
+
 export const putNotification = async (flag: string) => {
   const res = await userRequest.put("/api/user/setting/notification", { flag });
   return res;

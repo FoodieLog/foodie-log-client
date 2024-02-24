@@ -4,9 +4,9 @@ import { useUserStore } from "@/src/store/useUserStore";
 import { useRouter, usePathname } from "next/navigation";
 import { reissueTokens } from "@/src/services/apiFeed";
 import { tokenLoader } from "@/src/utils/token";
-import Logout from "@/src/services/Logout";
 import { useToast } from "@/components/ui/use-toast";
 import { getKaKaoRefreshToken } from "@/src/services/kakao";
+import useLogout from "@/src/hooks/useLogout";
 
 const AuthCheck: React.FC = () => {
   const { toast } = useToast();
@@ -17,6 +17,7 @@ const AuthCheck: React.FC = () => {
   }));
   const router = useRouter();
   const pathname = usePathname();
+  const { logout } = useLogout();
 
   // const kakaoRefreshToken = tokenLoader();
 
@@ -24,7 +25,7 @@ const AuthCheck: React.FC = () => {
   useEffect(() => {
     const validateTokens = async () => {
       if (!user.accessToken) {
-        Logout();
+        await logout();
         return;
       }
 
@@ -45,12 +46,12 @@ const AuthCheck: React.FC = () => {
           } else {
             console.error(reissueResponse.error.message.accessToken);
             toast({ description: "토큰이 유효하지 않습니다.\n다시 로그인해 주세요!" });
-            Logout();
+            await logout();
           }
         } catch (error) {
           console.error("Error while reissuing tokens:", error);
           toast({ description: "토큰이 유효하지 않습니다.\n다시 로그인해 주세요!" });
-          Logout();
+          await logout();
         }
       } else if (pathname === "/") {
         router.replace("/main/home");
