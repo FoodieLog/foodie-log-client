@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { FatchChangePassword } from "@services/settings";
+import { putChangePassword } from "@services/settings";
 import { ChangePassword } from "@@types/apiTypes";
 import { passwordValidation } from "@constants";
 import { useRouter } from "next/navigation";
@@ -25,7 +25,7 @@ function SettingPassword() {
 
   const onSubmit = async ({ oldPassword, newPassword }: ChangePassword) => {
     try {
-      await FatchChangePassword({ oldPassword, newPassword });
+      await putChangePassword({ oldPassword, newPassword });
       router.replace("/accounts/login");
       toast({ description: "비밀번호 변경되었습니다!\n다시 로그인해 주세요!" });
     } catch (err) {

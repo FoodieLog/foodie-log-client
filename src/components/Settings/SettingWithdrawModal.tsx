@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import Button from "@components/Common/Button";
-import { withdraw } from "@services/settings";
+import { postWithdraw } from "@services/settings";
 import { WithdrawModalProps } from "@@types/settings";
 import { useUserStore } from "@store/useUserStore";
 import { unlinkKaKaoToken } from "@services/kakao";
@@ -50,10 +50,10 @@ function WithdrawModal({ children }: WithdrawModalProps) {
       if (kakaoAccessToken) {
         await unlinkKaKaoToken();
       }
-      await withdraw({ withdrawReason });
-      router.replace("/accounts/login");
+      await postWithdraw({ withdrawReason });
       clearUser();
       toast({ title: "푸드로그 탈퇴", description: "회원 탈퇴되었습니다." });
+      router.replace("/accounts/login");
     } catch (error) {
       toast({ title: "탈퇴 실패", description: "탈퇴 실패하였습니다." });
     }
