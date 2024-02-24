@@ -39,7 +39,7 @@ function MyFriendList({ data, friendListTitle, reload, setReload, updateFollow, 
   };
 
   return (
-    <section className="flex flex-col items-center p-5 gap-5">
+    <section className="flex flex-col items-center p-5 gap-5 bg-white">
       <h3>{friendListTitle}</h3>
       {data.length > 0 ? (
         <ul className="w-full">

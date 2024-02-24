@@ -26,8 +26,20 @@ module.exports = {
         "accordion-up": "accordion-up 0.2s ease-out",
       },
       colors: {
+        red: {
+          DEFAULT: "#DE2E1F",
+        },
+        indigo: {
+          DEFAULT: "#3B4555",
+        },
+        gray: {
+          500: "#777777",
+          400: "#BABABA",
+          300: "#E9E9E9",
+          200: "#F4F4F4",
+        },
         kakao: {
-          container: "#FEE500",
+          DEFAULT: "#FEE500",
         },
         coral: {
           DEFAULT: "#FF6D60",
