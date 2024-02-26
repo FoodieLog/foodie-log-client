@@ -1,10 +1,5 @@
-import { HiOutlineHome } from "react-icons/hi";
-import { FiMapPin, FiThumbsUp } from "react-icons/fi";
-import { BiSmile } from "react-icons/bi";
-import { AiOutlinePlusCircle } from "react-icons/ai";
-import { IoIosSearch, IoMdNotificationsOutline } from "react-icons/io";
-
-export { area } from "@/src/constants/area";
+export { area } from "@constants/area";
+export { globalNavigation } from "@constants/navigation";
 
 // 이메일, 비밀번호 유효성 검사
 export const emailValidation = {
@@ -25,42 +20,3 @@ export const passwordValidation = {
     message: "비밀번호는 8 ~ 16자입니다.",
   },
 };
-
-// 사이드바
-export const sidebarLinks = [
-  {
-    icon: HiOutlineHome,
-    label: "Home",
-    route: "/main/home",
-  },
-  {
-    icon: FiMapPin,
-    label: "Maps",
-    route: "/main/liked",
-  },
-  {
-    icon: AiOutlinePlusCircle,
-    label: "Feed",
-    route: "/main/post",
-  },
-  {
-    icon: FiThumbsUp,
-    label: "Recommend",
-    route: "/main/recommend",
-  },
-  {
-    icon: BiSmile,
-    label: "User",
-    route: "/main/mypage",
-  },
-  {
-    icon: IoIosSearch,
-    label: "Search",
-    route: "/main/search",
-  },
-  {
-    icon: IoMdNotificationsOutline,
-    label: "Notification",
-    route: "/main/notification",
-  },
-];
