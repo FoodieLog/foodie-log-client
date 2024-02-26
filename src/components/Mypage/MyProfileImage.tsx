@@ -1,15 +1,14 @@
 import Image from "next/image";
 import React from "react";
 import { ImageComponentProps } from "@@types/common";
-import photo_camera from "@assets/icons/common/photo_camera.png";
-import autorenew from "@assets/icons/common/autorenew.png";
+import { PhotoCamera, AutoreNew } from "@assets/icons";
 
 function MyProfileImage({ imageSrc, imageAlt, className }: ImageComponentProps) {
   if (!imageSrc) {
     return (
       <div className={`relative bg-gray-1 ${className}`}>
         <Image
-          src={photo_camera}
+          src={PhotoCamera}
           alt="카메라"
           width={32}
           height={32}
@@ -29,7 +28,7 @@ function MyProfileImage({ imageSrc, imageAlt, className }: ImageComponentProps) 
       />
       <div className="w-full h-full bg-gray-10 opacity-70 absolute top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2">
         <Image
-          src={autorenew}
+          src={AutoreNew}
           alt="수정"
           width={32}
           height={32}

@@ -18,7 +18,7 @@ import LocationOn from "@assets/icons/common/location_on.png";
 import LocationOn_2 from "@assets/icons/common/location_on-2.png";
 import LockReset from "@assets/icons/common/lock_reset.png";
 import MilitaryTech from "@assets/icons/common/military_tech.png";
-import Notifications from "@assets/icons/common/notifications-1.png";
+import Notifications from "@assets/icons/common/notifications.png";
 import Notifications_2 from "@assets/icons/common/notifications-2.png";
 import HeartWithCircle from "@assets/icons/common/HeartWithCircle.png";
 import OpenInNew from "@assets/icons/common/open_in_new.png";
@@ -27,6 +27,7 @@ import RestaurantIcon from "@assets/icons/common/restaurant.png";
 import SearchIcon from "@assets/icons/common/search.png";
 import Dissatisfied from "@assets/icons/common/dissatisfied.png";
 import SettingsIcon from "@assets/icons/common/settings.png";
+import AddIcon from "@assets/icons/common/add.png";
 
 //============ 아이콘 - GNB ============
 
@@ -72,6 +73,7 @@ export {
   SearchIcon,
   Dissatisfied,
   SettingsIcon,
+  AddIcon,
 
   //GNB
   Person,
