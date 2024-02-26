@@ -1,11 +1,13 @@
 "use client";
 import React, { useRef } from "react";
-import { AiFillCamera, AiFillCloseCircle } from "react-icons/ai";
+import { AiFillCloseCircle } from "react-icons/ai";
 import Image from "next/image";
 import usePostStore from "@store/usePostStore";
 import Button from "@components/Common/Button";
 import useSignUpStore from "@store/useSignUpStore";
 import Header from "@components/Common/Header";
+import { Input } from "@/components/ui/input";
+import PostFeedImage from "@components/PostForm/PostFeedImage";
 
 function PostImage() {
   const fileInput = useRef<HTMLInputElement>(null);
@@ -59,19 +61,12 @@ function PostImage() {
   };
 
   return (
-    <section className="w-full sm:max-w-[640px]  mx-auto">
+    <section className="w-full sm:max-w-[640px] mx-auto">
       <Header title="이미지 선택" type="arrow" back="preComponent" />
-      <div className=" mx-3">
-        <div className="flex justify-center mt-5 gap-2 flex-wrap">
-          <button
-            type="button"
-            onClick={clickPickImageHandler}
-            className="flex flex-col w-[70px] h-[70px] justify-center items-center text-center border border-black rounded-lg"
-          >
-            <AiFillCamera />
-            <p>{previews.length}/3</p>
-          </button>
-
+      <div className="px-5 py-[19px]">
+        {/* todo: 마진 수정 */}
+        <div className="mb-[418px]">
+          <PostFeedImage imageCount={previews.length} onClick={clickPickImageHandler} />
           <ul className="flex gap-2">
             {previews?.map((preview, i) => (
               <li
@@ -89,21 +84,19 @@ function PostImage() {
               </li>
             ))}
           </ul>
+          <Input
+            multiple
+            type="file"
+            ref={fileInput}
+            onChange={addImageHandler}
+            hidden
+            className="hidden"
+            accept="image/*,audio/*,video/mp4,video/x-m4v,application/pdf,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation,.csv"
+          />
         </div>
-
-        <input
-          multiple
-          type="file"
-          ref={fileInput}
-          onChange={addImageHandler}
-          hidden
-          accept="image/*,audio/*,video/mp4,video/x-m4v,application/pdf,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation,.csv"
-        />
-        <div className="mt-10">
-          <Button type="button" variant="primary" onClick={completeSelectHandler}>
-            선택 완료
-          </Button>
-        </div>
+        <Button type="button" variant="primary" onClick={completeSelectHandler}>
+          글 작성하기
+        </Button>
       </div>
     </section>
   );

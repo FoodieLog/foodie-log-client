@@ -41,3 +41,8 @@ export interface PostStore {
   setPreviews: (previews: string[]) => void;
   resetContent: () => void;
 }
+
+export interface PostFeedImageProps {
+  imageCount: number;
+  onClick: () => void;
+}
