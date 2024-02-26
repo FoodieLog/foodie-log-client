@@ -1,13 +1,9 @@
 import React from "react";
 import Image from "next/image";
 import imagesmode from "@assets/icons/common/imagesmode.png";
+import { ImageComponentProps } from "@@types/common";
 
-interface FeedThumbnailProps {
-  imageSrc: string;
-  imageAlt: string;
-}
-
-function FeedThumbnail({ imageSrc, imageAlt }: FeedThumbnailProps) {
+function FeedThumbnail({ imageSrc, imageAlt }: ImageComponentProps) {
   if (!imageSrc) {
     return (
       <div className="w-full h-full bg-gray-1 flex items-center justify-center">
