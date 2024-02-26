@@ -29,14 +29,14 @@ module.exports = {
         red: {
           DEFAULT: "#DE2E1F",
         },
-        indigo: {
-          DEFAULT: "#3B4555",
-        },
         gray: {
-          500: "#777777",
-          400: "#BABABA",
-          300: "#E9E9E9",
-          200: "#F4F4F4",
+          0: "#FFFFFF",
+          1: "#F4F4F4",
+          2: "#E9E9E9",
+          3: "#BABABA",
+          4: "#777777",
+          8: "#3B4555",
+          10: "#363232",
         },
         kakao: {
           DEFAULT: "#FEE500",
