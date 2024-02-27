@@ -145,9 +145,9 @@ function MyPageForm({ userId, option }: MyPageForm) {
           />
         </CustomModal>
       )}
-      <Header title={myProfile.nickName} type="left" back="prePage" option={option} />
+      <Header title={myProfile.nickName} back="prePage" option={option} />
       <main className="px-4 space-y-3">
-        <header className="flex items-center mt-5 mb-3 mx-3 justify-between shrink-0">
+        <div className="flex items-center mt-5 mb-3 mx-3 justify-between shrink-0">
           <div className="relative ml-3 w-[70px] h-[70px] shrink-0 rounded-full overflow-hidden cursor-pointer">
             <div className="absolute w-full h-full">
               <Image
@@ -177,13 +177,13 @@ function MyPageForm({ userId, option }: MyPageForm) {
               </button>
             </li>
           </ul>
-        </header>
+        </div>
         <div className="px-6">
           <p>{myProfile?.aboutMe}</p>
         </div>
         <div>
-          <Button type="button" variant={"primary"} onClick={onClickProfileEdit}>
-            {option === "타인" ? (myProfile.followed === true ? "언팔로우" : "팔로우") : "프로필 수정"}
+          <Button type="button" variant={myProfile.followed ? "secondary" : "primary"} onClick={onClickProfileEdit}>
+            {option === "타인" ? (myProfile.followed ? "팔로잉" : "팔로우") : "프로필 수정"}
           </Button>
         </div>
         <div className="flex justify-around w-full py-2 border">

@@ -60,7 +60,7 @@ function PostImage() {
 
   return (
     <section className="w-full sm:max-w-[640px] mx-auto">
-      <Header title="이미지 선택" type="arrow" back="preComponent" />
+      <Header title="이미지 선택" back="preComponent" />
       <div className="px-5 py-[19px]">
         <div>
           <PostImageList

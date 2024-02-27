@@ -38,7 +38,7 @@ function PostSearch() {
 
   return (
     <section className="w-full sm:max-w-[640px]  mx-auto">
-      <Header title="식당 검색" type="arrow" back="prePage" />
+      <Header title="식당 검색" back="prePage" />
       <div className="mt-3  mx-3">
         <form onSubmit={onSubmit} className="relative px-3">
           {/* todo: Input 컴포넌트 재사용 가능하면 수정 */}

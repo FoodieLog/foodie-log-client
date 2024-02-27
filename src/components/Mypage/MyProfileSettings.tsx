@@ -103,7 +103,7 @@ function MyProfileSettings() {
 
   return (
     <section className="sm:max-w-[640px] mx-auto">
-      <Haeder title="프로필 설정" type="arrow" back="prePage" />
+      <Haeder title="프로필 설정" back="prePage" />
       <form
         id="formElem"
         className="w-full p-10 h-4/5  flex flex-col space-y-10"

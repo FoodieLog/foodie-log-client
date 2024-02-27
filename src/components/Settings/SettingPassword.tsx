@@ -35,7 +35,7 @@ function SettingPassword() {
 
   return (
     <section className="w-full sm:max-w-[640px] mx-auto space-y-10">
-      <Header title="비밀번호 재설정" type="arrow" back="prePage" />
+      <Header title="비밀번호 재설정" back="prePage" />
       <div className="title">
         <form onSubmit={handleSubmit(onSubmit)} className="w-full flex flex-col gap-4 px-10">
           <label>
