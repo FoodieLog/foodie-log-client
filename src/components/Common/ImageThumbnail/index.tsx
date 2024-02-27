@@ -3,7 +3,7 @@ import Image from "next/image";
 import { ImagesMode } from "@assets/icons";
 import { ImageComponentProps } from "@@types/common";
 
-function FeedThumbnail({ imageSrc, imageAlt }: ImageComponentProps) {
+function ImageThumbnail({ imageSrc, imageAlt }: ImageComponentProps) {
   if (!imageSrc) {
     return (
       <div className="w-full h-full bg-gray-1 flex items-center justify-center">
@@ -14,4 +14,4 @@ function FeedThumbnail({ imageSrc, imageAlt }: ImageComponentProps) {
   return <Image src={imageSrc} alt={imageAlt} fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />;
 }
 
-export default FeedThumbnail;
+export default ImageThumbnail;

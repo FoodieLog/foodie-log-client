@@ -17,7 +17,7 @@ import Header from "@/src/components/Common/Header";
 import CustomModal from "@/src/components/Common/Dialog/CustomModal";
 import MyFriendList from "@/src/components/Mypage/MyFriendList";
 import { MyPageForm } from "@/src/types/mypage";
-import FeedThumbnail from "@components/Common/FeedThumbnail";
+import ImageThumbnail from "@components/Common/ImageThumbnail";
 
 function MyPageForm({ userId, option }: MyPageForm) {
   const [reload, setReload] = useState(false);
@@ -207,7 +207,7 @@ function MyPageForm({ userId, option }: MyPageForm) {
                         className="w-full h-full relative after:content-[''] after:block after:pb-[100%]  overflow-hidden"
                         style={{ paddingBottom: "100%" }}
                       >
-                        <FeedThumbnail
+                        <ImageThumbnail
                           imageSrc={thumbnail.feed.thumbnailUrl}
                           imageAlt={`${thumbnail.feed.feedId} 썸네일`}
                         />
