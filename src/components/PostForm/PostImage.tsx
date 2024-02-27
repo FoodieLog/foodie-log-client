@@ -1,13 +1,11 @@
 "use client";
 import React, { useRef } from "react";
-import { AiFillCloseCircle } from "react-icons/ai";
-import Image from "next/image";
 import usePostStore from "@store/usePostStore";
 import Button from "@components/Common/Button";
 import useSignUpStore from "@store/useSignUpStore";
 import Header from "@components/Common/Header";
 import { Input } from "@/components/ui/input";
-import PostFeedImage from "@components/PostForm/PostFeedImage";
+import PostImageList from "@components/PostForm/PostImageList";
 
 function PostImage() {
   const fileInput = useRef<HTMLInputElement>(null);
@@ -40,7 +38,7 @@ function PostImage() {
     setFiles(newImages);
   };
 
-  const deleteImagehandler = (e: React.MouseEvent, index: number) => {
+  const deleteImageHandler = (e: React.MouseEvent, index: number) => {
     e.preventDefault();
     const newImages = [...files];
     const newPreviews = [...previews];
@@ -64,26 +62,12 @@ function PostImage() {
     <section className="w-full sm:max-w-[640px] mx-auto">
       <Header title="이미지 선택" type="arrow" back="preComponent" />
       <div className="px-5 py-[19px]">
-        {/* todo: 마진 수정 */}
-        <div className="mb-[418px]">
-          <PostFeedImage imageCount={previews.length} onClick={clickPickImageHandler} />
-          <ul className="flex gap-2">
-            {previews?.map((preview, i) => (
-              <li
-                key={i}
-                className="relative w-[70px] h-[70px] flex flex-col  justify-center items-center text-center border border-black rounded-lg overflow-hidden"
-              >
-                <Image width={70} height={64} src={preview} alt={`이미지${i}`} className="object-cover" />
-                <button
-                  type="button"
-                  onClick={(e: React.MouseEvent) => deleteImagehandler(e, i)}
-                  className="absolute top-1 right-1"
-                >
-                  <AiFillCloseCircle />
-                </button>
-              </li>
-            ))}
-          </ul>
+        <div>
+          <PostImageList
+            imageCount={previews.length}
+            onClick={clickPickImageHandler}
+            deleteImageHandler={deleteImageHandler}
+          />
           <Input
             multiple
             type="file"

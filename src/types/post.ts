@@ -46,3 +46,13 @@ export interface PostFeedImageProps {
   imageCount: number;
   onClick: () => void;
 }
+
+export interface PostImageListProps extends PostFeedImageProps {
+  deleteImageHandler: (e: React.MouseEvent, index: number) => void;
+}
+
+export interface PostImageItemProps {
+  preview: string;
+  idx: number;
+  deleteImageHandler: (e: React.MouseEvent, index: number) => void;
+}

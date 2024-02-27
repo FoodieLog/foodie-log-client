@@ -6,7 +6,7 @@ import { PostFeedImageProps } from "@@types/post";
 const MAX_IMAGE_COUNT = 3;
 function PostFeedImage({ imageCount, onClick }: PostFeedImageProps) {
   return (
-    <div className="bg-gray-1 w-[105px] h-[105px] flex flex-col items-center">
+    <div className="bg-gray-1 w-[105px] h-[105px] flex flex-col items-center rounded-sm">
       <button
         type="button"
         className="w-10 h-10 mt-[18px] mb-2.5 rounded-full bg-gray-3 flex justify-center items-center"
