@@ -34,6 +34,7 @@ export interface DialogProps {
   type?: string;
   content?: string;
   removeDeletedFeed?: (feedId: number) => void;
+  className?: string;
 }
 
 export interface ImageComponentProps {
