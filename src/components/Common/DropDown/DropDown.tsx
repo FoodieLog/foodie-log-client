@@ -3,8 +3,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { BsThreeDotsVertical } from "react-icons/bs";
@@ -17,7 +15,7 @@ import { useToast } from "@/components/ui/use-toast";
 import useFeedStore from "@store/useFeedStore";
 import { DialogProps } from "@@types/common";
 
-function DropDown({ name, option, id = 0, type = "", content = "", className = "", removeDeletedFeed }: DialogProps) {
+function DropDown({ name, option, id = 0, type = "", content = "", className = "", removeHandler }: DialogProps) {
   const setNextComponent = useSignUpStore((state) => state.setNextComponent);
   const router = useRouter();
   const [showReportDialog, setShowReportDialog] = useState(false);
@@ -45,6 +43,11 @@ function DropDown({ name, option, id = 0, type = "", content = "", className = "
       break;
     case "본인댓글":
       items = ["삭제"];
+      onClickHandler = () => {
+        if (removeHandler) {
+          removeHandler();
+        }
+      };
       break;
     case "본인":
       items = ["수정", "삭제"];

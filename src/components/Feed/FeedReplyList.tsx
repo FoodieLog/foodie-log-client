@@ -2,16 +2,15 @@
 import Image from "next/image";
 import Link from "next/link";
 import dayjs from "dayjs";
-import DropDown from "@/src/components/Common/DropDown/DropDown";
 import { useState, useEffect } from "react";
-import { RiDeleteBin6Line } from "react-icons/ri";
 import { VscSend } from "react-icons/vsc";
-import { getTimeDiff } from "@/src/utils/date";
-import { getReplyList, saveReply, deleteReply } from "@/src/services/apiFeed";
-import { useUserStore } from "@/src/store/useUserStore";
-import { ReplyListProps } from "@/src/types/feed";
-import { APIReplyListResponse } from "@/src/types/reply";
+import { getTimeDiff } from "@utils/date";
+import { getReplyList, saveReply, deleteReply } from "@services/apiFeed";
+import { useUserStore } from "@store/useUserStore";
+import { ReplyListProps } from "@@types/feed";
+import { APIReplyListResponse } from "@@types/reply";
 import { useToast } from "@/components/ui/use-toast";
+import ReplyItem from "@components/Feed/ReplyItem";
 
 const FeedReplyList: React.FC<ReplyListProps> = ({ id: feedId }) => {
   const initialAuthorState: APIReplyListResponse["response"] = {
@@ -26,8 +25,6 @@ const FeedReplyList: React.FC<ReplyListProps> = ({ id: feedId }) => {
   const [replies, setReplies] = useState<APIReplyListResponse["response"]["replyList"]>([]);
   const [newReply, setNewReply] = useState<string>("");
   const [isAuthorExpanded, setIsAuthorExpanded] = useState<boolean>(false);
-  const [expandedReplies, setExpandedReplies] = useState<number[]>([]);
-  const nickName = useUserStore((state) => state.user.nickName);
   const id = useUserStore((state) => state.user.id);
   const { toast } = useToast();
 
@@ -115,89 +112,13 @@ const FeedReplyList: React.FC<ReplyListProps> = ({ id: feedId }) => {
             </div>
           </div>
         </div>
-
-        {replies.map((reply) => {
-          const timeDifference = getTimeDiff(dayjs(reply.createdAt));
-          return (
-            <div key={reply.id} className="flex items-center justify-between mb-4 hover:bg-slate-100">
-              <div className="flex items-center">
-                <Link
-                  href={author.userId === id ? `/main/mypage` : `/main/${author.userId}`}
-                  className="flex w-12 h-12 flex-shrink-0"
-                >
-                  {reply.profileImageUrl ? (
-                    <Image
-                      src={reply.profileImageUrl}
-                      alt="사용자 썸네일"
-                      width={48}
-                      height={48}
-                      className="border p-1 rounded-full cursor-pointer"
-                    />
-                  ) : (
-                    <Image
-                      src="/images/userImage.png"
-                      alt="사용자 썸네일"
-                      width={48}
-                      height={48}
-                      className="w-12 h-12 border p-1 rounded-full cursor-pointer"
-                    />
-                  )}
-                </Link>
-                <div className="ml-2">
-                  <div className="flex justify-start items-center gap-3">
-                    <Link
-                      href={author.userId === id ? `/main/mypage` : `/main/${author.userId}`}
-                      className="cursor-pointer"
-                    >
-                      <span className="font-bold">{reply.nickName}</span>
-                    </Link>
-                    <span className="text-xs text-gray-500">{timeDifference}</span>
-                  </div>
-                  <div className="">
-                    {reply.content.length > 60 && !expandedReplies.includes(reply.id) ? (
-                      <>
-                        {reply.content.substring(0, 60) + "... "}
-                        <button
-                          className="text-blue-500"
-                          onClick={() => setExpandedReplies((prev) => [...prev, reply.id])}
-                        >
-                          더보기
-                        </button>
-                      </>
-                    ) : (
-                      <>
-                        <p className="">{reply.content}</p>
-                        {expandedReplies.includes(reply.id) && (
-                          <button
-                            className="text-blue-500"
-                            onClick={() => setExpandedReplies((prev) => prev.filter((id) => id !== reply.id))}
-                          >
-                            접기
-                          </button>
-                        )}
-                      </>
-                    )}
-                  </div>
-                </div>
-              </div>
-              <div className="flex items-center">
-                {nickName === reply.nickName ? (
-                  <RiDeleteBin6Line
-                    className="text-xl ml-3 mr-4 cursor-pointer"
-                    onClick={() => deleteReplyHandler(reply.id)}
-                  />
-                ) : null}
-                <DropDown
-                  name={reply.nickName}
-                  option={reply.nickName === nickName ? "본인댓글" : "타인"}
-                  id={reply.id}
-                  type={"댓글"}
-                />
-                {/* <BsThreeDotsVertical className="text-xl mr-2" /> */}
-              </div>
-            </div>
-          );
-        })}
+        <ul>
+          {replies.map((reply) => {
+            return (
+              <ReplyItem key={reply.id} reply={reply} userId={author.userId} deleteReplyHandler={deleteReplyHandler} />
+            );
+          })}
+        </ul>
       </div>
       <form
         onSubmit={(e) => {

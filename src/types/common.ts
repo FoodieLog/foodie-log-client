@@ -33,7 +33,7 @@ export interface DialogProps {
   id?: number;
   type?: string;
   content?: string;
-  removeDeletedFeed?: (feedId: number) => void;
+  removeHandler?: () => void;
   className?: string;
 }
 
