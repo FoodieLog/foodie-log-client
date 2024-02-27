@@ -129,3 +129,18 @@ export interface Notification {
   isFollowed?: boolean;
   createdAt: string;
 }
+
+export type APIUserSearchResponse = {
+  status: number;
+  response: {
+    content: [
+      {
+        id: number;
+        nickName: string;
+        profileImageUrl: string | null;
+        aboutMe: string | null;
+      }
+    ];
+  };
+  error: any;
+};
