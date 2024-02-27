@@ -12,6 +12,9 @@
   h3 {
     @apply mt-3 text-lg font-semibold text-slate-900;
   }
+  input {
+    @apply outline-none;
+  }
 }
 
 @layer components {

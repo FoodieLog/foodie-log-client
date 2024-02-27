@@ -11,8 +11,8 @@ const nextConfig = {
     appDir: true,
   },
   images: {
-    // loader : "custom",
-    // loaderFile : "./my/image/loader.js"
+    // loader: "custom",
+    // loaderFile: "./my/image/loader.js",
     // unoptimized: true,
 
     domains: ["https://foodielog-bucket.s3.ap-northeast-2.amazonaws.com"],
