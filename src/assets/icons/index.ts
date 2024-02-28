@@ -26,6 +26,8 @@ import SearchIcon from "@assets/icons/common/search.svg";
 import Dissatisfied from "@assets/icons/common/dissatisfied.svg";
 import SettingsIcon from "@assets/icons/common/settings.svg";
 import Close from "@assets/icons/common/close.svg";
+import CloseSmall from "@assets/icons/common/close_small.svg";
+import AddIcon from "@assets/icons/common/add.svg";
 
 //============ 아이콘 - GNB ============
 
@@ -77,6 +79,8 @@ export {
   Dissatisfied,
   SettingsIcon,
   Close,
+  CloseSmall,
+  AddIcon,
 
   //GNB
   Person,
