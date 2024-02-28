@@ -1,29 +1,29 @@
 "use client";
 import React from "react";
 import Image from "next/image";
-import { TextLogo } from "@/public/images";
-import { IoIosSearch, IoMdNotificationsOutline } from "react-icons/io";
 import Link from "next/link";
-import useHideOnScroll from "../../hooks/useHideOnScroll";
+import useHideOnScroll from "@hooks/useHideOnScroll";
+import { SearchIcon, Notifications } from "@/src/assets/icons";
+import { TextLogo } from "@/public/images";
 
 const Topbar = () => {
   const isVisible = useHideOnScroll();
 
   return (
     <section
-      className={`z-20 flex w-full justify-between items-center bg-white max-w-[640px] px-4 pt-2 pb-2 
+      className={`z-20 flex w-full justify-between items-center bg-white max-w-[640px] pl-[20px] pr-[10px]
       sm:fixed sm:-top-2
     ${isVisible ? "fixed -top-1" : "fixed -top-16"} transition-top duration-300`}
     >
       <div>
         <Image src={TextLogo} alt="logo" className="w-[100px] h-9/12 sm:hidden cursor-pointer" />
       </div>
-      <div className="flex gap-x-2 text-3xl sm:hidden">
+      <div className="flex items-center sm:hidden">
         <Link href="/main/search">
-          <IoIosSearch className="cursor-pointer hover:text-coral mr-2" />
+          <SearchIcon />
         </Link>
         <Link href="/main/notification">
-          <IoMdNotificationsOutline className="cursor-pointer hover:text-coral mr-2" />
+          <Notifications />
         </Link>
       </div>
     </section>

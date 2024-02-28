@@ -1,33 +1,33 @@
 //============ 아이콘 - Common ============
-import CaretDown from "@assets/icons/common/CaretDown.png";
-import ChatCircleText from "@assets/icons/common/ChatCircleText.png";
-import CheckCircle from "@assets/icons/common/CheckCircle.png";
-import Heart from "@assets/icons/common/Heart.png";
-import HeartStraight_2 from "@assets/icons/common/HeartStraight-2.png";
-import HeartStraight from "@assets/icons/common/HeartStraight.png";
-import Phone_2 from "@assets/icons/common/Phone-2.png";
-import Phone from "@assets/icons/common/Phone.png";
-import ShareFat from "@assets/icons/common/ShareFat.png";
-import WarningCircle from "@assets/icons/common/WarningCircle.png";
-import ArrowBack_IOS from "@assets/icons/common/arrow_back_ios.png";
-import AutoreNew_2 from "@assets/icons/common/autorenew-2.png";
-import AutoreNew from "@assets/icons/common/autorenew.png";
-import Favorite from "@assets/icons/common/favorite.png";
-import ImagesMode from "@assets/icons/common/imagesmode.png";
-import LocationOn from "@assets/icons/common/location_on.png";
-import LocationOn_2 from "@assets/icons/common/location_on-2.png";
-import LockReset from "@assets/icons/common/lock_reset.png";
-import MilitaryTech from "@assets/icons/common/military_tech.png";
-import Notifications from "@assets/icons/common/notifications.png";
-import Notifications_2 from "@assets/icons/common/notifications-2.png";
-import HeartWithCircle from "@assets/icons/common/HeartWithCircle.png";
-import OpenInNew from "@assets/icons/common/open_in_new.png";
-import PhotoCamera from "@assets/icons/common/photo_camera.png";
-import RestaurantIcon from "@assets/icons/common/restaurant.png";
-import SearchIcon from "@assets/icons/common/search.png";
-import Dissatisfied from "@assets/icons/common/dissatisfied.png";
-import SettingsIcon from "@assets/icons/common/settings.png";
-import AddIcon from "@assets/icons/common/add.png";
+import CaretDown from "@assets/icons/common/CaretDown.svg";
+import ChatCircleText from "@assets/icons/common/ChatCircleText.svg";
+import CheckCircle from "@assets/icons/common/CheckCircle.svg";
+import Heart from "@assets/icons/common/Heart.svg";
+import FullHeartStraight from "@assets/icons/common/FullHeartStraight.svg";
+import HeartStraight from "@assets/icons/common/HeartStraight.svg";
+import Phone_2 from "@assets/icons/common/Phone2.svg";
+import Phone from "@assets/icons/common/Phone.svg";
+import ShareFat from "@assets/icons/common/ShareFat.svg";
+import WarningCircle from "@assets/icons/common/WarningCircle.svg";
+import ArrowBack_IOS from "@assets/icons/common/arrow_back_ios.svg";
+import AutoreNew from "@assets/icons/common/autorenew.svg";
+import Favorite from "@assets/icons/common/favorite.svg";
+import ImagesMode from "@assets/icons/common/imagesmode.svg";
+import LocationOn from "@assets/icons/common/location_on.svg";
+import LockReset from "@assets/icons/common/lock_reset.svg";
+import MilitaryTech from "@assets/icons/common/military_tech.svg";
+import Notifications from "@assets/icons/common/notifications.svg";
+import Notifications_2 from "@assets/icons/common/notifications2.svg";
+import HeartWithCircle from "@assets/icons/common/HeartWithCircle.svg";
+import OpenInNew from "@assets/icons/common/open_in_new.svg";
+import PhotoCamera from "@assets/icons/common/photo_camera.svg";
+import RestaurantIcon from "@assets/icons/common/restaurant.svg";
+import SearchIcon from "@assets/icons/common/search.svg";
+import Dissatisfied from "@assets/icons/common/dissatisfied.svg";
+import SettingsIcon from "@assets/icons/common/settings.svg";
+import Close from "@assets/icons/common/close.svg";
+import CloseSmall from "@assets/icons/common/close_small.svg";
+import AddIcon from "@assets/icons/common/add.svg";
 
 //============ 아이콘 - GNB ============
 
@@ -41,7 +41,14 @@ import MapIcon from "@assets/icons/gnb/map.png";
 import MapIconCheck from "@assets/icons/gnb/map_check.png";
 
 //============ 아이콘 - Tag ============
-// 추가 예정
+import Asian from "@assets/icons/tag/asian.svg";
+import Bar from "@assets/icons/tag/bar.svg";
+import Cafe from "@assets/icons/tag/cafe.svg";
+import Dessert from "@assets/icons/tag/dessert.svg";
+import Japanese from "@assets/icons/tag/japanese.svg";
+import Korean from "@assets/icons/tag/korean.svg";
+import Snack from "@assets/icons/tag/snack.svg";
+import Western from "@assets/icons/tag/western.svg";
 
 export {
   // Common
@@ -49,19 +56,17 @@ export {
   ChatCircleText,
   CheckCircle,
   Heart,
-  HeartStraight_2,
+  FullHeartStraight,
   HeartStraight,
   Phone_2,
   Phone,
   ShareFat,
   WarningCircle,
   ArrowBack_IOS,
-  AutoreNew_2,
   AutoreNew,
   Favorite,
   ImagesMode,
   LocationOn,
-  LocationOn_2,
   LockReset,
   MilitaryTech,
   Notifications,
@@ -73,6 +78,8 @@ export {
   SearchIcon,
   Dissatisfied,
   SettingsIcon,
+  Close,
+  CloseSmall,
   AddIcon,
 
   //GNB
@@ -84,4 +91,14 @@ export {
   ThumbUpCheck,
   MapIcon,
   MapIconCheck,
+
+  //Tag
+  Asian,
+  Bar,
+  Cafe,
+  Dessert,
+  Japanese,
+  Korean,
+  Snack,
+  Western,
 };

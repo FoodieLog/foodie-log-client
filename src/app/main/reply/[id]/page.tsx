@@ -1,4 +1,4 @@
-import BackButtonMain from "@/src/components/Common/Button/BackButtonMain";
+import Header from "@components/Common/Header";
 import FeedReplyList from "@/src/components/Feed/FeedReplyList";
 
 interface ReplyProps {
@@ -10,7 +10,7 @@ interface ReplyProps {
 const reply = ({ params: { id } }: ReplyProps) => {
   return (
     <div className="w-full flex flex-col justify-center max-w-screen-sm mx-auto">
-      <BackButtonMain />
+      <Header title="댓글" back="prePage" />
       <FeedReplyList id={id} />
     </div>
   );

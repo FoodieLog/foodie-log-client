@@ -11,10 +11,11 @@ import { getTimeDiff } from "@/src/utils/date";
 import { likeFeed, unlikeFeed } from "@/src/services/feed";
 import { useUserStore } from "@/src/store/useUserStore";
 import { useToast } from "@/components/ui/use-toast";
-import ShopCard from "@/src/components/Restaurant/ShopCard";
-import DropDown from "@/src/components/Common/DropDown/DropDown";
-import FeedImageSlide from "@/src/components/Feed/FeedImageSlide";
-import { FeedProps } from "@/src/types/feed";
+import { FeedProps } from "@@types/feed";
+import ShopCard from "@components/Restaurant/ShopCard";
+import DropDown from "@components/Common/DropDown/DropDown";
+import FeedImageSlide from "@components/Feed/FeedImageSlide";
+
 import { followButtonClass } from "@/src/styles/feedStyle";
 
 // React.FC 지양하기

@@ -52,7 +52,7 @@ function MyMap({ userId, header }: MyMap) {
 
   return (
     <section className="w-full sm:max-w-[640px] mx-auto">
-      <Header title={header === "내가 리뷰한 맛집" ? header : `${nickName}${header}`} type="arrow" back="prePage" />
+      <Header title={header === "내가 리뷰한 맛집" ? header : `${nickName}${header}`} back="prePage" />
       <div className="flex flex-col items-center">
         <MyListMap mapData={mapData} />
         <div className="w-full sm:max-w-[640px] overflow-y-auto max-h-[calc(100vh-55vh)]">

@@ -1,37 +1,16 @@
-import React from "react";
-import { LiaAngleLeftSolid } from "react-icons/lia";
-import { BsArrowLeftCircle } from "react-icons/bs";
-import useSignUpStore from "../../../store/useSignUpStore";
-import { useRouter } from "next/navigation";
-import DropDown from "../DropDown/DropDown";
+"use client";
+import DropDown from "@components/Common/DropDown/DropDown";
+import useSignUpStore from "@store/useSignUpStore";
 import usePostStore from "@/src/store/usePostStore";
+import { ArrowBack_IOS } from "@assets/icons";
+import { useRouter } from "next/navigation";
 import { HeaderProps } from "@/src/types/common";
 
-function Header({ title, type, back, option }: HeaderProps) {
+function Header({ title = "", back, option }: HeaderProps) {
   const router = useRouter();
   const setFiles = usePostStore((state) => state.setFiles);
-  let headerStyle;
-  let titleStyle;
-  let icon;
 
-  switch (type) {
-    case "left":
-      headerStyle = `relative`;
-      titleStyle = `ml-2`;
-      icon = `absolute right-5`;
-      break;
-    case "arrow":
-      headerStyle = `justify-between`;
-      titleStyle = ``;
-      icon = ``;
-      break;
-    default:
-      headerStyle = null;
-      titleStyle = ``;
-      icon = ``;
-  }
-
-  const onClickHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const clickBackBtnHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
     event.preventDefault();
     if (back === "preComponent") {
@@ -44,12 +23,12 @@ function Header({ title, type, back, option }: HeaderProps) {
   };
 
   return (
-    <header className={`grid grid-cols-3 max-sm:max-w-[640px] w-full px-5 pt-5 pb-1 items-center ${headerStyle}`}>
-      <button type="button" onClick={onClickHandler}>
-        <LiaAngleLeftSolid size="1.5rem" />
+    <header className={`grid grid-cols-3 max-sm:max-w-[640px] w-full h-[56px] items-center justify-between`}>
+      <button type="button" onClick={clickBackBtnHandler} className="">
+        <ArrowBack_IOS />
       </button>
-      <h4 className={`${titleStyle} whitespace-nowrap min-w-[min-content] font-medium justify-self-center`}>{title}</h4>
-      <div className={`${icon} justify-self-end mt-5`}>
+      <h4 className={`whitespace-nowrap min-w-[min-content] font-medium justify-self-center`}>{title}</h4>
+      <div className={`flex items-center justify-self-end mr-[14px]`}>
         {option ? <DropDown name={title} option={option} className="w-full" /> : null}
       </div>
     </header>

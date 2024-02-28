@@ -1,5 +1,5 @@
 "use client";
-import BackButtonMain from "@/src/components/Common/Button/BackButtonMain";
+import Header from "@components/Common/Header";
 import Feeds from "@/src/components/Feed/Feeds";
 import { useSearchParams } from "next/navigation";
 
@@ -19,7 +19,7 @@ const UserSingleFeed = () => {
 
   return (
     <div className="w-full max-w-[640px] mx-auto">
-      <BackButtonMain />
+      <Header title="피드" back="prePage" />
       <Feeds singleFeedId={singleFeedId} />
     </div>
   );

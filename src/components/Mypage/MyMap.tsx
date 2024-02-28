@@ -39,7 +39,7 @@ function MyMap({ userId }: MyMapProps) {
 
   return (
     <section className="w-full sm:max-w-[640px] mx-auto">
-      <Header title="나의 맛집 리스트" type="arrow" back="prePage" />
+      <Header title="나의 맛집 리스트" back="prePage" />
       <div className="flex flex-col items-center">
         <MyListMap mapData={mapData} />
         <div className="w-full sm:max-w-[640px] ">

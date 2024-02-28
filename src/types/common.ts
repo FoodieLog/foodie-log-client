@@ -1,9 +1,16 @@
 export interface HeaderProps {
   title: string;
-  type: string;
   back: "preComponent" | "prePage";
   option?: string;
 }
+
+export type ButtonProps = {
+  type: "button" | "submit" | "reset" | undefined;
+  variant?: "primary" | "secondary" | "text";
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  disabled?: boolean;
+  children: React.ReactNode;
+};
 
 export interface ModalProps {
   children: React.ReactNode;

@@ -1,11 +1,8 @@
 "use client";
-import { useRouter, usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import BackButtonMain from "@components/Common/Button/BackButtonMain";
+import Header from "@components/Common/Header";
 import KakaoMap from "@components/Map/KakaoMap";
 import ShopCard from "@components/Restaurant/ShopCard";
-import Feeds from "@components/Feed/Feeds";
-import { generateRestaurantDetailDummyData } from "@utils/dummyDataUtils";
 import { getRestaurantDetail } from "@services/restaurant";
 import Feed from "@components/Feed/Feed";
 interface RestaurantDetailProps {
@@ -51,7 +48,7 @@ const RestaurantDetail = ({ Id }: RestaurantDetailProps) => {
 
   return (
     <div className="w-full flex flex-col justify-center max-w-screen-sm mx-auto">
-      <BackButtonMain />
+      <Header title={restaurantDetail.restaurant.name} back="prePage" />
       <KakaoMap
         latitude={restaurantDetail.restaurant.mapY}
         longitude={restaurantDetail.restaurant.mapX}

@@ -1,3 +1,4 @@
+"use client";
 import { useState } from "react";
 import {
   DropdownMenu,
@@ -81,7 +82,7 @@ function DropDown({ name, option, id = 0, type = "", content = "", className = "
     <>
       <DropdownMenu>
         <DropdownMenuTrigger>
-          <BsThreeDotsVertical size="1rem" />
+          <BsThreeDotsVertical />
         </DropdownMenuTrigger>
         <DropdownMenuContent
           className={`w-[81px] bg-gray-0 border border-gray-2  rounded-[5px] flex flex-col justify-between items-center ${className}`}

@@ -54,7 +54,7 @@ function MySettings() {
       <div className="flex flex-col w-screen max-w-md flex-auto overflow-hidden rounded-3xl bg-white text-sm leading-6 shadow-lg ring-1 ring-gray-900/5">
         <div className="divide-y">
           <div className=" flex flex-col items-center justify-center space-y-5 mb-5">
-            <Header title="설정 및 개인정보" type="arrow" back="prePage" />{" "}
+            <Header title="설정 및 개인정보" back="prePage" />{" "}
             {isClient && <h5 className="pl-5 text-lg font-medium text-gray-900 dark:text-white">{nickName}</h5>}
           </div>
 
