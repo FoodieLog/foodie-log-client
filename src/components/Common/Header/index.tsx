@@ -29,7 +29,7 @@ function Header({ title = "", back, option }: HeaderProps) {
       </button>
       <h4 className={`whitespace-nowrap min-w-[min-content] font-medium justify-self-center`}>{title}</h4>
       <div className={`flex items-center justify-self-end mr-[14px]`}>
-        {option ? <DropDown name={title} option={option} /> : null}
+        {option ? <DropDown name={title} option={option} className="w-full" /> : null}
       </div>
     </header>
   );
