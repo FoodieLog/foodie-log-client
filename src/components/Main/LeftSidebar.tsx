@@ -1,15 +1,14 @@
 "use client";
 import React from "react";
-import { sidebarLinks } from "../../constants";
+import { globalNavigation } from "@constants";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { FoodieLogoTP, FoodieLogo } from "@/public/images";
 import Image from "next/image";
 import { TbLogout2 } from "react-icons/tb";
-import useLogout from "@/src/hooks/useLogout";
+import useLogout from "@hooks/useLogout";
 
 const BottomSideBar = () => {
-  const router = useRouter();
   const pathname = usePathname();
   const { logout } = useLogout();
   return (
@@ -17,15 +16,14 @@ const BottomSideBar = () => {
       <div className="flex w-full flex-1 flex-col items-center gap-12 px-6 mt-6">
         <Image src={FoodieLogoTP} alt="logo" className="w-[100px] h-auto max-lg:hidden" />
         <Image src={FoodieLogo} alt="logo" className="w-[70px] h-[70px] lg:hidden ml-2" />
-        {sidebarLinks.map((link) => {
-          const isActive = (pathname.includes(link.route) && link.route.length > 1) || pathname === link.route;
-          const IconComponent = link.icon;
+        {globalNavigation.map((link) => {
+          const isActive = link.route && pathname.includes(link.route);
           return (
-            <Link href={link.route} key={link.route} className={`py-2 ${isActive && "text-sunflower-sat"}`}>
-              <div className="flex items-center">
-                <IconComponent className="text-xl mx-2" />
-                <p className="ml-2 mr-2 max-lg:hidden">{link.label}</p>
-              </div>
+            <Link href={link.route} key={link.route} className="flex items-center">
+              <Image src={isActive ? link.icon_checked : link.icon} alt={link.route} />
+              <p className={`font-semibold mx-2 max-lg:hidden ${isActive ? "text-red" : "text-gray-3"}`}>
+                {link.label}
+              </p>
             </Link>
           );
         })}

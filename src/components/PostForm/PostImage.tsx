@@ -1,11 +1,11 @@
 "use client";
 import React, { useRef } from "react";
-import { AiFillCamera, AiFillCloseCircle } from "react-icons/ai";
-import Image from "next/image";
 import usePostStore from "@store/usePostStore";
 import Button from "@components/Common/Button";
 import useSignUpStore from "@store/useSignUpStore";
 import Header from "@components/Common/Header";
+import { Input } from "@/components/ui/input";
+import PostImageList from "@components/PostForm/PostImageList";
 
 function PostImage() {
   const fileInput = useRef<HTMLInputElement>(null);
@@ -38,7 +38,7 @@ function PostImage() {
     setFiles(newImages);
   };
 
-  const deleteImagehandler = (e: React.MouseEvent, index: number) => {
+  const deleteImageHandler = (e: React.MouseEvent, index: number) => {
     e.preventDefault();
     const newImages = [...files];
     const newPreviews = [...previews];
@@ -59,51 +59,28 @@ function PostImage() {
   };
 
   return (
-    <section className="w-full sm:max-w-[640px]  mx-auto">
+    <section className="w-full sm:max-w-[640px] mx-auto">
       <Header title="이미지 선택" type="arrow" back="preComponent" />
-      <div className=" mx-3">
-        <div className="flex justify-center mt-5 gap-2 flex-wrap">
-          <button
-            type="button"
+      <div className="px-5 py-[19px]">
+        <div>
+          <PostImageList
+            imageCount={previews.length}
             onClick={clickPickImageHandler}
-            className="flex flex-col w-[70px] h-[70px] justify-center items-center text-center border border-black rounded-lg"
-          >
-            <AiFillCamera />
-            <p>{previews.length}/3</p>
-          </button>
-
-          <ul className="flex gap-2">
-            {previews?.map((preview, i) => (
-              <li
-                key={i}
-                className="relative w-[70px] h-[70px] flex flex-col  justify-center items-center text-center border border-black rounded-lg overflow-hidden"
-              >
-                <Image width={70} height={64} src={preview} alt={`이미지${i}`} className="object-cover" />
-                <button
-                  type="button"
-                  onClick={(e: React.MouseEvent) => deleteImagehandler(e, i)}
-                  className="absolute top-1 right-1"
-                >
-                  <AiFillCloseCircle />
-                </button>
-              </li>
-            ))}
-          </ul>
+            deleteImageHandler={deleteImageHandler}
+          />
+          <Input
+            multiple
+            type="file"
+            ref={fileInput}
+            onChange={addImageHandler}
+            hidden
+            className="hidden"
+            accept="image/*,audio/*,video/mp4,video/x-m4v,application/pdf,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation,.csv"
+          />
         </div>
-
-        <input
-          multiple
-          type="file"
-          ref={fileInput}
-          onChange={addImageHandler}
-          hidden
-          accept="image/*,audio/*,video/mp4,video/x-m4v,application/pdf,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation,.csv"
-        />
-        <div className="mt-10">
-          <Button type="button" variant="primary" onClick={completeSelectHandler}>
-            선택 완료
-          </Button>
-        </div>
+        <Button type="button" variant="primary" onClick={completeSelectHandler}>
+          글 작성하기
+        </Button>
       </div>
     </section>
   );

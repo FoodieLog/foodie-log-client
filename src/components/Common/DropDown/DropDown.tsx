@@ -3,21 +3,19 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { useRouter } from "next/navigation";
-import useSignUpStore from "@/src/store/useSignUpStore";
-import DialogReport from "@/src/components/Common/Dialog/DialogReport";
-import DialogConfirm from "@/src/components/Common/Dialog/DialogConfirm";
-import { deleteFeed } from "@/src/services/apiFeed";
+import useSignUpStore from "@store/useSignUpStore";
+import DialogReport from "@components/Common/Dialog/DialogReport";
+import DialogConfirm from "@components/Common/Dialog/DialogConfirm";
+import { deleteFeed } from "@services/apiFeed";
 import { useToast } from "@/components/ui/use-toast";
-import useFeedStore from "@/src/store/useFeedStore";
-import { DialogProps } from "@/src/types/common";
+import useFeedStore from "@store/useFeedStore";
+import { DialogProps } from "@@types/common";
 
-function DropDown({ name, option, id = 0, type = "", content = "", removeDeletedFeed }: DialogProps) {
+function DropDown({ name, option, id = 0, type = "", content = "", className = "", removeHandler }: DialogProps) {
   const setNextComponent = useSignUpStore((state) => state.setNextComponent);
   const router = useRouter();
   const [showReportDialog, setShowReportDialog] = useState(false);
@@ -44,7 +42,12 @@ function DropDown({ name, option, id = 0, type = "", content = "", removeDeleted
       };
       break;
     case "본인댓글":
-      items = [];
+      items = ["삭제"];
+      onClickHandler = () => {
+        if (removeHandler) {
+          removeHandler();
+        }
+      };
       break;
     case "본인":
       items = ["수정", "삭제"];
@@ -80,14 +83,16 @@ function DropDown({ name, option, id = 0, type = "", content = "", removeDeleted
         <DropdownMenuTrigger>
           <BsThreeDotsVertical size="1rem" />
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="bg-white">
-          <DropdownMenuLabel>{name}</DropdownMenuLabel>
-          <DropdownMenuSeparator className="bg-gray-100" />
+        <DropdownMenuContent
+          className={`w-[81px] bg-gray-0 border border-gray-2  rounded-[5px] flex flex-col justify-between items-center ${className}`}
+        >
           {items?.map((item, i) => (
             <DropdownMenuItem
-              key={i}
+              key={item}
               onClick={onClickHandler ? onClickHandler : i === 0 ? onClickEdit : onClickDelete}
-              className="cursor-pointer"
+              className={`w-[71px] h-[39px] cursor-pointer text-base font-normal flex justify-center ${className} ${
+                i !== items.length - 1 && "border-b"
+              }`}
             >
               {item}
             </DropdownMenuItem>

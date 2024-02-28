@@ -104,7 +104,6 @@ const Feed: React.FC<FeedProps> = ({
             id={feed.feedId}
             type={"게시글"}
             content={feed.content}
-            removeDeletedFeed={removeDeletedFeed}
           />
         </div>
       </div>

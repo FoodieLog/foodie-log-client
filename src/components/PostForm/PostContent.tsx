@@ -9,6 +9,7 @@ import PostSearch from "@components/PostForm/PostSearch";
 import FeedImageSlide from "@components/Feed/FeedImageSlide";
 import Header from "@components/Common/Header";
 import { useToast } from "@/components/ui/use-toast";
+import TextArea from "@components/Common/TextArea";
 
 function PostContent() {
   const router = useRouter();
@@ -72,10 +73,12 @@ function PostContent() {
           <input type="checkbox" className="w-4 h-4" checked={isChecked} onChange={changeCheckboxHandler} />
           <span>나의 맛집 리스트에 추가</span>
         </label>
-        <textarea
+        <TextArea
+          value={text}
           onChange={changeTextHandler}
-          className="w-full h-[130px] p-3 border rounded-lg border-gray-400 resize-none focus:outline-none"
-          placeholder="문구 입력"
+          placeholder="나의 맛집기록을 남겨봐요!"
+          maxLength={300}
+          className="bg-gray-1 p-2.5 placeholder:text-gray-4 rounded-sm"
         />
         <div className="mt-5">
           <Button type="button" variant="primary" onClick={registerFeedHandler}>

@@ -2,13 +2,15 @@
 import { useRef, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import Button from "@/src/components/Common/Button";
-import Haeder from "@/src/components/Common/Header";
+import Button from "@components/Common/Button";
+import Haeder from "@components/Common/Header";
 import { MdAddPhotoAlternate } from "react-icons/md";
-import { getMyProfile } from "@/src/services/mypage";
-import { profileSetting } from "@/src/services/kakao";
-import { useUserStore } from "@/src/store/useUserStore";
+import { getMyProfile } from "@services/mypage";
+import { profileSetting } from "@services/kakao";
+import { useUserStore } from "@store/useUserStore";
 import { useToast } from "@/components/ui/use-toast";
+import { Input } from "@/components/ui/input";
+import MyProfileImage from "@components/Mypage/MyProfileImage";
 
 function MyProfileSettings() {
   const [profile, setProfile] = useState({
@@ -110,27 +112,19 @@ function MyProfileSettings() {
       >
         <div className=" flex flex-col items-center justify-center ">
           <div className="relative">
-            <div
-              onClick={pickImageHandler}
-              className="flex justify-center items-center w-[200px] h-[200px] rounded-full overflow-hidden cursor-pointer"
-            >
-              <Image
-                src={previewImage || "/images/userImage.png"}
-                alt="프로필 사진"
-                width={200}
-                height={200}
-                className="object-cover"
+            <div onClick={pickImageHandler} className="w-[110px] h-[110px] rounded-full overflow-hidden cursor-pointer">
+              <MyProfileImage
+                imageSrc={previewImage}
+                imageAlt={`${user.nickName} 프로필 사진`}
+                className="w-[110px] h-[110px] rounded-full"
               />
-              <input
+              <Input
                 type="file"
                 ref={fileInput}
                 onChange={ProfileChangehandler}
-                hidden
+                className="hidden"
                 accept="image/*,audio/*,video/mp4,video/x-m4v,application/pdf,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation,.csv"
               />
-            </div>
-            <div onClick={pickImageHandler} className="absolute bottom-5 right-0 cursor-pointer">
-              <MdAddPhotoAlternate size="2.5rem" className="text-gray-400" />
             </div>
           </div>
         </div>

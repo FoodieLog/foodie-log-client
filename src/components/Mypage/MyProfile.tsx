@@ -17,6 +17,7 @@ import Header from "@/src/components/Common/Header";
 import CustomModal from "@/src/components/Common/Dialog/CustomModal";
 import MyFriendList from "@/src/components/Mypage/MyFriendList";
 import { MyPageForm } from "@/src/types/mypage";
+import ImageThumbnail from "@components/Common/ImageThumbnail";
 
 function MyPageForm({ userId, option }: MyPageForm) {
   const [reload, setReload] = useState(false);
@@ -200,25 +201,15 @@ function MyPageForm({ userId, option }: MyPageForm) {
                 // page에 대한 key 추가
                 <React.Fragment key={index}>
                   {page?.content?.map((thumbnail: any) => (
-                    <li key={thumbnail.feed.feedId} className="">
+                    <li key={thumbnail.feed.feedId}>
                       <Link
                         href={`/main/feed/${userId}?feedId=${thumbnail.feed.feedId}`}
                         className="w-full h-full relative after:content-[''] after:block after:pb-[100%]  overflow-hidden"
                         style={{ paddingBottom: "100%" }}
                       >
-                        <Image
-                          fill
-                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                          src={thumbnail.feed.thumbnailUrl}
-                          alt={`썸네일${thumbnail.feed.feedId}`}
-                          style={{
-                            position: "absolute",
-                            top: 0,
-                            left: 0,
-                            width: "100%",
-                            height: "100%",
-                            objectFit: "cover",
-                          }}
+                        <ImageThumbnail
+                          imageSrc={thumbnail.feed.thumbnailUrl}
+                          imageAlt={`${thumbnail.feed.feedId} 썸네일`}
                         />
                       </Link>
                     </li>

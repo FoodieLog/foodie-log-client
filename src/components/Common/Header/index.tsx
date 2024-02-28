@@ -49,7 +49,9 @@ function Header({ title, type, back, option }: HeaderProps) {
         <LiaAngleLeftSolid size="1.5rem" />
       </button>
       <h4 className={`${titleStyle} whitespace-nowrap min-w-[min-content] font-medium justify-self-center`}>{title}</h4>
-      <div className={`${icon} justify-self-end mt-5`}>{option ? <DropDown name={title} option={option} /> : null}</div>
+      <div className={`${icon} justify-self-end mt-5`}>
+        {option ? <DropDown name={title} option={option} className="w-full" /> : null}
+      </div>
     </header>
   );
 }
