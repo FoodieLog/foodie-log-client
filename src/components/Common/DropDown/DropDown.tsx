@@ -57,13 +57,13 @@ function DropDown({ name, option, id = 0, type = "", content = "", className = "
       items = [];
   }
 
-  const clickEditHandler = async (e: React.MouseEvent) => {
+  const onClickEdit = async (e: React.MouseEvent) => {
     e.preventDefault();
     setNextComponent("EditModal");
     setFeed({ id, content });
   };
 
-  const clickDeleteHandler = async () => {
+  const onClickDelete = async () => {
     setShowConfirmDialog(true);
   };
 
