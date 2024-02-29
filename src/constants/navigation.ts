@@ -10,6 +10,7 @@ import {
 } from "@assets/icons";
 import { NavItemType } from "@@types/navigation";
 
+export const showGNBRouteList = ["/main/home", "/main/recommend", "/main/mypage"];
 export const globalNavigation: NavItemType[] = [
   {
     icon: SpaceDashboard,
