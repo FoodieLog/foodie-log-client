@@ -8,8 +8,10 @@ import { useToast } from "@/components/ui/use-toast";
 import { TOAST_MESSAGES } from "@/src/constants/toast";
 
 function SignUpCode() {
-  const setNextComponent = useSignUpStore((state) => state.setNextComponent);
-  const email = useSignUpStore((state) => state.user.email);
+  const {
+    setNextComponent,
+    user: { email },
+  } = useSignUpStore();
   const [isLoading, setIsLoading] = useState(false);
   const [codeData, setCodeData] = useState({
     firstCode: "",

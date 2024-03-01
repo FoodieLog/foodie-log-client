@@ -24,8 +24,7 @@ function SignUpProfile() {
   const params = useSearchParams();
   const code = params.get("code");
   const router = useRouter();
-  const user = useSignUpStore((state) => state.user);
-  const clearUser = useSignUpStore((state) => state.clearUser);
+  const { user, clearUser } = useSignUpStore();
   const fileInput = useRef<HTMLInputElement>(null);
   const kakaoToken = localStorage.getItem("kakaoToken");
   const { toast } = useToast();

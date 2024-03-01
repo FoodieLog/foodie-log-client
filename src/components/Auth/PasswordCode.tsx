@@ -13,6 +13,9 @@ function FindPassword() {
   const [isLoading, setIsLoading] = useState(false);
   const [showCodeInput, setShowCodeInput] = useState(false);
   const [focusedIndex, setFocusedIndex] = useState(0);
+  const { toast } = useToast();
+  const { nextComponent, setNextComponent } = useSignUpStore();
+  const { EMAIL_CODE_SEND_FAILURE, EMAIL_AUTH_FAILURE } = TOAST_MESSAGES;
   const [codeData, setCodeData] = useState({
     email: "",
     firstCode: "",
@@ -27,11 +30,6 @@ function FindPassword() {
     useRef(null),
     useRef(null),
   ];
-  const { toast } = useToast();
-  const { EMAIL_CODE_SEND_FAILURE, EMAIL_AUTH_FAILURE } = TOAST_MESSAGES;
-
-  const nextComponent = useSignUpStore((state) => state.nextComponent);
-  const setNextComponent = useSignUpStore((state) => state.setNextComponent);
 
   const sendPasswordCodeHandler = async (e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
