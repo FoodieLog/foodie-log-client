@@ -32,22 +32,28 @@ function SignUpCode() {
 
   const ResendClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
     setIsLoading(true);
-    await sendEmailCode(email)
-      .then(() => toast(EMAIL_CODE_SEND_SUCCESS))
-      .catch(() => toast(EMAIL_CODE_SEND_FAILURE))
-      .finally(() => setIsLoading(false));
+    try {
+      await sendEmailCode(email);
+      toast(EMAIL_CODE_SEND_SUCCESS);
+    } catch (err) {
+      toast(EMAIL_CODE_SEND_FAILURE);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const NextClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setIsLoading(true);
     const code = codeData.firstCode + codeData.secondCode + codeData.thirdCode + codeData.fourthCode;
-    await getVerificationEmail(email, code)
-      .then(() => {
-        setNextComponent("SignUpTerms");
-      })
-      .catch(() => toast(EMAIL_CODE_AUTH_FAILURE));
-    setIsLoading(false);
+    try {
+      await getVerificationEmail(email, code);
+      setNextComponent("SignUpTerms");
+    } catch (err) {
+      toast(EMAIL_CODE_AUTH_FAILURE);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {

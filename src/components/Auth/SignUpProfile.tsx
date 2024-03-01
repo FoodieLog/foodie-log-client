@@ -34,36 +34,42 @@ function SignUpProfile() {
   const SignUpSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
-    if (availableEmail !== 200) {
-      toast(NICKNAME_ERROR);
+
+    try {
+      if (availableEmail !== 200) {
+        toast(NICKNAME_ERROR);
+      }
+
+      const formData = new FormData();
+
+      const userData = {
+        email: user.email,
+        password: user.password,
+        nickName: profile.nickName,
+        aboutMe: profile.aboutMe,
+      };
+
+      const blob = new Blob([JSON.stringify(userData)], { type: "application/json" });
+      formData.append("content", blob);
+      formData.append("file", profileImage as File);
+
+      await signUp(formData);
+
+      router.replace("/accounts/login");
+      toast(SIGNUP_SUCCESS);
+
+      clearUser();
+      setProfile({
+        nickName: "",
+        aboutMe: "",
+      });
+      setPreviewImage("/images/userImage.png");
+      setProfileImage(undefined);
+    } catch (err) {
+      toast(SIGNUP_FAILURE);
+    } finally {
+      setIsLoading(false);
     }
-    const formData = new FormData();
-
-    const userData = {
-      email: user.email,
-      password: user.password,
-      nickName: profile.nickName,
-      aboutMe: profile.aboutMe,
-    };
-
-    const blob = new Blob([JSON.stringify(userData)], { type: "application/json" });
-    formData.append("content", blob);
-    formData.append("file", profileImage as File);
-
-    await signUp(formData)
-      .then((res) => {
-        router.replace("/accounts/login");
-        toast(SIGNUP_SUCCESS);
-        clearUser();
-        setProfile({
-          nickName: "",
-          aboutMe: "",
-        });
-        setPreviewImage("/images/userImage.png");
-        setProfileImage(undefined);
-      })
-      .catch((err) => toast(SIGNUP_FAILURE));
-    setIsLoading(false);
   };
 
   // 카카오 로그인 시 프로필 설정 api
