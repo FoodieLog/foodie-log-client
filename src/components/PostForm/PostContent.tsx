@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { postFeed } from "@services/post";
-import usePostStore from "@store/usePostStore";
+import usePostStore, { initialContent } from "@store/usePostStore";
 import { useRouter } from "next/navigation";
 import Button from "@components/Common/Button";
 import useSignUpStore from "@store/useSignUpStore";
@@ -10,12 +10,17 @@ import Header from "@components/Common/Header";
 import { useToast } from "@/components/ui/use-toast";
 import TextArea from "@components/Common/TextArea";
 import PostContentShopItem from "@components/PostForm/PostContentShopItem";
+import useFeedStore from "@store/useFeedStore";
+import { getSingleFeed, updateFeed } from "@services/feed";
 
 function PostContent() {
   const router = useRouter();
   const [isChecked, setIsChecked] = useState(false);
   const [text, setText] = useState("");
-  const { content, files, previews, resetContent } = usePostStore();
+  const { content, files, previews, setContent, setPreviews, resetContent } = usePostStore();
+  const {
+    feed: { id: feedId },
+  } = useFeedStore();
   const { nextComponent, setNextComponent } = useSignUpStore();
   const { toast } = useToast();
 
@@ -45,6 +50,17 @@ function PostContent() {
     }
   };
 
+  const editFeedHandler = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    try {
+      await updateFeed(feedId, text);
+      router.replace(`/main/feed/530?feedId=${feedId}`);
+      toast({ description: "게시글 수정되었습니다!" });
+    } catch (err) {
+      toast({ description: "게시글 수정에 오류 발생하였습니다!" });
+    }
+  };
+
   const changeTextHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setText(e.target.value);
   };
@@ -58,6 +74,32 @@ function PostContent() {
       imageUrl: item,
     };
   });
+
+  const getFeedById = async (feedId: number) => {
+    const response = await getSingleFeed(feedId);
+    const {
+      feed,
+      restaurant: { id, category, name, roadAddress },
+    } = await response.data.response.content;
+    const feedImages = feed.feedImages.map(({ imageUrl }: { imageUrl: string }) => imageUrl);
+
+    const newContent = {
+      ...initialContent,
+      id,
+      place_name: name,
+      category_name: category,
+      road_address_name: roadAddress,
+    };
+    setText(feed.content);
+    setPreviews(feedImages);
+    setContent(newContent);
+  };
+
+  useEffect(() => {
+    if (feedId) {
+      getFeedById(feedId);
+    }
+  }, [feedId]);
 
   if (nextComponent === "PostSearch") {
     return <PostSearch />;
@@ -85,7 +127,7 @@ function PostContent() {
           />
           <span>나의 맛집 좋아요 리스트에 추가</span>
         </label>
-        <Button type="button" variant="primary" onClick={registerFeedHandler}>
+        <Button type="button" variant="primary" onClick={feedId ? editFeedHandler : registerFeedHandler}>
           업로드
         </Button>
       </div>
