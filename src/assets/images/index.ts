@@ -9,4 +9,20 @@ import korean from "@assets/images/restaurants/korean.png";
 import snack from "@assets/images/restaurants/snack.png";
 import western from "@assets/images/restaurants/western.png";
 
-export { asian, bar, cafe, dessert, japanese, korean, snack, western };
+//============ 이미지 - basic ============
+import BasicThumbnail from "@assets/images/basic/basic_thumb.svg";
+
+export {
+  //restaurant
+  asian,
+  bar,
+  cafe,
+  dessert,
+  japanese,
+  korean,
+  snack,
+  western,
+
+  //basic
+  BasicThumbnail,
+};

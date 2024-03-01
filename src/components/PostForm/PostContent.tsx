@@ -3,13 +3,13 @@ import { postFeed } from "@services/post";
 import usePostStore from "@store/usePostStore";
 import { useRouter } from "next/navigation";
 import Button from "@components/Common/Button";
-import PostShopItem from "@components/PostForm/PostShopItem";
 import useSignUpStore from "@store/useSignUpStore";
 import PostSearch from "@components/PostForm/PostSearch";
 import FeedImageSlide from "@components/Feed/FeedImageSlide";
 import Header from "@components/Common/Header";
 import { useToast } from "@/components/ui/use-toast";
 import TextArea from "@components/Common/TextArea";
+import PostContentShopItem from "@components/PostForm/PostContentShopItem";
 
 function PostContent() {
   const router = useRouter();
@@ -64,27 +64,30 @@ function PostContent() {
   }
 
   return (
-    <section className="w-full sm:max-w-[640px] mx-auto">
+    <section className="w-full sm:max-w-[640px] mx-auto mb-[10px]">
       <Header title="게시글 등록" back="preComponent" />
-      <div className="px-3 mt-5">
+      <div className="px-5 mt-5">
         <FeedImageSlide images={images} />
-        <PostShopItem type="selected" item={content} />
-        <label className="my-5 ml-3 flex items-center gap-x-3 text-lg">
-          <input type="checkbox" className="w-4 h-4" checked={isChecked} onChange={changeCheckboxHandler} />
-          <span>나의 맛집 리스트에 추가</span>
-        </label>
+        <PostContentShopItem />
         <TextArea
           value={text}
           onChange={changeTextHandler}
           placeholder="나의 맛집기록을 남겨봐요!"
           maxLength={300}
-          className="bg-gray-1 p-2.5 placeholder:text-gray-4 rounded-sm"
+          className="p-2.5 placeholder:text-gray-4 border border-gray-2 rounded-lg"
         />
-        <div className="mt-5">
-          <Button type="button" variant="primary" onClick={registerFeedHandler}>
-            게시글 등록
-          </Button>
-        </div>
+        <label className="flex items-center gap-x-2 text-base font-medium text-gray-4 mt-3 mb-[29px]">
+          <input
+            type="checkbox"
+            className="w-4 h-4 border-gray-3"
+            checked={isChecked}
+            onChange={changeCheckboxHandler}
+          />
+          <span>나의 맛집 좋아요 리스트에 추가</span>
+        </label>
+        <Button type="button" variant="primary" onClick={registerFeedHandler}>
+          업로드
+        </Button>
       </div>
     </section>
   );
