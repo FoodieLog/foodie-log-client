@@ -5,6 +5,7 @@ import useSignUpStore from "@/src/store/useSignUpStore";
 import { sendEmailCode, getVerificationEmail } from "@/src/services/auth";
 import AuthHeader from "../Common/Header/Auth";
 import { useToast } from "@/components/ui/use-toast";
+import { TOAST_MESSAGES } from "@/src/constants/toast";
 
 function SignUpCode() {
   const setNextComponent = useSignUpStore((state) => state.setNextComponent);
@@ -25,12 +26,13 @@ function SignUpCode() {
     useRef(null),
   ];
   const { toast } = useToast();
+  const { EMAIL_CODE_SEND_FAILURE, EMAIL_CODE_SEND_SUCCESS, EMAIL_CODE_AUTH_FAILURE } = TOAST_MESSAGES;
 
   const ResendClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
     setIsLoading(true);
     await sendEmailCode(email)
-      .then(() => toast({ title: "이메일 인증 코드 발송", description: "입력한 이메일로 인증코드가 발송되었습니다!" }))
-      .catch(() => toast({ title: "이메일 인증 코드 발송 실패", description: "이메일을 다시 입력해 주세요!" }))
+      .then(() => toast(EMAIL_CODE_SEND_SUCCESS))
+      .catch(() => toast(EMAIL_CODE_SEND_FAILURE))
       .finally(() => setIsLoading(false));
   };
 
@@ -42,7 +44,7 @@ function SignUpCode() {
       .then(() => {
         setNextComponent("SignUpTerms");
       })
-      .catch(() => toast({ title: "이메일 인증 실패", description: "인증코드를 다시 확인해 주세요!" }));
+      .catch(() => toast(EMAIL_CODE_AUTH_FAILURE));
     setIsLoading(false);
   };
 

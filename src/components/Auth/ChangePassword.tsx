@@ -8,10 +8,12 @@ import { useRouter } from "next/navigation";
 import Button from "@/src/components/Common/Button";
 import AuthHeader from "../Common/Header/Auth";
 import { useToast } from "@/components/ui/use-toast";
+import { TOAST_MESSAGES } from "@/src/constants/toast";
 
 function ChangePassword({ email }: ChangePassword) {
   const { toast } = useToast();
   const router = useRouter();
+  const { PASSWORD_CHANGE_SUCCESS, PASSWORD_CHANGE_FAILURE } = TOAST_MESSAGES;
   const {
     register,
     handleSubmit,
@@ -25,9 +27,9 @@ function ChangePassword({ email }: ChangePassword) {
     try {
       const res = await resetPassword({ email, password });
       router.replace("/accounts/login");
-      toast({ description: "비밀번호가 변경되었습니다!" });
+      toast(PASSWORD_CHANGE_SUCCESS);
     } catch (err) {
-      toast({ title: "비밀번호 변경 실패", description: "다시 시도해 주세요!" });
+      toast(PASSWORD_CHANGE_FAILURE);
     }
   };
 

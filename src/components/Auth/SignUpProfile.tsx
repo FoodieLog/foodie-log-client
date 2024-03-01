@@ -10,6 +10,7 @@ import Button from "../Common/Button";
 import AuthHeader from "../Common/Header/Auth";
 import useSignUpStore from "@/src/store/useSignUpStore";
 import { useToast } from "@/components/ui/use-toast";
+import { TOAST_MESSAGES } from "@/src/constants/toast";
 
 function SignUpProfile() {
   const [isLoading, setIsLoading] = useState(false);
@@ -28,13 +29,14 @@ function SignUpProfile() {
   const fileInput = useRef<HTMLInputElement>(null);
   const kakaoToken = localStorage.getItem("kakaoToken");
   const { toast } = useToast();
+  const { NICKNAME_ERROR, SIGNUP_FAILURE, SIGNUP_SUCCESS } = TOAST_MESSAGES;
 
   // 회원가입 api
   const SignUpSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
     if (availableEmail !== 200) {
-      toast({ title: "닉네임 오류", description: "유효하지 않는 닉네임입니다.\n닉네임을 다시 입력해 주세요." });
+      toast(NICKNAME_ERROR);
     }
     const formData = new FormData();
 
@@ -52,7 +54,7 @@ function SignUpProfile() {
     await signUp(formData)
       .then((res) => {
         router.replace("/accounts/login");
-        toast({ title: "회원 가입", description: "푸디로그에 오신 걸 환영합니다!" });
+        toast(SIGNUP_SUCCESS);
         clearUser();
         setProfile({
           nickName: "",
@@ -61,7 +63,7 @@ function SignUpProfile() {
         setPreviewImage("/images/userImage.png");
         setProfileImage(undefined);
       })
-      .catch((err) => toast({ description: "회원가입에 실패하였습니다." }));
+      .catch((err) => toast(SIGNUP_FAILURE));
     setIsLoading(false);
   };
 
@@ -70,7 +72,7 @@ function SignUpProfile() {
     e.preventDefault();
     setIsLoading(true);
     if (availableEmail !== 200) {
-      toast({ title: "닉네임 오류", description: "유효하지 않는 닉네임입니다.\n닉네임을 다시 입력해 주세요." });
+      toast(NICKNAME_ERROR);
     }
     const formData = new FormData();
 
@@ -87,7 +89,7 @@ function SignUpProfile() {
       .then(() => {
         localStorage.removeItem("kakaoToken");
         router.replace("/main/home");
-        toast({ title: "회원 가입", description: "푸디로그에 오신 걸 환영합니다!" });
+        toast(SIGNUP_SUCCESS);
         setProfile({
           nickName: "",
           aboutMe: "",
@@ -95,7 +97,7 @@ function SignUpProfile() {
         setPreviewImage("/images/userImage.png");
         setProfileImage(undefined);
       })
-      .catch((err) => toast({ description: "회원가입에 실패하였습니다." }));
+      .catch((err) => toast(SIGNUP_FAILURE));
     setIsLoading(false);
   };
 

@@ -10,6 +10,7 @@ import { useToast } from "@/components/ui/use-toast";
 import Button from "@/src/components/Common/Button";
 import Line from "@/src/components//Common/Line";
 import KaKaoLoginBtn from "@/src/components/Common/Button/KaKaoLoginBtn";
+import { TOAST_MESSAGES } from "@/src/constants/toast";
 
 function LogInForm() {
   const [logInData, setLogInData] = useState({
@@ -23,6 +24,7 @@ function LogInForm() {
   const setUser = useUserStore((state) => state.setUser);
   const user = useUserStore((state) => state.user);
   const setTokenExpiry = useUserStore((state) => state.setTokenExpiry);
+  const { LOGIN_FAILURE } = TOAST_MESSAGES;
 
   const onClickHandler: React.MouseEventHandler<HTMLButtonElement> = (event) => {
     event.preventDefault();
@@ -42,7 +44,7 @@ function LogInForm() {
       initializePushNotifications();
       router.replace("/main/home");
     } catch (err) {
-      toast({ title: "로그인 실패", description: "이메일 또는 비밀번호가 틀렸습니다!" });
+      toast(LOGIN_FAILURE);
     }
   };
 
