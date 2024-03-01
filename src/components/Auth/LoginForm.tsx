@@ -9,7 +9,7 @@ import { useUserStore } from "@/src/store/useUserStore";
 import { useToast } from "@/components/ui/use-toast";
 import Button from "@/src/components/Common/Button";
 import Line from "@/src/components//Common/Line";
-import KaKaoLoginBtn from "@/src/components/Common/Button/KaKaoLoginBtn";
+import KaKaoLoginButton from "@/src/components/Common/Button/KaKaoLoginButton";
 
 function LogInForm() {
   const [logInData, setLogInData] = useState({
@@ -100,7 +100,7 @@ function LogInForm() {
         </div>
       </form>
       <Line />
-      <KaKaoLoginBtn onClick={onClickHandler} />
+      <KaKaoLoginButton onClick={onClickHandler} />
       <div className="flex justify-center my-10">
         <Link href={"/accounts/password"} className="underline underline-offset-1">
           비밀번호를 잊으셨나요?

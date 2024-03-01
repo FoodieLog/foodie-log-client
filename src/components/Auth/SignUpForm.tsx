@@ -7,7 +7,7 @@ import { duplicateCheck, sendEmailCode } from "@/src/services/auth";
 import { kakaoLogin } from "@/src/services/kakao";
 import { SignUpForm } from "@/src/types/apiTypes";
 import { emailValidation, passwordValidation } from "@/src/constants";
-import KaKaoLoginBtn from "@/src/components/Common/Button/KaKaoLoginBtn";
+import KaKaoLoginButton from "@/src/components/Common/Button/KaKaoLoginButton";
 import Button from "@/src/components/Common/Button";
 import SignUpTerms from "@/src/components/Auth/SignUpTerms";
 import SignUpCode from "@/src/components/Auth/SignUpCode";
@@ -151,7 +151,7 @@ function SignUpForm() {
         <span className="w-10 flex-shrink-0 font-semibold text-gray-600 text-center text-sm">또는</span>
         <div className="h-[0.8px] w-full bg-slate-400" />
       </div>
-      <KaKaoLoginBtn onClick={onClickHandler} />
+      <KaKaoLoginButton onClick={onClickHandler} />
     </section>
   );
 }
