@@ -24,6 +24,7 @@ function SignUpCode() {
   const { EMAIL_CODE_SEND_FAILURE, EMAIL_CODE_SEND_SUCCESS, EMAIL_CODE_AUTH_FAILURE } = TOAST_MESSAGES;
 
   const resendClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
     setIsLoading(true);
     try {
       await sendEmailCode(email);
