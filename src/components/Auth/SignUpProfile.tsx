@@ -90,20 +90,22 @@ function SignUpProfile() {
     formData.append("content", blob);
     formData.append("file", profileImage as File);
 
-    await profileSetting(formData)
-      .then(() => {
-        localStorage.removeItem("kakaoToken");
-        router.replace("/main/home");
-        toast(SIGNUP_SUCCESS);
-        setProfile({
-          nickName: "",
-          aboutMe: "",
-        });
-        setPreviewImage("/images/userImage.png");
-        setProfileImage(undefined);
-      })
-      .catch((err) => toast(SIGNUP_FAILURE));
-    setIsLoading(false);
+    try {
+      await profileSetting(formData);
+      localStorage.removeItem("kakaoToken");
+      router.replace("/main/home");
+      toast(SIGNUP_SUCCESS);
+      setProfile({
+        nickName: "",
+        aboutMe: "",
+      });
+      setPreviewImage("/images/userImage.png");
+      setProfileImage(undefined);
+    } catch (err) {
+      toast(SIGNUP_FAILURE);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   // ref 클릭
