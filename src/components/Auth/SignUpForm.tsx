@@ -3,16 +3,16 @@ import Link from "next/link";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useToast } from "@/components/ui/use-toast";
-import { duplicateCheck, sendEmailCode } from "@/src/services/auth";
-import { kakaoLogin } from "@/src/services/kakao";
-import { SignUpForm } from "@/src/types/apiTypes";
-import { emailValidation, passwordValidation } from "@/src/constants";
-import KaKaoLoginButton from "@/src/components/Common/Button/KaKaoLoginButton";
-import Button from "@/src/components/Common/Button";
-import SignUpTerms from "@/src/components/Auth/SignUpTerms";
-import SignUpCode from "@/src/components/Auth/SignUpCode";
-import SignUpProfile from "@/src/components/Auth/SignUpProfile";
-import useSignUpStore from "@/src/store/useSignUpStore";
+import { duplicateCheck, sendEmailCode } from "@services/auth";
+import { kakaoLogin } from "@services/kakao";
+import { SignUpForm } from "@@types/apiTypes";
+import { emailValidation, passwordValidation } from "@constants";
+import KaKaoLoginButton from "@components/Common/Button/KaKaoLoginButton";
+import Button from "@components/Common/Button";
+import SignUpTerms from "@components/Auth/SignUpTerms";
+import SignUpCode from "@components/Auth/SignUpCode";
+import SignUpProfile from "@components/Auth/SignUpProfile";
+import useSignUpStore from "@store/useSignUpStore";
 
 interface SighUpInput {
   email: string;

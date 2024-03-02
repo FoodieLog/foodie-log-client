@@ -2,12 +2,12 @@
 import SearchInput from "@components/SearchUser/SearchInput";
 import SearchUserList from "@components/SearchUser/SearchUserList";
 import SearchHistory from "@components/SearchUser/SearchHistory";
-import useDebounce from "@/src/hooks/useDebounce";
+import useDebounce from "@hooks/useDebounce";
 import useSearchStore from "@store/useSearchStore";
 import getKey from "@utils/getKey";
 import { useState, useEffect } from "react";
 import { searchUser } from "@services/apiFeed";
-import { APIUserSearchResponse } from "@/src/services/apiFeed";
+import { APIUserSearchResponse } from "@services/apiFeed";
 
 const SearchUser: React.FC = () => {
   const [query, setQuery] = useState("");
