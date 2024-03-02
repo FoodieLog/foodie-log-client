@@ -107,7 +107,7 @@ function PostContent() {
 
   return (
     <section className="w-full sm:max-w-[640px] mx-auto mb-[10px]">
-      <Header title="게시글 등록" back="preComponent" />
+      <Header title={feedId ? "게시물 수정" : "게시물 작성"} back={feedId ? "prePage" : "preComponent"} />
       <div className="px-5 mt-5">
         <FeedImageSlide images={images} />
         <PostContentShopItem />

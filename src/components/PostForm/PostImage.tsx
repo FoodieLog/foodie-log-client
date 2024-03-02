@@ -60,7 +60,7 @@ function PostImage() {
 
   return (
     <section className="w-full h-screen sm:max-w-[640px] mx-auto flex flex-col">
-      <Header title="이미지 선택" back="preComponent" />
+      <Header title="사진 등록" back="preComponent" />
       <div className="h-full px-5 py-[19px] flex flex-col justify-between">
         <div className="h-full">
           <PostImageList

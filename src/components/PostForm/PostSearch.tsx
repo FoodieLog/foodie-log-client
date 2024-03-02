@@ -45,7 +45,7 @@ function PostSearch() {
 
   return (
     <section className="w-full sm:max-w-[640px]  mx-auto">
-      <Header title="식당 검색" back="prePage" />
+      <Header title="맛집 검색" back="prePage" />
       <div className="mt-3 mx-3">
         <SearchInput
           query={keyword}
