@@ -4,6 +4,7 @@ import { useSearchParams, useRouter } from "next/navigation";
 import { getKaKaoToken, postKakaoToken, loginKaKaoToken } from "@/src/services/kakao";
 import { useUserStore } from "@/src/store/useUserStore";
 import { initializePushNotifications } from "@/src/components/Notification/PushNotification";
+import { expiryTime } from "@/src/utils/date";
 
 function KaKaoCode() {
   const router = useRouter();
@@ -28,9 +29,6 @@ function KaKaoCode() {
             await loginKaKaoToken(res.data.response.kakaoAccessToken)
               .then((res) => {
                 setUser(res.data.response);
-
-                const minutesInMilliseconds = 1000 * 60 * 29;
-                const expiryTime = Date.now() + minutesInMilliseconds;
                 setTokenExpiry(expiryTime); // 만료 시간 설정
                 initializePushNotifications();
 

@@ -7,6 +7,7 @@ import { tokenLoader } from "@/src/utils/token";
 import { useToast } from "@/components/ui/use-toast";
 import { getKaKaoRefreshToken } from "@/src/services/kakao";
 import useLogout from "@/src/hooks/useLogout";
+import { expiryTime } from "@/src/utils/date";
 
 const AuthCheck: React.FC = () => {
   const { toast } = useToast();
@@ -39,9 +40,6 @@ const AuthCheck: React.FC = () => {
             // 새로 발급받은 accessToken 설정
             setUser({ accessToken: reissueResponse.response.accessToken });
 
-            // 새로 발급받은 accessToken의 만료 시간을 29분 후로 설정
-            const minutesInMilliseconds = 1000 * 60 * 29;
-            const expiryTime = Date.now() + minutesInMilliseconds;
             setTokenExpiry(expiryTime);
           } else {
             console.error(reissueResponse.error.message.accessToken);

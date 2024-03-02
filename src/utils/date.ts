@@ -25,3 +25,7 @@ export const getTimeDiff = (timeToCompare: Dayjs): string => {
   }
   return "방금 전";
 };
+
+// 새로 발급받은 accessToken의 만료 시간을 29분 후로 설정
+const minutesInMilliseconds = 1000 * 60 * 29;
+export const expiryTime = Date.now() + minutesInMilliseconds;

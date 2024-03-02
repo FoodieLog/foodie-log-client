@@ -3,6 +3,7 @@ import { userRequest } from "@/src/services";
 import { useUserStore } from "@/src/store/useUserStore";
 import { Notification } from "@/src/types/apiTypes";
 import { getCookie } from "@/src/utils/token";
+import { expiryTime } from "../utils/date";
 
 const BASE_URL = "https://api.foodielog-server.monster/api";
 
@@ -179,8 +180,6 @@ export const makeFeedFetchRequest = async <T>(
         if (reissueResponse.status === 201 && reissueResponse.response && reissueResponse.response.accessToken) {
           // 새로 발급받은 accessToken 설정
           useUserStore.getState().setUser({ accessToken: reissueResponse.response.accessToken });
-          const minutesInMilliseconds = 1000 * 60 * 29;
-          const expiryTime = Date.now() + minutesInMilliseconds;
           useUserStore.getState().setTokenExpiry(expiryTime);
           // 토큰 재발급 후 다시 해당 API를 호출
           return await makeFeedFetchRequest(endpoint, method, body, retryCount + 1);
