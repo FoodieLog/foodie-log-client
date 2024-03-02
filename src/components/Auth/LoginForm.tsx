@@ -9,8 +9,8 @@ import { useUserStore } from "@store/useUserStore";
 import { useToast } from "@/components/ui/use-toast";
 import Button from "@components/Common/Button";
 import Line from "@components//Common/Line";
-import KaKaoLoginButton from "@components/Common/Button/KaKaoLoginButton";
-import { TOAST_MESSAGES } from "@constants/toast";
+import KaKaoLoginBtn from "@components/Common/Button/KaKaoLoginBtn";
+import { TOAST_MESSAGES } from "@constants";
 import { expiryTime } from "@utils/date";
 
 function LogInForm() {
