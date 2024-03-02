@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
-import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
 import { RxDotFilled } from "react-icons/rx";
-import { FeedImageSlideProps } from "@/src/types/feed";
+import { FeedImageSlideProps } from "@@types/feed";
+import { ArrowBack_IOS } from "@assets/icons";
 
 const FeedImageSlide: React.FC<FeedImageSlideProps> = ({ images }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -80,11 +80,11 @@ const FeedImageSlide: React.FC<FeedImageSlideProps> = ({ images }) => {
       </div>
       {images.length > 1 && (
         <>
-          <div className="hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] left-5 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer">
-            <BsChevronCompactLeft onClick={prevSlideHandler} size={30} />
+          <div className="w-[33px] h-[46px] absolute top-[50%] translate-y-[-50%] bg-black opacity-50 cursor-pointer">
+            <ArrowBack_IOS onClick={prevSlideHandler} color="white" className="translate-x-[-8px]" />
           </div>
-          <div className="hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] right-5 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer">
-            <BsChevronCompactRight onClick={nextSlideHandler} size={30} />
+          <div className="w-[33px] h-[46px] rotate-180 absolute top-[50%] translate-y-[-50%] right-0 bg-black opacity-50 cursor-pointer">
+            <ArrowBack_IOS onClick={nextSlideHandler} color="white" className="translate-x-[-8px]" />
           </div>
           <div className="flex absolute bottom-5 left-[50%] transform -translate-x-[50%] translate-y-[18px] justify-center bg-transparent">
             {images.map((image, slideIndex) => (

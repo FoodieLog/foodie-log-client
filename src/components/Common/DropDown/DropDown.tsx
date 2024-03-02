@@ -59,7 +59,8 @@ function DropDown({ name, option, id = 0, type = "", content = "", className = "
 
   const onClickEdit = async (e: React.MouseEvent) => {
     e.preventDefault();
-    setNextComponent("EditModal");
+    router.push("/main/post");
+    setNextComponent("PostContent");
     setFeed({ id, content });
   };
 

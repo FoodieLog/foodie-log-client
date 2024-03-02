@@ -26,7 +26,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
         <Toaster />
         <LeftSidebar />
         <div className="flex flex-col flex-1 overflow-hidden">
-          <div className="flex-1 w-full overflow-y-auto pb-[110px]">
+          <div className="flex-1 w-full overflow-y-auto">
             <ReactQueryProvider>{children}</ReactQueryProvider>
           </div>
           <div className="fixed bottom-0 left-0 right-0">

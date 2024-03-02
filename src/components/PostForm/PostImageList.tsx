@@ -7,7 +7,7 @@ import PostFeedImage from "@components/PostForm/PostFeedImage";
 function PostImageList({ imageCount, onClick, deleteImageHandler }: PostImageListProps) {
   const { previews } = usePostStore();
   return (
-    <ul className="grid grid-cols-3 gap-0.5">
+    <ul className="grid grid-cols-3 grid-rows-2 gap-0.5">
       <PostFeedImage imageCount={imageCount} onClick={onClick} />
       {previews?.map((preview, idx) => {
         return <PostImageItem key={preview} preview={preview} idx={idx} deleteImageHandler={deleteImageHandler} />;

@@ -163,7 +163,6 @@ const Feeds: React.FC<FeedsProps> = ({ id, startingFeedId, singleFeedId }) => {
           })}
         </InfiniteScroll>
       )}
-      {nextComponent === "EditModal" && <FeedEditModal reload={reload} setReload={setReload} />}
     </div>
   );
 };

@@ -21,7 +21,7 @@ const Recommend = () => {
   };
 
   return (
-    <div className="recommend_container w-full flex flex-col justify-center items-center max-w-6xl sm:mx-auto">
+    <div className="recommend_container w-full flex flex-col justify-center items-center max-w-6xl sm:mx-auto pb-[110px]">
       <AreaSelector onSelectedAreaChange={handleSelectedAreaChange} />
       <ShopThumbList restaurants={recommendedRestaurants} />
     </div>

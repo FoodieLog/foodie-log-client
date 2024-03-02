@@ -1,5 +1,5 @@
 export { area } from "@constants/area";
-export { globalNavigation } from "@constants/navigation";
+export { globalNavigation, showGNBRouteList } from "@constants/navigation";
 
 // 이메일, 비밀번호 유효성 검사
 export const emailValidation = {
