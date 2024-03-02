@@ -25,7 +25,7 @@ function Header({ title = "", back, option }: HeaderProps) {
   return (
     <header className={`grid grid-cols-3 max-sm:max-w-[640px] w-full h-[56px] items-center justify-between`}>
       <button type="button" onClick={clickBackBtnHandler} className="">
-        <ArrowBack_IOS />
+        <ArrowBack_IOS color="#363232" />
       </button>
       <h4 className={`whitespace-nowrap min-w-[min-content] font-medium justify-self-center`}>{title}</h4>
       <div className={`flex items-center justify-self-end mr-[14px]`}>

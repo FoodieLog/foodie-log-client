@@ -1,21 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { postFeed } from "@services/post";
-import usePostStore from "@store/usePostStore";
+import usePostStore, { initialContent } from "@store/usePostStore";
 import { useRouter } from "next/navigation";
 import Button from "@components/Common/Button";
-import PostShopItem from "@components/PostForm/PostShopItem";
 import useSignUpStore from "@store/useSignUpStore";
 import PostSearch from "@components/PostForm/PostSearch";
 import FeedImageSlide from "@components/Feed/FeedImageSlide";
 import Header from "@components/Common/Header";
 import { useToast } from "@/components/ui/use-toast";
 import TextArea from "@components/Common/TextArea";
+import PostContentShopItem from "@components/PostForm/PostContentShopItem";
+import useFeedStore from "@store/useFeedStore";
+import { getSingleFeed, updateFeed } from "@services/feed";
 
 function PostContent() {
   const router = useRouter();
   const [isChecked, setIsChecked] = useState(false);
   const [text, setText] = useState("");
-  const { content, files, previews, resetContent } = usePostStore();
+  const { content, files, previews, setContent, setPreviews, resetContent } = usePostStore();
+  const {
+    feed: { id: feedId },
+  } = useFeedStore();
   const { nextComponent, setNextComponent } = useSignUpStore();
   const { toast } = useToast();
 
@@ -45,6 +50,17 @@ function PostContent() {
     }
   };
 
+  const editFeedHandler = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    try {
+      await updateFeed(feedId, text);
+      router.replace(`/main/feed/530?feedId=${feedId}`);
+      toast({ description: "게시글 수정되었습니다!" });
+    } catch (err) {
+      toast({ description: "게시글 수정에 오류 발생하였습니다!" });
+    }
+  };
+
   const changeTextHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setText(e.target.value);
   };
@@ -59,32 +75,61 @@ function PostContent() {
     };
   });
 
+  const getFeedById = async (feedId: number) => {
+    const response = await getSingleFeed(feedId);
+    const {
+      feed,
+      restaurant: { id, category, name, roadAddress },
+    } = await response.data.response.content;
+    const feedImages = feed.feedImages.map(({ imageUrl }: { imageUrl: string }) => imageUrl);
+
+    const newContent = {
+      ...initialContent,
+      id,
+      place_name: name,
+      category_name: category,
+      road_address_name: roadAddress,
+    };
+    setText(feed.content);
+    setPreviews(feedImages);
+    setContent(newContent);
+  };
+
+  useEffect(() => {
+    if (feedId) {
+      getFeedById(feedId);
+    }
+  }, [feedId]);
+
   if (nextComponent === "PostSearch") {
     return <PostSearch />;
   }
 
   return (
-    <section className="w-full sm:max-w-[640px] mx-auto">
-      <Header title="게시글 등록" back="preComponent" />
-      <div className="px-3 mt-5">
+    <section className="w-full sm:max-w-[640px] mx-auto mb-[10px]">
+      <Header title={feedId ? "게시물 수정" : "게시물 작성"} back={feedId ? "prePage" : "preComponent"} />
+      <div className="px-5 mt-5">
         <FeedImageSlide images={images} />
-        <PostShopItem type="selected" item={content} />
-        <label className="my-5 ml-3 flex items-center gap-x-3 text-lg">
-          <input type="checkbox" className="w-4 h-4" checked={isChecked} onChange={changeCheckboxHandler} />
-          <span>나의 맛집 리스트에 추가</span>
-        </label>
+        <PostContentShopItem />
         <TextArea
           value={text}
           onChange={changeTextHandler}
           placeholder="나의 맛집기록을 남겨봐요!"
           maxLength={300}
-          className="bg-gray-1 p-2.5 placeholder:text-gray-4 rounded-sm"
+          className="p-2.5 placeholder:text-gray-4 border border-gray-2 rounded-lg"
         />
-        <div className="mt-5">
-          <Button type="button" variant="primary" onClick={registerFeedHandler}>
-            게시글 등록
-          </Button>
-        </div>
+        <label className="flex items-center gap-x-2 text-base font-medium text-gray-4 mt-3 mb-[29px]">
+          <input
+            type="checkbox"
+            className="w-4 h-4 border-gray-3"
+            checked={isChecked}
+            onChange={changeCheckboxHandler}
+          />
+          <span>나의 맛집 좋아요 리스트에 추가</span>
+        </label>
+        <Button type="button" variant="primary" onClick={feedId ? editFeedHandler : registerFeedHandler}>
+          업로드
+        </Button>
       </div>
     </section>
   );

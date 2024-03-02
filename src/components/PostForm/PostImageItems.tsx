@@ -1,19 +1,20 @@
 import React from "react";
 import { PostImageItemProps } from "@@types/post";
-import ImageThumbnail from "@/src/components/Common/ImageThumbnail";
+import ImageThumbnail from "@components/Common/ImageThumbnail";
+import { CloseSmall } from "@assets/icons";
 
 function PostImageItem({ preview, idx, deleteImageHandler }: PostImageItemProps) {
   return (
-    <li className="relative w-[105px] h-[105px] rounded-sm overflow-hidden">
+    <li className="relative rounded-sm overflow-hidden">
       <ImageThumbnail imageSrc={preview} imageAlt={`${idx + 1}번째 미리보기 이미지`} />
       <button
         type="button"
         onClick={(e) => {
           deleteImageHandler(e, idx);
         }}
-        className="absolute top-1 right-2"
+        className="w-6 h-6 bg-gray-0 opacity-70 rounded-full  absolute top-1 right-2 flex items-center justify-center"
       >
-        {/* 이미지 추가 예정 */}
+        <CloseSmall />
       </button>
     </li>
   );

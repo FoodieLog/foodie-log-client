@@ -4,15 +4,23 @@ interface SearchInputProps {
   query: any;
   setQuery: any;
   onChangeInputHandler: any;
+  onSubmit?: (e: React.FormEvent<HTMLFormElement>) => void;
 }
 
-function SearchInput({ query, setQuery, onChangeInputHandler }: SearchInputProps) {
+function SearchInput({ query, setQuery, onChangeInputHandler, onSubmit }: SearchInputProps) {
   const clearInput = () => {
     setQuery("");
   };
 
+  const defaultSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+  };
+
   return (
-    <form className="w-full h-[42px] px-[12px] flex items-center justify-between border border-gray-2 rounded-[10px] focus-within:border-red">
+    <form
+      onSubmit={onSubmit || defaultSubmit}
+      className="w-full h-[42px] px-[12px] flex items-center justify-between border border-gray-2 rounded-[10px] focus-within:border-red"
+    >
       <input
         className="flex-grow"
         type="text"
@@ -26,7 +34,7 @@ function SearchInput({ query, setQuery, onChangeInputHandler }: SearchInputProps
             <Close />
           </button>
         )}
-        <SearchIcon />
+        <SearchIcon onClick={onSubmit} className={`${onSubmit && "cursor-pointer"}`} />
       </div>
     </form>
   );

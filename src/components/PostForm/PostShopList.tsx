@@ -2,12 +2,16 @@ import React from "react";
 import { ShopItem } from "@@types/post";
 import PostShopItem from "@components/PostForm/PostShopItem";
 
-function PostShopList({ shopList }: { shopList: ShopItem[] }) {
+interface PostShopListProps {
+  shopList: ShopItem[];
+  keyword: string;
+}
+function PostShopList({ shopList, keyword }: PostShopListProps) {
   return (
-    <ul>
+    <ul className="mx-auto mt-[15px]">
       {shopList.map((item) => (
         <li key={item.id}>
-          <PostShopItem type="search" item={item} />
+          <PostShopItem item={item} keyword={keyword} />
         </li>
       ))}
     </ul>

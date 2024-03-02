@@ -1,8 +1,3 @@
-export interface ShopProps {
-  type: string;
-  item: ShopItem;
-}
-
 export interface ShopItem {
   id: string;
   place_name: string;
