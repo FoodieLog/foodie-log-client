@@ -3,7 +3,7 @@ import { create } from "zustand";
 interface SignUpStore {
   user: SignUpData;
   isChecked: boolean;
-  nextComponent: React.ReactNode;
+  nextComponent: string;
   setUser: (data: SignUpData) => void;
   setIsChecked: (data: boolean) => void;
   setNextComponent: (data: string) => void;

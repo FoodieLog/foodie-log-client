@@ -10,6 +10,8 @@ import { useToast } from "@/components/ui/use-toast";
 import Button from "@components/Common/Button";
 import Line from "@components//Common/Line";
 import KaKaoLoginButton from "@components/Common/Button/KaKaoLoginButton";
+import { TOAST_MESSAGES } from "@constants/toast";
+import { expiryTime } from "@utils/date";
 
 function LogInForm() {
   const [logInData, setLogInData] = useState({
@@ -17,12 +19,9 @@ function LogInForm() {
     password: "",
   });
   const { toast } = useToast();
-
   const router = useRouter();
-
-  const setUser = useUserStore((state) => state.setUser);
-  const user = useUserStore((state) => state.user);
-  const setTokenExpiry = useUserStore((state) => state.setTokenExpiry);
+  const { setUser, setTokenExpiry } = useUserStore();
+  const { LOGIN_FAILURE } = TOAST_MESSAGES;
 
   const onClickHandler: React.MouseEventHandler<HTMLButtonElement> = (event) => {
     event.preventDefault();
@@ -36,13 +35,11 @@ function LogInForm() {
       const body = { email: logInData.email, password: logInData.password };
       const res = await logIn(body);
       setUser(res.data.response);
-      const minutesInMilliseconds = 1000 * 60 * 29;
-      const expiryTime = Date.now() + minutesInMilliseconds;
       setTokenExpiry(expiryTime); // 만료 시간 설정
       initializePushNotifications();
       router.replace("/main/home");
     } catch (err) {
-      toast({ title: "로그인 실패", description: "이메일 또는 비밀번호가 틀렸습니다!" });
+      toast(LOGIN_FAILURE);
     }
   };
 

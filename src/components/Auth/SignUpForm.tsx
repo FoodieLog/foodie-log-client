@@ -13,6 +13,7 @@ import SignUpTerms from "@components/Auth/SignUpTerms";
 import SignUpCode from "@components/Auth/SignUpCode";
 import SignUpProfile from "@components/Auth/SignUpProfile";
 import useSignUpStore from "@store/useSignUpStore";
+import { TOAST_MESSAGES } from "@constants/toast";
 
 interface SighUpInput {
   email: string;
@@ -21,6 +22,10 @@ interface SighUpInput {
 
 function SignUpForm() {
   const [availableEmail, setAvailableEmail] = useState(1);
+  const { user, setUser, nextComponent, setNextComponent } = useSignUpStore();
+  const { toast } = useToast();
+  const { EMAIL_CODE_SEND_FAILURE } = TOAST_MESSAGES;
+
   const {
     register,
     handleSubmit,
@@ -29,8 +34,6 @@ function SignUpForm() {
   } = useForm<SignUpForm>({
     mode: "onChange",
   });
-  const { user, setUser, isChecked, nextComponent, setNextComponent } = useSignUpStore();
-  const { toast } = useToast();
 
   if (nextComponent === "SignUpTerms") {
     return <SignUpTerms />;
@@ -39,6 +42,22 @@ function SignUpForm() {
   } else if (nextComponent === "SignUpProfile") {
     return <SignUpProfile />;
   }
+
+  // interface Components {
+  //   [key: string]: () => React.JSX.Element;
+  // }
+
+  // const components: Components = {
+  //   SignUpTerms,
+  //   SignUpCode,
+  //   SignUpProfile,
+  // };
+
+  // const Comp = components[nextComponent];
+  // if (Comp) {
+  //   return <Comp />;
+  // }
+
   const onClickHandler: React.MouseEventHandler<HTMLButtonElement> = (event) => {
     event.preventDefault();
     kakaoLogin();
@@ -56,15 +75,13 @@ function SignUpForm() {
   };
 
   const onSubmit = async ({ email, password }: SighUpInput) => {
-    await sendEmailCode(email)
-      .then((res) => {
-        setNextComponent("SignUpCode");
-      })
-      .catch((err) =>
-        toast({ title: "이메일 코드 전송 실패", description: "이메일 코드 전송 실패하였습니다!\n다시 입력해 주세요!" })
-      );
-
-    setUser({ ...user, email, password });
+    try {
+      await sendEmailCode(email);
+      setNextComponent("SignUpCode");
+      setUser({ ...user, email, password });
+    } catch (err) {
+      toast(EMAIL_CODE_SEND_FAILURE);
+    }
   };
 
   return (

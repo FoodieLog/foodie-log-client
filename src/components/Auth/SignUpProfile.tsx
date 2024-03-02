@@ -3,13 +3,14 @@ import React from "react";
 import { useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { MdAddPhotoAlternate } from "react-icons/md";
-import { signUp, duplicateNickNameCheck } from "@/src/services/auth";
-import { profileSetting } from "@/src/services/kakao";
+import { signUp, duplicateNickNameCheck } from "@services/auth";
+import { profileSetting } from "@services/kakao";
 import Image from "next/image";
 import Button from "../Common/Button";
 import AuthHeader from "../Common/Header/Auth";
-import useSignUpStore from "@/src/store/useSignUpStore";
+import useSignUpStore from "@store/useSignUpStore";
 import { useToast } from "@/components/ui/use-toast";
+import { TOAST_MESSAGES } from "@constants/toast";
 
 function SignUpProfile() {
   const [isLoading, setIsLoading] = useState(false);
@@ -23,46 +24,52 @@ function SignUpProfile() {
   const params = useSearchParams();
   const code = params.get("code");
   const router = useRouter();
-  const user = useSignUpStore((state) => state.user);
-  const clearUser = useSignUpStore((state) => state.clearUser);
+  const { user, clearUser } = useSignUpStore();
   const fileInput = useRef<HTMLInputElement>(null);
   const kakaoToken = localStorage.getItem("kakaoToken");
   const { toast } = useToast();
+  const { NICKNAME_ERROR, SIGNUP_FAILURE, SIGNUP_SUCCESS } = TOAST_MESSAGES;
 
   // 회원가입 api
   const SignUpSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
-    if (availableEmail !== 200) {
-      toast({ title: "닉네임 오류", description: "유효하지 않는 닉네임입니다.\n닉네임을 다시 입력해 주세요." });
+
+    try {
+      if (availableEmail !== 200) {
+        toast(NICKNAME_ERROR);
+      }
+
+      const formData = new FormData();
+
+      const userData = {
+        email: user.email,
+        password: user.password,
+        nickName: profile.nickName,
+        aboutMe: profile.aboutMe,
+      };
+
+      const blob = new Blob([JSON.stringify(userData)], { type: "application/json" });
+      formData.append("content", blob);
+      formData.append("file", profileImage as File);
+
+      await signUp(formData);
+
+      router.replace("/accounts/login");
+      toast(SIGNUP_SUCCESS);
+
+      clearUser();
+      setProfile({
+        nickName: "",
+        aboutMe: "",
+      });
+      setPreviewImage("/images/userImage.png");
+      setProfileImage(undefined);
+    } catch (err) {
+      toast(SIGNUP_FAILURE);
+    } finally {
+      setIsLoading(false);
     }
-    const formData = new FormData();
-
-    const userData = {
-      email: user.email,
-      password: user.password,
-      nickName: profile.nickName,
-      aboutMe: profile.aboutMe,
-    };
-
-    const blob = new Blob([JSON.stringify(userData)], { type: "application/json" });
-    formData.append("content", blob);
-    formData.append("file", profileImage as File);
-
-    await signUp(formData)
-      .then((res) => {
-        router.replace("/accounts/login");
-        toast({ title: "회원 가입", description: "푸디로그에 오신 걸 환영합니다!" });
-        clearUser();
-        setProfile({
-          nickName: "",
-          aboutMe: "",
-        });
-        setPreviewImage("/images/userImage.png");
-        setProfileImage(undefined);
-      })
-      .catch((err) => toast({ description: "회원가입에 실패하였습니다." }));
-    setIsLoading(false);
   };
 
   // 카카오 로그인 시 프로필 설정 api
@@ -70,7 +77,7 @@ function SignUpProfile() {
     e.preventDefault();
     setIsLoading(true);
     if (availableEmail !== 200) {
-      toast({ title: "닉네임 오류", description: "유효하지 않는 닉네임입니다.\n닉네임을 다시 입력해 주세요." });
+      toast(NICKNAME_ERROR);
     }
     const formData = new FormData();
 
@@ -83,20 +90,22 @@ function SignUpProfile() {
     formData.append("content", blob);
     formData.append("file", profileImage as File);
 
-    await profileSetting(formData)
-      .then(() => {
-        localStorage.removeItem("kakaoToken");
-        router.replace("/main/home");
-        toast({ title: "회원 가입", description: "푸디로그에 오신 걸 환영합니다!" });
-        setProfile({
-          nickName: "",
-          aboutMe: "",
-        });
-        setPreviewImage("/images/userImage.png");
-        setProfileImage(undefined);
-      })
-      .catch((err) => toast({ description: "회원가입에 실패하였습니다." }));
-    setIsLoading(false);
+    try {
+      await profileSetting(formData);
+      localStorage.removeItem("kakaoToken");
+      router.replace("/main/home");
+      toast(SIGNUP_SUCCESS);
+      setProfile({
+        nickName: "",
+        aboutMe: "",
+      });
+      setPreviewImage("/images/userImage.png");
+      setProfileImage(undefined);
+    } catch (err) {
+      toast(SIGNUP_FAILURE);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   // ref 클릭
