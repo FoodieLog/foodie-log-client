@@ -2,14 +2,14 @@
 import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { logIn } from "@/src/services/auth";
-import { kakaoLogin } from "@/src/services/kakao";
-import { initializePushNotifications } from "@/src/components/Notification/PushNotification";
-import { useUserStore } from "@/src/store/useUserStore";
+import { logIn } from "@services/auth";
+import { kakaoLogin } from "@services/kakao";
+import { initializePushNotifications } from "@components/Notification/PushNotification";
+import { useUserStore } from "@store/useUserStore";
 import { useToast } from "@/components/ui/use-toast";
-import Button from "@/src/components/Common/Button";
-import Line from "@/src/components//Common/Line";
-import KaKaoLoginBtn from "@/src/components/Common/Button/KaKaoLoginBtn";
+import Button from "@components/Common/Button";
+import Line from "@components//Common/Line";
+import KaKaoLoginButton from "@components/Common/Button/KaKaoLoginButton";
 
 function LogInForm() {
   const [logInData, setLogInData] = useState({
@@ -100,7 +100,7 @@ function LogInForm() {
         </div>
       </form>
       <Line />
-      <KaKaoLoginBtn onClick={onClickHandler} />
+      <KaKaoLoginButton onClick={onClickHandler} />
       <div className="flex justify-center my-10">
         <Link href={"/accounts/password"} className="underline underline-offset-1">
           비밀번호를 잊으셨나요?
