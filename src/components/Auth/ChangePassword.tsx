@@ -1,14 +1,14 @@
 "use client";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { resetPassword } from "@/src/services/auth";
-import { ChangePassword } from "@/src/types/apiTypes";
-import { passwordValidation } from "@/src/constants";
+import { resetPassword } from "@services/auth";
+import { ChangePassword } from "@@types/apiTypes";
+import { passwordValidation } from "@constants";
 import { useRouter } from "next/navigation";
-import Button from "@/src/components/Common/Button";
+import Button from "@components/Common/Button";
 import AuthHeader from "../Common/Header/Auth";
 import { useToast } from "@/components/ui/use-toast";
-import { TOAST_MESSAGES } from "@/src/constants/toast";
+import { TOAST_MESSAGES } from "@constants/toast";
 
 function ChangePassword({ email }: ChangePassword) {
   const { toast } = useToast();

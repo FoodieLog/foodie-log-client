@@ -13,7 +13,7 @@ import SignUpTerms from "@components/Auth/SignUpTerms";
 import SignUpCode from "@components/Auth/SignUpCode";
 import SignUpProfile from "@components/Auth/SignUpProfile";
 import useSignUpStore from "@store/useSignUpStore";
-import { TOAST_MESSAGES } from "@/src/constants/toast";
+import { TOAST_MESSAGES } from "@constants/toast";
 
 interface SighUpInput {
   email: string;

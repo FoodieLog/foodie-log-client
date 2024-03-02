@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useRef, useState } from "react";
 import Button from "../Common/Button";
-import { CodeData } from "@/src/types/signupTypes";
+import { CodeData } from "@@types/signupTypes";
 
 interface CodeInputProps {
   codeData: CodeData;

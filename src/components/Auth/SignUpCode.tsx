@@ -1,12 +1,12 @@
 "use client";
 import { useState } from "react";
-import useSignUpStore from "@/src/store/useSignUpStore";
-import { sendEmailCode, getVerificationEmail } from "@/src/services/auth";
+import useSignUpStore from "@store/useSignUpStore";
+import { sendEmailCode, getVerificationEmail } from "@services/auth";
 import AuthHeader from "../Common/Header/Auth";
 import { useToast } from "@/components/ui/use-toast";
-import { TOAST_MESSAGES } from "@/src/constants/toast";
+import { TOAST_MESSAGES } from "@constants/toast";
 import CodeInput from "./CodeInput";
-import { CodeData } from "@/src/types/signupTypes";
+import { CodeData } from "@@types/signupTypes";
 
 function SignUpCode() {
   const {

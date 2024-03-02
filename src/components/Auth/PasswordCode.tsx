@@ -1,13 +1,13 @@
 "use client";
 import { useState } from "react";
-import Button from "@/src/components/Common/Button";
+import Button from "@components/Common/Button";
 import Link from "next/link";
-import { getPasswordCode, getVerificationEmail } from "@/src/services/auth";
-import useSignUpStore from "@/src/store/useSignUpStore";
+import { getPasswordCode, getVerificationEmail } from "@services/auth";
+import useSignUpStore from "@store/useSignUpStore";
 import ChangePassword from "./ChangePassword";
 import AuthHeader from "../Common/Header/Auth";
 import { useToast } from "@/components/ui/use-toast";
-import { TOAST_MESSAGES } from "@/src/constants/toast";
+import { TOAST_MESSAGES } from "@constants/toast";
 import CodeInput from "./CodeInput";
 
 function FindPassword() {

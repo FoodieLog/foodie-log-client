@@ -3,14 +3,14 @@ import React from "react";
 import { useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { MdAddPhotoAlternate } from "react-icons/md";
-import { signUp, duplicateNickNameCheck } from "@/src/services/auth";
-import { profileSetting } from "@/src/services/kakao";
+import { signUp, duplicateNickNameCheck } from "@services/auth";
+import { profileSetting } from "@services/kakao";
 import Image from "next/image";
 import Button from "../Common/Button";
 import AuthHeader from "../Common/Header/Auth";
-import useSignUpStore from "@/src/store/useSignUpStore";
+import useSignUpStore from "@store/useSignUpStore";
 import { useToast } from "@/components/ui/use-toast";
-import { TOAST_MESSAGES } from "@/src/constants/toast";
+import { TOAST_MESSAGES } from "@constants/toast";
 
 function SignUpProfile() {
   const [isLoading, setIsLoading] = useState(false);

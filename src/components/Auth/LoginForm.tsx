@@ -10,8 +10,8 @@ import { useToast } from "@/components/ui/use-toast";
 import Button from "@components/Common/Button";
 import Line from "@components//Common/Line";
 import KaKaoLoginButton from "@components/Common/Button/KaKaoLoginButton";
-import { TOAST_MESSAGES } from "@/src/constants/toast";
-import { expiryTime } from "@/src/utils/date";
+import { TOAST_MESSAGES } from "@constants/toast";
+import { expiryTime } from "@utils/date";
 
 function LogInForm() {
   const [logInData, setLogInData] = useState({

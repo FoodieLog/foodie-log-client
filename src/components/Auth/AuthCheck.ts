@@ -1,13 +1,13 @@
 "use client";
 import React, { useEffect } from "react";
-import { useUserStore } from "@/src/store/useUserStore";
+import { useUserStore } from "@store/useUserStore";
 import { useRouter, usePathname } from "next/navigation";
-import { reissueTokens } from "@/src/services/apiFeed";
-import { tokenLoader } from "@/src/utils/token";
+import { reissueTokens } from "@services/apiFeed";
+import { tokenLoader } from "@utils/token";
 import { useToast } from "@/components/ui/use-toast";
-import { getKaKaoRefreshToken } from "@/src/services/kakao";
-import useLogout from "@/src/hooks/useLogout";
-import { expiryTime } from "@/src/utils/date";
+import { getKaKaoRefreshToken } from "@services/kakao";
+import useLogout from "@hooks/useLogout";
+import { expiryTime } from "@utils/date";
 
 const AuthCheck: React.FC = () => {
   const { toast } = useToast();

@@ -1,13 +1,13 @@
 "use client";
 import { useState } from "react";
 import Image from "next/image";
-import Button from "@/src/components/Common/Button";
-import useSignUpStore from "@/src/store/useSignUpStore";
-import SignUpProfile from "@/src/components/Auth/SignUpProfile";
-import AuthHeader from "@/src/components/Common/Header/Auth";
+import Button from "@components/Common/Button";
+import useSignUpStore from "@store/useSignUpStore";
+import SignUpProfile from "@components/Auth/SignUpProfile";
+import AuthHeader from "@components/Common/Header/Auth";
 import { useToast } from "@/components/ui/use-toast";
-import CustomModal from "@/src/components/Common/Dialog/CustomModal";
-import { TERMS } from "@/src/constants/terms";
+import CustomModal from "@components/Common/Dialog/CustomModal";
+import { TERMS } from "@constants/terms";
 
 function SignUpTerms() {
   const [isLoading, setIsLoading] = useState(false);
