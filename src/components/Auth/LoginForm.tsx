@@ -19,7 +19,7 @@ function LogInForm() {
   });
   const { toast } = useToast();
   const router = useRouter();
-  const { setUser, user, setTokenExpiry } = useUserStore();
+  const { setUser, setTokenExpiry } = useUserStore();
   const { LOGIN_FAILURE } = TOAST_MESSAGES;
 
   const onClickHandler: React.MouseEventHandler<HTMLButtonElement> = (event) => {
