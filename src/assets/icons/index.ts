@@ -28,6 +28,8 @@ import SettingsIcon from "@assets/icons/common/settings.svg";
 import Close from "@assets/icons/common/close.svg";
 import CloseSmall from "@assets/icons/common/close_small.svg";
 import AddIcon from "@assets/icons/common/add.svg";
+import NotificationSmall from "@assets/icons/common/notification_small.svg";
+import Logout from "@assets/icons/common/logout.svg";
 
 //============ 아이콘 - GNB ============
 
@@ -81,6 +83,8 @@ export {
   Close,
   CloseSmall,
   AddIcon,
+  NotificationSmall,
+  Logout,
 
   //GNB
   Person,
