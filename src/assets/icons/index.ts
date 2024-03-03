@@ -1,6 +1,7 @@
 //============ 아이콘 - Common ============
 import CaretDown from "@assets/icons/common/CaretDown.svg";
 import ChatCircleText from "@assets/icons/common/ChatCircleText.svg";
+import BigCheckCircle from "@assets/icons/common/Big_CheckCircle.svg";
 import CheckCircle from "@assets/icons/common/CheckCircle.svg";
 import Heart from "@assets/icons/common/Heart.svg";
 import FullHeartStraight from "@assets/icons/common/FullHeartStraight.svg";
@@ -56,6 +57,7 @@ export {
   // Common
   CaretDown,
   ChatCircleText,
+  BigCheckCircle,
   CheckCircle,
   Heart,
   FullHeartStraight,

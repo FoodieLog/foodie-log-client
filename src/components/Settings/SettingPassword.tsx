@@ -4,91 +4,137 @@ import { useForm } from "react-hook-form";
 import { putChangePassword } from "@services/settings";
 import { ChangePassword } from "@@types/apiTypes";
 import { passwordValidation } from "@constants";
-import { useRouter } from "next/navigation";
 import { useUserStore } from "@store/useUserStore";
 import Button from "@components/Common/Button";
 import Header from "@components/Common/Header";
 import { useToast } from "@/components/ui/use-toast";
+import useSignUpStore from "@store/useSignUpStore";
+import CompleteChangePassword from "@components/Settings/CompleteChangePassword";
+import ErrorText from "@components/Common/Error";
 
 function SettingPassword() {
-  const email = useUserStore((state) => state.user.email);
-  const router = useRouter();
+  const {
+    user: { email, nickName },
+  } = useUserStore();
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors, isValid },
     watch,
   } = useForm<ChangePassword>({
     mode: "onChange",
   });
+  const { nextComponent, setNextComponent } = useSignUpStore();
   const { toast } = useToast();
 
   const onSubmit = async ({ oldPassword, newPassword }: ChangePassword) => {
     try {
       await putChangePassword({ oldPassword, newPassword });
-      router.replace("/accounts/login");
-      toast({ description: "비밀번호 변경되었습니다!\n다시 로그인해 주세요!" });
+      setNextComponent("CompleteChangePassword");
     } catch (err) {
       toast({ description: "비밀번호 변경 실패하였습니다!" });
     }
   };
 
+  if (nextComponent === "CompleteChangePassword") {
+    return <CompleteChangePassword />;
+  }
+
   return (
-    <section className="w-full sm:max-w-[640px] mx-auto space-y-10">
-      <Header title="비밀번호 재설정" back="prePage" />
-      <div className="title">
-        <form onSubmit={handleSubmit(onSubmit)} className="w-full flex flex-col gap-4 px-10">
-          <label>
-            <p>회원이메일</p>
-            <input type="text" className="inputStyles" value={email} disabled />
-          </label>
-          <label>
-            <p>기존 비밀번호</p>
+    <section className="w-full h-full sm:max-w-[640px] flex flex-col">
+      <Header title="" back="prePage" />
+      <div className="h-full relative mx-5">
+        <h4 className="text-2xl font-semibold text-center mb-[92px]">새로운 비밀번호 입력</h4>
+        <form onSubmit={handleSubmit(onSubmit)} className="w-full flex flex-col gap-2">
+          <div>
+            <div className="relative">
+              <input
+                id="email"
+                type="text"
+                value={email}
+                className={`authInput border-1 peer`}
+                placeholder=" "
+                disabled
+              />
+              <label htmlFor="email" className={`authLabel`}>
+                이메일 주소
+              </label>
+            </div>
+          </div>
+          <div className="relative">
             <input
-              type="password"
-              className="inputStyles"
-              placeholder="기존 비밀번호"
-              maxLength={16}
-              autoComplete="new-password"
-              {...register("oldPassword", passwordValidation)}
+              id="nickName"
+              type="text"
+              value={nickName}
+              className={`authInput border-1 peer`}
+              placeholder=" "
+              disabled
             />
-            {errors?.oldPassword && <span>{errors.oldPassword.message}</span>}
-          </label>
-          <label>
-            <p>변경할 비밀번호</p>
-            <input
-              type="password"
-              className="inputStyles"
-              placeholder="변경할 비밀번호"
-              maxLength={16}
-              autoComplete="new-password"
-              {...register("newPassword", passwordValidation)}
-            />
-            {errors?.newPassword && <span>{errors.newPassword.message}</span>}
-          </label>
-          <label>
-            <p>변경할 비밀번호 확인</p>
-            <input
-              type="password"
-              id="newPasswordCheck"
-              className="inputStyles"
-              placeholder="변경할 비밀번호 확인"
-              autoComplete="off"
-              maxLength={16}
-              {...register("newPasswordCheck", {
-                required: "비밀번호는 필수 입력입니다.",
-                validate: {
-                  value: (val: string | undefined) => {
-                    if (watch("newPassword") !== val) return "비밀번호가 일치하지 않습니다.";
+            <label htmlFor="nickName" className={`authLabel`}>
+              닉네임
+            </label>
+          </div>
+          <div>
+            <div className="relative">
+              <input
+                id="originPassword"
+                type="password"
+                className={`authInput border-1 peer`}
+                placeholder=" "
+                maxLength={16}
+                autoComplete="new-password"
+                {...register("oldPassword", passwordValidation)}
+              />
+              <label htmlFor="originPassword" className={`authLabel`}>
+                기존 비밀번호
+              </label>
+            </div>
+            {errors?.oldPassword && <ErrorText text={errors.oldPassword.message} />}
+          </div>
+          <div>
+            <div className="relative">
+              <input
+                id="newPassword"
+                type="password"
+                className={`authInput border-1 peer`}
+                placeholder=" "
+                maxLength={16}
+                autoComplete="new-password"
+                {...register("newPassword", passwordValidation)}
+              />
+              <label htmlFor="newPassword" className={`authLabel`}>
+                변경할 비밀번호
+              </label>
+            </div>
+            {errors?.newPassword && <ErrorText text={errors.newPassword.message} />}
+          </div>
+          <div>
+            <div className="relative">
+              <input
+                id="newPasswordCheck"
+                type="password"
+                className={`authInput border-1 peer`}
+                placeholder=" "
+                maxLength={16}
+                autoComplete="new-password"
+                {...register("newPasswordCheck", {
+                  required: "비밀번호는 필수 입력입니다.",
+                  validate: {
+                    value: (val: string | undefined) => {
+                      if (watch("newPassword") !== val) return "비밀번호가 일치하지 않습니다.";
+                    },
                   },
-                },
-              })}
-            />
-            {errors?.newPasswordCheck && <span>{errors.newPasswordCheck.message}</span>}
-          </label>
-          <div className="mt-20">
-            <Button type="submit" variant={"primary"} disabled={isSubmitting}>
-              {isSubmitting ? "로딩중..." : "비밀번호 변경"}
+                })}
+              />
+              <label htmlFor="newPasswordCheck" className={`authLabel`}>
+                변경할 비밀번호 확인
+              </label>
+            </div>
+            {errors?.newPasswordCheck && <ErrorText text={errors.newPasswordCheck.message} />}
+          </div>
+          <div className="absolute bottom-[21px] w-full">
+            <Button type="submit" variant="primary" disabled={!isValid}>
+              완료
             </Button>
           </div>
         </form>
