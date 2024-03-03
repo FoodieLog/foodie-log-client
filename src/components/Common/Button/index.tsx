@@ -17,7 +17,7 @@ const Button: React.FC<ButtonProps> = ({
       variantStyles = "w-full p-[10px] bg-white font-[18px] font-gray-2 border border-gray-2 rounded-[8px]";
       break;
     case "text":
-      variantStyles = "underline underline-offset-5";
+      variantStyles = "text-red text-sm";
       break;
   }
 
