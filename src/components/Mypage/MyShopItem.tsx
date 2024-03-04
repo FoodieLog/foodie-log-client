@@ -4,16 +4,14 @@ import usePostStore from "@/src/store/usePostStore";
 import useSignUpStore from "@/src/store/useSignUpStore";
 import { PiStarThin, PiStarFill } from "react-icons/pi";
 import { getIcon } from "@/src/utils/iconUtils";
-import { likeRestaurant, unlikeRestaurant } from "@/src/services/apiFeed";
 import { MyShopItemProps } from "@/src/types/mypage";
-import { useToast } from "@/components/ui/use-toast";
+import useLikeShopMutaions from "@/src/hooks/mutations/useLikeShopMutaions";
 
-function MyShopItem({ item, setReload }: MyShopItemProps) {
+function MyShopItem({ item }: MyShopItemProps) {
   const { content, setContent } = usePostStore();
-  const setNextComponent = useSignUpStore((state) => state.setNextComponent);
+  const { setNextComponent } = useSignUpStore();
   const shopCategoryIcon = `/images/foodCategoryIcons/${getIcon(item.restaurant.category)}`;
-
-  const { toast } = useToast();
+  const { likeMutation, unlikeMutation } = useLikeShopMutaions(item.restaurant.id);
 
   const onClickShophandler = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -22,21 +20,11 @@ function MyShopItem({ item, setReload }: MyShopItemProps) {
   };
 
   const onClickUnLike = async () => {
-    try {
-      await unlikeRestaurant(item.restaurant.id);
-      setReload((pre) => !pre);
-    } catch (error) {
-      toast({ description: "에러가 발생했습니다. 다시 시도해주세요!" });
-    }
+    unlikeMutation.mutate();
   };
 
   const onClickLike = async () => {
-    try {
-      await likeRestaurant(item.restaurant.id);
-      setReload((pre) => !pre);
-    } catch (error) {
-      toast({ description: "에러가 발생했습니다. 다시 시도해주세요!" });
-    }
+    likeMutation.mutate();
   };
 
   return (
