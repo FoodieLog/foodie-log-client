@@ -5,13 +5,13 @@ import useSignUpStore from "@/src/store/useSignUpStore";
 import { PiStarThin, PiStarFill } from "react-icons/pi";
 import { getIcon } from "@/src/utils/iconUtils";
 import { MyShopItemProps } from "@/src/types/mypage";
-import useLikeShopMutaions from "@/src/hooks/mutations/useLikeShopMutaions";
+import useLikeShopMutations from "@/src/hooks/mutations/useLikeShopMutations";
 
 function MyShopItem({ item }: MyShopItemProps) {
   const { content, setContent } = usePostStore();
   const { setNextComponent } = useSignUpStore();
   const shopCategoryIcon = `/images/foodCategoryIcons/${getIcon(item.restaurant.category)}`;
-  const { likeMutation, unlikeMutation } = useLikeShopMutaions(item.restaurant.id);
+  const { likeMutation, unlikeMutation } = useLikeShopMutations(item.restaurant.id);
 
   const onClickShophandler = (e: React.MouseEvent) => {
     e.preventDefault();

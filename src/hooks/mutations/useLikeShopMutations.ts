@@ -4,7 +4,7 @@ import { likeRestaurant, unlikeRestaurant } from "@/src/services/apiFeed";
 import { MyMap } from "@/src/types/mypage";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-const useLikeShopMutaions = (restaurantId: number, userId?: MyMap["userId"]) => {
+const useLikeShopMutations = (restaurantId: number, userId?: MyMap["userId"]) => {
   const queryClient = useQueryClient();
   const { toast } = useToast();
 
@@ -23,4 +23,4 @@ const useLikeShopMutaions = (restaurantId: number, userId?: MyMap["userId"]) => 
   return { likeMutation, unlikeMutation };
 };
 
-export default useLikeShopMutaions;
+export default useLikeShopMutations;
