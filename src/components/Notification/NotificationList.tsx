@@ -4,7 +4,7 @@ import Image from "next/image";
 import { getTimeDiff } from "@/src/utils/date";
 import dayjs from "dayjs";
 import { followUser, getNotificationList, unfollowUser } from "@/src/services/apiFeed";
-import { Notification } from "../../types/apiTypes";
+import { Notification } from "@@types/apiTypes";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 

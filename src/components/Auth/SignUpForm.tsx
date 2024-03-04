@@ -6,7 +6,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { duplicateCheck, sendEmailCode } from "@services/auth";
 import { kakaoLogin } from "@services/kakao";
 import { SignUpForm } from "@@types/apiTypes";
-import { emailValidation, passwordValidation } from "@constants";
+import { EMAIL_VALIDATION, PASSWORD_VALIDATION } from "@constants";
 import KaKaoLoginButton from "@components/Common/Button/KaKaoLoginButton";
 import Button from "@components/Common/Button";
 import SignUpTerms from "@components/Auth/SignUpTerms";
@@ -97,7 +97,7 @@ function SignUpForm() {
               id="email"
               type="text"
               autoComplete="off"
-              {...register("email", emailValidation)}
+              {...register("email", EMAIL_VALIDATION)}
               onBlur={onBlurHandler}
               className={`authInput border-1 peer`}
               placeholder=" "
@@ -123,7 +123,7 @@ function SignUpForm() {
               placeholder=""
               maxLength={16}
               autoComplete="off"
-              {...register("password", passwordValidation)}
+              {...register("password", PASSWORD_VALIDATION)}
             />
             <label htmlFor="password" className={`authLabel`}>
               비밀번호

@@ -3,7 +3,7 @@ import { userRequest } from "@/src/services";
 import { useUserStore } from "@/src/store/useUserStore";
 import { Notification } from "@/src/types/apiTypes";
 import { getCookie } from "@/src/utils/token";
-import { expiryTime } from "../utils/date";
+import { expiryTime } from "@utils/date";
 
 const BASE_URL = "https://api.foodielog-server.monster/api";
 

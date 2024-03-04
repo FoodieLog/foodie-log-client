@@ -57,7 +57,7 @@ export const getFeedListByUserId = async (userId: number, feedId: number) => {
   }
 };
 
-/** 싱글 피드 요청 */
+/** 피드 목록 요청 */
 export const getFeedList = async (feedId: number) => {
   if (feedId === 0) {
     const res = await axiosRequest.get(`api/feed/list`);

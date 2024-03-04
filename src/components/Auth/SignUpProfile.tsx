@@ -6,11 +6,11 @@ import { MdAddPhotoAlternate } from "react-icons/md";
 import { signUp, duplicateNickNameCheck } from "@services/auth";
 import { profileSetting } from "@services/kakao";
 import Image from "next/image";
-import Button from "../Common/Button";
-import AuthHeader from "../Common/Header/Auth";
+import Button from "@components/Common/Button";
+import AuthHeader from "@components/Common/Header/Auth";
 import useSignUpStore from "@store/useSignUpStore";
 import { useToast } from "@/components/ui/use-toast";
-import { TOAST_MESSAGES } from "@constants/toast";
+import { TOAST_MESSAGES } from "@constants";
 
 function SignUpProfile() {
   const [isLoading, setIsLoading] = useState(false);

@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction, useRef, useState } from "react";
-import Button from "../Common/Button";
+import Button from "@components/Common/Button";
 import { CodeData } from "@@types/signupTypes";
 
 interface CodeInputProps {

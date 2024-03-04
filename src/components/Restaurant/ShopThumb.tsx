@@ -1,4 +1,4 @@
-import ShopCard from "@components/Restaurant/ShopCard";
+import ShopCard from "@components/Card/ShopCard";
 import { RecommendedRestaurant } from "@@types/recommend";
 import ShopFeedList from "@components/Restaurant/ShopFeedList";
 

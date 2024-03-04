@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import Header from "@components/Common/Header";
 import KakaoMap from "@components/Map/KakaoMap";
-import ShopCard from "@components/Restaurant/ShopCard";
+import ShopCard from "@components/Card/ShopCard";
 import { getRestaurantDetail } from "@services/restaurant";
 import Feed from "@components/Feed/Feed";
 interface RestaurantDetailProps {

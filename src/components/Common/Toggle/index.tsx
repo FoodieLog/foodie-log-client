@@ -1,6 +1,6 @@
 import React, { useMemo, useEffect, useCallback } from "react";
-import { putNotification } from "../../../services/settings";
-import useNotificationStore from "../../../store/useNotificationStore";
+import { putNotification } from "@services/settings";
+import useNotificationStore from "@store/useNotificationStore";
 
 function Toggle() {
   const { isChecked, setIsChecked } = useNotificationStore();

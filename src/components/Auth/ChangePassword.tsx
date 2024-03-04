@@ -1,14 +1,12 @@
 "use client";
-import React from "react";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { resetPassword } from "@services/auth";
 import { ChangePassword } from "@@types/apiTypes";
-import { passwordValidation } from "@constants";
-import { useRouter } from "next/navigation";
-import Button from "@components/Common/Button";
 import { useToast } from "@/components/ui/use-toast";
-import { TOAST_MESSAGES } from "@constants/toast";
+import { PASSWORD_VALIDATION, TOAST_MESSAGES } from "@constants";
 import Header from "@components/Common/Header";
+import Button from "@components/Common/Button";
 import ErrorText from "@components/Common/Error";
 
 function ChangePassword({ email }: ChangePassword) {
@@ -64,7 +62,7 @@ function ChangePassword({ email }: ChangePassword) {
                 placeholder=" "
                 maxLength={16}
                 autoComplete="new-password"
-                {...register("newPassword", passwordValidation)}
+                {...register("newPassword", PASSWORD_VALIDATION)}
               />
               <label htmlFor="newPassword" className={`authLabel`}>
                 변경할 비밀번호

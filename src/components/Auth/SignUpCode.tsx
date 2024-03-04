@@ -2,9 +2,9 @@
 import { useState } from "react";
 import useSignUpStore from "@store/useSignUpStore";
 import { sendEmailCode, getVerificationEmail } from "@services/auth";
-import AuthHeader from "../Common/Header/Auth";
+import AuthHeader from "@components/Common/Header/Auth";
 import { useToast } from "@/components/ui/use-toast";
-import { TOAST_MESSAGES } from "@constants/toast";
+import { TOAST_MESSAGES } from "@constants";
 import CodeInput from "./CodeInput";
 import { CodeData } from "@@types/signupTypes";
 
