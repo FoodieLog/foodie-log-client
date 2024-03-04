@@ -1,4 +1,5 @@
 import { useToast } from "@/components/ui/use-toast";
+import { TOAST_MESSAGES } from "@/src/constants/toast";
 import { getLikedShop } from "@/src/services/apiFeed";
 import { getMyMap } from "@/src/services/mypage";
 import { LikedMapResponse } from "@/src/types/apiTypes";
@@ -21,7 +22,7 @@ const useMyMapQuery = (userId: MyMap["userId"]) => {
     },
     {
       onError: () => {
-        toast({ description: "에러가 발생했습니다. 다시 시도해주세요!" });
+        toast(TOAST_MESSAGES.ERROR_PLEASE_RETRY);
       },
     }
   );

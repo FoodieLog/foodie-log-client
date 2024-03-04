@@ -1,4 +1,5 @@
 import { useToast } from "@/components/ui/use-toast";
+import { TOAST_MESSAGES } from "@/src/constants/toast";
 import { likeRestaurant, unlikeRestaurant } from "@/src/services/apiFeed";
 import { MyMap } from "@/src/types/mypage";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -12,7 +13,7 @@ const useLikeShopMutaions = (restaurantId: number, userId?: MyMap["userId"]) => 
       queryClient.invalidateQueries(["myMap", userId || "noUserId"]);
     },
     onError: () => {
-      toast({ description: "에러가 발생했습니다. 다시 시도해주세요!" });
+      toast(TOAST_MESSAGES.ERROR_PLEASE_RETRY);
     },
   };
 
