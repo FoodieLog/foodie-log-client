@@ -14,7 +14,7 @@ function MyListMap({ mapData }: MapProps) {
   return (
     <div className="w-full h-[360px] p-1 bg-slate-300">
       <Map center={{ lat: 36.2683, lng: 127.6358 }} style={{ width: "100%", height: "100%" }} level={15}>
-        {mapData.map(({ restaurant }) => {
+        {mapData?.map(({ restaurant }) => {
           const lat = parseFloat(restaurant.mapY);
           const lng = parseFloat(restaurant.mapX);
           return (
