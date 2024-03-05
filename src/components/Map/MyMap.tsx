@@ -22,7 +22,7 @@ function MyMap({ userId, header }: MyMap) {
         <MyListMap mapData={data?.myMap} />
         <div className="w-full sm:max-w-[640px] overflow-y-auto max-h-[calc(100vh-55vh)]">
           {data?.myMap.map((data: MapItem) => (
-            <MyShopItem key={data.restaurant.id} item={data} />
+            <MyShopItem key={data.restaurant.id} item={data} userId={userId} />
           ))}
         </div>
       </div>

@@ -72,6 +72,7 @@ export interface MyPageForm extends MyMapProps {
 }
 
 export interface MyShopItemProps {
+  userId?: number;
   item: MapItem;
 }
 
