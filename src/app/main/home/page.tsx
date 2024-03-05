@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from "react";
 import Feeds from "@components/Feed/Feeds";
 import MainHeader from "@components/Common/Header/MainHeader";
 
