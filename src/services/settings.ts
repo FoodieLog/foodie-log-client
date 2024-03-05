@@ -3,6 +3,11 @@ import { PasswordType, WithdrawRequestBodyType } from "@@types/settings";
 import { getMessaging, deleteToken } from "firebase/messaging";
 import firebaseApp from "@/firebaseConfig";
 
+export const getApplyBadge = async () => {
+  const res = await userRequest.get("/api/user/setting/badge");
+  return res;
+};
+
 export const postApplyBadge = async () => {
   const res = await userRequest.post("/api/user/setting/badge");
   return res;

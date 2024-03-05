@@ -1,8 +1,8 @@
 import React from "react";
-import PasswordCode from "@/src/components/Auth/PasswordCode";
+import PasswordAuth from "@components/Auth/PasswordAuth";
 
 function Password() {
-  return <PasswordCode />;
+  return <PasswordAuth />;
 }
 
 export default Password;

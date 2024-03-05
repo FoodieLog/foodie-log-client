@@ -1,8 +1,8 @@
 import React from "react";
-import BadgeForm from "../../../../components/Settings/SettingBadge";
+import SettingBadge from "@components/Settings/SettingBadge";
 
 function Badge() {
-  return <BadgeForm />;
+  return <SettingBadge />;
 }
 
 export default Badge;
