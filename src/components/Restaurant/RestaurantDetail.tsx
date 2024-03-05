@@ -5,13 +5,16 @@ import KakaoMap from "@components/Map/KakaoMap";
 import ShopCard from "@components/Restaurant/ShopCard";
 import { getRestaurantDetail } from "@services/restaurant";
 import Feed from "@components/Feed/Feed";
+import useRestaurantDetailQuery from "@/src/hooks/queries/useRestaurantDetailQuery";
 interface RestaurantDetailProps {
   restaurantId: string;
 }
 
 const RestaurantDetail = ({ restaurantId }: RestaurantDetailProps) => {
-  const [restaurantDetail, setRestaurantDetail] = useState<any>();
-  const [feedList, setFeedList] = useState<any>();
+  const parsedId = parseInt(restaurantId, 10);
+  const { data, isLoading } = useRestaurantDetailQuery(parsedId);
+  // const [restaurantDetail, setRestaurantDetail] = useState<any>();
+  // const [feedList, setFeedList] = useState<any>();
 
   // [id] dynamic routing 사용하지 않는 경우에 pathname 사용하여 id 가져오는 방법
   // const pathname = usePathname();
@@ -20,49 +23,49 @@ const RestaurantDetail = ({ restaurantId }: RestaurantDetailProps) => {
   // const restaurantId = restaurantIdMatch ? parseInt(restaurantIdMatch[1], 10) : 1;
   // const restaurantId = parseInt(Id)
 
-  const parsedId = parseInt(restaurantId, 10);
-  useEffect(() => {
-    // const data = generateRestaurantDetailDummyData();
-    const fetchData = async () => {
-      const data = await getRestaurantDetail(parsedId);
+  // useEffect(() => {
+  //   // const data = generateRestaurantDetailDummyData();
+  //   const fetchData = async () => {
+  //     const data = await getRestaurantDetail(parsedId);
 
-      setRestaurantDetail(data.data.response.restaurantInfo);
-      setFeedList(data.data.response.content);
-    };
+  //     setRestaurantDetail(data.data.response.restaurantInfo);
+  //     setFeedList(data.data.response.content);
+  //   };
 
-    fetchData();
-  }, [parsedId]);
+  //   fetchData();
+  // }, [parsedId]);
 
-  if (!restaurantDetail) return <div>Loading...</div>;
+  // const updateFollowStatus = (userId: number, newStatus: boolean) => {
+  //   setFeedList((prevData: any[]) => {
+  //     return prevData.map((content) => {
+  //       if (content.feed.userId === userId) {
+  //         return { ...content, followed: newStatus };
+  //       }
+  //       return content;
+  //     });
+  //   });
+  // };
 
-  const updateFollowStatus = (userId: number, newStatus: boolean) => {
-    setFeedList((prevData: any[]) => {
-      return prevData.map((content) => {
-        if (content.feed.userId === userId) {
-          return { ...content, followed: newStatus };
-        }
-        return content;
-      });
-    });
-  };
+  // TODO: 로딩 ui 추가하기!
+  if (isLoading) return <div>Loading...</div>;
 
   return (
     <div className="w-full flex flex-col justify-center max-w-screen-sm mx-auto">
-      <Header title={restaurantDetail.restaurant.name} back="prePage" />
+      <Header title={data?.detail.restaurant.name ?? ""} back="prePage" />
       <KakaoMap
-        latitude={restaurantDetail.restaurant.mapY}
-        longitude={restaurantDetail.restaurant.mapX}
+        latitude={data?.detail.restaurant.mapY ?? ""}
+        longitude={data?.detail.restaurant.mapX ?? ""}
         restaurantId={parsedId}
       />
       <ShopCard
         id={parsedId}
-        name={restaurantDetail.restaurant.name}
-        category={restaurantDetail.restaurant.category}
-        roadAddress={restaurantDetail.restaurant.roadAddress}
-        isLiked={restaurantDetail.isLiked.liked}
-        shopUrl={restaurantDetail.restaurant.link}
+        name={data?.detail.restaurant.name ?? ""}
+        category={data?.detail.restaurant.category ?? ""}
+        roadAddress={data?.detail.restaurant.roadAddress ?? ""}
+        isLiked={data?.detail.isLiked.liked}
+        shopUrl={data?.detail.restaurant.link}
       />
-      {feedList &&
+      {/* {feedList &&
         feedList.map((feedItem: any, index: number) => (
           <Feed
             key={index}
@@ -72,7 +75,7 @@ const RestaurantDetail = ({ restaurantId }: RestaurantDetailProps) => {
             isLiked={feedItem.liked}
             updateFollowStatus={updateFollowStatus}
           />
-        ))}
+        ))} */}
     </div>
   );
 };
