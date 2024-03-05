@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useUserStore } from "@/src/store/useUserStore";
+import { useUserStore } from "@store/useUserStore";
 
 // ============ Axios Instance ============
 

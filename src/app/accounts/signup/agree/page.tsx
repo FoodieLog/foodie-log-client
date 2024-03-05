@@ -1,5 +1,5 @@
 import React from "react";
-import SignUpTerms from "@/src/components/Auth/SignUpTerms";
+import SignUpTerms from "@components/Auth/SignUpTerms";
 
 function Agree() {
   return <SignUpTerms />;

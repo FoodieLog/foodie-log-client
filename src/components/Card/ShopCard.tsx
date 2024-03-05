@@ -3,7 +3,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { getIcon } from "@utils/iconUtils";
 import { likeRestaurant, unlikeRestaurant } from "@services/apiFeed";
-import { LocationOn, FullHeartStraight, HeartStraight, OpenInNew } from "@/src/assets/icons";
+import { LocationOn, FullHeartStraight, HeartStraight, OpenInNew } from "@assets/icons";
 
 interface ShopCardProps {
   id: number;

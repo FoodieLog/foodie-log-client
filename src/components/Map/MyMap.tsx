@@ -2,12 +2,12 @@
 import MyListMap from "@components/Map/MyListMap";
 import MyShopItem from "@components/Mypage/MyShopItem";
 import Header from "@components/Common/Header";
-import { LikedMapResponse, MapItem } from "@/src/types/apiTypes";
+import { LikedMapResponse, MapItem } from "@@types/apiTypes";
 import { useEffect, useState } from "react";
 import { getLikedShop } from "@services/apiFeed";
 import { useToast } from "@/components/ui/use-toast";
 import { getMyMap } from "@services/mypage";
-import { MyMap } from "@/src/types/mypage";
+import { MyMap } from "@@types/mypage";
 
 function MyMap({ userId, header }: MyMap) {
   //#region useState

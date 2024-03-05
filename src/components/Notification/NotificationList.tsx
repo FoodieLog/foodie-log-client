@@ -1,9 +1,9 @@
 "use client";
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { getTimeDiff } from "@/src/utils/date";
+import { getTimeDiff } from "@utils/date";
 import dayjs from "dayjs";
-import { followUser, getNotificationList, unfollowUser } from "@/src/services/apiFeed";
+import { followUser, getNotificationList, unfollowUser } from "@services/apiFeed";
 import { Notification } from "@@types/apiTypes";
 import { useRouter } from "next/navigation";
 import Link from "next/link";

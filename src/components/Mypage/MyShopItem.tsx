@@ -1,11 +1,11 @@
 import Link from "next/link";
 import Image from "next/image";
-import usePostStore from "@/src/store/usePostStore";
-import useSignUpStore from "@/src/store/useSignUpStore";
+import usePostStore from "@store/usePostStore";
+import useSignUpStore from "@store/useSignUpStore";
 import { PiStarThin, PiStarFill } from "react-icons/pi";
-import { getIcon } from "@/src/utils/iconUtils";
-import { likeRestaurant, unlikeRestaurant } from "@/src/services/apiFeed";
-import { MyShopItemProps } from "@/src/types/mypage";
+import { getIcon } from "@utils/iconUtils";
+import { likeRestaurant, unlikeRestaurant } from "@services/apiFeed";
+import { MyShopItemProps } from "@@types/mypage";
 import { useToast } from "@/components/ui/use-toast";
 
 function MyShopItem({ item, setReload }: MyShopItemProps) {

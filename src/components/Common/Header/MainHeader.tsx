@@ -3,7 +3,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import useHideOnScroll from "@hooks/useHideOnScroll";
-import { SearchIcon, Notifications } from "@/src/assets/icons";
+import { SearchIcon, Notifications } from "@assets/icons";
 import { TextLogo } from "@/public/images";
 
 const MainHeader = () => {

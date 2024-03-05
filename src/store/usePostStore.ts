@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { PostStore } from "@/src/types/post";
+import { PostStore } from "@@types/post";
 
 export const initialContent = {
   id: "",

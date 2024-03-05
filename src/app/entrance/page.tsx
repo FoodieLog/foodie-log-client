@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import Button from "@/src/components/Common/Button";
+import Button from "@components/Common/Button";
 import { useRouter } from "next/navigation";
 
 function Entrance() {

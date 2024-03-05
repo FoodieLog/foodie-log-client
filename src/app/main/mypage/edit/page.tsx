@@ -1,4 +1,4 @@
-import MyProfileSettings from "@/src/components/Mypage/MyProfileSettings";
+import MyProfileSettings from "@components/Mypage/MyProfileSettings";
 
 function EditProfile() {
   return <MyProfileSettings />;

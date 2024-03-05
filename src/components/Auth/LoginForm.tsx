@@ -97,7 +97,7 @@ function LogInForm() {
         </div>
       </form>
       <Line />
-      <KaKaoLoginButton onClick={onClickHandler} />
+      <KaKaoLoginBtn onClick={onClickHandler} />
       <div className="flex justify-center my-10">
         <Link href={"/accounts/password"} className="underline underline-offset-1">
           비밀번호를 잊으셨나요?

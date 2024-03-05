@@ -1,4 +1,4 @@
-import useSignUpStore from "@/src/store/useSignUpStore";
+import useSignUpStore from "@store/useSignUpStore";
 import React from "react";
 import { useRouter } from "next/navigation";
 import { BsArrowLeftCircle } from "react-icons/bs";

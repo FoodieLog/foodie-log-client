@@ -1,4 +1,4 @@
-import { FeedData } from "@/src/types/apiTypes";
+import { FeedData } from "@@types/apiTypes";
 
 export interface FeedEditModalProps {
   reload: boolean;
