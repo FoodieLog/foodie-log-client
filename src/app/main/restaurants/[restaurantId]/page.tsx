@@ -3,15 +3,15 @@ import RestaurantDetail from "@/src/components/Restaurant/RestaurantDetail";
 
 interface RestaurantProps {
   params: {
-    id: string;
+    restaurantId: string;
   };
 }
 
-// props : {params : {id} } : RestaurantProps
-const restaurant = ({ params: { id } }: RestaurantProps) => {
+// props : {params : {restaurantId} } : RestaurantProps
+const restaurant = ({ params: { restaurantId } }: RestaurantProps) => {
   return (
     <div className="w-full flex justify-center">
-      <RestaurantDetail Id={id} />
+      <RestaurantDetail restaurantId={restaurantId} />
     </div>
   );
 };

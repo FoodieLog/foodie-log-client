@@ -6,10 +6,10 @@ import ShopCard from "@components/Restaurant/ShopCard";
 import { getRestaurantDetail } from "@services/restaurant";
 import Feed from "@components/Feed/Feed";
 interface RestaurantDetailProps {
-  Id: string;
+  restaurantId: string;
 }
 
-const RestaurantDetail = ({ Id }: RestaurantDetailProps) => {
+const RestaurantDetail = ({ restaurantId }: RestaurantDetailProps) => {
   const [restaurantDetail, setRestaurantDetail] = useState<any>();
   const [feedList, setFeedList] = useState<any>();
 
@@ -20,18 +20,18 @@ const RestaurantDetail = ({ Id }: RestaurantDetailProps) => {
   // const restaurantId = restaurantIdMatch ? parseInt(restaurantIdMatch[1], 10) : 1;
   // const restaurantId = parseInt(Id)
 
-  const restaurantId = parseInt(Id, 10);
+  const parsedId = parseInt(restaurantId, 10);
   useEffect(() => {
     // const data = generateRestaurantDetailDummyData();
     const fetchData = async () => {
-      const data = await getRestaurantDetail(restaurantId);
+      const data = await getRestaurantDetail(parsedId);
 
       setRestaurantDetail(data.data.response.restaurantInfo);
       setFeedList(data.data.response.content);
     };
 
     fetchData();
-  }, [restaurantId]);
+  }, [parsedId]);
 
   if (!restaurantDetail) return <div>Loading...</div>;
 
@@ -52,10 +52,10 @@ const RestaurantDetail = ({ Id }: RestaurantDetailProps) => {
       <KakaoMap
         latitude={restaurantDetail.restaurant.mapY}
         longitude={restaurantDetail.restaurant.mapX}
-        restaurantId={restaurantId}
+        restaurantId={parsedId}
       />
       <ShopCard
-        id={restaurantId}
+        id={parsedId}
         name={restaurantDetail.restaurant.name}
         category={restaurantDetail.restaurant.category}
         roadAddress={restaurantDetail.restaurant.roadAddress}
