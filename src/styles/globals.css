@@ -45,6 +45,12 @@
   .error {
     @apply mt-2 text-xs text-red-600 dark:text-red-400;
   }
+  .followBtn {
+    @apply shrink-0 box-border py-[2px] text-[14px] text-red border border-red rounded-[8px];
+  }
+  .followingBtn {
+    @apply shrink-0 box-border py-[2px] text-[14px] text-gray-4 bg-gray-1 rounded-[8px];
+  }
 }
 
 @font-face {
