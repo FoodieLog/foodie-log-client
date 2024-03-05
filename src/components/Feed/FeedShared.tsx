@@ -10,7 +10,7 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import { FaRegCommentDots } from "react-icons/fa";
 import { FiShare2 } from "react-icons/fi";
 import { getTimeDiff } from "@/src/utils/date";
-import ShopCard from "@/src/components/Restaurant/ShopCard";
+import ShopCard from "@/src/components/Card/ShopCard";
 import {
   Dialog,
   DialogContent,
