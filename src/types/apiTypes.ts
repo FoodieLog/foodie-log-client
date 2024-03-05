@@ -31,7 +31,7 @@ export interface ChangePassword {
 }
 
 // FEED
-export type FeedData = {
+export interface FeedData {
   feed: {
     feedId: number;
     userId: number;
@@ -53,9 +53,9 @@ export type FeedData = {
     link: string;
     roadAddress: string;
   };
-  isFollowed: boolean;
-  isLiked: boolean;
-};
+  followed: boolean;
+  liked: boolean;
+}
 
 export type FeedThumbnail = {
   id: number;
