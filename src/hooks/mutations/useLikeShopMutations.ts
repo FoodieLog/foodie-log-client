@@ -1,7 +1,7 @@
 import { useToast } from "@/components/ui/use-toast";
-import { TOAST_MESSAGES } from "@/src/constants/toast";
-import { likeRestaurant, unlikeRestaurant } from "@/src/services/apiFeed";
-import { MyMap } from "@/src/types/mypage";
+import { TOAST_MESSAGES } from "@constants/toast";
+import { likeRestaurant, unlikeRestaurant } from "@services/apiFeed";
+import { MyMap } from "@@types/mypage";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const useLikeShopMutations = (restaurantId: number, userId?: MyMap["userId"]) => {

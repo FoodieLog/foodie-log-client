@@ -1,9 +1,9 @@
 import { useToast } from "@/components/ui/use-toast";
-import { TOAST_MESSAGES } from "@/src/constants/toast";
-import { getLikedShop } from "@/src/services/apiFeed";
-import { getMyMap } from "@/src/services/mypage";
-import { LikedMapResponse } from "@/src/types/apiTypes";
-import { MyMap } from "@/src/types/mypage";
+import { TOAST_MESSAGES } from "@constants/toast";
+import { getLikedShop } from "@services/apiFeed";
+import { getMyMap } from "@services/mypage";
+import { LikedMapResponse } from "@@types/apiTypes";
+import { MyMap } from "@@types/mypage";
 import { useQuery } from "@tanstack/react-query";
 
 const useMyMapQuery = (userId: MyMap["userId"]) => {
