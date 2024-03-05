@@ -2,15 +2,21 @@
 import { Fragment, useEffect, useRef, useState } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
 /** 피드 관련 api 추후 정리 예정 */
-import { getFeedList, getFeedListByUserId, getSingleFeed, followUser, unfollowUser } from "@/src/services/apiFeed";
-// import { getFeedList, getFeedListByUserId, getSingleFeed, followUser, unfollowUser } from "@/src/services/feed";
+import { getFeedList, getFeedListByUserId, getSingleFeed, followUser, unfollowUser } from "@services/apiFeed";
+// import { getFeedList, getFeedListByUserId, getSingleFeed, followUser, unfollowUser } from "@services/feed";
 import InfiniteScroll from "react-infinite-scroller";
-import useSignUpStore from "@/src/store/useSignUpStore";
-import Feed from "@/src/components/Feed/Feed";
-import FeedEditModal from "@/src/components/Feed/FeedEditModal";
-import { FeedsProps, Content, APISingleFeedResponse, APIFeedResponse } from "@/src/types/feed";
+import useSignUpStore from "@store/useSignUpStore";
+import Feed from "@components/Feed/Feed";
+import FeedEditModal from "@components/Feed/FeedEditModal";
+import { Content, APIFeedResponse } from "@@types/feed";
 
-const Feeds: React.FC<FeedsProps> = ({ id, startingFeedId, singleFeedId }) => {
+interface FeedsProps {
+  id?: number;
+  startingFeedId?: number;
+  singleFeedId?: number;
+}
+
+const Feeds = ({ id, startingFeedId, singleFeedId }: FeedsProps) => {
   const [reload, setReload] = useState(false);
   const [feedsData, setFeedsData] = useState<Content[]>([]);
   const [singleFeedData, setSingleFeedData] = useState<Content | null>(null);
@@ -21,10 +27,7 @@ const Feeds: React.FC<FeedsProps> = ({ id, startingFeedId, singleFeedId }) => {
     const fetchData = async () => {
       try {
         const response = await getSingleFeed(singleFeedId!);
-        if (response.status === 200) {
-          const apiResponse = response as unknown as APISingleFeedResponse;
-          setSingleFeedData(apiResponse.response.content);
-        }
+        setSingleFeedData(response.response.content);
       } catch (error) {
         console.error("API Error:", error);
       }
@@ -68,29 +71,29 @@ const Feeds: React.FC<FeedsProps> = ({ id, startingFeedId, singleFeedId }) => {
     setFeedsData((prevData) => prevData.filter((feed) => feed.feed.feedId !== feedId));
   };
 
-  const updateFollowStatus = async (userId: number, newStatus: boolean) => {
-    let response;
-    try {
-      if (newStatus) {
-        response = await followUser(userId);
-      } else {
-        response = await unfollowUser(userId);
-      }
+  // const updateFollowStatus = async (userId: number, newStatus: boolean) => {
+  //   let response;
+  //   try {
+  //     if (newStatus) {
+  //       response = await followUser(userId);
+  //     } else {
+  //       response = await unfollowUser(userId);
+  //     }
 
-      if ((newStatus && response.status === 201) || (!newStatus && response.status === 204)) {
-        setFeedsData((prevData) => {
-          return prevData.map((content) => {
-            if (content.feed.userId === userId) {
-              return { ...content, followed: newStatus };
-            }
-            return content;
-          });
-        });
-      }
-    } catch (error) {
-      console.error("Failed to update follow state:", error);
-    }
-  };
+  //     if ((newStatus && response.status === 201) || (!newStatus && response.status === 204)) {
+  //       setFeedsData((prevData) => {
+  //         return prevData.map((content) => {
+  //           if (content.feed.userId === userId) {
+  //             return { ...content, followed: newStatus };
+  //           }
+  //           return content;
+  //         });
+  //       });
+  //     }
+  //   } catch (error) {
+  //     console.error("Failed to update follow state:", error);
+  //   }
+  // };
 
   useEffect(() => {
     let found = false;
@@ -118,46 +121,33 @@ const Feeds: React.FC<FeedsProps> = ({ id, startingFeedId, singleFeedId }) => {
     <div className="flex flex-col pt-5 max-w-[640px] w-full mx-auto">
       {/* singleFeedId가 있을 경우 단일 피드 렌더링 */}
       {singleFeedId && singleFeedData ? (
-        <Feed
-          key={singleFeedData.feed.feedId}
-          feed={singleFeedData.feed}
-          restaurant={singleFeedData.restaurant}
-          isFollowed={singleFeedData.followed}
-          isLiked={singleFeedData.liked}
-          updateFollowStatus={updateFollowStatus}
-          removeDeletedFeed={removeDeletedFeed}
-        />
+        <Feed key={singleFeedData.feed.feedId} {...singleFeedData} />
       ) : (
         <InfiniteScroll pageStart={0} loadMore={loadMore} hasMore={hasNextPage && !isFetchingNextPage}>
           {(data?.pages || []).map((page, index) => {
             if (!Array.isArray(page.response.content)) {
-              // page.response.content가 배열이 아닐 경우에 대한 처리
-              console.error("page.response.content is not an array:", page.response.content);
               return null;
             }
             return (
               <Fragment key={index}>
-                {page.response.content.map((content: Content, i) => (
-                  <div
-                    key={content.feed.feedId}
-                    ref={(el) => {
-                      if (content.feed.feedId !== undefined) {
-                        // feedId가 undefined인지 확인
-                        feedRef.current[content.feed.feedId] = el;
-                      }
-                    }}
-                  >
-                    <Feed
-                      key={content.feed.feedId}
-                      feed={content.feed}
-                      restaurant={content.restaurant}
-                      isFollowed={content.followed}
-                      isLiked={content.liked}
-                      updateFollowStatus={updateFollowStatus}
-                      removeDeletedFeed={removeDeletedFeed}
-                    />
-                  </div>
-                ))}
+                {page.response.content.map((feedData: Content, index) => {
+                  const { feed } = feedData;
+                  const hasFeedId = feed?.feedId !== undefined;
+                  const Key = hasFeedId ? feed.feedId : index;
+
+                  return (
+                    <div
+                      key={Key}
+                      ref={(el) => {
+                        if (hasFeedId) {
+                          feedRef.current[feed.feedId] = el;
+                        }
+                      }}
+                    >
+                      <Feed key={Key} {...feedData} />
+                    </div>
+                  );
+                })}
               </Fragment>
             );
           })}

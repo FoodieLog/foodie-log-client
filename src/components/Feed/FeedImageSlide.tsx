@@ -1,9 +1,12 @@
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { RxDotFilled } from "react-icons/rx";
-import { FeedImageSlideProps } from "@@types/feed";
 import { ArrowBack_IOS } from "@assets/icons";
 
-const FeedImageSlide: React.FC<FeedImageSlideProps> = ({ images }) => {
+interface FeedImageSlideProps {
+  images: { imageUrl: string }[];
+}
+
+const FeedImageSlide = ({ images }: FeedImageSlideProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const slideRef = useRef(null);
   const [isDragging, setIsDragging] = useState(false);
