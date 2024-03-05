@@ -37,7 +37,7 @@
     @apply h-4 w-4 rounded border-gray-300;
   }
   .code {
-    @apply text-center text-xl h-10 w-10 rounded border-0 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600;
+    @apply text-center text-xl h-[80px] w-[60px] rounded-[10px] border-0 ring-1 ring-gray-2 focus:ring-2 focus:ring-inset focus:ring-indigo-600;
   }
   .ok {
     @apply mt-2 text-xs text-green-600 dark:text-green-400;

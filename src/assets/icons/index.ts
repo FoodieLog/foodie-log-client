@@ -1,6 +1,7 @@
 //============ 아이콘 - Common ============
 import CaretDown from "@assets/icons/common/CaretDown.svg";
 import ChatCircleText from "@assets/icons/common/ChatCircleText.svg";
+import BigCheckCircle from "@assets/icons/common/Big_CheckCircle.svg";
 import CheckCircle from "@assets/icons/common/CheckCircle.svg";
 import Heart from "@assets/icons/common/Heart.svg";
 import FullHeartStraight from "@assets/icons/common/FullHeartStraight.svg";
@@ -28,6 +29,8 @@ import SettingsIcon from "@assets/icons/common/settings.svg";
 import Close from "@assets/icons/common/close.svg";
 import CloseSmall from "@assets/icons/common/close_small.svg";
 import AddIcon from "@assets/icons/common/add.svg";
+import NotificationSmall from "@assets/icons/common/notification_small.svg";
+import Logout from "@assets/icons/common/logout.svg";
 
 //============ 아이콘 - GNB ============
 
@@ -54,6 +57,7 @@ export {
   // Common
   CaretDown,
   ChatCircleText,
+  BigCheckCircle,
   CheckCircle,
   Heart,
   FullHeartStraight,
@@ -81,6 +85,8 @@ export {
   Close,
   CloseSmall,
   AddIcon,
+  NotificationSmall,
+  Logout,
 
   //GNB
   Person,
