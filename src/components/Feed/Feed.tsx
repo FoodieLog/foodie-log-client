@@ -1,6 +1,6 @@
 "use client";
 import { FeedData } from "@@types/apiTypes";
-import ShopCard from "@components/Card/ShopCard";
+import ShopCard from "@components/Common/Card/ShopCard";
 import FeedHeader from "@components/Feed/FeedHeader";
 import FeedImageSlide from "@components/Feed/FeedImageSlide";
 import FeedInteraction from "@components/Feed/FeedInteraction";
