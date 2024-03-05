@@ -68,9 +68,8 @@ const RestaurantDetail = ({ Id }: RestaurantDetailProps) => {
             key={index}
             feed={feedItem.feed}
             restaurant={feedItem.restaurant}
-            isFollowed={feedItem.followed}
-            isLiked={feedItem.liked}
-            updateFollowStatus={updateFollowStatus}
+            followed={feedItem.followed}
+            liked={feedItem.liked}
           />
         ))}
     </div>
