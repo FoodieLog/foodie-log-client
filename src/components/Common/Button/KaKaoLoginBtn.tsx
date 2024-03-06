@@ -6,7 +6,7 @@ type KaKaoBtnProps = {
   onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
 };
 
-function KaKaoLoginButton({ onClick }: KaKaoBtnProps) {
+function KaKaoLoginBtn({ onClick }: KaKaoBtnProps) {
   return (
     <button
       type="button"
@@ -19,4 +19,4 @@ function KaKaoLoginButton({ onClick }: KaKaoBtnProps) {
   );
 }
 
-export default KaKaoLoginButton;
+export default KaKaoLoginBtn;

@@ -6,8 +6,8 @@ import { useToast } from "@/components/ui/use-toast";
 import { duplicateCheck, sendEmailCode } from "@services/auth";
 import { kakaoLogin } from "@services/kakao";
 import { SignUpForm } from "@@types/apiTypes";
-import { emailValidation, passwordValidation } from "@constants";
-import KaKaoLoginButton from "@components/Common/Button/KaKaoLoginButton";
+import { EMAIL_VALIDATION, PASSWORD_VALIDATION } from "@constants";
+import KaKaoLoginBtn from "@components/Common/Button/KaKaoLoginBtn";
 import Button from "@components/Common/Button";
 import SignUpTerms from "@components/Auth/SignUpTerms";
 import SignUpCode from "@components/Auth/SignUpCode";
@@ -97,7 +97,7 @@ function SignUpForm() {
               id="email"
               type="text"
               autoComplete="off"
-              {...register("email", emailValidation)}
+              {...register("email", EMAIL_VALIDATION)}
               onBlur={onBlurHandler}
               className={`authInput border-1 peer`}
               placeholder=" "
@@ -123,7 +123,7 @@ function SignUpForm() {
               placeholder=""
               maxLength={16}
               autoComplete="off"
-              {...register("password", passwordValidation)}
+              {...register("password", PASSWORD_VALIDATION)}
             />
             <label htmlFor="password" className={`authLabel`}>
               비밀번호
@@ -168,7 +168,7 @@ function SignUpForm() {
         <span className="w-10 flex-shrink-0 font-semibold text-gray-600 text-center text-sm">또는</span>
         <div className="h-[0.8px] w-full bg-slate-400" />
       </div>
-      <KaKaoLoginButton onClick={onClickHandler} />
+      <KaKaoLoginBtn onClick={onClickHandler} />
     </section>
   );
 }

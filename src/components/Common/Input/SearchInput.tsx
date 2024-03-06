@@ -22,7 +22,7 @@ function SearchInput({ query, setQuery, onChangeInputHandler, onSubmit }: Search
       className="w-full h-[42px] px-[12px] flex items-center justify-between border border-gray-2 rounded-[10px] focus-within:border-red"
     >
       <input
-        className="flex-grow"
+        className="group flex-grow"
         type="text"
         placeholder="검색 내용을 입력하세요!"
         onChange={onChangeInputHandler}

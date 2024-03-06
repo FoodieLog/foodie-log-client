@@ -1,13 +1,13 @@
 "use client";
 import { useState } from "react";
 import Image from "next/image";
-import Button from "@/src/components/Common/Button";
-import useSignUpStore from "@/src/store/useSignUpStore";
-import SignUpProfile from "@/src/components/Auth/SignUpProfile";
-import AuthHeader from "@/src/components/Common/Header/Auth";
-import CustomModal from "@/src/components/Common/Dialog/CustomModal";
-import { loginKaKaoToken } from "@/src/services/kakao";
-import { useUserStore } from "@/src/store/useUserStore";
+import Button from "@components/Common/Button";
+import useSignUpStore from "@store/useSignUpStore";
+import SignUpProfile from "@components/Auth/SignUpProfile";
+import AuthHeader from "@components/Common/Header/Auth";
+import CustomModal from "@components/Common/Dialog/CustomModal";
+import { loginKaKaoToken } from "@services/kakao";
+import { useUserStore } from "@store/useUserStore";
 import { useToast } from "@/components/ui/use-toast";
 
 function KaKaoSignUpTerms() {

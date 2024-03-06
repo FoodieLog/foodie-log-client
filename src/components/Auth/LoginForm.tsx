@@ -8,9 +8,9 @@ import { initializePushNotifications } from "@components/Notification/PushNotifi
 import { useUserStore } from "@store/useUserStore";
 import { useToast } from "@/components/ui/use-toast";
 import Button from "@components/Common/Button";
-import Line from "@components//Common/Line";
-import KaKaoLoginButton from "@components/Common/Button/KaKaoLoginButton";
-import { TOAST_MESSAGES } from "@constants/toast";
+import Line from "@components/Common/Line";
+import KaKaoLoginBtn from "@components/Common/Button/KaKaoLoginBtn";
+import { TOAST_MESSAGES } from "@constants";
 import { expiryTime } from "@utils/date";
 
 function LogInForm() {
@@ -97,7 +97,7 @@ function LogInForm() {
         </div>
       </form>
       <Line />
-      <KaKaoLoginButton onClick={onClickHandler} />
+      <KaKaoLoginBtn onClick={onClickHandler} />
       <div className="flex justify-center my-10">
         <Link href={"/accounts/password"} className="underline underline-offset-1">
           비밀번호를 잊으셨나요?

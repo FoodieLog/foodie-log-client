@@ -1,11 +1,9 @@
 "use client";
 import { useState } from "react";
-import Button from "@components/Common/Button";
-import Link from "next/link";
-import { getPasswordCode, getVerificationEmail } from "@services/auth";
 import { useToast } from "@/components/ui/use-toast";
-import { TOAST_MESSAGES } from "@constants/toast";
-import CodeInput from "./CodeInput";
+import { TOAST_MESSAGES } from "@constants";
+import { getPasswordCode, getVerificationEmail } from "@services/auth";
+import CodeInput from "@components/Auth/CodeInput";
 import { useRouter } from "next/navigation";
 
 interface PasswordCodeProps {

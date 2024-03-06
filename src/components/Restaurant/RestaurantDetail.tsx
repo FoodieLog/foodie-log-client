@@ -2,9 +2,10 @@
 import { useEffect, useState } from "react";
 import Header from "@components/Common/Header";
 import KakaoMap from "@components/Map/KakaoMap";
-import ShopCard from "@components/Restaurant/ShopCard";
+import ShopCard from "@components/Common/Card/ShopCard";
 import { getRestaurantDetail } from "@services/restaurant";
 import Feed from "@components/Feed/Feed";
+
 interface RestaurantDetailProps {
   Id: string;
 }
@@ -68,9 +69,8 @@ const RestaurantDetail = ({ Id }: RestaurantDetailProps) => {
             key={index}
             feed={feedItem.feed}
             restaurant={feedItem.restaurant}
-            isFollowed={feedItem.followed}
-            isLiked={feedItem.liked}
-            updateFollowStatus={updateFollowStatus}
+            followed={feedItem.followed}
+            liked={feedItem.liked}
           />
         ))}
     </div>

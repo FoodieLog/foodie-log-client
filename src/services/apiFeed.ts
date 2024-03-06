@@ -1,9 +1,9 @@
 // apiFeed.ts
-import { userRequest } from "@/src/services";
-import { useUserStore } from "@/src/store/useUserStore";
-import { Notification } from "@/src/types/apiTypes";
-import { getCookie } from "@/src/utils/token";
-import { expiryTime } from "../utils/date";
+import { userRequest } from "@services";
+import { useUserStore } from "@store/useUserStore";
+import { Notification } from "@@types/apiTypes";
+import { getCookie } from "@utils/token";
+import { expiryTime } from "@utils/date";
 
 const BASE_URL = "https://api.foodielog-server.monster/api";
 

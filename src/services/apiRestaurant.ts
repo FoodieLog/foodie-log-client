@@ -1,5 +1,5 @@
-import { useUserStore } from "../store/useUserStore";
-import { APIRecommendedResponse } from "@/src/types/recommend";
+import { useUserStore } from "@store/useUserStore";
+import { APIRecommendedResponse } from "@@types/recommend";
 
 const BASE_URL = "https://api.foodielog-server.monster/api/restaurant";
 

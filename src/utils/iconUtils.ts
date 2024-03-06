@@ -1,14 +1,24 @@
-import icons from "../../public/images/foodCategoryIcons";
+import { asian, bar, cafe, dessert, japanese, korean, snack, western } from "@assets/images";
 
 export function getIcon(category: string): string {
-  for (const key in icons) {
+  const RESTAURANT_CATEGORY: { [key: string]: any } = {
+    한식: korean,
+    카페: cafe,
+    간식: dessert,
+    분식: snack,
+    아시안: asian,
+    일식: japanese,
+    양식: western,
+    술집: bar,
+  };
+
+  for (const key in RESTAURANT_CATEGORY) {
     if (category.includes(key)) {
-      return icons[key];
+      return RESTAURANT_CATEGORY[key];
     }
   }
   return "foodDefault.png";
 }
-
 
 // export function getIcon(category: string): string {
 //   return icons[category as keyof typeof icons] || "default.png";}

@@ -1,10 +1,10 @@
 "use client";
 import { useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
-import { getKaKaoToken, postKakaoToken, loginKaKaoToken } from "@/src/services/kakao";
-import { useUserStore } from "@/src/store/useUserStore";
-import { initializePushNotifications } from "@/src/components/Notification/PushNotification";
-import { expiryTime } from "@/src/utils/date";
+import { getKaKaoToken, postKakaoToken, loginKaKaoToken } from "@services/kakao";
+import { useUserStore } from "@store/useUserStore";
+import { initializePushNotifications } from "@components/Notification/PushNotification";
+import { expiryTime } from "@utils/date";
 
 function KaKaoCode() {
   const router = useRouter();

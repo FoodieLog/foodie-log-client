@@ -1,5 +1,5 @@
 "use client";
-import SearchInput from "@components/SearchUser/SearchInput";
+import SearchInput from "@components/Common/Input/SearchInput";
 import SearchUserList from "@components/SearchUser/SearchUserList";
 import SearchHistory from "@components/SearchUser/SearchHistory";
 import useDebounce from "@hooks/useDebounce";

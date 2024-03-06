@@ -7,16 +7,16 @@ import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { BiPhotoAlbum } from "react-icons/bi";
 import { CgFlagAlt } from "react-icons/cg";
-import { getThumbnailByUserId, getFollowList, getFollowerList } from "@/src/services/mypage";
-import { getMyProfile } from "@/src/services/mypage";
-import { ThumbnailState, myProfileState } from "@/src/types/mypage";
+import { getThumbnailByUserId, getFollowList, getFollowerList } from "@services/mypage";
+import { getMyProfile } from "@services/mypage";
+import { ThumbnailState, myProfileState } from "@@types/mypage";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { followUser, unfollowUser } from "@/src/services/apiFeed";
-import Button from "@/src/components/Common/Button";
-import Header from "@/src/components/Common/Header";
-import CustomModal from "@/src/components/Common/Dialog/CustomModal";
-import MyFriendList from "@/src/components/Mypage/MyFriendList";
-import { MyPageForm } from "@/src/types/mypage";
+import { followUser, unfollowUser } from "@services/apiFeed";
+import Button from "@components/Common/Button";
+import Header from "@components/Common/Header";
+import CustomModal from "@components/Common/Dialog/CustomModal";
+import MyFriendList from "@components/Mypage/MyFriendList";
+import { MyPageForm } from "@@types/mypage";
 import ImageThumbnail from "@components/Common/ImageThumbnail";
 
 function MyPageForm({ userId, option }: MyPageForm) {

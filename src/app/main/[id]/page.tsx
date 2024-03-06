@@ -1,4 +1,4 @@
-import MyProfile from "@/src/components/Mypage/MyProfile";
+import MyProfile from "@components/Mypage/MyProfile";
 
 function MyProfilePage({ params }: { params: { id: string } }) {
   const userId = parseInt(params.id);

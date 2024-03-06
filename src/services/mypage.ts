@@ -1,5 +1,5 @@
-import { userRequest } from "@/src/services";
-import { useUserStore } from "@/src/store/useUserStore";
+import { userRequest } from "@services";
+import { useUserStore } from "@store/useUserStore";
 
 const accessToken = useUserStore.getState().user.accessToken;
 const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL as string;

@@ -3,15 +3,15 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import useHideOnScroll from "@hooks/useHideOnScroll";
-import { SearchIcon, Notifications } from "@/src/assets/icons";
+import { SearchIcon, Notifications } from "@assets/icons";
 import { TextLogo } from "@/public/images";
 
-const Topbar = () => {
+const MainHeader = () => {
   const isVisible = useHideOnScroll();
 
   return (
     <section
-      className={`z-20 flex w-full justify-between items-center bg-white max-w-[640px] pl-[20px] pr-[10px]
+      className={`z-20 flex w-full justify-between items-center bg-transparent max-w-[640px] pl-[20px] pr-[10px]
       sm:fixed sm:-top-2
     ${isVisible ? "fixed -top-1" : "fixed -top-16"} transition-top duration-300`}
     >
@@ -30,4 +30,4 @@ const Topbar = () => {
   );
 };
 
-export default Topbar;
+export default MainHeader;

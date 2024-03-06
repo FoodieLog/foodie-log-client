@@ -1,12 +1,12 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { getMyMap } from "@/src/services/mypage";
-import { getLikedShop } from "@/src/services/apiFeed";
-import { LikedMapResponse, MapItem } from "@/src/types/apiTypes";
-import MyListMap from "@/src/components/Map/MyListMap";
-import MyShopItem from "@/src/components/Mypage/MyShopItem";
-import Header from "@/src/components/Common/Header";
-import { MyMapProps } from "@/src/types/mypage";
+import { getMyMap } from "@services/mypage";
+import { getLikedShop } from "@services/apiFeed";
+import { LikedMapResponse, MapItem } from "@@types/apiTypes";
+import MyListMap from "@components/Map/MyListMap";
+import MyShopItem from "@components/Mypage/MyShopItem";
+import Header from "@components/Common/Header";
+import { MyMapProps } from "@@types/mypage";
 
 function MyMap({ userId }: MyMapProps) {
   const [mapData, setMapData] = useState<MapItem[]>([]);
