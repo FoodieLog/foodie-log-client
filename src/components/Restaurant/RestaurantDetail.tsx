@@ -3,7 +3,7 @@ import Header from "@components/Common/Header";
 import KakaoMap from "@components/Map/KakaoMap";
 import ShopCard from "@components/Common/Card/ShopCard";
 import useRestaurantDetailQuery from "@hooks/queries/useRestaurantDetailQuery";
-import Drawer from "../Common/Drawer/Drawer";
+import Drawer from "@components/Common/Drawer/Drawer";
 
 interface RestaurantDetailProps {
   restaurantId: string;
