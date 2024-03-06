@@ -4,10 +4,11 @@ import useMeasure from "react-use-measure";
 
 interface DrawerProps {
   children: ReactNode;
+  closedHeight?: number;
 }
 
 // 사용시 페이지 내 최상단 부모요소에 overflow:hidden과 height:100vh 필수
-const Drawer = ({ children }: DrawerProps) => {
+const Drawer = ({ children, closedHeight = 60 }: DrawerProps) => {
   const [isOpened, setIsOpened] = useState(true);
   const [contentRef, contentBounds] = useMeasure();
   const animateState = isOpened ? "opened" : "closed";
@@ -41,7 +42,7 @@ const Drawer = ({ children }: DrawerProps) => {
       animate={animateState}
       variants={{
         opened: { top: `calc(${viewport} - ${expandedHeight}px)` },
-        closed: { top: `calc(${viewport} - 60px)` },
+        closed: { top: `calc(${viewport} - ${closedHeight}px)` },
       }}
       transition={{ type: "spring", bounce: 0, duration: 0.5 }}
       drag="y"
@@ -50,7 +51,7 @@ const Drawer = ({ children }: DrawerProps) => {
       dragConstraints={{ top: 0, bottom: 0 }}
       dragElastic={0.2}
       onDragEnd={handleDragEnd}
-      className="p-4 bg-white rounded-t-[10px] flex-1 absolute top-0 left-0 w-full z-[1] "
+      className="p-4 bg-white rounded-t-[10px] flex-1 absolute top-0 left-0 w-full z-[1] h-full"
     >
       <div
         onPointerDown={(e) => dragControls.start(e)}
