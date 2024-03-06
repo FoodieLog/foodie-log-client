@@ -6,14 +6,15 @@ interface DrawerProps {
   children: ReactNode;
   closedHeight?: number;
   openedHeight?: number;
+  open?: boolean;
 }
 
 // 사용시 페이지 내 최상단 부모요소에 absolute와 overflow:hidden과 height:100vh 필수
 // closedHeight의 기본값은 children으로 들어오는 요소의 상단 부분의 길이인 54px
 // 수동으로 closedHeight 설정시 CONTENT_TOP과 CONTENT_BOTTOM을 더한 70px에 children의 높이를 고려해서 설정
 // 수동으로 openedHeight 설정시 window.innerHeight - 50px 보다 큰 수치 입력시 무시됨
-const Drawer = ({ children, closedHeight = 54, openedHeight }: DrawerProps) => {
-  const [isOpened, setIsOpened] = useState(true);
+const Drawer = ({ children, closedHeight = 54, openedHeight, open = true }: DrawerProps) => {
+  const [isOpened, setIsOpened] = useState(open);
   const [contentRef, contentBounds] = useMeasure();
   const animateState = isOpened ? "opened" : "closed";
   const CONTENT_TOP = 54;
