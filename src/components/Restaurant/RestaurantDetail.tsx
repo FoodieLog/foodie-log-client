@@ -27,7 +27,7 @@ const RestaurantDetail = ({ restaurantId }: RestaurantDetailProps) => {
         restaurantId={parsedId}
       />
 
-      <Drawer closedHeight={135}>
+      <Drawer closedHeight={70 + 68}>
         <ShopCard
           id={parsedId}
           name={data?.detail.restaurant.name ?? ""}
