@@ -1,9 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
 import { getIcon } from "@utils/iconUtils";
-import { likeRestaurant, unlikeRestaurant } from "@services/apiFeed";
 import { LocationOn, FullHeartStraight, HeartStraight, OpenInNew } from "@assets/icons";
+import useLikeShopMutations from "@hooks/mutations/useLikeShopMutations";
 
 interface ShopCardProps {
   id: number;
@@ -26,16 +25,14 @@ const ShopCard: React.FC<ShopCardProps> = ({
   disableClick,
   styles,
 }) => {
-  const [like, setLike] = useState(isLiked);
-
+  const { likeMutation, unlikeMutation } = useLikeShopMutations(id);
   const handleLikeToggle = async () => {
     try {
-      if (like) {
-        await unlikeRestaurant(id);
+      if (isLiked) {
+        unlikeMutation.mutate();
       } else {
-        await likeRestaurant(id);
+        likeMutation.mutate();
       }
-      setLike(!like);
     } catch (error) {
       console.error("식당 좋아요/좋아요 취소 동작 중 오류가 발생했습니다.", error);
     }
@@ -65,7 +62,7 @@ const ShopCard: React.FC<ShopCardProps> = ({
         <div className="flex items-center gap-1">
           {isLiked !== undefined && (
             <button className="text-[24px] mr-2" onClick={handleLikeToggle}>
-              {like ? <FullHeartStraight /> : <HeartStraight />}
+              {isLiked ? <FullHeartStraight /> : <HeartStraight />}
             </button>
           )}
           {shopUrl && (

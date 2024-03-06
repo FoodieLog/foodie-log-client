@@ -11,6 +11,7 @@ const useLikeShopMutations = (restaurantId: number, userId?: MyMap["userId"]) =>
   const mutationOptions = {
     onSuccess: () => {
       queryClient.invalidateQueries(["myMap", userId || "noUserId"]);
+      queryClient.invalidateQueries(["restaurantDetail", restaurantId]);
     },
     onError: () => {
       toast(TOAST_MESSAGES.ERROR_PLEASE_RETRY);
