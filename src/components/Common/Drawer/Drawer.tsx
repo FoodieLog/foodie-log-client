@@ -20,8 +20,8 @@ const Drawer = ({ children }: DrawerProps) => {
   );
 
   const handleDragEnd = (_: any, info: PanInfo) => {
-    const offsetThreshold = 150;
-    const deltaThreshold = 5;
+    const offsetThreshold = 50;
+    const deltaThreshold = 3;
 
     const isOverOffsetThreshold = Math.abs(info.offset.y) > offsetThreshold;
     const isOverDeltaThreshold = Math.abs(info.delta.y) > deltaThreshold;
