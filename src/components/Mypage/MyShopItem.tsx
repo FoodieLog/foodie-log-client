@@ -10,7 +10,7 @@ import useLikeShopMutations from "@/src/hooks/mutations/useLikeShopMutations";
 function MyShopItem({ item, userId }: MyShopItemProps) {
   const { content, setContent } = usePostStore();
   const { setNextComponent } = useSignUpStore();
-  const shopCategoryIcon = `/images/foodCategoryIcons/${getIcon(item.restaurant.category)}`;
+  const shopCategoryIcon = getIcon(item.restaurant.category);
   const { likeMutation, unlikeMutation } = useLikeShopMutations(item.restaurant.id, userId);
 
   const onClickShophandler = (e: React.MouseEvent) => {
