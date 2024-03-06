@@ -10,7 +10,7 @@ interface RestaurantProps {
 // props : {params : {restaurantId} } : RestaurantProps
 const restaurant = ({ params: { restaurantId } }: RestaurantProps) => {
   return (
-    <div className="w-full flex justify-center">
+    <div className="w-full h-screen items-start flex justify-center overflow-hidden">
       <RestaurantDetail restaurantId={restaurantId} />
     </div>
   );
