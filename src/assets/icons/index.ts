@@ -31,6 +31,8 @@ import CloseSmall from "@assets/icons/common/close_small.svg";
 import AddIcon from "@assets/icons/common/add.svg";
 import NotificationSmall from "@assets/icons/common/notification_small.svg";
 import Logout from "@assets/icons/common/logout.svg";
+import MoreVert from "@assets/icons/common/more_vert.svg";
+import UserPlus from "@assets/icons/common/UserPlus.svg";
 
 //============ 아이콘 - GNB ============
 
@@ -87,6 +89,8 @@ export {
   AddIcon,
   NotificationSmall,
   Logout,
+  MoreVert,
+  UserPlus,
 
   //GNB
   Person,

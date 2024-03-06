@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { followUser, unfollowUser } from "@/src/services/apiFeed";
-import { MyFriendListProps } from "@/src/types/mypage";
+import { followUser, unfollowUser } from "@services/apiFeed";
+import { MyFriendListProps } from "@@types/mypage";
 
 function MyFriendList({ data, friendListTitle, reload, setReload, updateFollow, updateFollower }: MyFriendListProps) {
   const onClickFollowing = async (e: React.MouseEvent<HTMLButtonElement>, Id: number) => {

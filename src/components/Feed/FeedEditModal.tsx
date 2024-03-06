@@ -1,12 +1,11 @@
 "use client";
 import { useState } from "react";
-// import { updateFeed } from "@/src/services/apiFeed";
 import { updateFeed } from "@/src/services/feed";
 import { useToast } from "@/components/ui/use-toast";
+import { FeedEditModalProps } from "@/src/types/feed";
 import CustomModal from "@/src/components/Common/Dialog/CustomModal";
 import useSignUpStore from "@/src/store/useSignUpStore";
 import useFeedStore from "@/src/store/useFeedStore";
-import { FeedEditModalProps } from "@/src/types/feed";
 
 function FeedEditModal({ reload, setReload }: FeedEditModalProps) {
   const feed = useFeedStore((state) => state.feed);

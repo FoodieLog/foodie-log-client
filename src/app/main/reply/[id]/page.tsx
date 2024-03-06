@@ -1,5 +1,5 @@
 import Header from "@components/Common/Header";
-import FeedReplyList from "@/src/components/Feed/FeedReplyList";
+import FeedReplyList from "@components/Feed/FeedReplyList";
 
 interface ReplyProps {
   params: {

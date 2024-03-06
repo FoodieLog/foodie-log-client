@@ -1,5 +1,5 @@
 import Header from "@components/Common/Header";
-import NotificationList from "@/src/components/Notification/NotificationList";
+import NotificationList from "@components/Notification/NotificationList";
 
 const NotificationPage = () => {
   return (

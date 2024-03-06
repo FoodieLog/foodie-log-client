@@ -1,5 +1,5 @@
 import React from "react";
-import RestaurantDetail from "@/src/components/Restaurant/RestaurantDetail";
+import RestaurantDetail from "@components/Restaurant/RestaurantDetail";
 
 interface RestaurantProps {
   params: {

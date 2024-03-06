@@ -1,20 +1,20 @@
 "use client";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { BsThreeDotsVertical } from "react-icons/bs";
-import { useRouter } from "next/navigation";
-import useSignUpStore from "@store/useSignUpStore";
-import DialogReport from "@components/Common/Dialog/DialogReport";
-import DialogConfirm from "@components/Common/Dialog/DialogConfirm";
+import { DialogProps } from "@@types/common";
 import { deleteFeed } from "@services/apiFeed";
 import { useToast } from "@/components/ui/use-toast";
+import { MoreVert } from "@assets/icons";
+import DialogReport from "@components/Common/Dialog/DialogReport";
+import DialogConfirm from "@components/Common/Dialog/DialogConfirm";
+import useSignUpStore from "@store/useSignUpStore";
 import useFeedStore from "@store/useFeedStore";
-import { DialogProps } from "@@types/common";
 
 function DropDown({ name, option, id = 0, type = "", content = "", className = "", removeHandler }: DialogProps) {
   const setNextComponent = useSignUpStore((state) => state.setNextComponent);
@@ -83,7 +83,7 @@ function DropDown({ name, option, id = 0, type = "", content = "", className = "
     <>
       <DropdownMenu>
         <DropdownMenuTrigger>
-          <BsThreeDotsVertical />
+          <MoreVert />
         </DropdownMenuTrigger>
         <DropdownMenuContent
           className={`w-[81px] bg-gray-0 border border-gray-2  rounded-[5px] flex flex-col justify-between items-center ${className}`}

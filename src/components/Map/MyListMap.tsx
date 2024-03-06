@@ -1,7 +1,7 @@
 import { Map, MapMarker, CustomOverlayMap } from "react-kakao-maps-sdk";
 import { useRouter } from "next/navigation";
 import { Fragment } from "react";
-import { MapItem } from "@/src/types/apiTypes";
+import { MapItem } from "@@types/apiTypes";
 import { markerSize, markerImageSrc, onMarkerClick } from "@components/Map/common";
 
 interface MapProps {

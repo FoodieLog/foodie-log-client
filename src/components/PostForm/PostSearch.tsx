@@ -7,7 +7,7 @@ import PostContent from "@components/PostForm/PostContent";
 import Header from "@components/Common/Header";
 import { ShopItem } from "@@types/post";
 import PostShopList from "@components/PostForm/PostShopList";
-import SearchInput from "@components/SearchUser/SearchInput";
+import SearchInput from "@components/Common/Input/SearchInput";
 import EmptyList from "@components/PostForm/EmptyList";
 
 function PostSearch() {

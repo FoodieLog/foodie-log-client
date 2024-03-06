@@ -1,4 +1,4 @@
-export type ReplyType = {
+export type FeedReplyType = {
   id: number;
   userId: number;
   nickName: string;
@@ -12,7 +12,7 @@ export type AuthorType = {
   profileImageUrl: string | null;
   content: string;
   createdAt: string;
-  replyList: ReplyType[];
+  replyList: FeedReplyType[];
 };
 
 export type APIReplyListResponse = {
@@ -20,9 +20,3 @@ export type APIReplyListResponse = {
   response: AuthorType;
   error: any;
 };
-
-export interface ReplyItemProps {
-  reply: ReplyType;
-  userId: number;
-  deleteReplyHandler: (replyId: number) => void;
-}

@@ -2,15 +2,15 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { getFeedShared } from "@/src/services/apiFeed";
-import FeedImageSlide from "@/src/components/Feed/FeedImageSlide";
+import { getFeedShared } from "@services/apiFeed";
+import FeedImageSlide from "@components/Feed/FeedImageSlide";
 import dayjs from "dayjs";
 import { AiOutlineHeart } from "react-icons/ai";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { FaRegCommentDots } from "react-icons/fa";
 import { FiShare2 } from "react-icons/fi";
-import { getTimeDiff } from "@/src/utils/date";
-import ShopCard from "@/src/components/Restaurant/ShopCard";
+import { getTimeDiff } from "@utils/date";
+import ShopCard from "@components/Common/Card/ShopCard";
 import {
   Dialog,
   DialogContent,
@@ -20,7 +20,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { FeedSharedProps, FeedShared } from "@/src/types/feed";
+import { FeedSharedProps, FeedShared } from "@@types/feed";
 import { useToast } from "@/components/ui/use-toast";
 
 const FeedShared: React.FC<FeedSharedProps> = ({ Id }) => {

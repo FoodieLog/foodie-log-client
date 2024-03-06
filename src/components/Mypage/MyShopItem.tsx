@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
-import usePostStore from "@/src/store/usePostStore";
-import useSignUpStore from "@/src/store/useSignUpStore";
+import usePostStore from "@store/usePostStore";
+import useSignUpStore from "@store/useSignUpStore";
 import { PiStarThin, PiStarFill } from "react-icons/pi";
 import { getIcon } from "@/src/utils/iconUtils";
 import { MyShopItemProps } from "@/src/types/mypage";

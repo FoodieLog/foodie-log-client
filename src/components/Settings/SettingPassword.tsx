@@ -3,7 +3,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { putChangePassword } from "@services/settings";
 import { ChangePassword } from "@@types/apiTypes";
-import { passwordValidation } from "@constants";
+import { PASSWORD_VALIDATION } from "@constants";
 import { useUserStore } from "@store/useUserStore";
 import Button from "@components/Common/Button";
 import Header from "@components/Common/Header";
@@ -83,7 +83,7 @@ function SettingPassword() {
                 placeholder=" "
                 maxLength={16}
                 autoComplete="new-password"
-                {...register("oldPassword", passwordValidation)}
+                {...register("oldPassword", PASSWORD_VALIDATION)}
               />
               <label htmlFor="originPassword" className={`authLabel`}>
                 기존 비밀번호
@@ -100,7 +100,7 @@ function SettingPassword() {
                 placeholder=" "
                 maxLength={16}
                 autoComplete="new-password"
-                {...register("newPassword", passwordValidation)}
+                {...register("newPassword", PASSWORD_VALIDATION)}
               />
               <label htmlFor="newPassword" className={`authLabel`}>
                 변경할 비밀번호

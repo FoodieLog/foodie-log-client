@@ -1,6 +1,6 @@
 import { getMessaging, getToken, onMessage } from "firebase/messaging";
 import firebaseApp from "@/firebaseConfig";
-import { sendFcmToken } from "@/src/services/apiFeed";
+import { sendFcmToken } from "@services/apiFeed";
 
 export const initializePushNotifications = async () => {
   // 알림 권한 요청
