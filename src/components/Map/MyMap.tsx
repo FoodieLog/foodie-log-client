@@ -2,10 +2,9 @@
 import MyListMap from "@components/Map/MyListMap";
 import MyShopItem from "@components/Mypage/MyShopItem";
 import Header from "@components/Common/Header";
-import { MapItem } from "@/src/types/apiTypes";
-
-import { MyMap } from "@/src/types/mypage";
-import useMyMapQuery from "@/src/hooks/queries/useMyMapQuery";
+import { MapItem } from "@@types/apiTypes";
+import { MyMap } from "@@types/mypage";
+import useMyMapQuery from "@hooks/queries/useMyMapQuery";
 
 function MyMap({ userId, header }: MyMap) {
   const { data, isLoading } = useMyMapQuery(userId);
