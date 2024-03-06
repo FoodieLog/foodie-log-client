@@ -12,4 +12,5 @@ export const TOAST_MESSAGES = {
   LOGIN_FAILURE: { title: "로그인 실패", description: "이메일 또는 비밀번호가 틀렸습니다!" },
   PASSWORD_CHANGE_SUCCESS: { description: "비밀번호가 변경되었습니다!" },
   PASSWORD_CHANGE_FAILURE: { title: "비밀번호 변경 실패", description: "다시 시도해 주세요!" },
+  ERROR_PLEASE_RETRY: { description: "에러가 발생했습니다. 다시 시도해주세요!" },
 };

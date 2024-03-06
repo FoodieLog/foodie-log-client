@@ -5,21 +5,16 @@ import { Map, MapMarker } from "react-kakao-maps-sdk";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context";
 import { markerImageSrc, markerSize, onMarkerClick } from "@components/Map/common";
 
-const KakaoMap = ({
-  latitude,
-  longitude,
-  restaurantId,
-}: {
+interface KakaoMapProps {
+  size?: { width: string; height: string };
   latitude: string;
   longitude: string;
   restaurantId: number;
-}) => {
+}
+
+const KakaoMap = ({ size = { width: "100%", height: "360px" }, latitude, longitude, restaurantId }: KakaoMapProps) => {
   //#region States
   const mapRef: MutableRefObject<undefined> = useRef();
-  const [mapSize, setMapSize] = useState({
-    width: "100%",
-    height: "360px",
-  });
   //#endregion
 
   //#region Variables
@@ -36,13 +31,13 @@ const KakaoMap = ({
       // map.disableHD();
       // map.relayout();
     }
-  }, [mapSize]);
+  }, [size]);
   //#endregion
 
   return (
     <div>
       <div className="p-1 bg-slate-300">
-        <Map center={{ lat: parsedLat, lng: parsedLng }} style={mapSize} ref={mapRef} level={level}>
+        <Map center={{ lat: parsedLat, lng: parsedLng }} style={size} ref={mapRef} level={level}>
           <MapMarker
             position={{ lat: parsedLat, lng: parsedLng }}
             clickable={true}

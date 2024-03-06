@@ -17,3 +17,18 @@ export const getRecommendedRestaurant = async (region: string) => {
 // export const getMyRestaurant = (): Promise<APIResponse> => {
 //   return makeFetchRequest(`/map/liked`);
 // };
+
+export const getLikedShop = async () => {
+  const res = await userRequest.get(`/api/restaurant/map/liked`);
+  return res;
+};
+
+export const likeRestaurant = async (restaurantId: number) => {
+  const res = await userRequest.post(`/api/restaurant/like?restaurantId=${restaurantId}`);
+  return res;
+};
+
+export const unlikeRestaurant = async (restaurantId: number) => {
+  const res = await userRequest.delete(`/api/restaurant/unlike?restaurantId=${restaurantId}`);
+  return res;
+};

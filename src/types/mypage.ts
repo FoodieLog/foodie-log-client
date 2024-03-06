@@ -43,7 +43,7 @@ export interface myProfileState {
 }
 
 export interface MyMap {
-  userId: number;
+  userId?: number;
   header: string;
 }
 
@@ -72,8 +72,8 @@ export interface MyPageForm extends MyMapProps {
 }
 
 export interface MyShopItemProps {
+  userId?: number;
   item: MapItem;
-  setReload: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export interface MapItem {
