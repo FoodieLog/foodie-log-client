@@ -6,10 +6,11 @@ export function getIcon(category: string): string {
     카페: cafe,
     간식: dessert,
     분식: snack,
-    아시안: asian,
+    아시아: asian,
     일식: japanese,
     양식: western,
     술집: bar,
+    퓨전요리: bar, //아이콘 수정하기
   };
 
   for (const key in RESTAURANT_CATEGORY) {
