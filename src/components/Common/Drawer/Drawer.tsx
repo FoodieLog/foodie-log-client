@@ -41,7 +41,6 @@ const Drawer = ({ children, closedHeight = 54, openedHeight, open = true, fixedC
     }
   }, [closedHeight, expandedHeight, fixedBounds.height, fixedComponent, isOpened]);
 
-  console.log(scrollerHeight, isOpened, contentBounds.height);
   const handleDragEnd = (_: any, info: PanInfo) => {
     const offsetThreshold = 50;
     const deltaThreshold = 3;
