@@ -64,7 +64,7 @@ const Drawer = ({ children, closedHeight = 54, openedHeight, open = true }: Draw
           setIsOpened((prev) => !prev);
         }}
         onPointerDown={(e) => dragControls.start(e)}
-        className="mx-auto w-12 h-1.5 rounded-full bg-gray-3 mb-8"
+        className="mx-auto w-12 h-1.5 rounded-full bg-gray-3 mt-1 mb-7"
       />
       <div className="max-w-md" ref={contentRef}>
         {children}
