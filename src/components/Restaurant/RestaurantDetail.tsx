@@ -44,7 +44,7 @@ const RestaurantDetail = ({ restaurantId }: RestaurantDetailProps) => {
         restaurantId={parsedId}
       />
 
-      <Drawer closedHeight={70 + 68}>
+      <Drawer openedHeight={351} closedHeight={70 + 68} scroller>
         <div className="flex flex-col gap-3">
           <ShopCard
             id={parsedId}

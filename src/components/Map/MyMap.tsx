@@ -21,7 +21,13 @@ function MyMap({ userId, header }: MyMap) {
       <Header title={header === "내가 리뷰한 맛집" ? header : `${data?.nickName}${header}`} back="prePage" />
       <div className="flex flex-col items-center">
         <MyListMap mapData={data?.myMap} size={{ width: "100%", height: "calc(100vh - 56px - 56px)" }} />
-        <Drawer open={false} closedHeight={250} openedHeight={500} fixedComponent={<RestaurantCategorySlider />}>
+        <Drawer
+          open={false}
+          scroller
+          closedHeight={250}
+          openedHeight={500}
+          fixedComponent={<RestaurantCategorySlider />}
+        >
           <div className="flex flex-col gap-4">
             {data?.myMap.map((data: MapItem) => (
               <ShopCard
