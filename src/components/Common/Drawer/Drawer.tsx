@@ -57,13 +57,16 @@ const Drawer = ({ children, closedHeight = 54, openedHeight, open = true }: Draw
       dragConstraints={{ top: 0, bottom: 0 }}
       dragElastic={0.2}
       onDragEnd={handleDragEnd}
-      className="p-4 bg-white rounded-t-[10px] flex-1 absolute top-0 left-0 w-full z-[1] h-full"
+      className="p-4 bg-white rounded-t-[10px] flex flex-col flex-1 absolute top-0 left-0 w-full z-[1] h-full"
     >
-      <div
+      <button
+        onClick={() => {
+          setIsOpened((prev) => !prev);
+        }}
         onPointerDown={(e) => dragControls.start(e)}
-        className="mx-auto w-12 h-1.5 flex-shrink-0 rounded-full bg-zinc-300 mb-8"
+        className="mx-auto w-12 h-1.5 rounded-full bg-gray-3 mb-8"
       />
-      <div className="max-w-md mx-auto" ref={contentRef}>
+      <div className="max-w-md" ref={contentRef}>
         {children}
       </div>
     </motion.div>
