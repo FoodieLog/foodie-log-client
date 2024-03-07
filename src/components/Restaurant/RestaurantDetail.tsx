@@ -4,6 +4,9 @@ import KakaoMap from "@components/Map/KakaoMap";
 import ShopCard from "@components/Common/Card/ShopCard";
 import useRestaurantDetailQuery from "@hooks/queries/useRestaurantDetailQuery";
 import Drawer from "@components/Common/Drawer/Drawer";
+import Image from "next/image";
+import { useEffect, useState } from "react";
+import { Content } from "@/src/services/apiFeed";
 
 interface RestaurantDetailProps {
   restaurantId: string;
@@ -11,8 +14,22 @@ interface RestaurantDetailProps {
 
 const RestaurantDetail = ({ restaurantId }: RestaurantDetailProps) => {
   const parsedId = parseInt(restaurantId, 10);
-
   const { data, isLoading } = useRestaurantDetailQuery(parsedId);
+  const [images, setImages] = useState<string[]>([]);
+
+  useEffect(() => {
+    const uniqueImages = new Set<string>();
+
+    data?.feedList.forEach((feedData: Content) => {
+      feedData.feed.feedImages.forEach((imageURLObject: { imageUrl: string }) => {
+        if (uniqueImages.size < 3) {
+          uniqueImages.add(imageURLObject.imageUrl);
+        }
+      });
+    });
+
+    setImages(Array.from(uniqueImages));
+  }, [data?.feedList]);
 
   // TODO: 로딩 ui 추가하기!
   if (isLoading) return <div>Loading...</div>;
@@ -28,25 +45,38 @@ const RestaurantDetail = ({ restaurantId }: RestaurantDetailProps) => {
       />
 
       <Drawer closedHeight={70 + 68}>
-        <ShopCard
-          id={parsedId}
-          name={data?.detail.restaurant.name ?? ""}
-          category={data?.detail.restaurant.category ?? ""}
-          roadAddress={data?.detail.restaurant.roadAddress ?? ""}
-          isLiked={data?.detail.isLiked.liked}
-          shopUrl={data?.detail.restaurant.link}
-        />
-      </Drawer>
-      {/* {feedList &&
-        feedList.map((feedItem: any, index: number) => (
-          <Feed
-            key={index}
-            feed={feedItem.feed}
-            restaurant={feedItem.restaurant}
-            followed={feedItem.followed}
-            liked={feedItem.liked}
+        <div className="flex flex-col gap-3">
+          <ShopCard
+            id={parsedId}
+            name={data?.detail.restaurant.name ?? ""}
+            category={data?.detail.restaurant.category ?? ""}
+            roadAddress={data?.detail.restaurant.roadAddress ?? ""}
+            isLiked={data?.detail.isLiked.liked}
+            shopUrl={data?.detail.restaurant.link}
           />
-        ))} */}
+          <hr />
+          <div className="flex justify-between p-2 font-[600]">
+            <p>
+              <span className="text-red">&quot;{data?.detail.restaurant.name}&quot; </span>
+              {data?.feedList.length}개의 결과
+            </p>
+            <button className="text-red">피드 더보기</button>
+          </div>
+          <div className="flex justify-between space-x-4 pr-2 pl-2">
+            {images.map((imageUrl) => (
+              <div key={imageUrl} className="relative w-[7.5rem] h-[7.5rem]">
+                <Image
+                  className="rounded-[10px]"
+                  src={imageUrl}
+                  alt="피드 이미지"
+                  fill
+                  style={{ objectFit: "cover" }}
+                ></Image>
+              </div>
+            ))}
+          </div>
+        </div>
+      </Drawer>
     </div>
   );
 };
