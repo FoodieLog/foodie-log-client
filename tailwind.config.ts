@@ -3,6 +3,9 @@ module.exports = {
   darkMode: ["class"],
   content: ["./pages/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./app/**/*.{ts,tsx}", "./src/**/*.{ts,tsx}"],
   theme: {
+    backgroundImage: {
+      "drop-down": "url('/svgs/arrow_drop_down.svg')",
+    },
     container: {
       center: true,
       padding: "2rem",
