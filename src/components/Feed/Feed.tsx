@@ -31,6 +31,7 @@ const Feed = ({ ...feedData }: FeedData) => {
           name={restaurant.name}
           category={restaurant.category}
           roadAddress={restaurant.roadAddress}
+          href={`/main/restaurants/${restaurant.id}`}
           styles="border border-gray-2"
         />
       </div>

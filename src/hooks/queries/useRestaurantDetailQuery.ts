@@ -3,9 +3,9 @@ import { useQuery } from "@tanstack/react-query";
 
 const useRestaurantDetailQuery = (restaurantId: number) =>
   useQuery(["restaurantDetail", restaurantId], async () => {
-    const { data } = await getRestaurantDetail(restaurantId);
-    const detail = data.response.restaurantInfo;
-    const feedList = data.response.content;
+    const { response } = await getRestaurantDetail(restaurantId);
+    const detail = response.restaurantInfo;
+    const feedList = response.content;
     return { detail, feedList };
   });
 

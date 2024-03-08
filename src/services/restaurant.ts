@@ -1,8 +1,9 @@
 import { userRequest } from "@services";
+import { RecommendAPIRespose } from "@@types/restaurant";
 
-export const getRestaurantDetail = async (restaurantId: number) => {
+export const getRestaurantDetail = async (restaurantId: number): Promise<RecommendAPIRespose> => {
   const res = await userRequest.get(`/api/restaurant/${restaurantId}`);
-  return res;
+  return res.data;
 };
 
 export const getRecommendedRestaurant = async (region: string) => {
