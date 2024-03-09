@@ -5,9 +5,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { getFeedList, getFeedListByUserId, getSingleFeed, followUser, unfollowUser } from "@services/apiFeed";
 // import { getFeedList, getFeedListByUserId, getSingleFeed, followUser, unfollowUser } from "@services/feed";
 import InfiniteScroll from "react-infinite-scroller";
-import useSignUpStore from "@store/useSignUpStore";
 import Feed from "@components/Feed/Feed";
-import FeedEditModal from "@components/Feed/FeedEditModal";
 import { Content, APIFeedResponse } from "@@types/feed";
 
 interface FeedsProps {
@@ -17,10 +15,7 @@ interface FeedsProps {
 }
 
 const Feeds = ({ id, startingFeedId, singleFeedId }: FeedsProps) => {
-  const [reload, setReload] = useState(false);
-  const [feedsData, setFeedsData] = useState<Content[]>([]);
   const [singleFeedData, setSingleFeedData] = useState<Content | null>(null);
-  const nextComponent = useSignUpStore((state) => state.nextComponent);
   const feedRef = useRef<{ [key: number]: HTMLDivElement | null }>({});
 
   useEffect(() => {
@@ -49,9 +44,6 @@ const Feeds = ({ id, startingFeedId, singleFeedId }: FeedsProps) => {
       }
 
       const apiResponse = response as unknown as APIFeedResponse;
-      setFeedsData(apiResponse.data);
-      // 여기서 전체 feed 데이터 목록을 출력
-
       return apiResponse;
     },
     {
@@ -59,7 +51,7 @@ const Feeds = ({ id, startingFeedId, singleFeedId }: FeedsProps) => {
         if (lastPage?.response?.content?.length < 15) return undefined;
         return lastPage?.response?.content[lastPage.response.content.length - 1]?.feed.feedId || 0;
       },
-      enabled: !singleFeedId, // singleFeedId가 없는 경우에만 쿼리 실행
+      enabled: !singleFeedId,
     }
   );
 
@@ -67,32 +59,8 @@ const Feeds = ({ id, startingFeedId, singleFeedId }: FeedsProps) => {
     fetchNextPage();
   };
 
-  const removeDeletedFeed = (feedId: number) => {
-    setFeedsData((prevData) => prevData.filter((feed) => feed.feed.feedId !== feedId));
-  };
-
-  // const updateFollowStatus = async (userId: number, newStatus: boolean) => {
-  //   let response;
-  //   try {
-  //     if (newStatus) {
-  //       response = await followUser(userId);
-  //     } else {
-  //       response = await unfollowUser(userId);
-  //     }
-
-  //     if ((newStatus && response.status === 201) || (!newStatus && response.status === 204)) {
-  //       setFeedsData((prevData) => {
-  //         return prevData.map((content) => {
-  //           if (content.feed.userId === userId) {
-  //             return { ...content, followed: newStatus };
-  //           }
-  //           return content;
-  //         });
-  //       });
-  //     }
-  //   } catch (error) {
-  //     console.error("Failed to update follow state:", error);
-  //   }
+  // const removeDeletedFeed = (feedId: number) => {
+  //   setFeedsData((prevData) => prevData.filter((feed) => feed.feed.feedId !== feedId));
   // };
 
   useEffect(() => {

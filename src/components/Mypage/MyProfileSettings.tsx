@@ -1,15 +1,13 @@
 "use client";
 import { useRef, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
-import Button from "@components/Common/Button";
-import Haeder from "@components/Common/Header";
-import { MdAddPhotoAlternate } from "react-icons/md";
 import { getMyProfile } from "@services/mypage";
 import { profileSetting } from "@services/kakao";
 import { useUserStore } from "@store/useUserStore";
 import { useToast } from "@/components/ui/use-toast";
 import { Input } from "@/components/ui/input";
+import Button from "@components/Common/Button";
+import Haeder from "@components/Common/Header";
 import MyProfileImage from "@components/Mypage/MyProfileImage";
 
 function MyProfileSettings() {

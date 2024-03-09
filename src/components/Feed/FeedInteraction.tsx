@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
 import { unlikeFeed, likeFeed } from "@services/feed";
-import { ShareFat, Heart, ChatCircleText } from "@assets/icons";
+import { ShareFat, HeartStraight, FullHeartStraight, ChatCircleText } from "@assets/icons";
 import { FeedData } from "@@types/apiTypes";
 
 interface FeedInteractionProps {
@@ -47,12 +47,12 @@ function FeedInteraction({ data, isLiked }: FeedInteractionProps) {
   };
   return (
     <div className="w-full flex gap-[14px] flex-between items-center text-[16px]">
-      <button className="flex gap-1" onClick={clickLikeBtnHandler}>
+      <button className="flex gap-1 items-center" onClick={clickLikeBtnHandler}>
         {/* Todo: 하트 아이콘 수정 */}
-        {like ? <Heart /> : <Heart />}
+        {like ? <FullHeartStraight /> : <HeartStraight />}
         <p>{likeCount}</p>
       </button>
-      <button className="flex gap-1" onClick={clickReplyBtnHandler}>
+      <button className="flex gap-1 items-center" onClick={clickReplyBtnHandler}>
         <ChatCircleText />
         <p className="flex-1">{data.replyCount}</p>
       </button>

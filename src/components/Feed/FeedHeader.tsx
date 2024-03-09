@@ -16,7 +16,9 @@ function FeedHeader({ data, isFollowed }: FeedHeaderProps) {
     <div className="flex justify-between items-center p-3">
       <FeedUserCard data={data} />
       <div className="flex items-center">
-        {userId !== data.userId && <FollowButton userId={data.userId} isFollowed={isFollowed} size={"w-[86px]"} />}
+        {userId !== data.userId && (
+          <FollowButton userId={data.userId} isFollowed={isFollowed} className={"w-[86px]"} icon={true} />
+        )}
         <DropDown
           name={data.nickName}
           option={data.userId === userId ? "본인" : "타인"}

@@ -9,6 +9,7 @@ interface ShopCardProps {
   name: string;
   category: string;
   roadAddress: string;
+  href?: string;
   isLiked?: boolean;
   shopUrl?: string;
   disableClick?: boolean;
@@ -21,6 +22,7 @@ const ShopCard: React.FC<ShopCardProps> = ({
   name,
   category,
   roadAddress,
+  href,
   isLiked,
   shopUrl,
   disableClick,
@@ -45,7 +47,7 @@ const ShopCard: React.FC<ShopCardProps> = ({
       className={`p-[8px] flex items-center justify-between rounded-[4px] ${styles}`}
       style={{ pointerEvents: disableClick ? "none" : "auto" }}
     >
-      <Link href={`/main/restaurants/${id}`} className="flex items-center">
+      <Link href={href || ""} className="flex items-center">
         <div className="relative w-[50px] h-[50px] rounded-[4px]">
           <Image width={50} height={50} src={getIcon(category)} alt="음식점 썸네일" />
         </div>

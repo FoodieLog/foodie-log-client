@@ -51,8 +51,9 @@ function LogInForm() {
   return (
     <section className="w-full flex flex-col items-center justify-center p-10 h-4/5 sm:w-[600px] sm:border border-gray-300">
       <div className="title">
-        <h2>로그인</h2>
-        <p>Foodie-Log에 오신 걸 환영합니다!</p>
+        <p className="text-center text-[24px]">
+          로그인 후 <br /> 푸디로그 즐겨보세요.
+        </p>
       </div>
       <form onSubmit={onSubmit} className="w-full flex flex-col gap-4 mt-10">
         <div className="relative">
@@ -84,25 +85,19 @@ function LogInForm() {
             비밀번호
           </label>
         </div>
-        <div className="flex flex-col items-center mt-10">
-          <div className="mb-3">
-            로그인 또는
-            <Link href={"/accounts/signup"} className="ml-1 underline underline-offset-1">
-              회원가입
-            </Link>
-          </div>
+        <div className="flex flex-col justify-center items-center">
           <Button type="submit" variant={"primary"}>
             로그인
           </Button>
+          <div className="flex justify-center gap-4 my-[24px] text-[14px]">
+            <Link href={"/accounts/signup"}>회원가입</Link>
+            <p className="text-gray-1">|</p>
+            <Link href={"/accounts/password"}>비밀번호 찾기</Link>
+          </div>
         </div>
       </form>
       <Line />
       <KaKaoLoginBtn onClick={onClickHandler} />
-      <div className="flex justify-center my-10">
-        <Link href={"/accounts/password"} className="underline underline-offset-1">
-          비밀번호를 잊으셨나요?
-        </Link>
-      </div>
     </section>
   );
 }

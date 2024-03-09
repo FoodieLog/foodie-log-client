@@ -4,18 +4,6 @@ export type AreaType = {
   };
 };
 
-export interface AreaSelectorProps {
-  onSelectedAreaChange: (searchQuery: string) => void;
-}
-
-export interface AreaListProps {
-  optionList: string[];
-}
-
-export interface AreaOptionItemProps {
-  optionItem: string;
-}
-
 export interface RestaurantFeed {
   feedId: number;
   thumbnailUrl: string;
@@ -37,12 +25,8 @@ export interface APIRecommendedResponse {
   error: any;
 }
 
-export interface ShopFeedListProps {
-  feedList: RestaurantFeed[];
-  name: string;
-}
-
-export interface ShopFeedItemProps {
-  feed: RestaurantFeed;
-  name: string;
+export interface RegionType {
+  city: string;
+  doName: string;
+  sigungu: string;
 }
