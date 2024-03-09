@@ -2,9 +2,9 @@ import React from "react";
 
 function Line() {
   return (
-    <div className="w-full flex items-center justify-center my-5 space-x-2">
+    <div className="w-full grid grid-cols-3 items-center my-5 space-x-2">
       <div className="h-[0.8px] w-full bg-slate-400" />
-      <span className="w-10 flex-shrink-0 font-semibold text-gray-600 text-center text-sm">또는</span>
+      <p className="w-full text-gray-4 text-center text-sm">간편 로그인</p>
       <div className="h-[0.8px] w-full bg-slate-400" />
     </div>
   );

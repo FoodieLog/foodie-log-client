@@ -50,8 +50,8 @@ export const getMyMap = async (userId: number) => {
   return res;
 };
 
-// 팔로우 리스트
-export const getFollowList = async (userId: number) => {
+// 팔로잉 리스트
+export const getFollowingList = async (userId: number) => {
   const res = await userRequest.get(`/api/user/follow/list?userId=${userId}`);
   return res.data;
 };

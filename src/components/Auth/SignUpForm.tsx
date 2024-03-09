@@ -14,6 +14,7 @@ import SignUpCode from "@components/Auth/SignUpCode";
 import SignUpProfile from "@components/Auth/SignUpProfile";
 import useSignUpStore from "@store/useSignUpStore";
 import { TOAST_MESSAGES } from "@constants/toast";
+import Line from "@components/Common/Line";
 
 interface SighUpInput {
   email: string;
@@ -163,11 +164,7 @@ function SignUpForm() {
           {isSubmitting ? "로딩중..." : "회원가입"}
         </Button>
       </form>
-      <div className="w-full flex items-center justify-center my-10 space-x-2">
-        <div className="h-[0.8px] w-full bg-slate-400" />
-        <span className="w-10 flex-shrink-0 font-semibold text-gray-600 text-center text-sm">또는</span>
-        <div className="h-[0.8px] w-full bg-slate-400" />
-      </div>
+      <Line />
       <KaKaoLoginBtn onClick={onClickHandler} />
     </section>
   );
