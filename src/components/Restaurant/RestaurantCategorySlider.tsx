@@ -63,8 +63,8 @@ const RestaurantCategorySlider = () => {
           whileHover={{ scale: 1.1 }}
         >
           <button
-            className={`flex gap-1 py-[6px] px-[8px] whitespace-nowrap justify-center items-center rounded-[15px] bg-${
-              selected.includes(tagName) ? "red-light" : "gray-1"
+            className={`flex gap-1 py-[6px] px-[8px] whitespace-nowrap justify-center items-center rounded-[15px] ${
+              selected.includes(tagName) ? "bg-red-1" : "bg-gray-1"
             } w-full h-[25px]`}
             onClick={() => {
               onSelectToggleHandler(tagName);
