@@ -1,6 +1,6 @@
 "use client";
 import MyListMap from "@components/Map/MyListMap";
-import MyShopItem from "@components/Mypage/MyShopItem";
+import MyShopItem from "@components/Map/MyShopItem";
 import Header from "@components/Common/Header";
 import { MapItem } from "@@types/apiTypes";
 import { MyMap } from "@@types/mypage";
