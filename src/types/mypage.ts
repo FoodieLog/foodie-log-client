@@ -24,13 +24,6 @@ export interface Restaurant {
   roadAddress: string;
 }
 
-export interface ThumbnailState {
-  feed: Feed;
-  restaurant: Restaurant;
-  followed: boolean;
-  liked: boolean;
-}
-
 export interface myProfileState {
   aboutMe: string;
   nickName: string;
@@ -47,15 +40,6 @@ export interface MyMap {
   header: string;
 }
 
-export interface MyFriendListProps {
-  data: ListData[];
-  friendListTitle: string;
-  reload: boolean;
-  setReload: React.Dispatch<React.SetStateAction<boolean>>;
-  updateFollow: () => Promise<void>;
-  updateFollower: () => Promise<void>;
-}
-
 export interface ListData {
   followed: boolean;
   nickName: string;
@@ -67,7 +51,7 @@ export interface MyMapProps {
   userId: number;
 }
 
-export interface MyPageForm extends MyMapProps {
+export interface Mypage extends MyMapProps {
   option: string;
 }
 
