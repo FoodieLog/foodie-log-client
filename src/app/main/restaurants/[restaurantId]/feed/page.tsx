@@ -1,8 +1,8 @@
 "use client";
 
-import Header from "@/src/components/Common/Header";
-import Feed from "@/src/components/Feed/Feed";
-import useRestaurantDetailQuery from "@/src/hooks/queries/useRestaurantDetailQuery";
+import Header from "@components/Common/Header";
+import Feed from "@components/Feed/Feed";
+import useRestaurantDetailQuery from "@hooks/queries/useRestaurantDetailQuery";
 
 interface RestaurantFeedProps {
   params: {
