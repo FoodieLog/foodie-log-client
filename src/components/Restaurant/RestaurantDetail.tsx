@@ -7,6 +7,7 @@ import Drawer from "@components/Common/Drawer/Drawer";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Content } from "@/src/services/apiFeed";
+import Link from "next/link";
 
 interface RestaurantDetailProps {
   restaurantId: string;
@@ -60,7 +61,9 @@ const RestaurantDetail = ({ restaurantId }: RestaurantDetailProps) => {
               <span className="text-red">&quot;{data?.detail.restaurant.name}&quot; </span>
               {data?.feedList.length}개의 결과
             </p>
-            <button className="text-red">피드 더보기</button>
+            <Link href={`/main/restaurants/${parsedId}/feed`} className="text-red">
+              피드 더보기
+            </Link>
           </div>
           <div className="flex justify-between space-x-4 pr-2 pl-2">
             {images.map((imageUrl) => (
