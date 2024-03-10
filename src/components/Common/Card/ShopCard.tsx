@@ -14,6 +14,7 @@ interface ShopCardProps {
   shopUrl?: string;
   disableClick?: boolean;
   styles?: string;
+  userId?: number;
 }
 
 const ShopCard: React.FC<ShopCardProps> = ({
@@ -26,8 +27,9 @@ const ShopCard: React.FC<ShopCardProps> = ({
   shopUrl,
   disableClick,
   styles,
+  userId,
 }) => {
-  const { likeMutation, unlikeMutation } = useLikeShopMutations(id);
+  const { likeMutation, unlikeMutation } = useLikeShopMutations(id, userId);
   const handleLikeToggle = async () => {
     try {
       if (isLiked) {

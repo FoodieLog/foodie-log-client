@@ -5,15 +5,16 @@ import { MapItem } from "@@types/apiTypes";
 import { markerSize, markerImageSrc, onMarkerClick } from "@components/Map/common";
 
 interface MapProps {
+  size?: { width: string; height: string };
   mapData: MapItem[];
 }
 
-function MyListMap({ mapData }: MapProps) {
+function MyListMap({ size = { width: "100%", height: "100%" }, mapData }: MapProps) {
   const router = useRouter();
 
   return (
-    <div className="w-full h-[360px] p-1 bg-slate-300">
-      <Map center={{ lat: 36.2683, lng: 127.6358 }} style={{ width: "100%", height: "100%" }} level={15}>
+    <div className={`w-full h-${size ? size.height : "[360px]"} p-1 bg-slate-300`}>
+      <Map center={{ lat: 36.2683, lng: 127.6358 }} style={size} level={15}>
         {mapData?.map(({ restaurant }) => {
           const lat = parseFloat(restaurant.mapY);
           const lng = parseFloat(restaurant.mapX);
