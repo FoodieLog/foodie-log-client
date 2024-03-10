@@ -38,6 +38,7 @@ function MyMap({ userId, header }: MyMap) {
                 roadAddress={data?.restaurant.roadAddress ?? ""}
                 isLiked={data?.isLiked.liked}
                 userId={userId}
+                href={`/main/restaurants/${data?.restaurant.id}`}
               />
             ))}
           </div>
