@@ -1,26 +1,10 @@
 import { motion } from "framer-motion";
-import {
-  Asian,
-  Bar,
-  Cafe,
-  Dessert,
-  Japanese,
-  Korean,
-  Snack,
-  Western,
-  AsianSelected,
-  BarSelected,
-  CafeSelected,
-  DessertSelected,
-  JapaneseSelected,
-  KoreanSelected,
-  SnackSelected,
-  WesternSelected,
-} from "@assets/icons";
+
 import { useState } from "react";
+import { tagNames } from "@/src/constants";
+import { getTagIcon } from "@/src/utils/iconUtils";
 
 const RestaurantCategorySlider = () => {
-  const tagNames = ["한식", "카페", "디저트", "분식", "아시안", "일식", "양식", "주점"];
   const [selected, setSelected] = useState<string[]>([]);
 
   const onSelectToggleHandler = (tagName: string) => {
@@ -29,17 +13,6 @@ const RestaurantCategorySlider = () => {
     } else {
       setSelected([...selected, tagName]);
     }
-  };
-
-  const tagIcons: { [key: string]: { selected: React.JSX.Element; unSelected: React.JSX.Element } } = {
-    한식: { unSelected: <Korean />, selected: <KoreanSelected /> },
-    카페: { unSelected: <Cafe />, selected: <CafeSelected /> },
-    디저트: { unSelected: <Dessert />, selected: <DessertSelected /> },
-    분식: { unSelected: <Snack />, selected: <SnackSelected /> },
-    아시안: { unSelected: <Asian />, selected: <AsianSelected /> },
-    일식: { unSelected: <Japanese />, selected: <JapaneseSelected /> },
-    양식: { unSelected: <Western />, selected: <WesternSelected /> },
-    주점: { unSelected: <Bar />, selected: <BarSelected /> },
   };
 
   const sliderVariants = {
@@ -70,7 +43,7 @@ const RestaurantCategorySlider = () => {
               onSelectToggleHandler(tagName);
             }}
           >
-            {selected.includes(tagName) ? tagIcons[tagName].selected : tagIcons[tagName].unSelected}
+            {getTagIcon(tagName, selected.includes(tagName))}
             <span className={`text-[14px] text-${selected.includes(tagName) ? "red" : "gray-10"} `}>{tagName}</span>
           </button>
         </motion.div>
