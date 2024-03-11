@@ -12,7 +12,8 @@ import useSignUpStore from "@store/useSignUpStore";
 import { TOAST_MESSAGES } from "@constants/toast";
 import Header from "@components/Common/Header";
 import SignUpTermsModal from "@components/Auth/SignUpTermsModal";
-import { CheckedCircle, UncheckedCircle } from "@assets/icons";
+import { CheckedCircle, Eye, EyeSlash, UncheckedCircle } from "@assets/icons";
+import useToggleShowPassword from "@/src/hooks/useToggleShowPassword";
 
 interface SighUpInput {
   email: string;
@@ -26,6 +27,8 @@ function SignUpForm() {
   const [isChecked, setIsChecked] = useState({ service: false, info: false });
   const { toast } = useToast();
   const { EMAIL_CODE_SEND_FAILURE } = TOAST_MESSAGES;
+  const [showPassword, toggleShowPassword] = useToggleShowPassword();
+  const [showCheckPassword, toggleShowCheckPassword] = useToggleShowPassword();
 
   const {
     register,
@@ -108,7 +111,7 @@ function SignUpForm() {
             <div className="relative">
               <input
                 className={`authInput border-1 peer`}
-                type="password"
+                type={showPassword ? "text" : "password"}
                 id="password"
                 placeholder=""
                 maxLength={16}
@@ -118,6 +121,13 @@ function SignUpForm() {
               <label htmlFor="password" className={`authLabel`}>
                 비밀번호
               </label>
+              <button
+                type="button"
+                onClick={toggleShowPassword}
+                className="absolute top-[50%] translate-y-[-50%] right-[17px] cursor-pointer"
+              >
+                {showPassword ? <Eye /> : <EyeSlash />}
+              </button>
             </div>
 
             {errors?.password && <p className="error">{errors.password.message}</p>}
@@ -126,7 +136,7 @@ function SignUpForm() {
             <div className="relative">
               <input
                 className={`authInput border-1 peer`}
-                type="password"
+                type={showCheckPassword ? "text" : "password"}
                 id="password-check"
                 placeholder=""
                 autoComplete="off"
@@ -143,6 +153,13 @@ function SignUpForm() {
               <label htmlFor="password-check" className={`authLabel`}>
                 비밀번호 재입력
               </label>
+              <button
+                type="button"
+                onClick={toggleShowCheckPassword}
+                className="absolute top-[50%] translate-y-[-50%] right-[17px] cursor-pointer"
+              >
+                {showCheckPassword ? <Eye /> : <EyeSlash />}
+              </button>
             </div>
             {errors?.passwordCheck && <p className="error">{errors.passwordCheck.message}</p>}
           </div>
