@@ -1,20 +1,18 @@
 "use client";
-import Link from "next/link";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useToast } from "@/components/ui/use-toast";
 import { duplicateCheck, sendEmailCode } from "@services/auth";
-import { kakaoLogin } from "@services/kakao";
 import { SignUpForm } from "@@types/apiTypes";
 import { EMAIL_VALIDATION, PASSWORD_VALIDATION } from "@constants";
-import KaKaoLoginBtn from "@components/Common/Button/KaKaoLoginBtn";
 import Button from "@components/Common/Button";
-import SignUpTerms from "@components/Auth/SignUpTerms";
 import SignUpCode from "@components/Auth/SignUpCode";
 import SignUpProfile from "@components/Auth/SignUpProfile";
 import useSignUpStore from "@store/useSignUpStore";
 import { TOAST_MESSAGES } from "@constants/toast";
-import Line from "@components/Common/Line";
+import Header from "@components/Common/Header";
+import SignUpTermsModal from "./SignUpTermsModal";
+import { CheckedCircle, UncheckedCircle } from "@/src/assets/icons";
 
 interface SighUpInput {
   email: string;
@@ -24,6 +22,8 @@ interface SighUpInput {
 function SignUpForm() {
   const [availableEmail, setAvailableEmail] = useState(1);
   const { user, setUser, nextComponent, setNextComponent } = useSignUpStore();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isChecked, setIsChecked] = useState({ service: false, info: false });
   const { toast } = useToast();
   const { EMAIL_CODE_SEND_FAILURE } = TOAST_MESSAGES;
 
@@ -31,38 +31,17 @@ function SignUpForm() {
     register,
     handleSubmit,
     watch,
-    formState: { errors, isSubmitting },
+    formState: { errors, isValid },
   } = useForm<SignUpForm>({
     mode: "onChange",
   });
 
-  if (nextComponent === "SignUpTerms") {
-    return <SignUpTerms />;
-  } else if (nextComponent === "SignUpCode") {
+  if (nextComponent === "SignUpCode") {
     return <SignUpCode />;
   } else if (nextComponent === "SignUpProfile") {
     return <SignUpProfile />;
   }
 
-  // interface Components {
-  //   [key: string]: () => React.JSX.Element;
-  // }
-
-  // const components: Components = {
-  //   SignUpTerms,
-  //   SignUpCode,
-  //   SignUpProfile,
-  // };
-
-  // const Comp = components[nextComponent];
-  // if (Comp) {
-  //   return <Comp />;
-  // }
-
-  const onClickHandler: React.MouseEventHandler<HTMLButtonElement> = (event) => {
-    event.preventDefault();
-    kakaoLogin();
-  };
   const onBlurHandler: React.FocusEventHandler<HTMLInputElement> = async (event) => {
     const email = event?.target.value;
     if (!errors?.email && email.trim() !== "") {
@@ -85,87 +64,119 @@ function SignUpForm() {
     }
   };
 
-  return (
-    <section className="flex flex-col w-full items-center justify-center p-10 h-4/5 sm:w-[600px] sm:border border-gray-300">
-      <div className="title">
-        <h2>회원가입</h2>
-        <p>맛집 정보를 이용하려면 가입하세요.</p>
-      </div>
-      <form onSubmit={handleSubmit(onSubmit)} className="w-full flex flex-col  gap-4 mt-10">
-        <div>
-          <div className="relative">
-            <input
-              id="email"
-              type="text"
-              autoComplete="off"
-              {...register("email", EMAIL_VALIDATION)}
-              onBlur={onBlurHandler}
-              className={`authInput border-1 peer`}
-              placeholder=" "
-            />
-            <label htmlFor="email" className={`authLabel`}>
-              이메일
-            </label>
-          </div>
-          {errors?.email ? (
-            <p className="error">{errors.email.message}</p>
-          ) : availableEmail === 200 ? (
-            <p className="ok">사용 가능한 이메일입니다.</p>
-          ) : availableEmail === 1 ? null : (
-            <p className="error">이미 사용 중인 이메일입니다.</p>
-          )}
-        </div>
-        <div>
-          <div className="relative">
-            <input
-              className={`authInput border-1 peer`}
-              type="password"
-              id="password"
-              placeholder=""
-              maxLength={16}
-              autoComplete="off"
-              {...register("password", PASSWORD_VALIDATION)}
-            />
-            <label htmlFor="password" className={`authLabel`}>
-              비밀번호
-            </label>
-          </div>
+  const onClickAllTerms = () => {
+    if (isChecked.info && isChecked.service) {
+      setIsChecked({ service: false, info: false });
+    } else {
+      setIsChecked({ service: true, info: true });
+    }
+  };
 
-          {errors?.password && <p className="error">{errors.password.message}</p>}
-        </div>
-        <div>
-          <div className="relative">
-            <input
-              className={`authInput border-1 peer`}
-              type="password"
-              id="password-check"
-              placeholder=""
-              autoComplete="off"
-              maxLength={16}
-              {...register("passwordCheck", {
-                required: "비밀번호는 필수 입력입니다.",
-                validate: {
-                  value: (val: string | undefined) => {
-                    if (watch("password") !== val) return "비밀번호가 일치하지 않습니다.";
-                  },
-                },
-              })}
-            />
-            <label htmlFor="password-check" className={`authLabel`}>
-              비밀번호 확인
-            </label>
+  return (
+    <section className="flex flex-col w-full items-center justify-between mx-5 mb-5 sm:w-[600px] sm:border border-gray-300">
+      <Header title="" back="prePage" />
+      <div className="title text-[24px] font-[600]">
+        <p>간편하게 가입하고</p>
+        <p>푸디로그 서비스를 이용하세요.</p>
+      </div>
+      <form onSubmit={handleSubmit(onSubmit)} className="w-full flex flex-col flex-1 justify-between mt-10">
+        <div className="gap-4 flex flex-col">
+          <div>
+            <div className="relative">
+              <input
+                id="email"
+                type="text"
+                autoComplete="off"
+                {...register("email", EMAIL_VALIDATION)}
+                onBlur={onBlurHandler}
+                className={`authInput border-1 peer`}
+                placeholder=" "
+              />
+              <label htmlFor="email" className={`authLabel`}>
+                이메일
+              </label>
+            </div>
+            {errors?.email ? (
+              <p className="error">{errors.email.message}</p>
+            ) : availableEmail === 200 ? (
+              <p className="ok">사용 가능한 이메일입니다.</p>
+            ) : availableEmail === 1 ? null : (
+              <p className="error">이미 사용 중인 이메일입니다.</p>
+            )}
           </div>
-          {errors?.passwordCheck && <p className="error">{errors.passwordCheck.message}</p>}
+          <div>
+            <div className="relative">
+              <input
+                className={`authInput border-1 peer`}
+                type="password"
+                id="password"
+                placeholder=""
+                maxLength={16}
+                autoComplete="off"
+                {...register("password", PASSWORD_VALIDATION)}
+              />
+              <label htmlFor="password" className={`authLabel`}>
+                비밀번호
+              </label>
+            </div>
+
+            {errors?.password && <p className="error">{errors.password.message}</p>}
+          </div>
+          <div>
+            <div className="relative">
+              <input
+                className={`authInput border-1 peer`}
+                type="password"
+                id="password-check"
+                placeholder=""
+                autoComplete="off"
+                maxLength={16}
+                {...register("passwordCheck", {
+                  required: "비밀번호는 필수 입력입니다.",
+                  validate: {
+                    value: (val: string | undefined) => {
+                      if (watch("password") !== val) return "비밀번호가 일치하지 않습니다.";
+                    },
+                  },
+                })}
+              />
+              <label htmlFor="password-check" className={`authLabel`}>
+                비밀번호 재입력
+              </label>
+            </div>
+            {errors?.passwordCheck && <p className="error">{errors.passwordCheck.message}</p>}
+          </div>
         </div>
-        <Link href={"/accounts/login"} className="mt-3 text-center underline underline-offset-1">
-          로그인하기
-        </Link>
-        <Button type="submit" variant="primary" disabled={isSubmitting}>
-          {isSubmitting ? "로딩중..." : "회원가입"}
-        </Button>
+        <div className="flex flex-col gap-6">
+          <div className="flex justify-between items-center text-gray-4">
+            <label htmlFor="terms" className="flex text-gray-4 gap-2">
+              {isChecked.service && isChecked.info ? <CheckedCircle /> : <UncheckedCircle />}
+              <input
+                id="terms"
+                type="checkbox"
+                checked={isChecked.service && isChecked.info}
+                onChange={onClickAllTerms}
+                style={{ display: "none" }}
+              />
+              서비스 이용 약관에 동의합니다.
+            </label>
+            <span
+              onClick={() => {
+                setIsModalOpen(!isModalOpen);
+              }}
+              className="text-[14px]"
+            >
+              더 알아보기
+            </span>
+          </div>
+          <Button type="submit" variant="primary" disabled={!(isValid && isChecked.info && isChecked.service)}>
+            다음
+          </Button>
+        </div>
       </form>
-      <Line />
-      <KaKaoLoginBtn onClick={onClickHandler} />
+      {isModalOpen && (
+        <SignUpTermsModal isChecked={isChecked} setIsChecked={setIsChecked} setIsModalOpen={setIsModalOpen} />
+      )}
     </section>
   );
 }
