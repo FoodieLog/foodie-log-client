@@ -33,6 +33,8 @@ import NotificationSmall from "@assets/icons/common/notification_small.svg";
 import Logout from "@assets/icons/common/logout.svg";
 import MoreVert from "@assets/icons/common/more_vert.svg";
 import UserPlus from "@assets/icons/common/UserPlus.svg";
+import Eye from "@assets/icons/common/Eye.svg";
+import EyeSlash from "@assets/icons/common/EyeSlash.svg";
 import CheckedCircle from "@assets/icons/common/checkedcircle.svg";
 import UncheckedCircle from "@assets/icons/common/uncheckedcircle.svg";
 
@@ -101,6 +103,8 @@ export {
   Logout,
   MoreVert,
   UserPlus,
+  Eye,
+  EyeSlash,
   CheckedCircle,
   UncheckedCircle,
 

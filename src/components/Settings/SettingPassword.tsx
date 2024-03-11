@@ -11,6 +11,8 @@ import { useToast } from "@/components/ui/use-toast";
 import useSignUpStore from "@store/useSignUpStore";
 import CompleteChangePassword from "@components/Settings/CompleteChangePassword";
 import ErrorText from "@components/Common/Error";
+import { Eye, EyeSlash } from "@assets/icons";
+import useToggelShowPassword from "@hooks/useToggleShowPassword";
 
 function SettingPassword() {
   const {
@@ -26,6 +28,10 @@ function SettingPassword() {
   });
   const { nextComponent, setNextComponent } = useSignUpStore();
   const { toast } = useToast();
+
+  const [showCntPassword, toggleShowCnt] = useToggelShowPassword();
+  const [showNewPassword, toggleShowNew] = useToggelShowPassword();
+  const [showCheckPassword, toggleShowNewCheck] = useToggelShowPassword();
 
   const onSubmit = async ({ oldPassword, newPassword }: ChangePassword) => {
     try {
@@ -78,16 +84,23 @@ function SettingPassword() {
             <div className="relative">
               <input
                 id="originPassword"
-                type="password"
-                className={`authInput border-1 peer`}
+                type={showCntPassword ? "text" : "password"}
+                className={`authInput border-1 peer ${errors?.oldPassword && "border-red"}`}
                 placeholder=" "
                 maxLength={16}
                 autoComplete="new-password"
                 {...register("oldPassword", PASSWORD_VALIDATION)}
               />
-              <label htmlFor="originPassword" className={`authLabel`}>
+              <label htmlFor="originPassword" className={`authLabel ${errors?.oldPassword && "text-red"}`}>
                 기존 비밀번호
               </label>
+              <button
+                type="button"
+                onClick={toggleShowCnt}
+                className="absolute top-[50%] translate-y-[-50%] right-[17px] cursor-pointer"
+              >
+                {showCntPassword ? <Eye /> : <EyeSlash />}
+              </button>
             </div>
             {errors?.oldPassword && <ErrorText text={errors.oldPassword.message} />}
           </div>
@@ -95,16 +108,23 @@ function SettingPassword() {
             <div className="relative">
               <input
                 id="newPassword"
-                type="password"
-                className={`authInput border-1 peer`}
+                type={showNewPassword ? "text" : "password"}
+                className={`authInput border-1 peer ${errors?.newPassword && "border-red"}`}
                 placeholder=" "
                 maxLength={16}
                 autoComplete="new-password"
                 {...register("newPassword", PASSWORD_VALIDATION)}
               />
-              <label htmlFor="newPassword" className={`authLabel`}>
+              <label htmlFor="newPassword" className={`authLabel ${errors?.newPassword && "text-red"}`}>
                 변경할 비밀번호
               </label>
+              <button
+                type="button"
+                onClick={toggleShowNew}
+                className="absolute top-[50%] translate-y-[-50%] right-[17px] cursor-pointer"
+              >
+                {showNewPassword ? <Eye /> : <EyeSlash />}
+              </button>
             </div>
             {errors?.newPassword && <ErrorText text={errors.newPassword.message} />}
           </div>
@@ -112,8 +132,8 @@ function SettingPassword() {
             <div className="relative">
               <input
                 id="newPasswordCheck"
-                type="password"
-                className={`authInput border-1 peer`}
+                type={showCheckPassword ? "text" : "password"}
+                className={`authInput border-1 peer ${errors?.newPasswordCheck && "border-red"}`}
                 placeholder=" "
                 maxLength={16}
                 autoComplete="new-password"
@@ -126,9 +146,16 @@ function SettingPassword() {
                   },
                 })}
               />
-              <label htmlFor="newPasswordCheck" className={`authLabel`}>
+              <label htmlFor="newPasswordCheck" className={`authLabel ${errors?.newPasswordCheck && "text-red"}`}>
                 변경할 비밀번호 확인
               </label>
+              <button
+                type="button"
+                onClick={toggleShowNewCheck}
+                className="absolute top-[50%] translate-y-[-50%] right-[17px] cursor-pointer"
+              >
+                {showCheckPassword ? <Eye /> : <EyeSlash />}
+              </button>
             </div>
             {errors?.newPasswordCheck && <ErrorText text={errors.newPasswordCheck.message} />}
           </div>
