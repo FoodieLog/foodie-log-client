@@ -11,8 +11,8 @@ import SignUpProfile from "@components/Auth/SignUpProfile";
 import useSignUpStore from "@store/useSignUpStore";
 import { TOAST_MESSAGES } from "@constants/toast";
 import Header from "@components/Common/Header";
-import SignUpTermsModal from "./SignUpTermsModal";
-import { CheckedCircle, UncheckedCircle } from "@/src/assets/icons";
+import SignUpTermsModal from "@components/Auth/SignUpTermsModal";
+import { CheckedCircle, UncheckedCircle } from "@assets/icons";
 
 interface SighUpInput {
   email: string;

@@ -1,8 +1,8 @@
 import { Dispatch, SetStateAction, useState } from "react";
-import CustomModal from "../Common/Dialog/CustomModal";
-import { TERMS } from "@/src/constants";
-import Button from "../Common/Button";
-import { CheckCircle, CheckedCircle, UncheckedCircle } from "@/src/assets/icons";
+import CustomModal from "@components/Common/Dialog/CustomModal";
+import { TERMS } from "@constants";
+import Button from "@components/Common/Button";
+import { CheckedCircle, UncheckedCircle } from "@assets/icons";
 
 interface SignUpTermsModalProps {
   isChecked: {

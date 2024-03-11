@@ -4,9 +4,9 @@ import useSignUpStore from "@store/useSignUpStore";
 import { sendEmailCode, getVerificationEmail } from "@services/auth";
 import { useToast } from "@/components/ui/use-toast";
 import { TOAST_MESSAGES } from "@constants";
-import CodeInput from "./CodeInput";
+import CodeInput from "@components/Auth/CodeInput";
 import { CodeData } from "@@types/signupTypes";
-import Header from "../Common/Header";
+import Header from "@components/Common/Header";
 
 function SignUpCode() {
   const {
