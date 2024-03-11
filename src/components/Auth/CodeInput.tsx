@@ -74,18 +74,29 @@ const CodeInput = ({
           ref={inputRefs[3]}
         />
       </div>
-      <div className="w-full">
+      <div className="w-full flex-1 flex flex-col justify-between mb-5">
         <div className="flex items-center justify-center gap-2 mb-2">
           <p className="text-gray-3 text-sm">인증번호가 오지 않았나요?</p>
-          <Button type="button" variant={"text"} onClick={onClickRetry} disabled={isLoading}>
+          <Button
+            type="button"
+            variant={"text"}
+            onClick={(e) => {
+              onClickRetry(e);
+              setFocusedIndex(0);
+            }}
+            disabled={isLoading}
+          >
             {retryButtonText}
           </Button>
         </div>
-        <div className="absolute bottom-5 w-full">
-          <Button type="button" variant={"primary"} onClick={onClickNext}>
-            {nextButtonText}
-          </Button>
-        </div>
+        <Button
+          type="button"
+          variant={"primary"}
+          onClick={onClickNext}
+          disabled={!(codeData.firstCode && codeData.secondCode && codeData.thirdCode && codeData.fourthCode)}
+        >
+          {nextButtonText}
+        </Button>
       </div>
     </>
   );

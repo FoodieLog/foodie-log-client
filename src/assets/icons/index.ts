@@ -35,6 +35,8 @@ import MoreVert from "@assets/icons/common/more_vert.svg";
 import UserPlus from "@assets/icons/common/UserPlus.svg";
 import Eye from "@assets/icons/common/Eye.svg";
 import EyeSlash from "@assets/icons/common/EyeSlash.svg";
+import CheckedCircle from "@assets/icons/common/checkedcircle.svg";
+import UncheckedCircle from "@assets/icons/common/uncheckedcircle.svg";
 
 //============ 아이콘 - GNB ============
 
@@ -103,6 +105,8 @@ export {
   UserPlus,
   Eye,
   EyeSlash,
+  CheckedCircle,
+  UncheckedCircle,
 
   //GNB
   Person,
