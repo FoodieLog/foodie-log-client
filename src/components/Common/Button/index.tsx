@@ -24,7 +24,11 @@ const Button: React.FC<ButtonProps> = ({
   return (
     <button
       type={type}
-      className={disabled ? `w-full p-[10px] text-gray-4 bg-gray-2 font-[18px] rounded-[8px]` : `${variantStyles}`}
+      className={
+        disabled && variant !== "text"
+          ? `w-full p-[10px] text-gray-4 bg-gray-2 font-[18px] rounded-[8px]`
+          : `${variantStyles}`
+      }
       onClick={onClick}
       disabled={disabled}
     >
