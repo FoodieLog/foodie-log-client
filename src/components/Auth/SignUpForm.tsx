@@ -92,10 +92,17 @@ function SignUpForm() {
                 autoComplete="off"
                 {...register("email", EMAIL_VALIDATION)}
                 onBlur={onBlurHandler}
-                className={`authInput border-1 peer`}
+                className={`authInput border-1 peer ${
+                  errors?.email || (availableEmail !== (200 || 1) && "border-red")
+                }`}
                 placeholder=" "
               />
-              <label htmlFor="email" className={`authLabel`}>
+              <label
+                htmlFor="email"
+                className={`authLabel peer-focus:${
+                  errors?.email || availableEmail !== (200 || 1) ? "text-red" : "text-gray-4"
+                } ${errors?.email || (availableEmail !== (200 || 1) && "text-red")}`}
+              >
                 이메일
               </label>
             </div>
@@ -110,7 +117,7 @@ function SignUpForm() {
           <div>
             <div className="relative">
               <input
-                className={`authInput border-1 peer`}
+                className={`authInput border-1 peer ${errors?.password && "border-red"}`}
                 type={showPassword ? "text" : "password"}
                 id="password"
                 placeholder=""
@@ -118,7 +125,12 @@ function SignUpForm() {
                 autoComplete="off"
                 {...register("password", PASSWORD_VALIDATION)}
               />
-              <label htmlFor="password" className={`authLabel`}>
+              <label
+                htmlFor="password"
+                className={`authLabel peer-focus:${errors?.password ? "text-red" : "text-gray-4"} ${
+                  errors?.password && "text-red"
+                }`}
+              >
                 비밀번호
               </label>
               <button
@@ -135,7 +147,7 @@ function SignUpForm() {
           <div>
             <div className="relative">
               <input
-                className={`authInput border-1 peer`}
+                className={`authInput border-1 peer ${errors?.passwordCheck && "border-red"}`}
                 type={showCheckPassword ? "text" : "password"}
                 id="password-check"
                 placeholder=""
@@ -150,7 +162,13 @@ function SignUpForm() {
                   },
                 })}
               />
-              <label htmlFor="password-check" className={`authLabel`}>
+              <label
+                htmlFor="password-check"
+                className={`authLabel peer-focus:${errors?.passwordCheck ? "text-red" : "text-gray-4"} ${
+                  errors?.passwordCheck && "text-red"
+                }
+                }`}
+              >
                 비밀번호 재입력
               </label>
               <button
