@@ -91,7 +91,12 @@ function SettingPassword() {
                 autoComplete="new-password"
                 {...register("oldPassword", PASSWORD_VALIDATION)}
               />
-              <label htmlFor="originPassword" className={`authLabel ${errors?.oldPassword && "text-red"}`}>
+              <label
+                htmlFor="originPassword"
+                className={`authLabel ${errors?.oldPassword && "text-red"} peer-focus:${
+                  errors?.oldPassword ? "text-red" : "text-gray-4"
+                }`}
+              >
                 기존 비밀번호
               </label>
               <button
@@ -115,7 +120,12 @@ function SettingPassword() {
                 autoComplete="new-password"
                 {...register("newPassword", PASSWORD_VALIDATION)}
               />
-              <label htmlFor="newPassword" className={`authLabel ${errors?.newPassword && "text-red"}`}>
+              <label
+                htmlFor="newPassword"
+                className={`authLabel ${errors?.newPassword && "text-red"} peer-focus:${
+                  errors?.newPassword ? "text-red" : "text-gray-4"
+                }`}
+              >
                 변경할 비밀번호
               </label>
               <button
@@ -146,7 +156,12 @@ function SettingPassword() {
                   },
                 })}
               />
-              <label htmlFor="newPasswordCheck" className={`authLabel ${errors?.newPasswordCheck && "text-red"}`}>
+              <label
+                htmlFor="newPasswordCheck"
+                className={`authLabel ${errors?.newPasswordCheck && "text-red"} peer-focus:${
+                  errors?.newPasswordCheck ? "text-red" : "text-gray-4"
+                }`}
+              >
                 변경할 비밀번호 확인
               </label>
               <button
