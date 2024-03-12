@@ -16,10 +16,10 @@ import { getSingleFeed, updateFeed } from "@services/feed";
 function PostContent() {
   const router = useRouter();
   const [isChecked, setIsChecked] = useState(false);
-  const [text, setText] = useState("");
   const { content, files, previews, setContent, setPreviews, resetContent } = usePostStore();
   const {
-    feed: { id: feedId },
+    feed: { id: feedId, content: feedContent },
+    setFeed,
   } = useFeedStore();
   const { nextComponent, setNextComponent } = useSignUpStore();
   const { toast } = useToast();
@@ -31,7 +31,7 @@ function PostContent() {
 
       const feedData = {
         selectedSearchPlace: { ...content },
-        content: text,
+        content: feedContent,
         isLiked: isChecked,
       };
 
@@ -53,7 +53,8 @@ function PostContent() {
   const editFeedHandler = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     try {
-      await updateFeed(feedId, text);
+      await updateFeed(feedId, feedContent);
+      resetContent();
       router.replace(`/main/feed/530?feedId=${feedId}`);
       toast({ description: "게시글 수정되었습니다!" });
     } catch (err) {
@@ -62,7 +63,7 @@ function PostContent() {
   };
 
   const changeTextHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setText(e.target.value);
+    setFeed({ id: feedId, content: e.target.value });
   };
 
   const changeCheckboxHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -90,7 +91,6 @@ function PostContent() {
       category_name: category,
       road_address_name: roadAddress,
     };
-    setText(feed.content);
     setPreviews(feedImages);
     setContent(newContent);
   };
@@ -99,7 +99,7 @@ function PostContent() {
     if (feedId) {
       getFeedById(feedId);
     }
-  }, [feedId]);
+  }, []);
 
   if (nextComponent === "PostSearch") {
     return <PostSearch />;
@@ -110,9 +110,9 @@ function PostContent() {
       <Header title={feedId ? "게시물 수정" : "게시물 작성"} back={feedId ? "prePage" : "preComponent"} />
       <div className="px-5 mt-5">
         <FeedImageSlide images={images} />
-        <PostContentShopItem />
+        <PostContentShopItem isShowEdit={!!feedId} />
         <TextArea
-          value={text}
+          value={feedContent}
           onChange={changeTextHandler}
           placeholder="나의 맛집기록을 남겨봐요!"
           maxLength={300}

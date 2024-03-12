@@ -1,10 +1,5 @@
 import { FeedData } from "@@types/apiTypes";
 
-export interface FeedEditModalProps {
-  reload: boolean;
-  setReload: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
 export interface FeedSharedProps {
   Id: string;
 }

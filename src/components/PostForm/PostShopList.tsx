@@ -1,12 +1,27 @@
 import React from "react";
-import { ShopItem } from "@@types/post";
 import PostShopItem from "@components/PostForm/PostShopItem";
+import useRestaurantListQuery from "@hooks/queries/useRestaurantListQuery";
+import EmptyList from "@components/PostForm/EmptyList";
 
 interface PostShopListProps {
-  shopList: ShopItem[];
+  isSubmit: boolean;
   keyword: string;
 }
-function PostShopList({ shopList, keyword }: PostShopListProps) {
+function PostShopList({ isSubmit, keyword }: PostShopListProps) {
+  const { data: shopList, isLoading } = useRestaurantListQuery(isSubmit, keyword);
+
+  if (isSubmit && isLoading) {
+    return (
+      <div className="w-full text-center mt-[230px] text-[18px] font-semibold text-gray-8">
+        <span className="text-red">{`"${keyword}"`}</span> 검색중
+      </div>
+    );
+  }
+
+  if (!shopList?.length) {
+    return isSubmit ? <EmptyList keyword={keyword} /> : null;
+  }
+
   return (
     <ul className="mx-auto mt-[15px]">
       {shopList.map((item) => (

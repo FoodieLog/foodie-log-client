@@ -4,7 +4,11 @@ import { BasicThumbnail } from "@assets/images";
 import usePostStore from "@store/usePostStore";
 import useOnClickBack from "@hooks/useOnClickBack";
 
-function PostContentShopItem() {
+interface PostContentShopItemProps {
+  isShowEdit: boolean;
+}
+
+function PostContentShopItem({ isShowEdit }: PostContentShopItemProps) {
   const {
     content: { place_name, road_address_name },
   } = usePostStore();
@@ -19,7 +23,7 @@ function PostContentShopItem() {
           <p className="ml-[4px] text-sm font-normal text-gray-4">{road_address_name}</p>
         </div>
       </div>
-      <AutoreNew className="absolute right-[8px] cursor-pointer" onClick={useOnClickBack} />
+      {!isShowEdit && <AutoreNew className="absolute right-[8px] cursor-pointer" onClick={useOnClickBack} />}
     </div>
   );
 }
