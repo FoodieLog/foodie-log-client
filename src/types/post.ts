@@ -15,21 +15,9 @@ export interface ShopItemPlus extends ShopItem {
   isLiked: boolean;
 }
 
-export interface PostData {
-  id: string;
-  place_name: string;
-  place_url: string;
-  category_name: string;
-  address_name: string;
-  road_address_name: string;
-  phone: string;
-  x: string;
-  y: string;
-}
-
 export interface PostStore {
-  content: PostData;
-  setContent: (content: PostData) => void;
+  content: ShopItem;
+  setContent: (content: ShopItem) => void;
   files: File[];
   setFiles: (files: File[]) => void;
   previews: string[];
@@ -50,4 +38,19 @@ export interface PostImageItemProps {
   preview: string;
   idx: number;
   deleteImageHandler: (e: React.MouseEvent, index: number) => void;
+}
+
+export interface ShopMetaType {
+  pageable_count: number;
+  total_count: number;
+  _end: boolean;
+}
+
+export interface SearchShopAPIResponse {
+  status: number;
+  response: {
+    meta: ShopMetaType[];
+    documents: ShopItem[];
+  };
+  error: any;
 }

@@ -37,6 +37,7 @@ import Eye from "@assets/icons/common/Eye.svg";
 import EyeSlash from "@assets/icons/common/EyeSlash.svg";
 import CheckedCircle from "@assets/icons/common/checkedcircle.svg";
 import UncheckedCircle from "@assets/icons/common/uncheckedcircle.svg";
+import PostFeedIcon from "@assets/icons/common/edit.svg";
 
 //============ 아이콘 - GNB ============
 
@@ -107,6 +108,7 @@ export {
   EyeSlash,
   CheckedCircle,
   UncheckedCircle,
+  PostFeedIcon,
 
   //GNB
   Person,
