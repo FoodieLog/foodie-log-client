@@ -66,7 +66,7 @@ function LogInForm() {
             className={`authInput border-1 peer`}
             placeholder=""
           />
-          <label htmlFor="email" className={`authLabel`}>
+          <label htmlFor="email" className={`authLabel peer-focus:text-gray-4`}>
             이메일
           </label>
         </div>
@@ -81,7 +81,7 @@ function LogInForm() {
             autoComplete="off"
             placeholder=""
           />
-          <label htmlFor="password" className={`authLabel`}>
+          <label htmlFor="password" className={`authLabel peer-focus:text-gray-4`}>
             비밀번호
           </label>
         </div>
