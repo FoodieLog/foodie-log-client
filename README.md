@@ -7,7 +7,6 @@
 > 주제: 지도형 맛집 공유 및 추천 SNS 플랫폼 <br/>
 > 기간: 2023.07.05 ~ 2023.10.10 <br/>
 > 배포 주소: [푸디로그](https://www.foodielog.shop/) <br/>
-> 테스트용 ID: boo5@gmail.com , PW: abcd1234!
 
 
 ## 사용 기술
