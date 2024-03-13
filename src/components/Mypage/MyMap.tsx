@@ -8,7 +8,6 @@ import MyListMap from "@components/Map/MyListMap";
 
 function MyMap({ userId }: MyMapProps) {
   const [mapData, setMapData] = useState<MapItem[]>([]);
-  const [reload, setReload] = useState(false);
 
   useEffect(() => {
     checkMyMap();

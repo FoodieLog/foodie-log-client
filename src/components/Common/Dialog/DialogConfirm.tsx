@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
 import { DialogConfirmProps } from "@/src/types/common";
+import Button from "@components/Common/Button";
 
 const DialogConfirm = ({ content, isOpened, onClose, onConfirm }: DialogConfirmProps) => {
   const [isDialogOpen, setIsDialogOpen] = useState(isOpened);
@@ -22,15 +22,15 @@ const DialogConfirm = ({ content, isOpened, onClose, onConfirm }: DialogConfirmP
         setIsDialogOpen(openState);
       }}
     >
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="max-w-[300px] sm:max-w-[418px] bg-gray-0 rounded-[8px]">
         <DialogHeader>
-          <DialogTitle>{content}</DialogTitle>
+          <DialogTitle className="text-center">{content}</DialogTitle>
         </DialogHeader>
-        <div className="flex justify-center mt-4">
-          <Button variant="outline" onClick={onClose} className="mr-2">
+        <div className="flex justify-center mt-4 gap-[10px]">
+          <Button type="button" variant="secondary" onClick={onClose}>
             취소
           </Button>
-          <Button variant="default" onClick={onConfirm}>
+          <Button type="button" variant="primary" onClick={onConfirm}>
             확인
           </Button>
         </div>

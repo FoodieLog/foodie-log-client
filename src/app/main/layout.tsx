@@ -31,9 +31,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
             <ReactQueryProvider>{children}</ReactQueryProvider>
             <PostFeedButton />
           </div>
-          <div className="fixed bottom-0 left-0 right-0">
-            <GlobalNavigation />
-          </div>
+          <GlobalNavigation />
         </div>
       </div>
     </>
