@@ -9,6 +9,11 @@ interface DrawerProps {
   open?: boolean;
   fixedComponent?: React.JSX.Element;
   scroller?: boolean;
+  backgroundDarker?: boolean;
+  openControlers?: {
+    isOpener: boolean;
+    setIsOpener: React.Dispatch<React.SetStateAction<boolean>>;
+  };
 }
 
 // 사용시 페이지 내 최상단 부모요소에 absolute와 overflow:hidden과 height:100vh 필수
@@ -23,6 +28,8 @@ const Drawer = ({
   open = true,
   fixedComponent,
   scroller = false,
+  backgroundDarker = false,
+  openControlers,
 }: DrawerProps) => {
   const [isOpened, setIsOpened] = useState(open);
   const [contentRef, contentBounds] = useMeasure();
@@ -71,44 +78,68 @@ const Drawer = ({
     }
   }, [closedHeight, expandedHeight, fixedBounds.height, fixedComponent, isOpened]);
 
+  useEffect(() => {
+    if (openControlers?.isOpener !== undefined) {
+      setIsOpened(openControlers?.isOpener);
+    }
+  }, [openControlers]);
+
   return (
-    <motion.div
-      initial="closed"
-      animate={animateState}
-      variants={{
-        opened: { top: `calc(${viewport} - ${expandedHeight}px)` },
-        closed: { top: `calc(${viewport} - ${closedHeight}px)` },
-      }}
-      transition={{ type: "spring", bounce: 0, duration: 0.5 }}
-      drag="y"
-      dragControls={dragControls}
-      dragListener={true}
-      dragConstraints={{ top: 0, bottom: 0 }}
-      dragElastic={0.2}
-      onDragEnd={handleDragEnd}
-      className="p-4 bg-white rounded-t-[10px] flex flex-col flex-1 absolute top-0 left-0 w-full z-[1] h-full"
-    >
-      <button
-        onClick={() => {
-          setIsOpened((prev) => !prev);
-        }}
-        onPointerDown={(e) => dragControls.start(e)}
-        className="mx-auto w-12 h-1.5 rounded-full bg-gray-3 mt-1 mb-7"
-      />
-      {fixedComponent ? (
-        <div className="mb-5" ref={fixedRef}>
-          {fixedComponent}
-        </div>
-      ) : null}
-      <div className="max-w-md" ref={contentRef}>
+    <>
+      {backgroundDarker && isOpened && (
         <div
-          className={scroller ? `overflow-y-auto` : ""}
-          style={{ paddingBottom: "16px", height: `${scrollerHeight}px`, transition: `height 0.2s ease-in-out` }}
-        >
-          {children}
+          onClick={() => {
+            setIsOpened(!isOpened);
+            openControlers?.setIsOpener(!isOpened);
+          }}
+          className="bg-gray-300 bg-opacity-50 fixed w-screen h-screen flex justify-center items-center top-0 left-0 right-0 z-50 p-4 overflow-x-hidden overflow-y-auto md:inset-0 max-h-full"
+        ></div>
+      )}
+      <motion.div
+        initial="closed"
+        animate={animateState}
+        variants={{
+          opened: { top: `calc(${viewport} - ${expandedHeight}px)` },
+          closed: { top: `calc(${viewport} - ${closedHeight}px)` },
+        }}
+        transition={{ type: "spring", bounce: 0, duration: 0.5 }}
+        drag="y"
+        dragControls={dragControls}
+        dragListener={true}
+        dragConstraints={{ top: 0, bottom: 0 }}
+        dragElastic={0.2}
+        onDragEnd={handleDragEnd}
+        className="p-4 bg-white rounded-t-[10px] flex flex-col flex-1 absolute top-0 left-0 w-full z-[100] h-full"
+      >
+        <button
+          onClick={() => {
+            setIsOpened(!isOpened);
+            openControlers?.setIsOpener(!isOpened);
+          }}
+          onPointerDown={(e) => dragControls.start(e)}
+          className="mx-auto w-12 h-1.5 rounded-full bg-gray-3 mt-1 mb-7"
+        />
+        {fixedComponent ? (
+          <div className="mb-5" ref={fixedRef}>
+            {fixedComponent}
+          </div>
+        ) : null}
+        <div className="max-w-md" ref={contentRef}>
+          <div
+            className={scroller ? `overflow-y-auto` : ""}
+            style={{
+              paddingBottom: "16px",
+              ...(scroller && {
+                height: `${scrollerHeight}px`,
+                transition: "height 0.2s ease-in-out",
+              }),
+            }}
+          >
+            {children}
+          </div>
         </div>
-      </div>
-    </motion.div>
+      </motion.div>
+    </>
   );
 };
 
