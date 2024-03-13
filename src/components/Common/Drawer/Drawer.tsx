@@ -103,7 +103,11 @@ const Drawer = ({
       <div className="max-w-md" ref={contentRef}>
         <div
           className={scroller ? `overflow-y-auto` : ""}
-          style={{ paddingBottom: "16px", height: `${scrollerHeight}px`, transition: `height 0.2s ease-in-out` }}
+          style={
+            scroller
+              ? { paddingBottom: "16px", height: `${scrollerHeight}px`, transition: `height 0.2s ease-in-out` }
+              : {}
+          }
         >
           {children}
         </div>
