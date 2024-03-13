@@ -11,10 +11,10 @@ const Button: React.FC<ButtonProps> = ({
 
   switch (variant) {
     case "primary":
-      variantStyles = "w-full p-[10px] text-white bg-red font-[18px] rounded-[8px]";
+      variantStyles = "redBtn";
       break;
     case "secondary":
-      variantStyles = "w-full p-[10px] bg-white font-[18px] font-gray-2 border border-gray-2 rounded-[8px]";
+      variantStyles = "borderGrayBtn";
       break;
     case "text":
       variantStyles = "text-red text-sm";
@@ -24,11 +24,7 @@ const Button: React.FC<ButtonProps> = ({
   return (
     <button
       type={type}
-      className={
-        disabled && variant !== "text"
-          ? `w-full p-[10px] text-gray-4 bg-gray-2 font-[18px] rounded-[8px]`
-          : `${variantStyles}`
-      }
+      className={disabled && variant !== "text" ? `grayBtn` : `${variantStyles}`}
       onClick={onClick}
       disabled={disabled}
     >
