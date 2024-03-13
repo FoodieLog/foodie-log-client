@@ -55,8 +55,8 @@ function Mypage({ userId, option }: Mypage) {
   }
 
   return (
-    <section className="w-full sm:max-w-[640px] mx-auto">
-      {showFriendList && <MyFriendList data={myFollowerData} object={object} setShowFriendList={setShowFriendList} />}
+    <section className="w-full sm:max-w-[640px] mx-auto h-[100vh] overflow-hidden relative">
+      <MyFriendList data={myFollowerData} object={object} isOpener={showFriendList} setIsOpener={setShowFriendList} />
       <Header title="마이" back="prePage" option={option} />
       <main className="px-4 space-y-3">
         <div className="flex justify-between items-center mt-5 mb-3 gap-[24px] shrink-0">
