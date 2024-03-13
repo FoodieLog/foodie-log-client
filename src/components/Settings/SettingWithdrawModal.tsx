@@ -62,7 +62,7 @@ function WithdrawModal({ children }: WithdrawModalProps) {
   return (
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="max-w-[325px] sm:max-w-[425px]">
+      <DialogContent className="max-w-[325px] sm:max-w-[425px] bg-gray-0">
         <DialogHeader>
           <DialogTitle>회원 탈퇴 요청</DialogTitle>
           <DialogDescription>
