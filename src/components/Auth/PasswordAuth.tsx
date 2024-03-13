@@ -49,7 +49,7 @@ function PasswordAuth() {
                 className={`authInput border-1 peer`}
                 placeholder=" "
               />
-              <label htmlFor="email" className={`authLabel`}>
+              <label htmlFor="email" className={`authLabel peer-focus:text-gray-4`}>
                 이메일
               </label>
             </div>

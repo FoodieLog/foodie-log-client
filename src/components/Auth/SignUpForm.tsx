@@ -12,7 +12,8 @@ import useSignUpStore from "@store/useSignUpStore";
 import { TOAST_MESSAGES } from "@constants/toast";
 import Header from "@components/Common/Header";
 import SignUpTermsModal from "@components/Auth/SignUpTermsModal";
-import { CheckedCircle, UncheckedCircle } from "@assets/icons";
+import { CheckedCircle, Eye, EyeSlash, UncheckedCircle } from "@assets/icons";
+import useToggleShowPassword from "@/src/hooks/useToggleShowPassword";
 
 interface SighUpInput {
   email: string;
@@ -26,6 +27,8 @@ function SignUpForm() {
   const [isChecked, setIsChecked] = useState({ service: false, info: false });
   const { toast } = useToast();
   const { EMAIL_CODE_SEND_FAILURE } = TOAST_MESSAGES;
+  const [showPassword, toggleShowPassword] = useToggleShowPassword();
+  const [showCheckPassword, toggleShowCheckPassword] = useToggleShowPassword();
 
   const {
     register,
@@ -89,10 +92,17 @@ function SignUpForm() {
                 autoComplete="off"
                 {...register("email", EMAIL_VALIDATION)}
                 onBlur={onBlurHandler}
-                className={`authInput border-1 peer`}
+                className={`authInput border-1 peer ${
+                  errors?.email || (availableEmail !== (200 || 1) && "border-red")
+                }`}
                 placeholder=" "
               />
-              <label htmlFor="email" className={`authLabel`}>
+              <label
+                htmlFor="email"
+                className={`authLabel peer-focus:${
+                  errors?.email || availableEmail !== (200 || 1) ? "text-red" : "text-gray-4"
+                } ${errors?.email || (availableEmail !== (200 || 1) && "text-red")}`}
+              >
                 이메일
               </label>
             </div>
@@ -107,17 +117,29 @@ function SignUpForm() {
           <div>
             <div className="relative">
               <input
-                className={`authInput border-1 peer`}
-                type="password"
+                className={`authInput border-1 peer ${errors?.password && "border-red"}`}
+                type={showPassword ? "text" : "password"}
                 id="password"
                 placeholder=""
                 maxLength={16}
                 autoComplete="off"
                 {...register("password", PASSWORD_VALIDATION)}
               />
-              <label htmlFor="password" className={`authLabel`}>
+              <label
+                htmlFor="password"
+                className={`authLabel peer-focus:${errors?.password ? "text-red" : "text-gray-4"} ${
+                  errors?.password && "text-red"
+                }`}
+              >
                 비밀번호
               </label>
+              <button
+                type="button"
+                onClick={toggleShowPassword}
+                className="absolute top-[50%] translate-y-[-50%] right-[17px] cursor-pointer"
+              >
+                {showPassword ? <Eye /> : <EyeSlash />}
+              </button>
             </div>
 
             {errors?.password && <p className="error">{errors.password.message}</p>}
@@ -125,8 +147,8 @@ function SignUpForm() {
           <div>
             <div className="relative">
               <input
-                className={`authInput border-1 peer`}
-                type="password"
+                className={`authInput border-1 peer ${errors?.passwordCheck && "border-red"}`}
+                type={showCheckPassword ? "text" : "password"}
                 id="password-check"
                 placeholder=""
                 autoComplete="off"
@@ -140,9 +162,22 @@ function SignUpForm() {
                   },
                 })}
               />
-              <label htmlFor="password-check" className={`authLabel`}>
+              <label
+                htmlFor="password-check"
+                className={`authLabel peer-focus:${errors?.passwordCheck ? "text-red" : "text-gray-4"} ${
+                  errors?.passwordCheck && "text-red"
+                }
+                }`}
+              >
                 비밀번호 재입력
               </label>
+              <button
+                type="button"
+                onClick={toggleShowCheckPassword}
+                className="absolute top-[50%] translate-y-[-50%] right-[17px] cursor-pointer"
+              >
+                {showCheckPassword ? <Eye /> : <EyeSlash />}
+              </button>
             </div>
             {errors?.passwordCheck && <p className="error">{errors.passwordCheck.message}</p>}
           </div>

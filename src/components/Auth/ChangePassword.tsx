@@ -48,7 +48,7 @@ function ChangePassword({ email }: ChangePassword) {
                 placeholder=" "
                 disabled
               />
-              <label htmlFor="email" className={`authLabel`}>
+              <label htmlFor="email" className={`authLabel peer-focus:text-gray-4`}>
                 이메일 주소
               </label>
             </div>
@@ -64,7 +64,7 @@ function ChangePassword({ email }: ChangePassword) {
                 autoComplete="new-password"
                 {...register("newPassword", PASSWORD_VALIDATION)}
               />
-              <label htmlFor="newPassword" className={`authLabel`}>
+              <label htmlFor="newPassword" className={`authLabel peer-focus:text-gray-4`}>
                 변경할 비밀번호
               </label>
             </div>
@@ -88,7 +88,7 @@ function ChangePassword({ email }: ChangePassword) {
                   },
                 })}
               />
-              <label htmlFor="newPasswordCheck" className={`authLabel`}>
+              <label htmlFor="newPasswordCheck" className={`authLabel peer-focus:text-gray-4`}>
                 변경할 비밀번호 확인
               </label>
             </div>
