@@ -6,11 +6,11 @@ import { useSearchParams } from "next/navigation";
 const UserSingleFeed = () => {
   const params = useSearchParams();
   const feedId = params.get("feedId");
-  const isFeeds = params.get("feeds");
+  const feedsId = params.get("feedsId");
 
   const feedsData = {
-    singleFeedId: isFeeds ? undefined : Number(feedId),
-    startingFeedId: isFeeds ? Number(feedId) : undefined,
+    singleFeedId: feedId ? Number(feedId) : undefined,
+    startingFeedId: feedsId ? Number(feedsId) : undefined,
   };
 
   return (
