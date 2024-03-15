@@ -1,12 +1,12 @@
 "use client";
 import { Fragment, useEffect, useRef, useState } from "react";
-import { useInfiniteQuery } from "@tanstack/react-query";
 /** 피드 관련 api 추후 정리 예정 */
-import { getFeedList, getFeedListByUserId, getSingleFeed, followUser, unfollowUser } from "@services/apiFeed";
+import { getSingleFeed } from "@services/apiFeed";
 // import { getFeedList, getFeedListByUserId, getSingleFeed, followUser, unfollowUser } from "@services/feed";
 import InfiniteScroll from "react-infinite-scroller";
 import Feed from "@components/Feed/Feed";
-import { Content, APIFeedResponse } from "@@types/feed";
+import { Content } from "@@types/feed";
+import useFeedListQuery from "@hooks/queries/useFeedListQuery";
 
 interface FeedsProps {
   id?: number;
@@ -17,6 +17,7 @@ interface FeedsProps {
 const Feeds = ({ id, startingFeedId, singleFeedId }: FeedsProps) => {
   const [singleFeedData, setSingleFeedData] = useState<Content | null>(null);
   const feedRef = useRef<{ [key: number]: HTMLDivElement | null }>({});
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useFeedListQuery({ userId: id, singleFeedId });
 
   useEffect(() => {
     const fetchData = async () => {
@@ -32,28 +33,6 @@ const Feeds = ({ id, startingFeedId, singleFeedId }: FeedsProps) => {
       fetchData();
     }
   }, [singleFeedId]);
-
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery(
-    ["feedList", id],
-    async ({ pageParam = 0 }) => {
-      let response;
-      if (id) {
-        response = await getFeedListByUserId(id, pageParam);
-      } else {
-        response = await getFeedList(pageParam);
-      }
-
-      const apiResponse = response as unknown as APIFeedResponse;
-      return apiResponse;
-    },
-    {
-      getNextPageParam: (lastPage: APIFeedResponse) => {
-        if (lastPage?.response?.content?.length < 15) return undefined;
-        return lastPage?.response?.content[lastPage.response.content.length - 1]?.feed.feedId || 0;
-      },
-      enabled: !singleFeedId,
-    }
-  );
 
   const loadMore = () => {
     fetchNextPage();

@@ -1,7 +1,7 @@
 "use client";
 
+import Feeds from "@/src/components/Feed/Feeds";
 import Header from "@components/Common/Header";
-import Feed from "@components/Feed/Feed";
 import useRestaurantDetailQuery from "@hooks/queries/useRestaurantDetailQuery";
 
 interface RestaurantFeedProps {
@@ -19,7 +19,7 @@ const RestaurantFeed = ({ params: { restaurantId } }: RestaurantFeedProps) => {
       <Header title="피드" back="prePage" />
       {data?.feedList.map((feedData) => (
         <div key={feedData.feed.feedId}>
-          <Feed {...feedData} />
+          <Feeds singleFeedId={feedData.feed.feedId} />
         </div>
       ))}
     </div>
