@@ -1,8 +1,5 @@
-"use client";
-
-import Feeds from "@/src/components/Feed/Feeds";
+import RestaurantFeedsList from "@/src/components/Restaurant/RestaurtandFeedsList";
 import Header from "@components/Common/Header";
-import useRestaurantDetailQuery from "@hooks/queries/useRestaurantDetailQuery";
 
 interface RestaurantFeedProps {
   params: {
@@ -11,17 +8,10 @@ interface RestaurantFeedProps {
 }
 
 const RestaurantFeed = ({ params: { restaurantId } }: RestaurantFeedProps) => {
-  const parsedId = parseInt(restaurantId, 10);
-  const { data } = useRestaurantDetailQuery(parsedId);
-
   return (
     <div>
       <Header title="피드" back="prePage" />
-      {data?.feedList.map((feedData) => (
-        <div key={feedData.feed.feedId}>
-          <Feeds singleFeedId={feedData.feed.feedId} />
-        </div>
-      ))}
+      <RestaurantFeedsList restaurantId={restaurantId} />
     </div>
   );
 };
