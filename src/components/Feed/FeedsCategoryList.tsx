@@ -30,7 +30,7 @@ const FeedsCategoryList = () => {
             {page.response.content.map((feedData: Content, dataIndex) => (
               <div key={dataIndex} className=" flex flex-col p-3 gap-3 border-gray-2 border-[1px] rounded-[10px]">
                 <div className="relative rounded-[10px] w-full aspect-w-1 aspect-h-1">
-                  <Link href={`/main/feed/?feeds?feedId=${feedData.feed.feedId}`}>
+                  <Link href={`/main/feed/?feedsId=${feedData.feed.feedId}`}>
                     <Image
                       className="rounded-[10px]"
                       src={feedData.feed.feedImages[0].imageUrl}
