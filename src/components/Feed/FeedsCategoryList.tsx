@@ -39,7 +39,7 @@ const FeedsCategoryList = () => {
                     ></Image>
                   </Link>
                 </div>
-                <p className="text-gray-10">{feedData.feed.content}</p>
+                <p className="text-gray-10 whitespace-nowrap overflow-x-hidden truncate">{feedData.feed.content}</p>
                 <FeedUserCard data={feedData.feed} timeStamp={false} small />
               </div>
             ))}
