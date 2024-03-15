@@ -1,4 +1,4 @@
-import { APIFeedResponse, getFeedList, getFeedListByUserId } from "@/src/services/apiFeed";
+import { APIFeedResponse, getFeedList, getFeedListByUserId } from "@services/apiFeed";
 import { useInfiniteQuery } from "@tanstack/react-query";
 
 interface useFeedListQueryProps {
