@@ -6,8 +6,9 @@ import { useUserStore } from "@store/useUserStore";
 
 interface FeedUserCardProps {
   data: FeedData["feed"];
+  timeStamp?: boolean;
 }
-function FeedUserCard({ data }: FeedUserCardProps) {
+function FeedUserCard({ data, timeStamp = true }: FeedUserCardProps) {
   const { id } = useUserStore((state) => state.user);
 
   return (
@@ -24,7 +25,7 @@ function FeedUserCard({ data }: FeedUserCardProps) {
         <Link href={data.userId === id ? "/main/mypage" : `/main/${data.userId}`}>
           <p className="text-[16px]">{data.nickName}</p>
         </Link>
-        <TimeStamp createdAt={data.createdAt} />
+        {timeStamp && <TimeStamp createdAt={data.createdAt} />}
       </div>
     </div>
   );
