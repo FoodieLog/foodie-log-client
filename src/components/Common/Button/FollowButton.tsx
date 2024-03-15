@@ -1,5 +1,6 @@
 import { UserPlus } from "@assets/icons";
 import useFollowMutations from "@hooks/mutations/useFollowMutaton";
+import { useParams } from "next/navigation";
 
 interface FollowButtonProps {
   isFollowed: boolean;
@@ -9,7 +10,9 @@ interface FollowButtonProps {
 }
 
 function FollowButton({ isFollowed, userId, className, icon = false }: FollowButtonProps) {
-  const { followMutation, unfollowMutation } = useFollowMutations(userId);
+  const params = useParams();
+  const restaurantId = typeof params.restaurantId === "string" ? parseInt(params.restaurantId, 10) : undefined;
+  const { followMutation, unfollowMutation } = useFollowMutations(userId, restaurantId);
 
   const clickFollowBtnHandler = async () => {
     if (isFollowed) {
