@@ -40,7 +40,7 @@ const FeedsCategoryList = () => {
                   </Link>
                 </div>
                 <p className="text-gray-10">{feedData.feed.content}</p>
-                <FeedUserCard data={feedData.feed} timeStamp={false} />
+                <FeedUserCard data={feedData.feed} timeStamp={false} small />
               </div>
             ))}
           </div>
