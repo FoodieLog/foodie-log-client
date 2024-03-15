@@ -1,5 +1,5 @@
 import MainHeader from "@components/Common/Header/MainHeader";
-import FeedsCategoryList from "@/src/components/Feed/FeedsCategory";
+import FeedsCategoryList from "@components/Feed/FeedsCategoryList";
 
 const Home = () => {
   return (
