@@ -32,7 +32,7 @@ function FeedReplyItem({ reply, userId, setReplies }: FeedReplyItemProps) {
   };
 
   return (
-    <li className="group flex items-center justify-between py-[16px] hover:bg-red-500 hover:bg-opacity-5 border-b">
+    <li className="group flex items-center justify-between py-[16px] border-b">
       <div className="flex items-center">
         <Link href={userId === id ? `/main/mypage` : `/main/${userId}`} className="flex w-12 h-12 flex-shrink-0 mr-3.5">
           <Image
@@ -48,7 +48,7 @@ function FeedReplyItem({ reply, userId, setReplies }: FeedReplyItemProps) {
             <Link href={userId === id ? `/main/mypage` : `/main/${userId}`} className="cursor-pointer mr-1.5">
               <span className="text-base">{replyNickName}</span>
             </Link>
-            <TimeStamp createdAt={createdAt} styles="group-hover:text-red group-hover:bg-transparent" />
+            <TimeStamp createdAt={createdAt} />
           </div>
           <p className="text-base text-gray-8 text-regular">{content}</p>
         </div>
