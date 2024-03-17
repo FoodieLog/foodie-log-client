@@ -3,7 +3,7 @@ import useFollowMutations from "@hooks/mutations/useFollowMutaton";
 import { useParams } from "next/navigation";
 
 interface FollowButtonProps {
-  isFollowed: boolean;
+  isFollowed: boolean | undefined;
   userId: number;
   className: string;
   icon?: boolean;
