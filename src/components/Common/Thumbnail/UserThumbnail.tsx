@@ -8,16 +8,8 @@ interface UserThumbnailProps {
 
 function UserThumbnail({ profileImgUrl, userId }: UserThumbnailProps) {
   return (
-    <Link href={`/main/${userId}`} className="relative w-12 h-12">
-      <div className="flex-none w-12 h-12 relative">
-        <Image
-          src={profileImgUrl || "/images/userImage.png"}
-          alt="사용자 썸네일"
-          layout="fill"
-          objectFit="cover"
-          className="rounded-full"
-        />
-      </div>
+    <Link href={`/main/${userId}`} className="relative w-12 h-12 rounded-full overflow-hidden shrink-0">
+      <Image src={profileImgUrl || "/images/userImage.png"} alt="사용자 썸네일" layout="fill" objectFit="cover" />
     </Link>
   );
 }
