@@ -11,6 +11,7 @@ const useFollowMutations = (userId: Mypage["userId"], restaurantId?: number, obj
 
   const mutationOptions = {
     onSuccess: () => {
+      queryClient.invalidateQueries(["notification"]);
       queryClient.invalidateQueries(["myPage", userId]);
       queryClient.invalidateQueries(["feedList", userId]);
       queryClient.invalidateQueries(["feedList", undefined]);
