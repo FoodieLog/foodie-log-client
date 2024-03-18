@@ -1,6 +1,4 @@
 "use client";
-import React from "react";
-import Image from "next/image";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Mypage } from "@@types/mypage";
@@ -11,6 +9,7 @@ import MyProfileTabContent from "@/src/components/Mypage/MyProfileTabContent";
 import useMyPageQuery from "@/src/hooks/queries/useMyPageQuery";
 import useMyFollowersQuery from "@hooks/queries/useMyFollowersQuery";
 import useFollowMutations from "@hooks/mutations/useFollowMutaton";
+import UserThumbnail from "@components/Common/Thumbnail/UserThumbnail";
 
 function Mypage({ userId, option }: Mypage) {
   const [showFriendList, setShowFriendList] = useState(false);
@@ -22,7 +21,7 @@ function Mypage({ userId, option }: Mypage) {
   const { data } = useMyPageQuery(userId);
 
   const { data: myFollowerData, refetch } = useMyFollowersQuery(userId, object);
-  const { followMutation, unfollowMutation } = useFollowMutations(userId);
+  const { followMutation, unfollowMutation } = useFollowMutations(userId, undefined, object);
 
   useEffect(() => {
     setIsClient(true);
@@ -60,17 +59,7 @@ function Mypage({ userId, option }: Mypage) {
       <Header title="마이" back="prePage" option={option} />
       <main className="px-4 space-y-3">
         <div className="flex justify-between items-center mt-5 mb-3 gap-[24px] shrink-0">
-          <div className="relative w-[90px] h-[90px] shrink-0 rounded-full overflow-hidden">
-            <div className="absolute w-full h-full">
-              <Image
-                fill
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                src={data?.profileImageUrl || "/images/userImage.png"}
-                alt="프로필 사진"
-                className="object-cover"
-              />
-            </div>
-          </div>
+          <UserThumbnail profileImgUrl={data?.profileImageUrl} userId={data?.userId} size="w-[90px] h-[90px]" />
           <div className="w-full flex flex-col gap-[12px] text-gray-10">
             <p className="text-[18px] font-semibold">{data.nickName}</p>
             <div className="flex gap-2 text-[14px]">

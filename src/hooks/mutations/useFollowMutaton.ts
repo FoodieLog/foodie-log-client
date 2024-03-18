@@ -5,16 +5,17 @@ import { useToast } from "@/components/ui/use-toast";
 import { TOAST_MESSAGES } from "@constants/toast";
 import { Mypage } from "@@types/mypage";
 
-const useFollowMutations = (userId: Mypage["userId"], restaurantId?: number) => {
+const useFollowMutations = (userId: Mypage["userId"], restaurantId?: number, object?: string) => {
   const queryClient = useQueryClient();
   const { toast } = useToast();
 
   const mutationOptions = {
     onSuccess: () => {
+      queryClient.invalidateQueries(["notification"]);
       queryClient.invalidateQueries(["myPage", userId]);
-      queryClient.invalidateQueries(["myFollowers", userId]);
       queryClient.invalidateQueries(["feedList", userId]);
       queryClient.invalidateQueries(["feedList", undefined]);
+      object && queryClient.invalidateQueries(["myFollowers", userId, object]);
       restaurantId && queryClient.invalidateQueries(["restaurantDetail", restaurantId]);
     },
     onError: () => {

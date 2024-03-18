@@ -1,6 +1,6 @@
 import { RestaurantFeed } from "@@types/recommend";
 import { DEFAULT_IMAGE } from "@components/Restaurant/ShopFeedList";
-import ImageThumbnail from "@components/Common/ImageThumbnail";
+import ImageThumbnail from "@components/Common/Thumbnail/ImageThumbnail";
 
 export interface ShopFeedItemProps {
   feed: RestaurantFeed;

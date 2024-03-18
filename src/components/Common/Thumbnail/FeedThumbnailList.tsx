@@ -1,6 +1,6 @@
 import Link from "next/link";
 import React from "react";
-import ImageThumbnail from "@components/Common/ImageThumbnail";
+import ImageThumbnail from "@components/Common/Thumbnail/ImageThumbnail";
 import { Content } from "@@types/feed";
 
 interface FeedThumbnailListProps {
