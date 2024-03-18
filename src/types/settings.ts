@@ -3,10 +3,11 @@ export interface PasswordType {
   newPassword: string;
 }
 
-export interface WithdrawModalProps {
-  children: React.ReactNode;
-}
-
 export interface WithdrawRequestBodyType {
   withdrawReason: string;
+}
+
+export interface WithDrawReasonType {
+  id: string;
+  reason: string;
 }

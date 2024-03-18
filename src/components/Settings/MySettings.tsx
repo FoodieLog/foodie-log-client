@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { logoutKaKaoToken } from "@services/kakao";
 import useLogout from "@hooks/useLogout";
 import { LockReset, Logout, MilitaryTech, NotificationSmall } from "@assets/icons";
-import WithdrawModal from "@components/Settings/SettingWithdrawModal";
+import WithdrawModal from "@components/Settings/WithdrawModal";
 import Header from "@components/Common/Header";
 import SettingListItem from "@components/Settings/SettingListItem";
 import Toggle from "@components/Common/Toggle";
@@ -68,17 +68,15 @@ function MySettings() {
         />
         <SettingListItem text="로그아웃" icon={Logout} onClickHandler={onClickLogout} className="cursor-pointer" />
       </ul>
-
-      <WithdrawModal>
-        <div
-          data-modal-target="authentication-modal"
-          data-modal-toggle="authentication-modal"
-          onClick={onClickWithdraw}
-          className="h-12 cursor-pointer flex items-center justify-center font-semibold text-sm text-gray-3 hover:text-red hover:bg-gray-2"
-        >
-          회원탈퇴
-        </div>
-      </WithdrawModal>
+      <div
+        data-modal-target="authentication-modal"
+        data-modal-toggle="authentication-modal"
+        onClick={onClickWithdraw}
+        className="h-12 cursor-pointer flex items-center justify-center font-semibold text-sm text-gray-3 hover:text-red hover:bg-gray-2"
+      >
+        회원탈퇴
+      </div>
+      {showModal && <WithdrawModal setShowModal={setShowModal} />}
     </div>
   );
 }

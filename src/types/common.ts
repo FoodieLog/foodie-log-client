@@ -14,7 +14,6 @@ export type ButtonProps = {
 
 export interface ModalProps {
   children: React.ReactNode;
-  showModal?: boolean;
   setShowModal?: React.Dispatch<React.SetStateAction<boolean>>;
   reload?: boolean;
 }
@@ -37,10 +36,10 @@ export interface DialogReportProps {
 export interface DialogProps {
   name: string;
   option: string;
-  id?: number;
+  feedId?: number;
+  replyId?: number;
   type?: string;
   content?: string;
-  removeHandler?: () => void;
   className?: string;
 }
 
