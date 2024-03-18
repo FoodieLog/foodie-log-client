@@ -3,7 +3,7 @@ import { Fragment } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { getThumbnailByUserId } from "@services/mypage";
 import InfiniteScroll from "react-infinite-scroller";
-import ImageThumbnail from "@components/Common/ImageThumbnail";
+import ImageThumbnail from "@components/Common/Thumbnail/ImageThumbnail";
 
 interface MyFeedThumnailProps {
   userId: number;

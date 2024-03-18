@@ -1,7 +1,7 @@
 import React from "react";
 import { Content } from "@@types/feed";
 import { Dissatisfied } from "@assets/icons";
-import FeedThumbnailList from "@components/Common/FeedThumbnailList";
+import FeedThumbnailList from "@components/Common/Thumbnail/FeedThumbnailList";
 
 interface RestaurantFeedListProps {
   feedList: Content[];

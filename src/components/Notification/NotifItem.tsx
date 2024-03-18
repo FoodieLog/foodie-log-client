@@ -1,12 +1,12 @@
 import Link from "next/link";
 import TimeStamp from "@components/Common/Tag/TimeStamp";
 import UserThumbnail from "@components/Common/Thumbnail/UserThumbnail";
-import PhotoThumbnail from "@components/Common/Thumbnail/PhotoThumbnail";
+import FeedThumbnail from "@components/Common/Thumbnail/FeedThumbnail";
 import FollowButton from "@components/Common/Button/FollowButton";
 import { Notification } from "@@types/apiTypes";
 
 function NotifItem({ ...notification }: Notification) {
-  const { id, type, checkFlag, user, feed, reply, isFollowed, createdAt } = notification;
+  const { type, user, feed, reply, isFollowed, createdAt } = notification;
 
   const CONTENT_OPTION = {
     FOLLOW: {
@@ -36,7 +36,7 @@ function NotifItem({ ...notification }: Notification) {
       {type === "FOLLOW" ? (
         <FollowButton isFollowed={isFollowed} userId={user.id} className="w-[64px]" />
       ) : (
-        <PhotoThumbnail imgUrl={feed?.thumbnail} href={CONTENT_OPTION[type].href} />
+        <FeedThumbnail imgUrl={feed?.thumbnail} href={CONTENT_OPTION[type].href} />
       )}
     </li>
   );
