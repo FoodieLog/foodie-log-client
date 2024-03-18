@@ -60,18 +60,18 @@ function WithdrawModal({ setShowModal }: WithdrawModalProps) {
 
   return (
     <CustomModal setShowModal={setShowModal}>
-      <div className="w-full px-[30px] py-[24px] bg-gray-0 flex flex-col items-start rounded-[8px]">
-        <p className="w-full text-lg font-semibold text-gray-10 text-left mb-[12px]">회원 탈퇴</p>
-        <div className="w-full pt-[12px] pb-[16px] border-y">
-          <div className="flex flex-col mb-[16px]">
+      <div className="w-full px-[30px] py-6 bg-gray-0 flex flex-col items-start rounded-lg">
+        <p className="w-full text-lg font-semibold text-gray-10 text-left mb-3">회원 탈퇴</p>
+        <div className="w-full pt-3 pb-4 border-y">
+          <div className="flex flex-col mb-4">
             <span className="text-gray-8 text-sm">이메일</span>
             <span className="text-gray-4">{email}</span>
           </div>
           <div>
-            <p className="text-sm text-gray-8 mb-[8px]">
+            <p className="text-sm text-gray-8 mb-2">
               탈퇴 사유<span className="text-red">*</span>
             </p>
-            <ul className="flex flex-col gap-[8px]">
+            <ul className="flex flex-col gap-2">
               {withdrawReasonList.map(({ id, reason }) => (
                 <li key={id}>
                   <WithDrawReasonItem
@@ -85,7 +85,7 @@ function WithdrawModal({ setShowModal }: WithdrawModalProps) {
             </ul>
           </div>
         </div>
-        <p className="text-sm text-red mt-[16px] mb-[24px]">
+        <p className="text-sm text-red mt-4 mb-6">
           탈퇴한 이메일로 재가입이 불가능합니다.
           <br /> 그래도 탈퇴하시겠습니까?
         </p>
