@@ -12,7 +12,6 @@ const useNotificationQuery = () => {
     ["notification"],
     async () => {
       const { response } = await getNotificationList();
-      console.log(response);
       const notificationData = response.content;
       return notificationData;
     },
