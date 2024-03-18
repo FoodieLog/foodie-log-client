@@ -25,21 +25,19 @@ function NotifItem({ ...notification }: Notification) {
 
   return (
     <li className="w-full py-[12px] flex gap-2 items-center">
-      <UserThumbnail profileImgUrl={user.profileImgUrl} userId={user.id} />
-      <Link href={CONTENT_OPTION[type].href} className="w-full flex justify-between items-center">
-        <div>
-          <p className="text-gray-4">
-            <strong>{user.nickName} </strong>
-            {CONTENT_OPTION[type].content}
-          </p>
-          <TimeStamp createdAt={createdAt} styles="bg-transparent" />
-        </div>
-        {type === "FOLLOW" ? (
-          <FollowButton isFollowed={isFollowed} userId={user.id} className="w-[64px]" />
-        ) : (
-          <PhotoThumbnail imgUrl={feed?.thumbnail} href={CONTENT_OPTION[type].href} />
-        )}
+      <UserThumbnail profileImgUrl={user.profileImgUrl} userId={user.id} size="w-12 h-12" />
+      <Link href={CONTENT_OPTION[type].href} className="w-full">
+        <p className="text-gray-4">
+          <strong>{user.nickName} </strong>
+          {CONTENT_OPTION[type].content}
+        </p>
+        <TimeStamp createdAt={createdAt} styles="bg-transparent" />
       </Link>
+      {type === "FOLLOW" ? (
+        <FollowButton isFollowed={isFollowed} userId={user.id} className="w-[64px]" />
+      ) : (
+        <PhotoThumbnail imgUrl={feed?.thumbnail} href={CONTENT_OPTION[type].href} />
+      )}
     </li>
   );
 }

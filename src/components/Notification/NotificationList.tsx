@@ -7,7 +7,7 @@ const NotificationList = () => {
   const { data: notifications } = useNotificationQuery();
 
   return (
-    <ul className="w-full flex flex-col">
+    <ul className="w-full flex flex-col px-4">
       {notifications?.length === 0 ? (
         <li className="w-full flex justify-center items-center py-4">알림이 없습니다.</li>
       ) : (
