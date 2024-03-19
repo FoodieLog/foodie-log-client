@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { getFeedShared } from "@services/apiFeed";
+import { getFeedShared } from "@services/feed";
 import FeedImageSlide from "@components/Feed/FeedImageSlide";
 import dayjs from "dayjs";
 import { AiOutlineHeart } from "react-icons/ai";
@@ -37,7 +37,7 @@ const FeedShared: React.FC<FeedSharedProps> = ({ Id }) => {
       try {
         const response = await getFeedShared(feedId);
         if (response.status === 200) {
-          setFeedData(response.response);
+          setFeedData(response.data);
         }
       } catch (error) {
         toast({ title: "오류 발생", description: "처리 중에 오류가 발생하였습니다." });

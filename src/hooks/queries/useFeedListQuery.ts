@@ -1,4 +1,5 @@
-import { APIFeedResponse, getFeedList, getFeedListByUserId } from "@services/apiFeed";
+import { APIFeedResponse } from "@@types/apiTypes";
+import { getFeedList, getFeedListByUserId } from "@services/feed";
 import { useInfiniteQuery } from "@tanstack/react-query";
 
 interface useFeedListQueryProps {
@@ -17,7 +18,7 @@ const useFeedListQuery = ({ userId, singleFeedId }: useFeedListQueryProps) => {
         response = await getFeedList(pageParam);
       }
 
-      const apiResponse = response as unknown as APIFeedResponse;
+      const apiResponse = response.data;
       return apiResponse;
     },
     {

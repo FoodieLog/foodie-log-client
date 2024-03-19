@@ -1,8 +1,6 @@
 "use client";
 import { Fragment, useEffect, useRef, useState } from "react";
-/** 피드 관련 api 추후 정리 예정 */
-import { getSingleFeed } from "@services/apiFeed";
-// import { getFeedList, getFeedListByUserId, getSingleFeed, followUser, unfollowUser } from "@services/feed";
+import { getSingleFeed } from "@services/feed";
 import InfiniteScroll from "react-infinite-scroller";
 import Feed from "@components/Feed/Feed";
 import { Content } from "@@types/feed";
@@ -22,8 +20,8 @@ const Feeds = ({ id, startingFeedId, singleFeedId }: FeedsProps) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await getSingleFeed(singleFeedId!);
-        setSingleFeedData(response.response.content);
+        const { content } = await getSingleFeed(singleFeedId!);
+        setSingleFeedData(content);
       } catch (error) {
         console.error("API Error:", error);
       }
@@ -37,10 +35,6 @@ const Feeds = ({ id, startingFeedId, singleFeedId }: FeedsProps) => {
   const loadMore = () => {
     fetchNextPage();
   };
-
-  // const removeDeletedFeed = (feedId: number) => {
-  //   setFeedsData((prevData) => prevData.filter((feed) => feed.feed.feedId !== feedId));
-  // };
 
   useEffect(() => {
     let found = false;
@@ -72,12 +66,13 @@ const Feeds = ({ id, startingFeedId, singleFeedId }: FeedsProps) => {
       ) : (
         <InfiniteScroll pageStart={0} loadMore={loadMore} hasMore={hasNextPage && !isFetchingNextPage}>
           {(data?.pages || []).map((page, index) => {
-            if (!Array.isArray(page.response.content)) {
+            console;
+            if (!Array.isArray(page.response?.content)) {
               return null;
             }
             return (
               <Fragment key={index}>
-                {page.response.content.map((feedData: Content, index) => {
+                {page?.response.content.map((feedData: Content, index) => {
                   const { feed } = feedData;
                   const hasFeedId = feed?.feedId !== undefined;
                   const Key = hasFeedId ? feed.feedId : index;
