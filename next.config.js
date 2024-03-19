@@ -34,14 +34,10 @@ const nextConfig = {
   },
   webpack: (config) => {
     const fileLoaderRule = config.module.rules.find((rule) => rule.test?.test?.(".svg"));
-    config.module.rules.push({
-      test: /\.svg$/i,
-      loader: "file-loader",
-      oneOf: [
-        { ...fileLoaderRule, include: /@assets\/icons\// },
-        { issuer: /\.[jt]sx?$/, use: ["@svgr/webpack"] },
-      ],
-    });
+    config.module.rules.push(
+      { ...fileLoaderRule, test: /\.svg$/i, include: /@assets\/icons\//, loader: "file-loader" },
+      { test: /\.svg$/i, issuer: /\.[jt]sx?$/, use: ["@svgr/webpack"] }
+    );
     return config;
   },
   reactStrictMode: true,
