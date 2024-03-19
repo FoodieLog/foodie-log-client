@@ -6,7 +6,7 @@ import { useUserStore } from "@store/useUserStore";
 import { unlinkKaKaoToken } from "@services/kakao";
 import { useToast } from "@/components/ui/use-toast";
 import WithDrawReasonItem from "@components/Settings/WithDrawReasonItem";
-import { withdrawReasonList } from "@constants";
+import { WITHDRAW_REASON_LIST } from "@constants";
 import CustomModal from "@components/Common/Dialog/CustomModal";
 
 export interface WithdrawModalProps {
@@ -72,7 +72,7 @@ function WithdrawModal({ setShowModal }: WithdrawModalProps) {
               탈퇴 사유<span className="text-red">*</span>
             </p>
             <ul className="flex flex-col gap-2">
-              {withdrawReasonList.map(({ id, reason }) => (
+              {WITHDRAW_REASON_LIST.map(({ id, reason }) => (
                 <li key={id}>
                   <WithDrawReasonItem
                     id={id}

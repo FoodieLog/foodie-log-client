@@ -1,6 +1,6 @@
 import { WithDrawReasonType } from "@@types/settings";
 
-export const withdrawReasonList: WithDrawReasonType[] = [
+export const WITHDRAW_REASON_LIST: WithDrawReasonType[] = [
   { id: "UNSATISFACTORY_SUPPORT", reason: "고객 지원이 만족스럽지 않아서" },
   {
     id: "INFREQUENTLY_USED",
