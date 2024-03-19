@@ -4,31 +4,41 @@ import { useForm } from "react-hook-form";
 import { useToast } from "@/components/ui/use-toast";
 import { duplicateCheck, sendEmailCode } from "@services/auth";
 import { SignUpForm } from "@@types/apiTypes";
-import { EMAIL_VALIDATION, PASSWORD_VALIDATION } from "@constants";
+import { EMAIL_VALIDATION, PASSWORD_VALIDATION, TERMS } from "@constants";
 import Button from "@components/Common/Button";
 import SignUpCode from "@components/Auth/SignUpCode";
 import SignUpProfile from "@components/Auth/SignUpProfile";
 import useSignUpStore from "@store/useSignUpStore";
 import { TOAST_MESSAGES } from "@constants/toast";
 import Header from "@components/Common/Header";
-import SignUpTermsModal from "@components/Auth/SignUpTermsModal";
 import { CheckedCircle, Eye, EyeSlash, UncheckedCircle } from "@assets/icons";
-import useToggleShowPassword from "@/src/hooks/useToggleShowPassword";
+import useToggleShowPassword from "@hooks/useToggleShowPassword";
+import Drawer from "@components/Common/Drawer/Drawer";
+import { motion } from "framer-motion";
 
 interface SighUpInput {
   email: string;
   password: string;
 }
 
+interface ContentVisibility {
+  info: boolean;
+  service: boolean;
+}
+
 function SignUpForm() {
   const [availableEmail, setAvailableEmail] = useState(1);
+  const [openTermDrawer, setOpenTermDrawer] = useState(false);
   const { user, setUser, nextComponent, setNextComponent } = useSignUpStore();
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [isChecked, setIsChecked] = useState({ service: false, info: false });
   const { toast } = useToast();
   const { EMAIL_CODE_SEND_FAILURE } = TOAST_MESSAGES;
   const [showPassword, toggleShowPassword] = useToggleShowPassword();
   const [showCheckPassword, toggleShowCheckPassword] = useToggleShowPassword();
+  const [terms, setTerms] = useState<ContentVisibility>({ info: false, service: false });
+  const toggleTerms = (term: keyof ContentVisibility) => {
+    setTerms((prev) => ({ ...prev, [term]: !prev[term] }));
+  };
 
   const {
     register,
@@ -57,26 +67,22 @@ function SignUpForm() {
     }
   };
 
-  const onSubmit = async ({ email, password }: SighUpInput) => {
+  const onSubmit = ({ email, password }: SighUpInput) => {
+    setUser({ ...user, email, password });
+    setOpenTermDrawer(true);
+  };
+
+  const onTermSubmit = async () => {
     try {
-      await sendEmailCode(email);
+      await sendEmailCode(user.email);
       setNextComponent("SignUpCode");
-      setUser({ ...user, email, password });
     } catch (err) {
       toast(EMAIL_CODE_SEND_FAILURE);
     }
   };
 
-  const onClickAllTerms = () => {
-    if (isChecked.info && isChecked.service) {
-      setIsChecked({ service: false, info: false });
-    } else {
-      setIsChecked({ service: true, info: true });
-    }
-  };
-
   return (
-    <section className="flex flex-col w-full items-center justify-between mx-5 mb-5 sm:w-[600px] sm:border border-gray-300">
+    <section className="flex flex-col w-full items-center justify-between px-5 pb-5 h-[100vh] overflow-hidden relative sm:w-[600px] sm:border border-gray-300">
       <Header title="" back="prePage" />
       <div className="title text-2xl font-[600]">
         <p>간편하게 가입하고</p>
@@ -182,35 +188,97 @@ function SignUpForm() {
             {errors?.passwordCheck && <p className="error">{errors.passwordCheck.message}</p>}
           </div>
         </div>
-        <div className="flex flex-col gap-6">
-          <div className="flex justify-between items-center text-gray-4">
-            <label htmlFor="terms" className="flex text-gray-4 gap-2">
-              {isChecked.service && isChecked.info ? <CheckedCircle /> : <UncheckedCircle />}
-              <input
-                id="terms"
-                type="checkbox"
-                checked={isChecked.service && isChecked.info}
-                onChange={onClickAllTerms}
-                style={{ display: "none" }}
-              />
-              서비스 이용 약관에 동의합니다.
-            </label>
-            <span
-              onClick={() => {
-                setIsModalOpen(!isModalOpen);
-              }}
-              className="text-sm"
-            >
-              더 알아보기
-            </span>
-          </div>
-          <Button type="submit" variant="primary" disabled={!(isValid && isChecked.info && isChecked.service)}>
-            다음
-          </Button>
-        </div>
+        <Button type="submit" variant="primary" disabled={!isValid}>
+          다음
+        </Button>
       </form>
-      {isModalOpen && (
-        <SignUpTermsModal isChecked={isChecked} setIsChecked={setIsChecked} setIsModalOpen={setIsModalOpen} />
+
+      {openTermDrawer && (
+        <Drawer backgroundDarker neverClosed reactableHeight>
+          <div className="flex flex-col items-center gap-4">
+            <p className="text-2xl font-bold mb-4">서비스 이용 약관 동의</p>
+            <div className="w-full border border-gray-2 rounded-lg px-2.5 py-3.5">
+              <label htmlFor="terms" className="flex items-center text-gray-4 gap-2">
+                {isChecked.service && isChecked.info ? <CheckedCircle /> : <UncheckedCircle />}
+                <input
+                  id="terms"
+                  type="checkbox"
+                  checked={isChecked.service && isChecked.info}
+                  onChange={() =>
+                    setIsChecked(() => {
+                      return isChecked.service && isChecked.info
+                        ? { service: false, info: false }
+                        : { service: true, info: true };
+                    })
+                  }
+                  style={{ display: "none" }}
+                />
+                <p className="text-lg font-bold text-red">약관 전체 동의</p>
+              </label>
+            </div>
+            <div className="flex justify-between w-full">
+              <label htmlFor="info" className="flex text-gray-10 gap-1">
+                {isChecked.info ? <CheckedCircle /> : <UncheckedCircle />}
+                <input
+                  id="info"
+                  type="checkbox"
+                  checked={isChecked.info}
+                  onChange={() => setIsChecked((prev) => ({ ...prev, info: !prev.info }))}
+                  style={{ display: "none" }}
+                />
+                <span className="text-red">(필수)</span>서비스 이용 약관 동의
+              </label>
+              <span
+                onClick={() => {
+                  toggleTerms("info");
+                }}
+                className="text-gray-4 text-sm"
+              >
+                내용 보기
+              </span>
+            </div>
+            <motion.div
+              initial={false}
+              animate={{ height: terms.info ? "120px" : 0 }}
+              transition={{ duration: 0.3 }}
+              style={{ overflowY: "auto" }}
+            >
+              <div className="h-full w-full p-3 bg-gray-1">{TERMS.INFO}</div>
+            </motion.div>
+            <div className="flex justify-between w-full">
+              <label htmlFor="service" className="flex text-gray-10 gap-1">
+                {isChecked.service ? <CheckedCircle /> : <UncheckedCircle />}
+                <input
+                  id="service"
+                  type="checkbox"
+                  checked={isChecked.service}
+                  onChange={() => setIsChecked((prev) => ({ ...prev, service: !prev.service }))}
+                  style={{ display: "none" }}
+                />
+                <span className="text-red">(필수)</span>개인정보 수집 및 이용 동의
+              </label>
+              <span
+                onClick={() => {
+                  toggleTerms("service");
+                }}
+                className="text-gray-4 text-sm"
+              >
+                내용 보기
+              </span>
+            </div>
+            <motion.div
+              initial={false}
+              animate={{ height: terms.service ? "120px" : 0 }}
+              transition={{ duration: 0.3 }}
+              style={{ overflowY: "auto" }}
+            >
+              <div className="h-full w-full p-3 bg-gray-1 ">{TERMS.SERVICE.CONTENT}</div>
+            </motion.div>
+            <Button type="submit" onClick={onTermSubmit} disabled={!isChecked.info || !isChecked.service}>
+              다음
+            </Button>
+          </div>
+        </Drawer>
       )}
     </section>
   );
