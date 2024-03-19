@@ -5,7 +5,6 @@ import Button from "@components/Common/Button";
 import useSignUpStore from "@store/useSignUpStore";
 import SignUpProfile from "@components/Auth/SignUpProfile";
 import AuthHeader from "@components/Common/Header/Auth";
-import { useToast } from "@/components/ui/use-toast";
 import CustomModal from "@components/Common/Dialog/CustomModal";
 import { TERMS } from "@constants/terms";
 
@@ -15,8 +14,6 @@ function SignUpTerms() {
   const [showInfoTerms, setShowInfoTerms] = useState(false);
   const [isCheckedInfo, setIsCheckedInfo] = useState(false);
   const { isChecked, setIsChecked, nextComponent, setNextComponent } = useSignUpStore();
-
-  const { toast } = useToast();
 
   const onChangeServiceHandler = () => {
     setIsChecked(!isChecked);

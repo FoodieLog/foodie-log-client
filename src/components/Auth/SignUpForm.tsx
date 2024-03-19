@@ -78,7 +78,7 @@ function SignUpForm() {
   return (
     <section className="flex flex-col w-full items-center justify-between mx-5 mb-5 sm:w-[600px] sm:border border-gray-300">
       <Header title="" back="prePage" />
-      <div className="title text-[24px] font-[600]">
+      <div className="title text-2xl font-[600]">
         <p>간편하게 가입하고</p>
         <p>푸디로그 서비스를 이용하세요.</p>
       </div>
@@ -199,7 +199,7 @@ function SignUpForm() {
               onClick={() => {
                 setIsModalOpen(!isModalOpen);
               }}
-              className="text-[14px]"
+              className="text-sm"
             >
               더 알아보기
             </span>

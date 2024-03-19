@@ -36,7 +36,7 @@ const RestaurantCategorySlider = () => {
           whileHover={{ scale: 1.1 }}
         >
           <button
-            className={`flex gap-1 py-[6px] px-[8px] whitespace-nowrap justify-center items-center rounded-[15px] ${
+            className={`flex gap-1 py-1.5 px-2 whitespace-nowrap justify-center items-center rounded-[15px] ${
               selected.includes(tagName) ? "bg-red-1" : "bg-gray-1"
             } w-full h-[25px]`}
             onClick={() => {
@@ -44,7 +44,7 @@ const RestaurantCategorySlider = () => {
             }}
           >
             {getTagIcon(tagName, selected.includes(tagName))}
-            <span className={`text-[14px] text-${selected.includes(tagName) ? "red" : "gray-10"} `}>{tagName}</span>
+            <span className={`text-sm text-${selected.includes(tagName) ? "red" : "gray-10"} `}>{tagName}</span>
           </button>
         </motion.div>
       ))}
