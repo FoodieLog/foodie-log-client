@@ -12,11 +12,12 @@ import snack from "@assets/images/restaurants/snack.png";
 import western from "@assets/images/restaurants/western.png";
 
 //============ 이미지 - basic ============
-import BasicThumbnail from "@assets/images/basic/basic_thumb.svg";
+import BasicThumbnail from "@assets/images/basic/basic_thumb.png";
 
 export {
   // Logo
   UserImage,
+
   // Restaurants
   asian,
   bar,
@@ -26,6 +27,7 @@ export {
   korean,
   snack,
   western,
+
   //basic
   BasicThumbnail,
 };
