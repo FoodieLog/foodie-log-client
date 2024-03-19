@@ -1,9 +1,9 @@
 "use client";
-import { useRef, useEffect, useState, MutableRefObject } from "react";
+import { useRef, useEffect, MutableRefObject } from "react";
 import { useRouter } from "next/navigation";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context";
-import { markerImageSrc, markerSize, onMarkerClick } from "@components/Map/common";
+import { markerImageSrc, markerSize } from "@components/Map/common";
 
 interface KakaoMapProps {
   size?: { width: string; height: string };
@@ -18,7 +18,7 @@ const KakaoMap = ({ size = { width: "100%", height: "360px" }, latitude, longitu
   //#endregion
 
   //#region Variables
-  const router: AppRouterInstance = useRouter();
+  const router = useRouter();
   const parsedLat: number = parseFloat(latitude);
   const parsedLng: number = parseFloat(longitude);
   const level: number = 3;
@@ -41,7 +41,9 @@ const KakaoMap = ({ size = { width: "100%", height: "360px" }, latitude, longitu
           <MapMarker
             position={{ lat: parsedLat, lng: parsedLng }}
             clickable={true}
-            onClick={() => onMarkerClick(router, restaurantId)}
+            onClick={() => {
+              router.push(`/main/restaurants/${restaurantId}`);
+            }}
             image={{
               src: markerImageSrc, // 마커이미지의 주소입니다
               size: markerSize, // 마커이미지의 크기입니다

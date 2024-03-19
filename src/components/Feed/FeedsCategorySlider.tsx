@@ -22,7 +22,9 @@ const FeedsCategorySlider = () => {
       {["전체", ...tagNames].map((tagName) => (
         <div key={tagName}>
           <button
-            className={`flex p-2.5 whitespace-nowrap ${selected === tagName && "border-b-2 border-red"}  `}
+            className={`flex p-2.5 font-bold whitespace-nowrap ${
+              selected === tagName && "border-b-2 border-red text-red"
+            }  `}
             onClick={() => {
               setSelected(tagName);
             }}
