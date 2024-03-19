@@ -1,13 +1,13 @@
 "use client";
 import { useEffect } from "react";
-import { ModalProps } from "@/src/types/common";
+import { ModalProps } from "@@types/common";
 
-function CustomModal({ children, showModal, setShowModal, reload }: ModalProps) {
+function CustomModal({ children, setShowModal, reload }: ModalProps) {
   useEffect(() => {}, [reload]);
 
   const onClickBg = (e: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>) => {
     if (setShowModal && e.target === e.currentTarget) {
-      setShowModal(!showModal);
+      setShowModal((isShow) => !isShow);
     }
   };
 
