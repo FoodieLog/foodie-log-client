@@ -3,7 +3,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { putChangePassword } from "@services/settings";
 import { ChangePassword } from "@@types/apiTypes";
-import { PASSWORD_VALIDATION } from "@constants";
+import { PASSWORD_VALIDATION, TOAST_MESSAGES } from "@constants";
 import { useUserStore } from "@store/useUserStore";
 import Button from "@components/Common/Button";
 import Header from "@components/Common/Header";
@@ -38,7 +38,7 @@ function SettingPassword() {
       await putChangePassword({ oldPassword, newPassword });
       setNextComponent("CompleteChangePassword");
     } catch (err) {
-      toast({ description: "비밀번호 변경 실패하였습니다!" });
+      toast(TOAST_MESSAGES.PASSWORD_CHANGE_FAILURE);
     }
   };
 

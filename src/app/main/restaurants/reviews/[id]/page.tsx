@@ -4,6 +4,7 @@ import Header from "@components/Common/Header";
 import ShopCard from "@components/Common/Card/ShopCard";
 import useRestaurantDetailQuery from "@hooks/queries/useRestaurantDetailQuery";
 import RestaurantFeedList from "@components/Restaurant/RestaurantFeedList";
+import { RestaurantDetailBackground } from "@assets/images";
 
 function RestaurantReviewsPage({ params }: { params: { id: string } }) {
   const { id } = params;
@@ -21,6 +22,9 @@ function RestaurantReviewsPage({ params }: { params: { id: string } }) {
   return (
     <div>
       <Header title={name} back="prePage" />
+      <div className="mb-4">
+        <RestaurantDetailBackground />
+      </div>
       <ShopCard
         id={Number(id)}
         name={name}
