@@ -1,4 +1,4 @@
-import { axiosRequest } from "@services/index";
+import { axiosRequest, userRequest } from "@services";
 import { LogInBody, ResetPasswordBody } from "@@types/apiTypes";
 
 //회원가입
@@ -53,4 +53,12 @@ export const resetPassword = async ({ email, password }: ResetPasswordBody) => {
 export const duplicateNickNameCheck = async (nickName: string) => {
   const res = await axiosRequest.get(`/api/auth/exists/nickname?input=${nickName}`);
   return res;
+};
+
+// 토큰 재발급 요청
+export const reissueTokens = async () => {
+  const res = await userRequest.get(`/api/auth/reissue`, {
+    withCredentials: true,
+  });
+  return res.data;
 };

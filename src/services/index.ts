@@ -1,12 +1,11 @@
 import axios, { AxiosRequestConfig } from "axios";
 import { useUserStore } from "@store/useUserStore";
-import { getCookie } from "@utils/token";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
-// const refreshToken = getCookie("refreshToken");
 
 const axiosConfig: AxiosRequestConfig = {
   baseURL: BASE_URL,
+  withCredentials: true,
   headers: {
     "Content-Type": "application/json",
   },
