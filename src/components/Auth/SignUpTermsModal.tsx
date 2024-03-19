@@ -61,8 +61,8 @@ const SignUpTermsModal = ({ isChecked, setIsChecked, setIsModalOpen }: SignUpTer
         ) : (
           <>
             <div className="text-center mx-10">
-              <h2 className="text-[24px] font-[600] mb-6">이용 약관 동의</h2>
-              <p className="text-[14px] text-gray-08">
+              <h2 className="text-2xl font-[600] mb-6">이용 약관 동의</h2>
+              <p className="text-sm text-gray-08">
                 Foodie-Log는 회원님의 개인정보를 안전하게 보호합니다. 새 계정을 만들려면 이용약관에 동의하세요.
               </p>
             </div>
@@ -80,7 +80,7 @@ const SignUpTermsModal = ({ isChecked, setIsChecked, setIsModalOpen }: SignUpTer
                   서비스 이용 약관 동의<span className="text-red">(필수)</span>
                 </label>
                 <span
-                  className="text-gray-4 text-[14px]"
+                  className="text-gray-4 text-sm"
                   onClick={() => {
                     setOpenTerm("info");
                   }}
@@ -101,7 +101,7 @@ const SignUpTermsModal = ({ isChecked, setIsChecked, setIsModalOpen }: SignUpTer
                   개인정보 수집 및 약관 동의<span className="text-red">(필수)</span>
                 </label>
                 <span
-                  className="text-gray-4 text-[14px]"
+                  className="text-gray-4 text-sm"
                   onClick={() => {
                     setOpenTerm("service");
                   }}

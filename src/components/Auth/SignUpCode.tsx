@@ -67,7 +67,7 @@ function SignUpCode() {
       <Header title="" back="preComponent" />
       <div className="title">
         <h2>인증코드 입력</h2>
-        <p className="text-center text-[14px] text-gray-3">
+        <p className="text-center text-sm text-gray-3">
           <span>{email || "이메일"}</span> 으로 <br />
           전송된 인증코드를 입력해주세요!
         </p>

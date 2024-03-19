@@ -67,7 +67,7 @@ const RestaurantDetail = ({ restaurantId }: RestaurantDetailProps) => {
           </div>
           <div className="flex justify-between space-x-4 pr-2 pl-2">
             {images.map((imageUrl) => (
-              <div key={imageUrl} className="relative w-[7.5rem] h-[7.5rem]">
+              <div key={imageUrl} className="relative w-[120px] h-[120px]">
                 <Image
                   className="rounded-[10px]"
                   src={imageUrl}

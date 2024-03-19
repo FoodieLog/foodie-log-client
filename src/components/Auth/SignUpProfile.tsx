@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { useRef, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { MdAddPhotoAlternate } from "react-icons/md";
 import { signUp, duplicateNickNameCheck } from "@services/auth";
 import { profileSetting } from "@services/kakao";
@@ -21,8 +21,6 @@ function SignUpProfile() {
     nickName: "",
     aboutMe: "",
   });
-  const params = useSearchParams();
-  const code = params.get("code");
   const router = useRouter();
   const { user, clearUser } = useSignUpStore();
   const fileInput = useRef<HTMLInputElement>(null);

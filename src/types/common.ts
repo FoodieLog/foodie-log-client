@@ -34,6 +34,7 @@ export interface DialogReportProps {
 }
 
 export interface DialogProps {
+  id?: number;
   name: string;
   option: string;
   feedId?: number;
@@ -41,6 +42,7 @@ export interface DialogProps {
   type?: string;
   content?: string;
   className?: string;
+  removeHandler?: () => void;
 }
 
 export interface ImageComponentProps {

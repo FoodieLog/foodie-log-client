@@ -28,7 +28,7 @@ const FeedsCategoryList = () => {
         {data?.pages.map((page, pageIndex) => (
           <div key={pageIndex} className="grid grid-cols-2 gap-4 mx-2 mt-2">
             {page.response.content.map((feedData: Content, dataIndex) => (
-              <div key={dataIndex} className=" flex flex-col p-3 gap-3 border-gray-2 border-[1px] rounded-[10px]">
+              <div key={dataIndex} className=" flex flex-col p-3 gap-3 border-gray-2 border rounded-[10px]">
                 <div className="relative rounded-[10px] w-full aspect-w-1 aspect-h-1">
                   <Link href={`/main/feed/?feedsId=${feedData.feed.feedId}`}>
                     <Image
