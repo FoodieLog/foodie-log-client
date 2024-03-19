@@ -1,10 +1,3 @@
-import { AppRouterInstance } from "next/dist/shared/lib/app-router-context";
-
-// Marker Click Event
-export const onMarkerClick = (router: AppRouterInstance, restaurantId: number) => {
-  router.push(`/main/restaurants/${restaurantId}`);
-};
-
 // Marker Size
 export const markerSize: { width: number; height: number } = {
   width: 24,

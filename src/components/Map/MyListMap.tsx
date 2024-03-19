@@ -2,7 +2,7 @@ import { Map, MapMarker, CustomOverlayMap } from "react-kakao-maps-sdk";
 import { useRouter } from "next/navigation";
 import { Fragment } from "react";
 import { MapItem } from "@@types/apiTypes";
-import { markerSize, markerImageSrc, onMarkerClick } from "@components/Map/common";
+import { markerSize, markerImageSrc } from "@components/Map/common";
 
 interface MapProps {
   size?: { width: string; height: string };
@@ -25,7 +25,9 @@ function MyListMap({ size = { width: "100%", height: "360px" }, mapData }: MapPr
                 title={restaurant.name}
                 zIndex={1}
                 clickable={true}
-                onClick={() => onMarkerClick(router, restaurant.id)}
+                onClick={() => {
+                  router.push(`/main/restaurants/${restaurant.id}`);
+                }}
                 image={{
                   src: markerImageSrc, // 마커이미지의 주소입니다
                   size: markerSize, // 마커이미지의 크기입니다
@@ -35,7 +37,9 @@ function MyListMap({ size = { width: "100%", height: "360px" }, mapData }: MapPr
               {/* Marker 위 가게 명 */}
               <CustomOverlayMap yAnchor={1} position={{ lat, lng }} zIndex={0}>
                 <div
-                  onClick={() => onMarkerClick(router, restaurant.id)}
+                  onClick={() => {
+                    router.push(`/main/restaurants/${restaurant.id}`);
+                  }}
                   style={{
                     color: "191919",
                     backgroundColor: "#F6C443",
