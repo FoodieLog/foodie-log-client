@@ -37,14 +37,14 @@ const RestaurantCategorySlider = () => {
   };
 
   const tagIcons: { [key: string]: { selected: ReactNode; unSelected: ReactNode } } = {
-    한식: { unSelected: Korean, selected: KoreanSelected },
-    카페: { unSelected: Cafe, selected: CafeSelected },
-    디저트: { unSelected: Dessert, selected: DessertSelected },
-    분식: { unSelected: Snack, selected: SnackSelected },
-    아시안: { unSelected: Asian, selected: AsianSelected },
-    일식: { unSelected: Japanese, selected: JapaneseSelected },
-    양식: { unSelected: Western, selected: WesternSelected },
-    주점: { unSelected: Bar, selected: BarSelected },
+    한식: { unSelected: <Korean />, selected: <KoreanSelected /> },
+    카페: { unSelected: <Cafe />, selected: <CafeSelected /> },
+    디저트: { unSelected: <Dessert />, selected: <DessertSelected /> },
+    분식: { unSelected: <Snack />, selected: <SnackSelected /> },
+    아시안: { unSelected: <Asian />, selected: <AsianSelected /> },
+    일식: { unSelected: <Japanese />, selected: <JapaneseSelected /> },
+    양식: { unSelected: <Western />, selected: <WesternSelected /> },
+    주점: { unSelected: <Bar />, selected: <BarSelected /> },
   };
 
   return (
