@@ -7,9 +7,6 @@ const withPWA = require("next-pwa")({
 });
 
 const nextConfig = {
-  experimental: {
-    appDir: true,
-  },
   images: {
     // loader: "custom",
     // loaderFile: "./my/image/loader.js",
