@@ -12,6 +12,7 @@ import TextArea from "@components/Common/TextArea";
 import PostContentShopItem from "@components/PostForm/PostContentShopItem";
 import useFeedStore from "@store/useFeedStore";
 import { getSingleFeed, updateFeed } from "@services/feed";
+import { TOAST_MESSAGES } from "@constants";
 
 function PostContent() {
   const router = useRouter();
@@ -41,12 +42,12 @@ function PostContent() {
         formData.append("files", files[i]);
       }
       await postFeed(formData);
-      toast({ description: "게시글 등록되었습니다!" });
+      toast(TOAST_MESSAGES.POST_SUCCESS);
       resetContent();
       setNextComponent("");
       router.replace("/main/mypage");
     } catch (err) {
-      toast({ description: "게시글 등록 중 오류 발생하였습니다." });
+      toast(TOAST_MESSAGES.POST_FAILURE);
     }
   };
 
@@ -56,9 +57,9 @@ function PostContent() {
       await updateFeed(feedId, feedContent);
       resetContent();
       router.replace(`/main/feed/530?feedId=${feedId}`);
-      toast({ description: "게시글 수정되었습니다!" });
+      toast(TOAST_MESSAGES.EDIT_POST_SUCCESS);
     } catch (err) {
-      toast({ description: "게시글 수정에 오류 발생하였습니다!" });
+      toast(TOAST_MESSAGES.EDIT_POST_FAILURE);
     }
   };
 
@@ -118,15 +119,17 @@ function PostContent() {
           maxLength={300}
           className="p-2.5 placeholder:text-gray-4 border border-gray-2 rounded-lg"
         />
-        <label className="flex items-center gap-x-2 text-base font-medium text-gray-4 mt-3 mb-[29px]">
-          <input
-            type="checkbox"
-            className="w-4 h-4 border-gray-3"
-            checked={isChecked}
-            onChange={changeCheckboxHandler}
-          />
-          <span>나의 맛집 좋아요 리스트에 추가</span>
-        </label>
+        {!feedId && (
+          <label className="flex items-center gap-x-2 text-base font-medium text-gray-4 mt-3 mb-[29px]">
+            <input
+              type="checkbox"
+              className="w-4 h-4 border-gray-3"
+              checked={isChecked}
+              onChange={changeCheckboxHandler}
+            />
+            <span>나의 맛집 좋아요 리스트에 추가</span>
+          </label>
+        )}
         <Button type="button" variant="primary" onClick={feedId ? editFeedHandler : registerFeedHandler}>
           업로드
         </Button>
