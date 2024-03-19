@@ -35,8 +35,8 @@ const nextConfig = {
   webpack: (config) => {
     const fileLoaderRule = config.module.rules.find((rule) => rule.test?.test?.(".svg"));
     config.module.rules.push(
-      { ...fileLoaderRule, test: /\.svg$/i, include: /@assets\/icons\//, loader: "file-loader" },
-      { test: /\.svg$/i, issuer: /\.[jt]sx?$/, use: ["@svgr/webpack"] }
+      { ...fileLoaderRule, test: /\.svg$/, include: /@assets\/icons\//, loader: "file-loader" },
+      { test: /\.svg$/, use: ["@svgr/webpack"] }
     );
     return config;
   },
