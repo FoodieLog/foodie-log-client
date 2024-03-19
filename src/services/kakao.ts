@@ -1,5 +1,4 @@
-import { axiosRequest, kakaoRequest, userRequest, kakaoLogoutRequest } from "@services/index";
-import useKakaoStore from "@store/useKakaoStore";
+import { axiosRequest, kakaoRequest, userRequest, kakaoLogoutRequest } from "@services";
 
 //카카오 로그인
 export const kakaoLogin = async () => {

@@ -1,6 +1,6 @@
 import { getMessaging, getToken, onMessage } from "firebase/messaging";
 import firebaseApp from "@/firebaseConfig";
-import { sendFcmToken } from "@services/apiFeed";
+import { sendFcmToken } from "@services/notification";
 
 export const initializePushNotifications = async () => {
   // 알림 권한 요청
@@ -27,7 +27,6 @@ export const initializePushNotifications = async () => {
 
   try {
     const token = await getToken(messaging, { vapidKey: VAPID_KEY });
-
     // TODO: 서버에 토큰을 전송하는 코드 추가
     await sendFcmToken(token);
   } catch (error) {

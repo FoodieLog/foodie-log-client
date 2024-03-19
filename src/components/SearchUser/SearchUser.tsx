@@ -1,18 +1,22 @@
 "use client";
+import { useState, useEffect } from "react";
+import { searchUser } from "@services/feed";
+import { APIUserSearchResponse } from "@@types/apiTypes";
+import { useToast } from "@/components/ui/use-toast";
+import { TOAST_MESSAGES } from "@constants/toast";
 import SearchInput from "@components/Common/Input/SearchInput";
 import SearchUserList from "@components/SearchUser/SearchUserList";
 import SearchHistory from "@components/SearchUser/SearchHistory";
 import useDebounce from "@hooks/useDebounce";
 import useSearchStore from "@store/useSearchStore";
 import getKey from "@utils/getKey";
-import { useState, useEffect } from "react";
-import { searchUser } from "@services/apiFeed";
-import { APIUserSearchResponse } from "@services/apiFeed";
 
 const SearchUser: React.FC = () => {
   const [query, setQuery] = useState("");
   const [searchResults, setSearchResults] = useState<APIUserSearchResponse["response"]["content"] | []>([]);
-  const { searchHistory, setSearchHistory, deleteSearchHistory } = useSearchStore();
+  const { searchHistory, setSearchHistory } = useSearchStore();
+
+  const { toast } = useToast();
 
   const debouncedQuery = useDebounce(query, 500);
   const key = getKey();
@@ -31,7 +35,7 @@ const SearchUser: React.FC = () => {
       setSearchResults(response.content);
       setSearchHistory({ id: key, keyword: debouncedQuery });
     } catch (error) {
-      //Todo: 에러 핸들링 추가
+      toast(TOAST_MESSAGES.ERROR_PLEASE_RETRY);
     }
   };
 

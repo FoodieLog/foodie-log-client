@@ -2,10 +2,8 @@
 import React, { useEffect } from "react";
 import { useUserStore } from "@store/useUserStore";
 import { useRouter, usePathname } from "next/navigation";
-import { reissueTokens } from "@services/apiFeed";
-import { tokenLoader } from "@utils/token";
+import { reissueTokens } from "@services/auth";
 import { useToast } from "@/components/ui/use-toast";
-import { getKaKaoRefreshToken } from "@services/kakao";
 import useLogout from "@hooks/useLogout";
 import { expiryTime } from "@utils/date";
 

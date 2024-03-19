@@ -144,3 +144,102 @@ export type APIUserSearchResponse = {
   };
   error: any;
 };
+
+export type APIFeedResponse = {
+  status: number;
+  response: {
+    content: Content[];
+  };
+  error: any;
+};
+
+export type APISingleFeedResponse = {
+  status: number;
+  response: {
+    content: Content;
+  };
+  error: any;
+};
+
+export type Content = {
+  feed: {
+    userId: number;
+    nickName: string;
+    profileImageUrl: string | null;
+    feedId: number;
+    createdAt: string;
+    updatedAt: string;
+    feedImages: { imageUrl: string }[];
+    content: string;
+    likeCount: number;
+    replyCount: number;
+  };
+  restaurant: {
+    id: number;
+    name: string;
+    category: string;
+    link: string;
+    roadAddress: string;
+  };
+  followed: boolean;
+  liked: boolean;
+};
+
+export type APIReplyListResponse = {
+  status: number;
+  response: {
+    userId: number;
+    nickName: string;
+    profileImageUrl: string | null;
+    content: string;
+    createdAt: string;
+    replyList: {
+      id: number;
+      userId: number;
+      nickName: string;
+      profileImageUrl: string | null;
+      content: string;
+      createdAt: string;
+    }[];
+  };
+  error: any;
+};
+
+export type APIReplyPostResponse = {
+  status: number;
+  response: {
+    id: number;
+    nickName: string;
+    content: string;
+    profileImageUrl: string | null;
+    createdAt: string;
+  };
+  error: any;
+};
+
+export type GetFeedSharedResponse = {
+  status: number;
+  response: FeedShared;
+  error: any;
+};
+
+export type FeedShared = {
+  nickName: string;
+  profileImageUrl: string | null;
+  feedId: number;
+  createdAt: string;
+  updatedAt: string;
+  feedImages: {
+    imageUrl: string;
+  }[];
+  restaurant: {
+    id: number;
+    name: string;
+    category: string;
+    link: string;
+    roadAddress: string;
+  };
+  content: string;
+  likeCount: number;
+  replyCount: number;
+};
