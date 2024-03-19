@@ -46,7 +46,7 @@ function FeedInteraction({ data, isLiked }: FeedInteractionProps) {
     }
   };
   return (
-    <div className="w-full flex gap-[14px] flex-between items-center text-[16px]">
+    <div className="w-full flex gap-2.5 flex-between items-center text-base">
       <button className="flex gap-1 items-center" onClick={clickLikeBtnHandler}>
         {/* Todo: 하트 아이콘 수정 */}
         {like ? <FullHeartStraight /> : <HeartStraight />}

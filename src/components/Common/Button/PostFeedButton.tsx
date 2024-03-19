@@ -15,7 +15,7 @@ function PostFeedButton() {
   return (
     <>
       {isShow && (
-        <div className="fixed bottom-[94px] right-[20px] z-20">
+        <div className="fixed bottom-[94px] right-5 z-20">
           <button type="button" className="bg-red-2 rounded-full p-[18px]" onClick={clickPostButtonHandler}>
             <PostFeedIcon />
           </button>

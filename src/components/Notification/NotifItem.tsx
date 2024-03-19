@@ -24,7 +24,7 @@ function NotifItem({ ...notification }: Notification) {
   };
 
   return (
-    <li className="w-full py-[12px] flex gap-2 items-center">
+    <li className="w-full py-3 flex gap-2 items-center">
       <UserThumbnail profileImgUrl={user.profileImgUrl} userId={user.id} size="w-12 h-12" />
       <Link href={CONTENT_OPTION[type].href} className="w-full">
         <p className="text-gray-4">
@@ -34,7 +34,7 @@ function NotifItem({ ...notification }: Notification) {
         <TimeStamp createdAt={createdAt} styles="bg-transparent" />
       </Link>
       {type === "FOLLOW" ? (
-        <FollowButton isFollowed={isFollowed} userId={user.id} className="w-[64px]" />
+        <FollowButton isFollowed={isFollowed} userId={user.id} className="w-16" />
       ) : (
         <FeedThumbnail imgUrl={feed?.thumbnail} href={CONTENT_OPTION[type].href} />
       )}

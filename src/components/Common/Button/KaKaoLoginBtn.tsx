@@ -11,7 +11,7 @@ function KaKaoLoginBtn({ onClick }: KaKaoBtnProps) {
     <button
       type="button"
       onClick={onClick}
-      className="w-full p-[10px] flex items-center justify-center gap-2 text-[15px] text-black text-opacity-85 bg-kakao rounded-[8px]"
+      className="w-full p-2.5 flex items-center justify-center gap-2 text-sm text-black text-opacity-85 bg-kakao rounded-lg"
     >
       <Image src={kakaoIcon} alt="카카오 로그인" />
       <span>카카오 로그인</span>

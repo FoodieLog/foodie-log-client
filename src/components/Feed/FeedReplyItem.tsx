@@ -32,7 +32,7 @@ function FeedReplyItem({ reply, userId, setReplies }: FeedReplyItemProps) {
   };
 
   return (
-    <li className="group flex items-center justify-between py-[16px] border-b">
+    <li className="group flex items-center justify-between py-4 border-b">
       <div className="flex items-center">
         <Link href={userId === id ? `/main/mypage` : `/main/${userId}`} className="flex w-12 h-12 flex-shrink-0 mr-3.5">
           <Image

@@ -58,11 +58,11 @@ function Mypage({ userId, option }: Mypage) {
       <MyFriendList data={myFollowerData} object={object} isOpener={showFriendList} setIsOpener={setShowFriendList} />
       <Header title="마이" back="prePage" option={option} />
       <main className="px-4 space-y-3">
-        <div className="flex justify-between items-center mt-5 mb-3 gap-[24px] shrink-0">
+        <div className="flex justify-between items-center mt-5 mb-3 gap-6 shrink-0">
           <UserThumbnail profileImgUrl={data?.profileImageUrl} userId={data?.userId} size="w-[90px] h-[90px]" />
-          <div className="w-full flex flex-col gap-[12px] text-gray-10">
+          <div className="w-full flex flex-col gap-3 text-gray-10">
             <p className="text-[18px] font-semibold">{data.nickName}</p>
-            <div className="flex gap-2 text-[14px]">
+            <div className="flex gap-2 text-sm">
               <div className="flex items-center gap-1">
                 <p className="text-gray-4">게시물</p>
                 <p className="text-gray-10 font-semibold">{data?.feedCount}</p>

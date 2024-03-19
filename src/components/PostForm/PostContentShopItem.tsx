@@ -1,4 +1,4 @@
-import React from "react";
+import Image from "next/image";
 import { AutoreNew, LocationOn } from "@assets/icons";
 import { BasicThumbnail } from "@assets/images";
 import usePostStore from "@store/usePostStore";
@@ -14,13 +14,13 @@ function PostContentShopItem({ isShowEdit }: PostContentShopItemProps) {
   } = usePostStore();
 
   return (
-    <div className="relative border border-gray-2 rounded-[5px] flex p-2 mt-5 mb-3">
-      <BasicThumbnail />
-      <div className="ml-[16px]">
+    <div className="relative border border-gray-2 rounded flex p-2 mt-5 mb-3">
+      <Image src={BasicThumbnail} width={50} height={50} alt="기본 이미지" />
+      <div className="ml-4">
         <p className="text-lg font-bold text-gray-10">{place_name}</p>
         <div className="flex items-center">
           <LocationOn />
-          <p className="ml-[4px] text-sm font-normal text-gray-4">{road_address_name}</p>
+          <p className="ml-1 text-sm font-normal text-gray-4">{road_address_name}</p>
         </div>
       </div>
       {!isShowEdit && <AutoreNew className="absolute right-[8px] cursor-pointer" onClick={useOnClickBack} />}
