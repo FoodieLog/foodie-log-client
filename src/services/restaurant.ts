@@ -11,14 +11,6 @@ export const getRecommendedRestaurant = async (region: string) => {
   return res;
 };
 
-// export const likeRestaurant = (data: LikeRestaurantBody): Promise<APIResponse> => {
-//   return makeFetchRequest(`/like`, "POST", data);
-// };
-
-// export const getMyRestaurant = (): Promise<APIResponse> => {
-//   return makeFetchRequest(`/map/liked`);
-// };
-
 export const getLikedShop = async () => {
   const res = await userRequest.get(`/api/restaurant/map/liked`);
   return res;

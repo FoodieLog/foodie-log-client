@@ -1,5 +1,5 @@
 import useSearchStore from "@store/useSearchStore";
-import { searchUser } from "@services/apiFeed";
+import { searchUser } from "@services/feed";
 import { CloseSmall } from "@assets/icons";
 
 interface SearchHistoryProps {

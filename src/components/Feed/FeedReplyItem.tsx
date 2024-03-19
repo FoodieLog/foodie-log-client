@@ -2,7 +2,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Dispatch, SetStateAction, useState } from "react";
-import { getReplyList, deleteReply } from "@services/apiFeed";
+import { deleteReply } from "@services/reply";
 import { APIReplyListResponse, FeedReplyType } from "@@types/reply";
 import { useUserStore } from "@store/useUserStore";
 import { useToast } from "@/components/ui/use-toast";

@@ -6,7 +6,7 @@ import { useUserStore } from "@store/useUserStore";
 import { unlinkKaKaoToken } from "@services/kakao";
 import { useToast } from "@/components/ui/use-toast";
 import WithDrawReasonItem from "@components/Settings/WithDrawReasonItem";
-import { WITHDRAW_REASON_LIST } from "@constants";
+import { TOAST_MESSAGES, WITHDRAW_REASON_LIST } from "@constants";
 import CustomModal from "@components/Common/Dialog/CustomModal";
 
 export interface WithdrawModalProps {
@@ -36,12 +36,12 @@ function WithdrawModal({ setShowModal }: WithdrawModalProps) {
     e.preventDefault();
 
     if (withdrawReason.trim() === "") {
-      toast({ description: "🥲 탈퇴 사유를 입력해주세요." });
+      toast(TOAST_MESSAGES.WITHDRAW_REASON_EMPTY);
       return;
     }
 
     if (!confirm("탈퇴하시겠습니까?")) {
-      toast({ description: "탈퇴를 취소했습니다." });
+      toast(TOAST_MESSAGES.WITHDRAW_CANCEL);
       return;
     }
 
@@ -51,10 +51,10 @@ function WithdrawModal({ setShowModal }: WithdrawModalProps) {
       }
       await postWithdraw({ withdrawReason });
       clearUser();
-      toast({ title: "푸드로그 탈퇴", description: "회원 탈퇴되었습니다." });
+      toast(TOAST_MESSAGES.WITHDRAW_SUCCESS);
       router.replace("/accounts/login");
     } catch (error) {
-      toast({ title: "탈퇴 실패", description: "탈퇴 실패하였습니다." });
+      toast(TOAST_MESSAGES.WITHDRAW_FAILURE);
     }
   };
 

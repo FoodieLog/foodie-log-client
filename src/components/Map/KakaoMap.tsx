@@ -2,7 +2,6 @@
 import { useRef, useEffect, MutableRefObject } from "react";
 import { useRouter } from "next/navigation";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
-import { AppRouterInstance } from "next/dist/shared/lib/app-router-context";
 import { markerImageSrc, markerSize } from "@components/Map/common";
 
 interface KakaoMapProps {

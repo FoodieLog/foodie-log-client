@@ -8,7 +8,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { DialogProps } from "@@types/common";
-import { deleteFeed } from "@services/apiFeed";
+import { deleteFeed } from "@services/feed";
 import { useToast } from "@/components/ui/use-toast";
 import { MoreVert } from "@assets/icons";
 import DialogReport from "@components/Common/Dialog/DialogReport";
@@ -70,7 +70,7 @@ function DropDown({ name, option, id = 0, type = "", content = "", className = "
 
   const handleConfirmDelete = async () => {
     try {
-      const response = await deleteFeed(id);
+      await deleteFeed(id);
 
       toast({ description: "피드가 정상 삭제 되었습니다👍!" });
       setShowConfirmDialog(false);
