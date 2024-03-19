@@ -6,7 +6,7 @@ import useRestaurantDetailQuery from "@hooks/queries/useRestaurantDetailQuery";
 import Drawer from "@components/Common/Drawer/Drawer";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { Content } from "@/src/services/apiFeed";
+import { Content } from "@@types/apiTypes";
 import Link from "next/link";
 
 interface RestaurantDetailProps {
