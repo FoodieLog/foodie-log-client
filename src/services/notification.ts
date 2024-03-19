@@ -1,6 +1,6 @@
 import { userRequest } from "@services";
 
-// FCM Token 전송
+/** FCM Token 전송 */
 export const sendFcmToken = async (fcmToken: string) => {
   const res = await userRequest.post("api/notification/push", { fcmToken });
   return res;
