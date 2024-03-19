@@ -1,5 +1,6 @@
-import { asian, bar, cafe, dessert, japanese, korean, snack, western } from "@assets/images";
+import { StaticImageData } from "next/image";
 import { createElement } from "react";
+import { asian, bar, cafe, dessert, japanese, korean, snack, western, BasicThumbnail } from "@assets/images";
 import {
   Asian,
   AsianSelected,
@@ -17,10 +18,10 @@ import {
   SnackSelected,
   Western,
   WesternSelected,
-} from "../assets/icons";
+} from "@assets/icons";
 
-export function getIcon(category: string): string {
-  const RESTAURANT_CATEGORY: { [key: string]: any } = {
+export function getIcon(category: string): StaticImageData {
+  const RESTAURANT_CATEGORY: { [key: string]: StaticImageData } = {
     한식: korean,
     카페: cafe,
     간식: dessert,
@@ -37,11 +38,8 @@ export function getIcon(category: string): string {
       return RESTAURANT_CATEGORY[key];
     }
   }
-  return "foodDefault.png";
+  return BasicThumbnail;
 }
-
-// export function getIcon(category: string): string {
-//   return icons[category as keyof typeof icons] || "default.png";}
 
 export const getTagIcon = (tagName: string, isSelected: boolean) => {
   const tagIcons: { [key: string]: { selected: React.ElementType; unSelected: React.ElementType } } = {

@@ -32,7 +32,7 @@ function MyFriendList({ data, object, isOpener, setIsOpener }: MyFriendListProps
                   </div>
                   <span>{user.nickName}</span>
                 </Link>
-                <FollowButton isFollowed={user.followed} userId={user.userId} className={"w-[64px] text-[14px]"} />
+                <FollowButton isFollowed={user.followed} userId={user.userId} className={"w-16 text-sm"} />
               </li>
             ))}
           </ul>

@@ -1,4 +1,3 @@
-"use client";
 import { Notification } from "@@types/apiTypes";
 import NotifItem from "@components/Notification/NotifItem";
 import useNotificationQuery from "@hooks/queries/useNotificationQuery";

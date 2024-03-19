@@ -105,14 +105,14 @@ const FeedShared: React.FC<FeedSharedProps> = ({ Id }) => {
         />
       </button>
       <p className="p-3">{feedData.content}</p>
-      <div className="flex flex-between gap-2 items-center text-[18px] p-3">
-        <button className="text-[24px]" onClick={iconClickHandler}>
+      <div className="flex flex-between gap-2 items-center text-lg p-3">
+        <button className="text-2xl" onClick={iconClickHandler}>
           {/* like 상태에 따라 아이콘을 변경해야 함 */}
           <AiOutlineHeart />
         </button>
         <p>{feedData.likeCount}</p>
         {/* reply 기능에 따라 아래 코드 수정 */}
-        <FaRegCommentDots className="text-[24px] cursor-pointer" onClick={iconClickHandler} />
+        <FaRegCommentDots className="text-2xl cursor-pointer" onClick={iconClickHandler} />
         <p className="flex-1">{feedData.replyCount}</p>
         <FiShare2 className="text-[24px] cursor-pointer" onClick={iconClickHandler} />
       </div>

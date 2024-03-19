@@ -8,7 +8,7 @@ interface MyFeedTabProps {
 
 function MyProfileTabContent({ userId }: MyFeedTabProps) {
   const tabTriggerStyles =
-    "w-full py-[10px] bg-white flex items-center justify-center text-[16px] text-semibold leading-none text-gray-4 select-none hover:text-red data-[state=active]:text-red data-[state=active]:border-b-2 data-[state=active]:border-red outline-none cursor-default";
+    "w-full py-2.5 bg-white flex items-center justify-center text-base text-semibold leading-none text-gray-4 select-none hover:text-red data-[state=active]:text-red data-[state=active]:border-b-2 data-[state=active]:border-red outline-none cursor-default";
 
   return (
     <Tabs.Root defaultValue="feed">

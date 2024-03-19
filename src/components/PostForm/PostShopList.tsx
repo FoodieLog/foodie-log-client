@@ -23,7 +23,7 @@ function PostShopList({ isSubmit, keyword }: PostShopListProps) {
   }
 
   return (
-    <ul className="mx-auto mt-[15px]">
+    <ul className="mx-auto mt-4">
       {shopList.map((item) => (
         <li key={item.id}>
           <PostShopItem item={item} keyword={keyword} />
