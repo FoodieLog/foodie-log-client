@@ -11,9 +11,9 @@ import SignUpProfile from "@components/Auth/SignUpProfile";
 import useSignUpStore from "@store/useSignUpStore";
 import { TOAST_MESSAGES } from "@constants/toast";
 import Header from "@components/Common/Header";
-import SignUpTermsModal from "@components/Auth/SignUpTermsModal";
-import { CheckedCircle, Eye, EyeSlash, UncheckedCircle } from "@assets/icons";
-import useToggleShowPassword from "@/src/hooks/useToggleShowPassword";
+import { Eye, EyeSlash } from "@assets/icons";
+import useToggleShowPassword from "@hooks/useToggleShowPassword";
+import SignUpTermsDrawer from "./SignUpTermsDrawer";
 
 interface SighUpInput {
   email: string;
@@ -22,9 +22,9 @@ interface SighUpInput {
 
 function SignUpForm() {
   const [availableEmail, setAvailableEmail] = useState(1);
+  const [openTermDrawer, setOpenTermDrawer] = useState(false);
   const { user, setUser, nextComponent, setNextComponent } = useSignUpStore();
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isChecked, setIsChecked] = useState({ service: false, info: false });
+
   const { toast } = useToast();
   const { EMAIL_CODE_SEND_FAILURE } = TOAST_MESSAGES;
   const [showPassword, toggleShowPassword] = useToggleShowPassword();
@@ -57,26 +57,22 @@ function SignUpForm() {
     }
   };
 
-  const onSubmit = async ({ email, password }: SighUpInput) => {
+  const onSubmit = ({ email, password }: SighUpInput) => {
+    setUser({ ...user, email, password });
+    setOpenTermDrawer(true);
+  };
+
+  const onTermSubmit = async () => {
     try {
-      await sendEmailCode(email);
+      await sendEmailCode(user.email);
       setNextComponent("SignUpCode");
-      setUser({ ...user, email, password });
     } catch (err) {
       toast(EMAIL_CODE_SEND_FAILURE);
     }
   };
 
-  const onClickAllTerms = () => {
-    if (isChecked.info && isChecked.service) {
-      setIsChecked({ service: false, info: false });
-    } else {
-      setIsChecked({ service: true, info: true });
-    }
-  };
-
   return (
-    <section className="flex flex-col w-full items-center justify-between mx-5 mb-5 sm:w-[600px] sm:border border-gray-300">
+    <section className="flex flex-col w-full items-center justify-between px-5 pb-5 h-[100vh] overflow-hidden relative sm:w-[600px] sm:border border-gray-300">
       <Header title="" back="prePage" />
       <div className="title text-2xl font-[600]">
         <p>간편하게 가입하고</p>
@@ -182,36 +178,12 @@ function SignUpForm() {
             {errors?.passwordCheck && <p className="error">{errors.passwordCheck.message}</p>}
           </div>
         </div>
-        <div className="flex flex-col gap-6">
-          <div className="flex justify-between items-center text-gray-4">
-            <label htmlFor="terms" className="flex text-gray-4 gap-2">
-              {isChecked.service && isChecked.info ? <CheckedCircle /> : <UncheckedCircle />}
-              <input
-                id="terms"
-                type="checkbox"
-                checked={isChecked.service && isChecked.info}
-                onChange={onClickAllTerms}
-                style={{ display: "none" }}
-              />
-              서비스 이용 약관에 동의합니다.
-            </label>
-            <span
-              onClick={() => {
-                setIsModalOpen(!isModalOpen);
-              }}
-              className="text-sm"
-            >
-              더 알아보기
-            </span>
-          </div>
-          <Button type="submit" variant="primary" disabled={!(isValid && isChecked.info && isChecked.service)}>
-            다음
-          </Button>
-        </div>
+        <Button type="submit" variant="primary" disabled={!isValid}>
+          다음
+        </Button>
       </form>
-      {isModalOpen && (
-        <SignUpTermsModal isChecked={isChecked} setIsChecked={setIsChecked} setIsModalOpen={setIsModalOpen} />
-      )}
+
+      {openTermDrawer && <SignUpTermsDrawer onTermSubmit={onTermSubmit} />}
     </section>
   );
 }

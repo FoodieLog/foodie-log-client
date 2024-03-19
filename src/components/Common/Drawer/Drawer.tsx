@@ -10,6 +10,8 @@ interface DrawerProps {
   fixedComponent?: React.JSX.Element;
   scroller?: boolean;
   backgroundDarker?: boolean;
+  neverClosed?: boolean;
+  reactableHeight?: boolean;
   openControlers?: {
     isOpener: boolean;
     setIsOpener: React.Dispatch<React.SetStateAction<boolean>>;
@@ -29,12 +31,15 @@ const Drawer = ({
   fixedComponent,
   scroller = false,
   backgroundDarker = false,
+  neverClosed = false,
+  reactableHeight = false,
   openControlers,
 }: DrawerProps) => {
   const [isOpened, setIsOpened] = useState(open);
   const [contentRef, contentBounds] = useMeasure();
   const [fixedRef, fixedBounds] = useMeasure();
   const [scrollerHeight, setScrollerHeight] = useState<number>();
+
   const animateState = isOpened ? "opened" : "closed";
   const CONTENT_TOP = 54;
   const CONTENT_BOTTOM = 16;
@@ -50,7 +55,9 @@ const Drawer = ({
     [contentBounds.height, fixedBounds?.height, openedHeight]
   );
 
-  const handleDragEnd = (_: any, info: PanInfo) => {
+  const [drawerTop, setDrawerTop] = useState<number>(window.innerHeight - expandedHeight);
+
+  const handleDragEnd = (_: never, info: PanInfo) => {
     const offsetThreshold = 50;
     const deltaThreshold = 3;
 
@@ -63,7 +70,7 @@ const Drawer = ({
 
     const newIsOpened = info.offset.y < 0;
 
-    setIsOpened(newIsOpened);
+    !neverClosed && setIsOpened(newIsOpened);
   };
 
   useEffect(() => {
@@ -84,24 +91,35 @@ const Drawer = ({
     }
   }, [openControlers]);
 
+  useEffect(() => {
+    setDrawerTop(window.innerHeight - expandedHeight);
+  }, [expandedHeight]);
+
   return (
     <>
       {backgroundDarker && isOpened && (
         <div
           onClick={() => {
-            setIsOpened(!isOpened);
-            openControlers?.setIsOpener(!isOpened);
+            if (!neverClosed) {
+              setIsOpened(!isOpened);
+              openControlers?.setIsOpener(!isOpened);
+            }
           }}
-          className="bg-gray-300 bg-opacity-50 fixed w-screen h-screen flex justify-center items-center top-0 left-0 right-0 z-50 p-4 overflow-x-hidden overflow-y-auto md:inset-0 max-h-full"
+          className="bg-black bg-opacity-60 fixed w-screen h-screen flex justify-center items-center top-0 left-0 right-0 z-50 p-4 overflow-x-hidden overflow-y-auto md:inset-0 max-h-full"
         ></div>
       )}
       <motion.div
+        style={reactableHeight ? { top: drawerTop } : undefined}
         initial="closed"
         animate={animateState}
-        variants={{
-          opened: { top: `calc(${viewport} - ${expandedHeight}px)` },
-          closed: { top: `calc(${viewport} - ${closedHeight}px)` },
-        }}
+        variants={
+          !reactableHeight
+            ? {
+                opened: { top: `calc(${viewport} - ${expandedHeight}px)` },
+                closed: { top: `calc(${viewport} - ${closedHeight}px)` },
+              }
+            : undefined
+        }
         transition={{ type: "spring", bounce: 0, duration: 0.5 }}
         drag="y"
         dragControls={dragControls}
@@ -113,8 +131,10 @@ const Drawer = ({
       >
         <button
           onClick={() => {
-            setIsOpened(!isOpened);
-            openControlers?.setIsOpener(!isOpened);
+            if (!neverClosed) {
+              setIsOpened(!isOpened);
+              openControlers?.setIsOpener(!isOpened);
+            }
           }}
           onPointerDown={(e) => dragControls.start(e)}
           className="mx-auto w-12 h-1.5 rounded-full bg-gray-3 mt-1 mb-7"
