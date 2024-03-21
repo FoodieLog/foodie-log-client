@@ -1,6 +1,6 @@
 import * as Tabs from "@radix-ui/react-tabs";
 import MyMap from "@components/Mypage/MyMap";
-import MyFeedThumnail from "@components/Mypage/MyFeedThumnail";
+import MyFeedThumbnail from "@components/Mypage/MyFeedThumbnail";
 
 interface MyFeedTabProps {
   userId: number;
@@ -21,7 +21,7 @@ function MyProfileTabContent({ userId }: MyFeedTabProps) {
         </Tabs.Trigger>
       </Tabs.List>
       <Tabs.Content className="mt-1" value="feed">
-        <MyFeedThumnail userId={userId} />
+        <MyFeedThumbnail userId={userId} />
       </Tabs.Content>
       <Tabs.Content className="mt-1" value="map">
         <MyMap userId={userId} />

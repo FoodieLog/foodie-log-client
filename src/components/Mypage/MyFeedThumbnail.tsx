@@ -5,11 +5,11 @@ import { getThumbnailByUserId } from "@services/mypage";
 import InfiniteScroll from "react-infinite-scroller";
 import ImageThumbnail from "@components/Common/Thumbnail/ImageThumbnail";
 
-interface MyFeedThumnailProps {
+interface MyFeedThumbnailProps {
   userId: number;
 }
 
-function MyFeedThumnail({ userId }: MyFeedThumnailProps) {
+function MyFeedThumbnail({ userId }: MyFeedThumbnailProps) {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery(
     ["thumbnailList", userId],
     async ({ pageParam = 0 }) => {
@@ -49,4 +49,4 @@ function MyFeedThumnail({ userId }: MyFeedThumnailProps) {
   );
 }
 
-export default MyFeedThumnail;
+export default MyFeedThumbnail;
