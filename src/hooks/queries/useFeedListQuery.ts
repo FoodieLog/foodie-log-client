@@ -25,8 +25,9 @@ const useFeedListQuery = ({ userId, singleFeedId, category }: useFeedListQueryPr
     },
     {
       getNextPageParam: (lastPage: APIFeedResponse) => {
+        const lastFeed = lastPage.response.content.at(-1);
         if (lastPage?.response?.content?.length < 15) return undefined;
-        return lastPage?.response?.content[lastPage.response.content.length - 1]?.feed.feedId || 0;
+        return lastFeed?.feed.feedId;
       },
       enabled: !singleFeedId,
     }
