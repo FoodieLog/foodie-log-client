@@ -6,6 +6,7 @@ import { profileSetting } from "@services/kakao";
 import { useUserStore } from "@store/useUserStore";
 import { useToast } from "@/components/ui/use-toast";
 import { Input } from "@/components/ui/input";
+import { TOAST_MESSAGES } from "@constants";
 import Button from "@components/Common/Button";
 import Haeder from "@components/Common/Header";
 import MyProfileImage from "@components/Mypage/MyProfileImage";
@@ -16,7 +17,7 @@ function MyProfileSettings() {
     nickName: "",
     aboutMe: "",
   });
-
+  const [isLoading, setIsLoading] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
   const [profileImage, setProfileImage] = useState<File>();
   const fileInput = useRef<HTMLInputElement>(null);
@@ -47,7 +48,7 @@ function MyProfileSettings() {
 
   const ProfileSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+    setIsLoading(true);
     const formData = new FormData();
 
     const userData = {
@@ -62,9 +63,12 @@ function MyProfileSettings() {
     try {
       await profileSetting(formData);
       router.replace("/main/mypage");
-    } catch (error) {
-      toast({ description: "프로필 수정 다시 시도해 주세요." });
+    } catch (error: any) {
+      const ERROR_MESSAGE = error.response.data.error.message;
+      toast({ description: ERROR_MESSAGE || TOAST_MESSAGES.PROFILE_EDIT_FAILURE });
     }
+
+    setIsLoading(false);
   };
 
   const pickImageHandler = () => {
@@ -149,8 +153,8 @@ function MyProfileSettings() {
           </div>
         </div>
         <div className="my-10 px-2 flex-end">
-          <Button type="submit" variant={"primary"}>
-            프로필 설정
+          <Button type="submit" variant={"primary"} disabled={isLoading}>
+            {isLoading ? "수정 중" : "프로필 설정"}
           </Button>
         </div>
       </form>
