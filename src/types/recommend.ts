@@ -1,3 +1,5 @@
+import { APIResponseType } from "@@types/apiResponse";
+
 export type AreaType = {
   [key: string]: {
     [key: string]: string[];
@@ -17,12 +19,10 @@ export interface RecommendedRestaurant {
   feedList: RestaurantFeed[];
 }
 
-export interface APIRecommendedResponse {
-  status: number;
+export interface APIRecommendedResponse extends APIResponseType {
   response: {
     restaurantList: RecommendedRestaurant[];
   };
-  error: any;
 }
 
 export interface RegionType {
