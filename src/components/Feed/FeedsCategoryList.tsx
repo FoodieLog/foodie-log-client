@@ -7,9 +7,12 @@ import Image from "next/image";
 import FeedUserCard from "@components/Feed/FeedUserCard";
 import InfiniteScroll from "react-infinite-scroller";
 import { Content } from "@@types/feed";
+import { useState } from "react";
+import { RestaurantCategory } from "@/src/types/restaurant";
 
 const FeedsCategoryList = () => {
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } = useFeedListQuery({});
+  const [category, setCategory] = useState<RestaurantCategory>("");
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } = useFeedListQuery({ category });
 
   if (isLoading) {
     <div>Loading...</div>;
@@ -17,7 +20,7 @@ const FeedsCategoryList = () => {
 
   return (
     <div className="flex flex-col pt-12 max-w-[640px] w-full mx-auto">
-      <FeedsCategorySlider />
+      <FeedsCategorySlider setCategory={setCategory} />
       <InfiniteScroll
         pageStart={0}
         loadMore={() => {

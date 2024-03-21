@@ -32,3 +32,14 @@ export interface IsLiked {
   id: number | null;
   liked: boolean;
 }
+
+export type RestaurantCategory =
+  | ""
+  | "korean"
+  | "western"
+  | "asian"
+  | "bar"
+  | "cafe"
+  | "dessert"
+  | "japanese"
+  | "snack";
