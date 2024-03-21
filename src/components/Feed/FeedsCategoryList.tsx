@@ -28,9 +28,9 @@ const FeedsCategoryList = () => {
         }}
         hasMore={hasNextPage && !isFetchingNextPage}
       >
-        {data?.pages.map((page, pageIndex) => (
-          <div key={pageIndex} className="grid grid-cols-2 gap-4 mx-2 mt-2">
-            {page?.response?.content.map((feedData: Content, dataIndex) => (
+        <div className="grid grid-cols-2 gap-4 mx-2 mt-2">
+          {data?.pages.map((page) => {
+            return page?.response?.content.map((feedData: Content, dataIndex) => (
               <div key={dataIndex} className=" flex flex-col p-3 gap-3 border-gray-2 border rounded-[10px]">
                 <div className="relative rounded-[10px] w-full aspect-w-1 aspect-h-1">
                   <Link href={`/main/feed/?feedsId=${feedData.feed.feedId}`}>
@@ -45,9 +45,9 @@ const FeedsCategoryList = () => {
                 <p className="text-gray-10 whitespace-nowrap overflow-x-hidden truncate">{feedData.feed.content}</p>
                 <FeedUserCard data={feedData.feed} timeStamp={false} small />
               </div>
-            ))}
-          </div>
-        ))}
+            ));
+          })}
+        </div>
       </InfiniteScroll>
     </div>
   );
