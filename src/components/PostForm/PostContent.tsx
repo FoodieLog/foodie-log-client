@@ -13,10 +13,14 @@ import PostContentShopItem from "@components/PostForm/PostContentShopItem";
 import useFeedStore from "@store/useFeedStore";
 import { getSingleFeed, updateFeed } from "@services/feed";
 import { TOAST_MESSAGES } from "@constants";
+import { useUserStore } from "@store/useUserStore";
 
 function PostContent() {
   const router = useRouter();
   const [isChecked, setIsChecked] = useState(false);
+  const {
+    user: { id: userId },
+  } = useUserStore();
   const { content, files, previews, setContent, setPreviews, resetContent } = usePostStore();
   const {
     feed: { id: feedId, content: feedContent },
@@ -56,7 +60,8 @@ function PostContent() {
     try {
       await updateFeed(feedId, feedContent);
       resetContent();
-      router.replace(`/main/feed/530?feedId=${feedId}`);
+      setNextComponent("");
+      router.push(`/main/feed/${userId}?feedId=${feedId}`);
       toast(TOAST_MESSAGES.EDIT_POST_SUCCESS);
     } catch (err) {
       toast(TOAST_MESSAGES.EDIT_POST_FAILURE);
@@ -82,7 +87,7 @@ function PostContent() {
     const {
       feed,
       restaurant: { id, category, name, roadAddress },
-    } = await response.data.response.content;
+    } = await response.response.content;
     const feedImages = feed.feedImages.map(({ imageUrl }: { imageUrl: string }) => imageUrl);
 
     const newContent = {
