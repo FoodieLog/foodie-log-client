@@ -50,7 +50,7 @@ function PostImage() {
     setPreviews(newPreviews);
   };
 
-  const completeSelectHandler = (e: React.MouseEvent) => {
+  const completeSelectHandler = () => {
     if (previews.length > 0) {
       return setNextComponent("PostContent");
     } else {

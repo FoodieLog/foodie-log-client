@@ -1,3 +1,5 @@
+import { APIResponseType } from "@@types/apiResponse";
+
 export type FeedReplyType = {
   id: number;
   userId: number;
@@ -16,7 +18,12 @@ export type AuthorType = {
 };
 
 export type APIReplyListResponse = {
-  status: number;
   response: AuthorType;
-  error: any;
+} & APIResponseType;
+
+export type MentionUserType = {
+  id: number;
+  nickName: string;
+  profileImageUrl: string | null;
+  aboutMe: string | null;
 };
