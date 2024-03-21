@@ -22,7 +22,7 @@ function MyFeedThumbnail({ userId }: MyFeedThumbnailProps) {
     {
       getNextPageParam: (lastPage) => {
         if (lastPage?.content?.length < 15) return undefined;
-        return lastPage?.content[lastPage.content.length - 1]?.feed.feedId || 0;
+        return lastPage?.content[lastPage.content.length - 1]?.feed.feedId;
       },
     }
   );
