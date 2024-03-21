@@ -23,4 +23,13 @@ export const TOAST_MESSAGES = {
   WITHDRAW_CANCEL: { description: "탈퇴를 취소했습니다." },
   WITHDRAW_SUCCESS: { title: "푸드로그 탈퇴", description: "회원 탈퇴되었습니다." },
   WITHDRAW_FAILURE: { title: "탈퇴 실패", description: "탈퇴 실패하였습니다." },
+  PROFILE_EDIT_FAILURE: { title: "수정 실패", description: "수정 중 에러 발생하였습니다." },
+  KAKAO_LOGIN_FAILURE: {
+    title: "카카오 로그인 실패",
+    description: "카카오 로그인 과정에서 에러가 발생하였습니다.\n 로그인 페이지로 이동합니다.",
+  },
+  KAKAO_LOGIN_WITHDRAW: {
+    title: "탈퇴 계정 가입 불가",
+    description: "탈퇴한 계정으로 재가입 불가합니다.\n 로그인 페이지로 이동합니다.",
+  },
 };
