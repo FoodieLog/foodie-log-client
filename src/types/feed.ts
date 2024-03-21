@@ -1,4 +1,4 @@
-import { FeedData } from "@@types/apiTypes";
+import { APIResponseType } from "./apiResponse";
 
 export interface FeedSharedProps {
   Id: string;
@@ -32,22 +32,18 @@ export type Content = {
   liked: boolean;
 };
 
-export type APISingleFeedResponse = {
-  status: number;
+export interface APISingleFeedResponse extends APIResponseType {
   response: {
     content: Content;
   };
-  error: any;
-};
+}
 
-export type APIFeedResponse = {
+export interface APIFeedResponse extends APIResponseType {
   data: React.SetStateAction<Content[]>;
-  status: number;
   response: {
     content: Content[];
   };
-  error: any;
-};
+}
 
 export type FeedShared = {
   nickName: string;

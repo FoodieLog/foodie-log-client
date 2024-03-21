@@ -1,4 +1,4 @@
-import React, { useMemo, useEffect, useCallback } from "react";
+import React, { useEffect, useCallback } from "react";
 import { putNotification } from "@services/settings";
 import useNotificationStore from "@store/useNotificationStore";
 
@@ -18,9 +18,9 @@ function Toggle() {
       flag = "N";
     }
     try {
-      const res = await putNotification(flag);
+      await putNotification(flag);
     } catch (err) {
-      console.log("알림 에러", err);
+      console.error("알림 에러", err);
     }
   }, [isChecked]);
 

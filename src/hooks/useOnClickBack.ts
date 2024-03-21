@@ -1,5 +1,4 @@
 import useSignUpStore from "@store/useSignUpStore";
-import usePostStore from "@store/usePostStore";
 
 const setNextComponent = useSignUpStore.getState().setNextComponent;
 

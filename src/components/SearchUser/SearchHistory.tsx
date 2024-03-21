@@ -1,13 +1,15 @@
 import useSearchStore from "@store/useSearchStore";
 import { searchUser } from "@services/feed";
 import { CloseSmall } from "@assets/icons";
+import { Dispatch, SetStateAction } from "react";
+import { APIUserSearchResponse } from "@/src/types/apiTypes";
 
 interface SearchHistoryProps {
   searchBox: {
     id: number;
     keyword: string;
   };
-  setSearchResults: any;
+  setSearchResults: Dispatch<SetStateAction<APIUserSearchResponse["response"]["content"] | []>>;
 }
 
 function SearchHistory({ searchBox, setSearchResults }: SearchHistoryProps) {

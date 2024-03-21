@@ -11,6 +11,7 @@ import AuthHeader from "@components/Common/Header/Auth";
 import useSignUpStore from "@store/useSignUpStore";
 import { useToast } from "@/components/ui/use-toast";
 import { TOAST_MESSAGES } from "@constants";
+import { AxiosError } from "axios";
 
 function SignUpProfile() {
   const [isLoading, setIsLoading] = useState(false);
@@ -143,8 +144,9 @@ function SignUpProfile() {
     try {
       const res = await duplicateNickNameCheck(e.target.value);
       setAvailableEmail(res.status);
-    } catch (err: any) {
-      setAvailableEmail(err.response.status);
+    } catch (err: unknown) {
+      const errorResponse = err as AxiosError;
+      setAvailableEmail(errorResponse.response?.status || 500);
     }
   };
 

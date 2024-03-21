@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig } from "axios";
+import axios, { AxiosRequestConfig, InternalAxiosRequestConfig } from "axios";
 import { useUserStore } from "@store/useUserStore";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
@@ -33,7 +33,7 @@ const kakaoRequest = axios.create(kakaoConfig);
 
 const kakaoLogoutRequest = axios.create(kakaoLogoutConfig);
 
-const setAuthTokenInterceptor = (config: any) => {
+const setAuthTokenInterceptor = (config: InternalAxiosRequestConfig) => {
   const accessToken = useUserStore.getState().user.accessToken;
 
   // headers에 기본값 설정
@@ -45,7 +45,7 @@ const setAuthTokenInterceptor = (config: any) => {
   return config;
 };
 
-const setKakaoTokenInterceptor = (config: any) => {
+const setKakaoTokenInterceptor = (config: InternalAxiosRequestConfig) => {
   const kakaoAccessToken = useUserStore.getState().user.kakaoAccessToken;
 
   // headers에 기본값 설정

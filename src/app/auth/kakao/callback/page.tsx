@@ -34,13 +34,13 @@ function KaKaoCode() {
 
                 router.replace("/main/home");
               })
-              .catch((error) => console.log("로그인에러", error));
+              .catch((error) => console.error("로그인에러", error));
           } else {
             router.replace("/auth/kakao");
             localStorage.setItem("kakaoToken", res.data.response.kakaoAccessToken);
           }
         })
-        .catch((err) => console.log("카카오 이메일 중복 체크 실패", err));
+        .catch((err) => console.error("카카오 이메일 중복 체크 실패", err));
     };
     checkUserEmail();
   }, [code]);
