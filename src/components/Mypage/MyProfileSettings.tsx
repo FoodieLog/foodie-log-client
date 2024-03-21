@@ -39,7 +39,7 @@ function MyProfileSettings() {
           setPreviewImage(response.profileImageUrl);
         }
       } catch (error) {
-        console.log("마이프로필 실패", error);
+        console.error("마이프로필 실패", error);
       }
     };
     checkMyProfile();
