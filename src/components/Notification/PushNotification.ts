@@ -2,6 +2,11 @@ import { getMessaging, getToken, onMessage } from "firebase/messaging";
 import firebaseApp from "@/firebaseConfig";
 import { sendFcmToken } from "@services/notification";
 
+interface FirebaseError {
+  code: string;
+  message: string;
+}
+
 export const initializePushNotifications = async () => {
   // 알림 권한 요청
   if (typeof window !== "undefined" && "Notification" in window) {
@@ -21,8 +26,13 @@ export const initializePushNotifications = async () => {
   // FCM 토큰 가져오기
   const VAPID_KEY = process.env.NEXT_PUBLIC_FIREBASE_VAPID_KEY;
 
-  function isFirebaseError(obj: any): obj is { code: string; message: string } {
-    return obj && typeof obj.code === "string" && typeof obj.message === "string";
+  function isFirebaseError(obj: unknown): obj is FirebaseError {
+    return (
+      typeof obj === "object" &&
+      obj !== null &&
+      typeof (obj as FirebaseError).code === "string" &&
+      typeof (obj as FirebaseError).message === "string"
+    );
   }
 
   try {
