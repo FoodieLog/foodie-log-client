@@ -78,7 +78,7 @@ function Mypage({ userId, option }: Mypage) {
             </div>
           </div>
         </div>
-        <div className="px-6 mb-[32px]">
+        <div className="mb-[32px]">
           <p>{data?.aboutMe}</p>
         </div>
         {option === "타인" ? (

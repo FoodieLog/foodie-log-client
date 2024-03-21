@@ -6,6 +6,7 @@ import FollowButton from "@components/Common/Button/FollowButton";
 import { Notification } from "@@types/apiTypes";
 
 function NotifItem({ ...notification }: Notification) {
+  // mention 추가 예정
   const { type, user, feed, reply, isFollowed, createdAt } = notification;
 
   const CONTENT_OPTION = {
@@ -20,6 +21,10 @@ function NotifItem({ ...notification }: Notification) {
     REPLY: {
       href: `/main/reply/${feed?.id}`,
       content: `님이 댓글을 남겼습니다:${reply?.content}`,
+    },
+    MENTION: {
+      href: `/main/reply/${feed?.id}`,
+      // content: `님이 댓글을 남겼습니다:${mention?.content}`,
     },
   };
 

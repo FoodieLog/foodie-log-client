@@ -12,19 +12,11 @@ const headers = {
 export const getThumbnailByUserId = async (userId: number, feedId: number) => {
   let res;
   if (feedId === 0) {
-    res = await fetch(`${baseURL}/api/user/${userId}/feed`, {
-      method: "GET",
-      headers,
-    });
+    res = await userRequest.get(`${baseURL}/api/user/${userId}/feed`);
   } else {
-    res = await fetch(`${baseURL}/api/user/${userId}/feed/?feedId=${feedId}`, {
-      method: "GET",
-      headers,
-    });
+    res = await userRequest.get(`${baseURL}/api/user/${userId}/feed/?feedId=${feedId}`);
   }
-
-  const data = await res.json();
-  return data;
+  return res.data;
 };
 
 // 내 프로필 (fetch)
