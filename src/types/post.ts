@@ -1,3 +1,5 @@
+import { APIResponseType } from "@@types/apiResponse";
+
 export interface ShopItem {
   id: string;
   place_name: string;
@@ -46,11 +48,9 @@ export interface ShopMetaType {
   _end: boolean;
 }
 
-export interface SearchShopAPIResponse {
-  status: number;
+export interface SearchShopAPIResponse extends APIResponseType {
   response: {
     meta: ShopMetaType[];
     documents: ShopItem[];
   };
-  error: any;
 }

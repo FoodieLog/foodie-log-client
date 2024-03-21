@@ -1,7 +1,8 @@
 import { userRequest } from "@services";
+import { APIReplyListResponse } from "@@types/reply";
 
 /** 댓글 내역 요청 */
-export const getReplyList = async (feedId: number, replyId: number = 0) => {
+export const getReplyList = async (feedId: number, replyId: number = 0): Promise<APIReplyListResponse> => {
   const { data } = await userRequest.get(`api/reply/${feedId}?replyId=${replyId}`);
   return data;
 };

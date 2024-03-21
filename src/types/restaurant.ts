@@ -1,14 +1,13 @@
 import { Content } from "@@types/feed";
+import { APIResponseType } from "@@types/apiResponse";
 
-export interface RecommendAPIRespose {
-  status: number;
+export interface RecommendAPIResponse extends APIResponseType {
   response: {
     restaurantInfo: {
       restaurant: RestaurantWithPositionType;
       isLiked: IsLiked;
     };
     content: Content[];
-    error: any;
   };
 }
 
