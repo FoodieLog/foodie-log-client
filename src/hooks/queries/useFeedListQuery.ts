@@ -1,3 +1,4 @@
+import { RestaurantCategory } from "@/src/types/restaurant";
 import { APIFeedResponse } from "@@types/apiTypes";
 import { getFeedList, getFeedListByUserId } from "@services/feed";
 import { useInfiniteQuery } from "@tanstack/react-query";
@@ -5,17 +6,18 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 interface useFeedListQueryProps {
   userId?: number;
   singleFeedId?: number;
+  category?: RestaurantCategory;
 }
 
-const useFeedListQuery = ({ userId, singleFeedId }: useFeedListQueryProps) => {
+const useFeedListQuery = ({ userId, singleFeedId, category }: useFeedListQueryProps) => {
   return useInfiniteQuery(
-    ["feedList", userId],
+    ["feedList", userId, category],
     async ({ pageParam = 0 }) => {
       let response;
       if (userId) {
         response = await getFeedListByUserId(userId, pageParam);
       } else {
-        response = await getFeedList(pageParam);
+        response = await getFeedList(pageParam, category);
       }
 
       const apiResponse = response.data;

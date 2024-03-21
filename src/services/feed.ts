@@ -1,4 +1,5 @@
 import { userRequest } from "@services";
+import { RestaurantCategory } from "../types/restaurant";
 
 /** 피드 좋아요 요청 */
 export const likeFeed = async (feedId: number) => {
@@ -31,14 +32,14 @@ export const getFeedListByUserId = async (userId: number, feedId: number) => {
 };
 
 /** 피드 목록 요청 */
-export const getFeedList = async (feedId: number) => {
-  if (feedId === 0) {
-    const res = await userRequest.get(`api/feed/list`);
-    return res;
+export const getFeedList = async (pageNum: number, category?: RestaurantCategory) => {
+  let res;
+  if (pageNum) {
+    res = await userRequest.get(`api/feed/list?category=${category}&last=${pageNum}`);
   } else {
-    const res = await userRequest.get(`api/feed/list?feedId=${feedId}`);
-    return res;
+    res = await userRequest.get(`api/feed/list`);
   }
+  return res;
 };
 
 /** 싱글 피드 요청 */

@@ -1,11 +1,14 @@
-import { tagNames } from "@constants";
+import { RestaurantCategory } from "@@types/restaurant";
+import { categoryTags, tagNames } from "@constants";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 
-const FeedsCategorySlider = () => {
+interface FeedsCategorySliderProps {
+  setCategory: Dispatch<SetStateAction<RestaurantCategory>>;
+}
+
+const FeedsCategorySlider = ({ setCategory }: FeedsCategorySliderProps) => {
   const [selected, setSelected] = useState<string>("전체");
-
-  //TODO:selected된 데이터 필터링
 
   const sliderVariants = {
     hidden: { opacity: 0 },
@@ -27,6 +30,7 @@ const FeedsCategorySlider = () => {
             }  `}
             onClick={() => {
               setSelected(tagName);
+              setCategory(categoryTags[tagName]);
             }}
           >
             {tagName}
