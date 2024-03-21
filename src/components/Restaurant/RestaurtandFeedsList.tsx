@@ -2,7 +2,7 @@
 
 import useRestaurantDetailQuery from "@hooks/queries/useRestaurantDetailQuery";
 import Feed from "@components/Feed/Feed";
-
+import { FeedData } from "@@types/apiTypes";
 interface RestaurantFeedsListProps {
   restaurantId: string;
 }
@@ -13,7 +13,7 @@ const RestaurantFeedsList = ({ restaurantId }: RestaurantFeedsListProps) => {
 
   return (
     <>
-      {data?.feedList.map((feedData) => (
+      {data?.feedList.map((feedData: FeedData) => (
         <div key={feedData.feed.feedId}>
           <Feed {...feedData} />
         </div>
