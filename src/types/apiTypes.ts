@@ -1,3 +1,5 @@
+import { APIResponseType } from "./apiResponse";
+
 // 회원가입
 export interface ContentBody {
   email: string;
@@ -76,13 +78,11 @@ export type ApiResponse = {
 };
 
 // 좋아요한 맛집 리스트
-export type LikedMapResponse = {
-  status: number;
+export interface LikedMapResponse extends APIResponseType {
   response: {
     content: MapItem[];
   };
-  error: any;
-};
+}
 export type MapItem = {
   isLiked: {
     id: number;
@@ -130,8 +130,7 @@ export interface Notification {
   createdAt: string;
 }
 
-export type APIUserSearchResponse = {
-  status: number;
+export interface APIUserSearchResponse extends APIResponseType {
   response: {
     content: [
       {
@@ -142,24 +141,19 @@ export type APIUserSearchResponse = {
       }
     ];
   };
-  error: any;
-};
+}
 
-export type APIFeedResponse = {
-  status: number;
+export interface APIFeedResponse extends APIResponseType {
   response: {
     content: Content[];
   };
-  error: any;
-};
+}
 
-export type APISingleFeedResponse = {
-  status: number;
+export interface APISingleFeedResponse extends APIResponseType {
   response: {
     content: Content;
   };
-  error: any;
-};
+}
 
 export type Content = {
   feed: {
@@ -185,8 +179,7 @@ export type Content = {
   liked: boolean;
 };
 
-export type APIReplyListResponse = {
-  status: number;
+export interface APIReplyListResponse extends APIResponseType {
   response: {
     userId: number;
     nickName: string;
@@ -202,11 +195,9 @@ export type APIReplyListResponse = {
       createdAt: string;
     }[];
   };
-  error: any;
-};
+}
 
-export type APIReplyPostResponse = {
-  status: number;
+export interface APIReplyPostResponse extends APIResponseType {
   response: {
     id: number;
     nickName: string;
@@ -214,14 +205,11 @@ export type APIReplyPostResponse = {
     profileImageUrl: string | null;
     createdAt: string;
   };
-  error: any;
-};
+}
 
-export type GetFeedSharedResponse = {
-  status: number;
+export interface GetFeedSharedResponse extends APIResponseType {
   response: FeedShared;
-  error: any;
-};
+}
 
 export type FeedShared = {
   nickName: string;
