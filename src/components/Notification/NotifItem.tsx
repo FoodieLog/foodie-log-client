@@ -3,11 +3,15 @@ import TimeStamp from "@components/Common/Tag/TimeStamp";
 import UserThumbnail from "@components/Common/Thumbnail/UserThumbnail";
 import FeedThumbnail from "@components/Common/Thumbnail/FeedThumbnail";
 import FollowButton from "@components/Common/Button/FollowButton";
+import { useUserStore } from "@store/useUserStore";
 import { Notification } from "@@types/apiTypes";
 
 function NotifItem({ ...notification }: Notification) {
   // mention 추가 예정
   const { type, user, feed, reply, isFollowed, createdAt } = notification;
+  const {
+    user: { id: myId },
+  } = useUserStore();
 
   const CONTENT_OPTION = {
     FOLLOW: {
@@ -15,7 +19,7 @@ function NotifItem({ ...notification }: Notification) {
       content: "님이 당신을 팔로우 했습니다.",
     },
     LIKE: {
-      href: `/main/feed/?feedId=${feed?.id}`,
+      href: `/main/feed/${myId}?feedId=${feed?.id}`,
       content: "님이 게시글을 좋아합니다.",
     },
     REPLY: {

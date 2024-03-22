@@ -10,6 +10,7 @@ import { useUserStore } from "@store/useUserStore";
 import { useToast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
 import { TERMS, TOAST_MESSAGES } from "@constants";
+import useLocalStorage from "@hooks/useLocalStorage";
 
 function KaKaoTerms() {
   const [isLoading, setIsLoading] = useState(false);
@@ -20,6 +21,7 @@ function KaKaoTerms() {
   const setIsChecked = useSignUpStore((state) => state.setIsChecked);
   const setUser = useUserStore((state) => state.setUser);
   const router = useRouter();
+  const { getItem } = useLocalStorage();
 
   const { toast } = useToast();
 
@@ -44,7 +46,7 @@ function KaKaoTerms() {
       return alert("이용약관 동의는 필수입니다.");
     }
     try {
-      const kakaoToken = localStorage.getItem("kakaoToken");
+      const kakaoToken = getItem("kakaoToken");
       if (!kakaoToken) throw new Error("인증 토큰이 없습니다. 다시 시도해주세요.");
       const res = await loginKaKaoToken(kakaoToken);
       setUser(res.data.response);

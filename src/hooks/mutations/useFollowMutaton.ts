@@ -18,9 +18,10 @@ const useFollowMutations = (userId: Mypage["userId"], restaurantId?: number, obj
     onSuccess: () => {
       if (object) {
         queryClient.invalidateQueries(["myFollowers", refetchUserId, object]);
+        queryClient.invalidateQueries(["myPage", refetchUserId]);
       } else {
         queryClient.invalidateQueries(["notification"]);
-        queryClient.invalidateQueries(["myPage", userId]);
+        queryClient.invalidateQueries(["myPage", refetchUserId]);
         queryClient.invalidateQueries(["feedList", userId]);
         queryClient.invalidateQueries(["feedList", undefined]);
         restaurantId && queryClient.invalidateQueries(["restaurantDetail", restaurantId]);
