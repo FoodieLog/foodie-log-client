@@ -1,33 +1,28 @@
 "use client";
 import { useState } from "react";
-import { searchShop } from "@/src/services/post";
-import { AiOutlineSearch } from "react-icons/ai";
-import useSignUpStore from "@/src/store/useSignUpStore";
-import PostImage from "@/src/components/PostForm/PostImage";
-import PostContent from "@/src/components/PostForm/PostContent";
-import Header from "@/src/components/Common/Header";
-import { ShopItem } from "@/src/types/post";
-import PostShopList from "@/src/components/PostForm/PostShopList";
+import useSignUpStore from "@store/useSignUpStore";
+import PostImage from "@components/PostForm/PostImage";
+import PostContent from "@components/PostForm/PostContent";
+import Header from "@components/Common/Header";
+import PostShopList from "@components/PostForm/PostShopList";
+import SearchInput from "@components/Common/Input/SearchInput";
+import useDebounce from "@hooks/useDebounce";
 
 function PostSearch() {
   const [keyword, setKeyword] = useState("");
-  // ?: 기존 ShopItemPlus 타입으로 사용한 이유는?
-  const [shopList, setShopList] = useState<ShopItem[]>([]);
+  const [isSubmit, setIsSubmit] = useState(false);
   const nextComponent = useSignUpStore((state) => state.nextComponent);
+  const debouncedValue = useDebounce(keyword, 500);
 
   const inputKeywordHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setKeyword(e.target.value);
+    setIsSubmit(false);
   };
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    try {
-      const res = await searchShop(keyword);
-      setShopList(res.response.documents);
-    } catch (err) {
-      // todo: 사용자 에러 표시
-      console.log("shop search error", err);
-    }
+    if (!keyword) return;
+    setIsSubmit(true);
   };
 
   if (nextComponent === "PostImage") {
@@ -38,23 +33,15 @@ function PostSearch() {
 
   return (
     <section className="w-full sm:max-w-[640px]  mx-auto">
-      <Header title="식당 검색" type="arrow" back="prePage" />
-      <div className="mt-3  mx-3">
-        <form onSubmit={onSubmit} className="relative px-3">
-          {/* todo: Input 컴포넌트 재사용 가능하면 수정 */}
-          <input
-            type="text"
-            name="search"
-            value={keyword}
-            onChange={inputKeywordHandler}
-            className="inputStyles"
-            placeholder="주소 또는 식당명을 검색"
-          />
-          <button type="submit" className="absolute top-0 bottom-0 right-8 my-auto">
-            <AiOutlineSearch size="1.5rem" />
-          </button>
-        </form>
-        <PostShopList shopList={shopList} />
+      <Header title="맛집 검색" back="prePage" />
+      <div className="mt-3 mx-3">
+        <SearchInput
+          query={keyword}
+          setQuery={setKeyword}
+          onChangeInputHandler={inputKeywordHandler}
+          onSubmit={onSubmit}
+        />
+        <PostShopList isSubmit={isSubmit} keyword={debouncedValue} />
       </div>
     </section>
   );

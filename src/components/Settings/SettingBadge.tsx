@@ -1,48 +1,64 @@
 "use client";
-import React from "react";
-import { applyBadge } from "../../services/settings";
-import { StarSvg } from "@/src/assets/svgs";
-import Header from "../Common/Header";
+import React, { useEffect, useState } from "react";
+import { getApplyBadge, postApplyBadge } from "@services/settings";
+import Header from "@components/Common/Header";
 import { useToast } from "@/components/ui/use-toast";
+import Button from "@components/Common/Button";
+import { Explorer } from "@assets/images";
+import { TOAST_MESSAGES } from "@constants";
 
 function SettingBadge() {
   const { toast } = useToast();
+  const [isAlreadyApply, setIsAlreadyApply] = useState(false);
 
-  const onClick = async () => {
+  const clickApplyBadgeHandler = async () => {
     try {
-      const res = await applyBadge();
-      toast({ description: "뱃지 신청되었습니다!" });
+      await postApplyBadge();
+      toast(TOAST_MESSAGES.APPLY_BADGE_SUCCESS);
     } catch (err) {
-      toast({ description: "이미 뱃지 신청하셨습니다!" });
+      toast(TOAST_MESSAGES.APPLY_BADGE_FAILURE);
     }
   };
+
+  const checkApplyBadge = async () => {
+    const res = await getApplyBadge();
+    const isApply = res.data.response.flag === "Y";
+    setIsAlreadyApply(isApply);
+  };
+
+  useEffect(() => {
+    checkApplyBadge();
+  }, []);
+
   return (
-    <div className="w-full sm:max-w-[640px] mx-auto flex flex-col space-y-10">
-      <Header title="" type="" back="prePage" />
-      <div className="px-10">
-        <h4 className="mb-4 text-xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-5xl dark:text-white">
-          푸디로그 뱃지 신청
-        </h4>
-        <p className="text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">
-          당신의 미식 본능을 증명하세요! <br />
-          맛집을 열심히 탐방하고, 사진과 후기를 많이 게시하고, 좋아요를 많이 받으면 미식 뱃지를 얻을 수 있어요. 이
-          뱃지는 당신이 진정한 맛집 탐험가임을 증명하는 인증서입니다! <br />
-          <br />
-          뱃지 신청을 제출한다고 해서 뱃지가 보장되는 것은 아닙니다.
-          <br />
-          뱃지를 신청하시겠습니까?
-        </p>
-        <div className="mt-10">
-          <button
-            onClick={onClick}
-            className="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900"
-          >
+    <div className="w-full sm:max-w-[640px] leading-tight flex flex-col items-center text-gray-10 text-center">
+      <Header title="" back="prePage" />
+      <Explorer />
+      <h4 className="mt-[17px] mb-6 text-2xl font-semibold">푸디로그 뱃지 신청</h4>
+      <p className="mb-5 text-lg font-semibold">
+        당신의 <span className="text-red">미식 본능을 증명</span>하세요!
+      </p>
+      <p className="mb-[22px]">
+        이 뱃지는 당신이 진정한 <span className="text-red">맛집 탐험가</span>임<br />을 증명하는 인증서입니다!
+      </p>
+      <p className="mb-12">
+        맛집을 열심히 탐방하고,
+        <br /> 사진과 후기를 많이 게시하고,
+        <br /> 좋아요를 많이 받을 경우,
+        <br /> 미식 뱃지를 얻을 수 있어요.
+      </p>
+      <p>뱃지를 신청하시겠습니까?</p>
+      <p className="text-gray-3 text-sm mt-[27px] mb-5">뱃지 신청을 제출한다고 해서 뱃지가 보장되는 것은 아닙니다.</p>
+      <div className="px-5 w-full mb-[21px]">
+        {isAlreadyApply ? (
+          <Button type="button" disabled>
+            신청 완료
+          </Button>
+        ) : (
+          <Button type="button" variant="primary" onClick={clickApplyBadgeHandler}>
             뱃지 신청
-            <div className="ml-3">
-              <StarSvg width="15" height="15" />
-            </div>
-          </button>
-        </div>
+          </Button>
+        )}
       </div>
     </div>
   );

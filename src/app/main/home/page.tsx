@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from "react";
-import Feeds from "@/src/components/Feed/Feeds";
-import Topbar from "@/src/components/Main/Topbar";
+import MainHeader from "@components/Common/Header/MainHeader";
+import FeedsCategoryList from "@components/Feed/FeedsCategoryList";
 
 const Home = () => {
   return (
-    <div className="home_container w-full max-w-6xl mx-auto">
+    <div className="home_container w-full max-w-6xl mx-auto pb-[110px]">
       <section className="flex flex-col">
-        <Topbar />
-        <Feeds />
+        <MainHeader />
+        <FeedsCategoryList />
       </section>
     </div>
   );

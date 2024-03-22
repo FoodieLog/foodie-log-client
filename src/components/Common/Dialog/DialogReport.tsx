@@ -3,14 +3,13 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } f
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuLabel,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
-import { reportFeed, reportReply } from "@/src/services/apiFeed";
+import { reportFeed } from "@services/feed";
+import { reportReply } from "@services/reply";
 import { useToast } from "@/components/ui/use-toast";
 import { DialogReportProps } from "@/src/types/common";
 

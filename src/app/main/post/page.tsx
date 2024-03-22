@@ -1,5 +1,5 @@
-import PostSearch from "@/src/components/PostForm/PostSearch";
 import React from "react";
+import PostSearch from "@components/PostForm/PostSearch";
 
 function Post() {
   return <PostSearch />;

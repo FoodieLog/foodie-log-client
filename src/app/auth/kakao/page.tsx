@@ -1,14 +1,15 @@
 "use client";
 import { useState } from "react";
 import Image from "next/image";
-import Button from "@/src/components/Common/Button";
-import useSignUpStore from "@/src/store/useSignUpStore";
-import SignUpProfile from "@/src/components/Auth/SignUpProfile";
-import AuthHeader from "@/src/components/Common/Header/Auth";
-import CustomModal from "@/src/components/Common/Dialog/CustomModal";
-import { loginKaKaoToken } from "@/src/services/kakao";
-import { useUserStore } from "@/src/store/useUserStore";
+import Button from "@components/Common/Button";
+import useSignUpStore from "@store/useSignUpStore";
+import AuthHeader from "@components/Common/Header/Auth";
+import CustomModal from "@components/Common/Dialog/CustomModal";
+import useLocalStorage from "@hooks/useLocalStorage";
+import { loginKaKaoToken } from "@services/kakao";
+import { useUserStore } from "@store/useUserStore";
 import { useToast } from "@/components/ui/use-toast";
+import { useRouter } from "next/navigation";
 
 function KaKaoSignUpTerms() {
   const [isLoading, setIsLoading] = useState(false);
@@ -17,9 +18,10 @@ function KaKaoSignUpTerms() {
   const [isCheckedInfo, setIsCheckedInfo] = useState(false);
   const isChecked = useSignUpStore((state) => state.isChecked);
   const setIsChecked = useSignUpStore((state) => state.setIsChecked);
-  const nextComponent = useSignUpStore((state) => state.nextComponent);
-  const setNextComponent = useSignUpStore((state) => state.setNextComponent);
   const setUser = useUserStore((state) => state.setUser);
+  const router = useRouter();
+  const { getItem } = useLocalStorage();
+
   const { toast } = useToast();
 
   const onChangeServiceHandler = () => {
@@ -38,28 +40,21 @@ function KaKaoSignUpTerms() {
 
   const onClickHandler = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-
+    setIsLoading(true);
     if (!isChecked || !isCheckedInfo) {
       return alert("이용약관 동의는 필수입니다.");
     }
-
-    const kakaoToken = localStorage.getItem("kakaoToken");
-
-    if (kakaoToken) {
-      setIsLoading(true);
-      await loginKaKaoToken(kakaoToken)
-        .then((res) => {
-          setNextComponent("SignUpProfile");
-          setUser(res.data.response);
-        })
-        .catch(() => toast({ description: "카카오 인증이 만료되었습니다." }))
-        .finally(() => setIsLoading(false));
+    try {
+      const kakaoToken = getItem("kakaoToken");
+      if (!kakaoToken) throw new Error("인증 토큰이 없습니다. 다시 시도해주세요.");
+      const res = await loginKaKaoToken(kakaoToken);
+      setUser(res.data.response);
+      router.replace("/main/mypage/");
+    } catch (error) {
+      toast({ description: "카카오 인증이 만료되었습니다." });
     }
+    setIsLoading(false);
   };
-
-  if (nextComponent === "SignUpProfile") {
-    return <SignUpProfile />;
-  }
 
   return (
     <section className="flex flex-col items-center justify-center p-10 h-4/5 sm:w-[600px] sm:border border-gray-300">

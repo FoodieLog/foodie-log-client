@@ -3,11 +3,21 @@
 @tailwind utilities;
 
 @layer base {
+  *::-webkit-scrollbar {
+    display: none;
+  }
+  html {
+    font-family: "Pretendard", "Noto Sans KR", sans-serif;
+    font-color: "#363232";
+  }
   h2 {
     @apply mt-3 text-3xl font-semibold text-slate-900;
   }
   h3 {
     @apply mt-3 text-lg font-semibold text-slate-900;
+  }
+  input {
+    @apply text-[14px] font-normal outline-none;
   }
 }
 
@@ -22,16 +32,16 @@
     @apply h-[45px] w-full appearance-none border-2 border-gray-200 rounded  py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-400;
   }
   .authInput {
-    @apply block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg appearance-none dark:text-white border border-gray-600 focus:outline-none focus:ring-0;
+    @apply block h-[60px] rounded-lg px-[16px] pb-2.5 pt-[22px] w-full bg-gray-0 border border-gray-2 appearance-none focus:outline-none focus:ring-0;
   }
   .authLabel {
-    @apply absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-gray-600 peer-focus:dark:text-gray-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1;
+    @apply absolute text-sm text-gray-4 duration-300 transform -translate-y-3 scale-75 top-5 z-10 origin-[0] start-[16px] peer-placeholder-shown:text-gray-3 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-3;
   }
   .checkbox {
     @apply h-4 w-4 rounded border-gray-300;
   }
   .code {
-    @apply text-center text-xl h-10 w-10 rounded border-0 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600;
+    @apply text-center text-xl h-[80px] w-[60px] rounded-[10px] border-0 ring-1 ring-gray-2 focus:ring-2 focus:ring-inset focus:ring-indigo-600;
   }
   .ok {
     @apply mt-2 text-xs text-green-600 dark:text-green-400;
@@ -39,6 +49,46 @@
   .error {
     @apply mt-2 text-xs text-red-600 dark:text-red-400;
   }
+  .redBtn {
+    @apply w-full p-[10px] text-white bg-red font-[18px] rounded-[8px];
+  }
+  .grayBtn {
+    @apply w-full p-[10px] text-gray-4 bg-gray-2 font-[18px] rounded-[8px];
+  }
+  .borderGrayBtn {
+    @apply w-full p-[10px] bg-white font-[18px] text-gray-8 border border-gray-2 rounded-[8px];
+  }
+  .followBtn {
+    @apply shrink-0 box-border py-[2px] text-red border border-red rounded-[8px];
+  }
+  .followingBtn {
+    @apply shrink-0 box-border py-[2px] text-gray-4 bg-gray-1 rounded-[8px];
+  }
+}
+
+@font-face {
+  font-family: "Pretendard";
+  font-weight: 400;
+  font-style: normal;
+  src: url("https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Regular.eot");
+  src: url("https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Regular.eot?#iefix")
+      format("embedded-opentype"),
+    url("https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Regular.woff2") format("woff2"),
+    url("https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Regular.woff") format("woff"),
+    url("https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Regular.ttf") format("truetype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Pretendard";
+  font-weight: 700;
+  font-style: normal;
+  src: url("https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Bold.eot");
+  src: url("https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Bold.eot?#iefix") format("embedded-opentype"),
+    url("https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Bold.woff2") format("woff2"),
+    url("https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Bold.woff") format("woff"),
+    url("https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Bold.ttf") format("truetype");
+  font-display: swap;
 }
 
 @font-face {

@@ -1,81 +1,85 @@
 "use client";
-import { useRouter, usePathname } from "next/navigation";
+import Header from "@components/Common/Header";
+import KakaoMap from "@components/Map/KakaoMap";
+import ShopCard from "@components/Common/Card/ShopCard";
+import useRestaurantDetailQuery from "@hooks/queries/useRestaurantDetailQuery";
+import Drawer from "@components/Common/Drawer/Drawer";
+import Image from "next/image";
 import { useEffect, useState } from "react";
-import BackButtonMain from "../Common/Button/BackButtonMain";
-import KakaoMap from "../Map/KakaoMap";
-import ShopCard from "./ShopCard";
-import Feeds from "../Feed/Feeds";
-import { generateRestaurantDetailDummyData } from "../../utils/dummyDataUtils";
-import { getRestaurantDetail } from "../../services/apiRestaurant";
-import Feed from "../Feed/Feed";
+import { Content } from "@@types/apiTypes";
+import Link from "next/link";
+
 interface RestaurantDetailProps {
-  Id: string;
+  restaurantId: string;
 }
 
-const RestaurantDetail = ({ Id }: RestaurantDetailProps) => {
-  const [restaurantDetail, setRestaurantDetail] = useState<any>();
-  const [feedList, setFeedList] = useState<any>();
+const RestaurantDetail = ({ restaurantId }: RestaurantDetailProps) => {
+  const parsedId = parseInt(restaurantId, 10);
+  const { data, isLoading } = useRestaurantDetailQuery(parsedId);
+  const [images, setImages] = useState<string[]>([]);
 
-  // [id] dynamic routing 사용하지 않는 경우에 pathname 사용하여 id 가져오는 방법
-  // const pathname = usePathname();
-  // const restaurantIdMatch = pathname.match(/restaurants\/(\d+)/);
-  // // FIXME: restaurantIdMatch가 null일 경우를 처리해야 함. 현재는 1로 지정함.
-  // const restaurantId = restaurantIdMatch ? parseInt(restaurantIdMatch[1], 10) : 1;
-  // const restaurantId = parseInt(Id)
-
-  const restaurantId = parseInt(Id, 10);
   useEffect(() => {
-    // const data = generateRestaurantDetailDummyData();
-    const fetchData = async () => {
-      const data = await getRestaurantDetail(restaurantId);
+    const uniqueImages = new Set<string>();
 
-      setRestaurantDetail(data.response.restaurantInfo);
-      setFeedList(data.response.content);
-    };
-
-    fetchData();
-  }, [restaurantId]);
-
-  if (!restaurantDetail) return <div>Loading...</div>;
-
-  const updateFollowStatus = (userId: number, newStatus: boolean) => {
-    setFeedList((prevData: any[]) => {
-      return prevData.map((content) => {
-        if (content.feed.userId === userId) {
-          return { ...content, followed: newStatus };
+    data?.feedList.forEach((feedData: Content) => {
+      feedData.feed.feedImages.forEach((imageURLObject: { imageUrl: string }) => {
+        if (uniqueImages.size < 3) {
+          uniqueImages.add(imageURLObject.imageUrl);
         }
-        return content;
       });
     });
-  };
+
+    setImages(Array.from(uniqueImages));
+  }, [data?.feedList]);
+
+  // TODO: 로딩 ui 추가하기!
+  if (isLoading) return <div>Loading...</div>;
 
   return (
-    <div className="w-full flex flex-col justify-center max-w-screen-sm mx-auto">
-      <BackButtonMain />
+    <div className="w-full flex flex-col justify-center max-w-screen-sm mx-auto relative">
+      <Header title={data?.detail.restaurant.name ?? ""} back="prePage" />
       <KakaoMap
-        latitude={restaurantDetail.restaurant.mapY}
-        longitude={restaurantDetail.restaurant.mapX}
-        restaurantId={restaurantId}
+        size={{ width: "100%", height: "calc(100vh - 60px - 56px)" }}
+        latitude={data?.detail.restaurant.mapY ?? ""}
+        longitude={data?.detail.restaurant.mapX ?? ""}
+        restaurantId={parsedId}
       />
-      <ShopCard
-        id={restaurantId}
-        name={restaurantDetail.restaurant.name}
-        category={restaurantDetail.restaurant.category}
-        roadAddress={restaurantDetail.restaurant.roadAddress}
-        isLiked={restaurantDetail.isLiked.liked}
-        shopUrl={restaurantDetail.restaurant.link}
-      />
-      {feedList &&
-        feedList.map((feedItem: any, index: number) => (
-          <Feed
-            key={index}
-            feed={feedItem.feed}
-            restaurant={feedItem.restaurant}
-            isFollowed={feedItem.followed}
-            isLiked={feedItem.liked}
-            updateFollowStatus={updateFollowStatus}
+
+      <Drawer openedHeight={351} closedHeight={70 + 68} scroller>
+        <div className="flex flex-col gap-3">
+          <ShopCard
+            id={parsedId}
+            name={data?.detail.restaurant.name ?? ""}
+            category={data?.detail.restaurant.category ?? ""}
+            roadAddress={data?.detail.restaurant.roadAddress ?? ""}
+            isLiked={data?.detail.isLiked.liked}
+            shopUrl={data?.detail.restaurant.link}
           />
-        ))}
+          <hr />
+          <div className="flex justify-between p-2 font-[600]">
+            <p>
+              <span className="text-red">&quot;{data?.detail.restaurant.name}&quot; </span>
+              {data?.feedList.length}개의 결과
+            </p>
+            <Link href={`/main/restaurants/${parsedId}/feed`} className="text-red">
+              피드 더보기
+            </Link>
+          </div>
+          <div className="flex justify-between space-x-4 pr-2 pl-2">
+            {images.map((imageUrl) => (
+              <div key={imageUrl} className="relative w-[120px] h-[120px]">
+                <Image
+                  className="rounded-[10px]"
+                  src={imageUrl}
+                  alt="피드 이미지"
+                  fill
+                  style={{ objectFit: "cover" }}
+                ></Image>
+              </div>
+            ))}
+          </div>
+        </div>
+      </Drawer>
     </div>
   );
 };

@@ -1,3 +1,5 @@
+import { APIResponseType } from "./apiResponse";
+
 // 회원가입
 export interface ContentBody {
   email: string;
@@ -31,7 +33,7 @@ export interface ChangePassword {
 }
 
 // FEED
-export type FeedData = {
+export interface FeedData {
   feed: {
     feedId: number;
     userId: number;
@@ -53,9 +55,9 @@ export type FeedData = {
     link: string;
     roadAddress: string;
   };
-  isFollowed: boolean;
-  isLiked: boolean;
-};
+  followed: boolean;
+  liked: boolean;
+}
 
 export type FeedThumbnail = {
   id: number;
@@ -76,13 +78,11 @@ export type ApiResponse = {
 };
 
 // 좋아요한 맛집 리스트
-export type LikedMapResponse = {
-  status: number;
+export interface LikedMapResponse extends APIResponseType {
   response: {
     content: MapItem[];
   };
-  error: any;
-};
+}
 export type MapItem = {
   isLiked: {
     id: number;
@@ -129,3 +129,105 @@ export interface Notification {
   isFollowed?: boolean;
   createdAt: string;
 }
+
+export interface APIUserSearchResponse extends APIResponseType {
+  response: {
+    content: [
+      {
+        id: number;
+        nickName: string;
+        profileImageUrl: string | null;
+        aboutMe: string | null;
+      }
+    ];
+  };
+}
+
+export interface APIFeedResponse extends APIResponseType {
+  response: {
+    content: Content[];
+  };
+}
+
+export interface APISingleFeedResponse extends APIResponseType {
+  response: {
+    content: Content;
+  };
+}
+
+export type Content = {
+  feed: {
+    userId: number;
+    nickName: string;
+    profileImageUrl: string | null;
+    feedId: number;
+    createdAt: string;
+    updatedAt: string;
+    feedImages: { imageUrl: string }[];
+    content: string;
+    likeCount: number;
+    replyCount: number;
+  };
+  restaurant: {
+    id: number;
+    name: string;
+    category: string;
+    link: string;
+    roadAddress: string;
+  };
+  followed: boolean;
+  liked: boolean;
+};
+
+export interface APIReplyListResponse extends APIResponseType {
+  response: {
+    userId: number;
+    nickName: string;
+    profileImageUrl: string | null;
+    content: string;
+    createdAt: string;
+    replyList: {
+      id: number;
+      userId: number;
+      nickName: string;
+      profileImageUrl: string | null;
+      content: string;
+      createdAt: string;
+    }[];
+  };
+}
+
+export interface APIReplyPostResponse extends APIResponseType {
+  response: {
+    id: number;
+    nickName: string;
+    content: string;
+    profileImageUrl: string | null;
+    createdAt: string;
+  };
+}
+
+export interface GetFeedSharedResponse extends APIResponseType {
+  response: FeedShared;
+}
+
+export type FeedShared = {
+  nickName: string;
+  profileImageUrl: string | null;
+  feedId: number;
+  createdAt: string;
+  updatedAt: string;
+  feedImages: {
+    imageUrl: string;
+  }[];
+  restaurant: {
+    id: number;
+    name: string;
+    category: string;
+    link: string;
+    roadAddress: string;
+  };
+  content: string;
+  likeCount: number;
+  replyCount: number;
+};

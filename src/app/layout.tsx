@@ -1,21 +1,6 @@
 import "../styles/globals.css";
 import React from "react";
 import type { Metadata } from "next";
-import { Noto_Sans_KR, Roboto_Mono } from "next/font/google";
-
-const notoSansKr = Noto_Sans_KR({
-  // preload: true, 기본값
-  subsets: ["latin"], // 또는 preload: false
-  display: "swap",
-  variable: "--font-noto-kr",
-  weight: ["100", "400", "700", "900"], // 가변 폰트가 아닌 경우, 사용할 fontWeight 배열
-});
-
-const roboto_mono = Roboto_Mono({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-roboto-mono",
-});
 
 export const metadata: Metadata = {
   title: "Foodie-Log",
@@ -30,7 +15,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="manifest" href="/manifest.json" />
         <link rel="icon" href="/favicon.ico" sizes="any" />
       </head>
-      <body className={`${notoSansKr.variable} ${roboto_mono.variable}`}>
+      <body>
         <div>{children}</div>
       </body>
     </html>

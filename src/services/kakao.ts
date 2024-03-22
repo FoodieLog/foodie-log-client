@@ -1,5 +1,4 @@
-import { axiosRequest, multipartrequest, kakaoRequest, userRequest, kakaoLogoutRequest } from "./index";
-import useKakaoStore from "../store/useKakaoStore";
+import { axiosRequest, kakaoRequest, userRequest, kakaoLogoutRequest } from "@services";
 
 //카카오 로그인
 export const kakaoLogin = async () => {
@@ -58,7 +57,7 @@ export const profileSetting = async (body: FormData) => {
   return res;
 };
 
-//카카오 회원 탈퇴
+//카카오 연결 끊기 (탈퇴)
 export const unlinkKaKaoToken = async () => {
   const res = await kakaoLogoutRequest.post(`/unlink`);
   return res;
@@ -74,3 +73,23 @@ export const getKaKaoRefreshToken = async (token: string) => {
 
   return res;
 };
+
+// 카카오 연결 끊기 (fetch)
+// export const unlinkKaKao = async () => {
+//   const kakaoToken = localStorage.getItem("kakaoToken");
+//   const res = await fetch(
+//     `https://kapi.kakao.com/v1/user/unlink?client_secret=${process.env.NEXT_PUBLIC_KAKAO_CLIENT_SECRE}`,
+//     {
+//       method: "POST",
+//       keepalive: true,
+//       headers: {
+//         "Content-Type": "application/x-www-form-urlencoded;charset=utf-8",
+//         Authorization: `Bearer ${kakaoToken}`,
+//       },
+//     }
+//   );
+//   if (res.status === 200) {
+//     const json = await res.json();
+//     return json;
+//   } else return false;
+// };

@@ -1,21 +1,24 @@
 "use client";
 import { useRef, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
-import Button from "@/src/components/Common/Button";
-import Haeder from "@/src/components/Common/Header";
-import { MdAddPhotoAlternate } from "react-icons/md";
-import { getMyProfile } from "@/src/services/mypage";
-import { profileSetting } from "@/src/services/kakao";
-import { useUserStore } from "@/src/store/useUserStore";
+import { getMyProfile } from "@services/mypage";
+import { profileSetting } from "@services/kakao";
+import { useUserStore } from "@store/useUserStore";
 import { useToast } from "@/components/ui/use-toast";
+import { Input } from "@/components/ui/input";
+import { TOAST_MESSAGES } from "@constants";
+import axios from "axios";
+import Button from "@components/Common/Button";
+import Haeder from "@components/Common/Header";
+import MyProfileImage from "@components/Mypage/MyProfileImage";
+import TextArea from "@components/Common/TextArea";
 
 function MyProfileSettings() {
   const [profile, setProfile] = useState({
     nickName: "",
     aboutMe: "",
   });
-
+  const [isLoading, setIsLoading] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
   const [profileImage, setProfileImage] = useState<File>();
   const fileInput = useRef<HTMLInputElement>(null);
@@ -38,16 +41,15 @@ function MyProfileSettings() {
           setPreviewImage(response.profileImageUrl);
         }
       } catch (error) {
-        console.log("마이프로필 실패", error);
+        console.error("마이프로필 실패", error);
       }
     };
     checkMyProfile();
   }, [user.id]);
 
-  // 프로필 설정 api
   const ProfileSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+    setIsLoading(true);
     const formData = new FormData();
 
     const userData = {
@@ -63,18 +65,21 @@ function MyProfileSettings() {
       await profileSetting(formData);
       router.replace("/main/mypage");
     } catch (error) {
-      toast({ description: "프로필 수정 다시 시도해 주세요." });
+      if (axios.isAxiosError(error) && error.response) {
+        const ERROR_MESSAGE = error.response.data.error.message;
+        toast({ description: ERROR_MESSAGE || TOAST_MESSAGES.PROFILE_EDIT_FAILURE });
+      }
     }
+
+    setIsLoading(false);
   };
 
-  // ref 클릭
   const pickImageHandler = () => {
     if (fileInput.current) {
       fileInput.current.click();
     }
   };
 
-  // 이미지 파일 입력
   const ProfileChangehandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -94,74 +99,65 @@ function MyProfileSettings() {
     reader.readAsDataURL(file);
   };
 
-  const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setProfile({ ...profile, [name]: value });
   };
 
   return (
     <section className="sm:max-w-[640px] mx-auto">
-      <Haeder title="프로필 설정" type="arrow" back="prePage" />
-      <form
-        id="formElem"
-        className="w-full p-10 h-4/5  flex flex-col space-y-10"
-        method="post"
-        onSubmit={ProfileSubmit}
-      >
+      <Haeder title="" back="prePage" />
+      <h2 className="text-center">프로필 설정</h2>
+      <form id="formElem" className="w-full p-10 h-4/5 flex flex-col space-y-10" method="post" onSubmit={ProfileSubmit}>
         <div className=" flex flex-col items-center justify-center ">
           <div className="relative">
-            <div
-              onClick={pickImageHandler}
-              className="flex justify-center items-center w-[200px] h-[200px] rounded-full overflow-hidden cursor-pointer"
-            >
-              <Image
-                src={previewImage || "/images/userImage.png"}
-                alt="프로필 사진"
-                width={200}
-                height={200}
-                className="object-cover"
+            <div onClick={pickImageHandler} className="w-[110px] h-[110px] rounded-full overflow-hidden cursor-pointer">
+              <MyProfileImage
+                imageSrc={previewImage}
+                imageAlt={`${user.nickName} 프로필 사진`}
+                className="w-[110px] h-[110px] rounded-full"
               />
-              <input
+              <Input
                 type="file"
                 ref={fileInput}
                 onChange={ProfileChangehandler}
-                hidden
+                className="hidden"
                 accept="image/*,audio/*,video/mp4,video/x-m4v,application/pdf,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation,.csv"
               />
-            </div>
-            <div onClick={pickImageHandler} className="absolute bottom-5 right-0 cursor-pointer">
-              <MdAddPhotoAlternate size="2.5rem" className="text-gray-400" />
             </div>
           </div>
         </div>
 
         <div className="flex flex-col space-y-4 px-2">
-          <label>
-            <p className="mb-1">
-              닉네임(계정아이디)<span className="text-red-500">*</span>
-            </p>
+          <div className="relative">
             <input
+              id="nickName"
               type="text"
               name="nickName"
               value={profile.nickName}
-              className="inputStyles"
+              className={`authInput`}
               onChange={onChangeHandler}
             />
-          </label>
-          <label>
-            <p className="mb-1">자기소개</p>
-            <input
-              type="text"
+            <label htmlFor="nickName" className={`authLabel`}>
+              닉네임<span className="text-red-500">*</span>
+            </label>
+          </div>
+
+          <div className="relative">
+            <TextArea
+              id="aboutMe"
+              title="자기소개"
               name="aboutMe"
               value={profile.aboutMe}
-              className="inputStyles"
               onChange={onChangeHandler}
+              maxLength={150}
+              className="pt-[24px] pl-[14px] placeholder:text-gray-4 border text-[14px] border-gray-2 rounded-lg"
             />
-          </label>
+          </div>
         </div>
-        <div className="my-10 px-2">
-          <Button type="submit" variant={"primary"}>
-            프로필 설정
+        <div className="my-10 px-2 flex-end">
+          <Button type="submit" variant={"primary"} disabled={isLoading}>
+            {isLoading ? "수정 중" : "프로필 설정"}
           </Button>
         </div>
       </form>

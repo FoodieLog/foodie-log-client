@@ -1,4 +1,13 @@
-//탈퇴
-export interface WithdrawModalProps {
-  children: React.ReactNode;
+export interface PasswordType {
+  oldPassword: string;
+  newPassword: string;
+}
+
+export interface WithdrawRequestBodyType {
+  withdrawReason: string;
+}
+
+export interface WithDrawReasonType {
+  id: string;
+  reason: string;
 }

@@ -1,64 +1,67 @@
-import React, { useRef, useState } from "react";
-import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
+import { useRef, useState } from "react";
 import { RxDotFilled } from "react-icons/rx";
-import { FeedImageSlideProps } from "@/src/types/feed";
+import { ArrowBack_IOS } from "@assets/icons";
 
-const FeedImageSlide: React.FC<FeedImageSlideProps> = ({ images }) => {
+interface FeedImageSlideProps {
+  images: { imageUrl: string }[];
+}
+
+const FeedImageSlide = ({ images }: FeedImageSlideProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const slideRef = useRef(null); // 슬라이드 div 참조
+  const slideRef = useRef(null);
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
   const DISTANCE_TOUCH = 30;
 
-  const prevSlide = () => {
+  const prevSlideHandler = () => {
     const isFirstSlide = currentIndex === 0;
     if (!isFirstSlide) {
       setCurrentIndex(currentIndex - 1);
     }
   };
 
-  const nextSlide = () => {
+  const nextSlideHandler = () => {
     const isLastSlide = currentIndex === images.length - 1;
     if (!isLastSlide) {
       setCurrentIndex(currentIndex + 1);
     }
   };
 
-  const goToSlide = (slideIndex: number) => {
+  const goToSlideHandler = (slideIndex: number) => {
     setCurrentIndex(slideIndex);
   };
 
-  const handleMouseDown = (e: React.MouseEvent) => {
+  const mouseDownHandler = (e: React.MouseEvent) => {
     setIsDragging(true);
     setStartX(e.clientX);
   };
 
-  const handleMouseMove = (e: React.MouseEvent) => {
+  const mouseMoveHandler = (e: React.MouseEvent) => {
     if (!isDragging) return;
     if (e.clientX - startX > DISTANCE_TOUCH) {
-      prevSlide();
+      prevSlideHandler();
       setIsDragging(false);
     } else if (startX - e.clientX > DISTANCE_TOUCH) {
-      nextSlide();
+      nextSlideHandler();
       setIsDragging(false);
     }
   };
 
-  const handleMouseUp = () => {
+  const mouseUpHandler = () => {
     setIsDragging(false);
   };
 
-  const handleTouchStart = (e: React.TouchEvent) => {
+  const touchStartHandler = (e: React.TouchEvent) => {
     const touch = e.touches[0];
     setStartX(touch.clientX);
   };
 
-  const handleTouchEnd = (e: React.TouchEvent) => {
+  const touchEndHandler = (e: React.TouchEvent) => {
     const touch = e.changedTouches[0];
     if (touch.clientX - startX > DISTANCE_TOUCH) {
-      prevSlide();
+      prevSlideHandler();
     } else if (startX - touch.clientX > DISTANCE_TOUCH) {
-      nextSlide();
+      nextSlideHandler();
     }
   };
 
@@ -67,11 +70,11 @@ const FeedImageSlide: React.FC<FeedImageSlideProps> = ({ images }) => {
       <div
         className="relative pb-[100%]"
         ref={slideRef}
-        onMouseDown={handleMouseDown}
-        onMouseMove={handleMouseMove}
-        onMouseUp={handleMouseUp}
-        onTouchStart={handleTouchStart}
-        onTouchEnd={handleTouchEnd}
+        onMouseDown={mouseDownHandler}
+        onMouseMove={mouseMoveHandler}
+        onMouseUp={mouseUpHandler}
+        onTouchStart={touchStartHandler}
+        onTouchEnd={touchEndHandler}
       >
         <div
           style={{ backgroundImage: `url(${images[currentIndex]?.imageUrl})` }}
@@ -80,17 +83,17 @@ const FeedImageSlide: React.FC<FeedImageSlideProps> = ({ images }) => {
       </div>
       {images.length > 1 && (
         <>
-          <div className="hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] left-5 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer">
-            <BsChevronCompactLeft onClick={prevSlide} size={30} />
+          <div className="w-[33px] h-[46px] absolute top-[50%] translate-y-[-50%] bg-black opacity-50 cursor-pointer">
+            <ArrowBack_IOS onClick={prevSlideHandler} color="white" className="translate-x-[-8px]" />
           </div>
-          <div className="hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] right-5 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer">
-            <BsChevronCompactRight onClick={nextSlide} size={30} />
+          <div className="w-[33px] h-[46px] rotate-180 absolute top-[50%] translate-y-[-50%] right-0 bg-black opacity-50 cursor-pointer">
+            <ArrowBack_IOS onClick={nextSlideHandler} color="white" className="translate-x-[-8px]" />
           </div>
           <div className="flex absolute bottom-5 left-[50%] transform -translate-x-[50%] translate-y-[18px] justify-center bg-transparent">
             {images.map((image, slideIndex) => (
               <div
                 key={slideIndex}
-                onClick={() => goToSlide(slideIndex)}
+                onClick={() => goToSlideHandler(slideIndex)}
                 className="text-xl sm:text-2xl cursor-pointer"
               >
                 <RxDotFilled className={slideIndex === currentIndex ? "text-black scale-125" : "text-gray-500"} />

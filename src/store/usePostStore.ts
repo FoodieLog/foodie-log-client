@@ -1,7 +1,7 @@
 import { create } from "zustand";
-import { PostStore } from "@/src/types/post";
+import { PostStore } from "@@types/post";
 
-const initialContent = {
+export const initialContent = {
   id: "",
   place_name: "",
   place_url: "",

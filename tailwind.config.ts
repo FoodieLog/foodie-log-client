@@ -3,6 +3,9 @@ module.exports = {
   darkMode: ["class"],
   content: ["./pages/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./app/**/*.{ts,tsx}", "./src/**/*.{ts,tsx}"],
   theme: {
+    backgroundImage: {
+      "drop-down": "url('/svgs/arrow_drop_down.svg')",
+    },
     container: {
       center: true,
       padding: "2rem",
@@ -26,8 +29,22 @@ module.exports = {
         "accordion-up": "accordion-up 0.2s ease-out",
       },
       colors: {
+        red: {
+          DEFAULT: "#DE2E1F",
+          1: "#DE2E1F1A",
+          2: "#FCEBE9",
+        },
+        gray: {
+          0: "#FFFFFF",
+          1: "#F4F4F4",
+          2: "#E9E9E9",
+          3: "#BABABA",
+          4: "#777777",
+          8: "#3B4555",
+          10: "#363232",
+        },
         kakao: {
-          container: "#FEE500",
+          DEFAULT: "#FEE500",
         },
         coral: {
           DEFAULT: "#FF6D60",

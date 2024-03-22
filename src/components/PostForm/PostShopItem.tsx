@@ -1,37 +1,41 @@
 import React from "react";
-import usePostStore from "@/src/store/usePostStore";
-import { LiaExchangeAltSolid } from "react-icons/lia";
-import useSignUpStore from "@/src/store/useSignUpStore";
-import useOnClickBack from "@/src/hooks/useOnClickBack";
-import { ShopProps } from "@/src/types/post";
+import usePostStore from "@store/usePostStore";
+import useSignUpStore from "@store/useSignUpStore";
+import { ShopItem } from "@@types/post";
+import { LocationOn } from "@assets/icons";
 
-function PostShopItem({ type, item }: ShopProps) {
+interface PostShopItemProps {
+  item: ShopItem;
+  keyword: string;
+}
+
+function PostShopItem({ item, keyword }: PostShopItemProps) {
   const { content, setContent } = usePostStore();
   const setNextComponent = useSignUpStore((state) => state.setNextComponent);
 
   const onClickhandler = (e: React.MouseEvent) => {
     e.preventDefault();
-    if (type === "search") {
-      setNextComponent("PostImage");
-      setContent({ ...content, ...item });
-    }
+    setNextComponent("PostImage");
+    setContent({ ...content, ...item });
   };
 
   return (
-    <div
-      onClick={onClickhandler}
-      className="flex items-center justify-between gap-5 px-5 py-3 mt-5 border hover:bg-gray-300 cursor-pointer"
-    >
-      <div>
-        <div key={item.id}>
-          <strong>{item.place_name}</strong>
-          <p>{item.road_address_name}</p>
-          <p>{item.category_name}</p>
-        </div>
+    <div onClick={onClickhandler} className="py-3 hover:bg-gray-1 cursor-pointer relative">
+      <div className="flex items-center">
+        <LocationOn color="red" />
+        <p className="ml-1.5 text-lg text-gray-10 w-[90%] overflow-hidden whitespace-nowrap text-ellipsis">
+          {keyword && item.place_name.includes(keyword) ? (
+            <>
+              {item.place_name.split(keyword)[0]}
+              <span className="text-red">{keyword}</span>
+              {item.place_name.split(keyword)[1]}
+            </>
+          ) : (
+            item.place_name
+          )}
+        </p>
       </div>
-      {type === "selected" && (
-        <LiaExchangeAltSolid className="w-5 h-5 cursor-pointer hover:text-red-500" onClick={useOnClickBack} />
-      )}
+      <p className="text-sm text-gray-3">{item.road_address_name}</p>
     </div>
   );
 }

@@ -1,8 +1,8 @@
 import React from "react";
-import PasswordForm from "../../../../components/Settings/SettingPassword";
+import SettingPassword from "@components/Settings/SettingPassword";
 
 function Password() {
-  return <PasswordForm />;
+  return <SettingPassword />;
 }
 
 export default Password;

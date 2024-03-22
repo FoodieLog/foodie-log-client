@@ -1,5 +1,4 @@
-import FeedShared from '@/src/components/Feed/FeedShared';
-
+import FeedShared from "@components/Feed/FeedShared";
 
 interface feedSharedProps {
   params: {
@@ -8,7 +7,7 @@ interface feedSharedProps {
 }
 
 const feedShared = ({ params: { id } }: feedSharedProps) => {
-  const feedId = id
+  const feedId = id;
   return (
     <div>
       <FeedShared Id={feedId} />

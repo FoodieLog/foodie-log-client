@@ -1,13 +1,19 @@
 export interface HeaderProps {
   title: string;
-  type: string;
   back: "preComponent" | "prePage";
   option?: string;
 }
 
+export type ButtonProps = {
+  type: "button" | "submit" | "reset" | undefined;
+  variant?: "primary" | "secondary" | "text";
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  disabled?: boolean;
+  children: React.ReactNode;
+};
+
 export interface ModalProps {
   children: React.ReactNode;
-  showModal?: boolean;
   setShowModal?: React.Dispatch<React.SetStateAction<boolean>>;
   reload?: boolean;
 }
@@ -28,10 +34,19 @@ export interface DialogReportProps {
 }
 
 export interface DialogProps {
+  id?: number;
   name: string;
   option: string;
-  id?: number;
+  feedId?: number;
+  replyId?: number;
   type?: string;
   content?: string;
-  removeDeletedFeed?: (feedId: number) => void;
+  className?: string;
+  removeHandler?: () => void;
+}
+
+export interface ImageComponentProps {
+  imageSrc: string;
+  imageAlt: string;
+  className?: string;
 }

@@ -52,10 +52,10 @@
 ## 개발팀
 > 🧑‍💻 [프론트엔드](https://github.com/FoodieLog/foodie-log-client/) <br/>
 
-|<a href="https://github.com/ChoEun-Sang"><img src="https://avatars.githubusercontent.com/u/128155681?v=4" width=150px alt="조은상" />|<a href="https://github.com/iskra17"><img src="https://avatars.githubusercontent.com/u/128365197?v=4" width=150px alt="정재현" />|
-|:---------------------------------------------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------------------------------------------:|
-|                                             **[조은상](https://github.com/ChoEun-Sang)**                                             |                                             **[정재현](https://github.com/iskra17)**                                             |
-|인증/인가 <br/> 피드 등록/수정/삭제 <br/> 맛집 지도 <br/> 마이페이지 <br/> 개인정보 설정| 피드 목록 <br/> 댓글 작성/삭제<br/> 지역별 식당 추천|
+|<a href="https://github.com/ChoEun-Sang"><img src="https://avatars.githubusercontent.com/u/128155681?v=4" width=150px alt="조은상" />|<a href="https://github.com/iskra17"><img src="https://avatars.githubusercontent.com/u/61578822?v=4" width=150px alt="오소민" />|<a href="https://github.com/iskra17"><img src="https://avatars.githubusercontent.com/u/128365197?v=4" width=150px alt="정재현" />|
+|:---------------------------------------------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------------------------------------------:|
+|                                             **[조은상](https://github.com/ChoEun-Sang)**                                             |                                             **[오소민](https://github.com/somin00)**                                             |                                             **[정재현](https://github.com/iskra17)**                                             |
+|인증/인가 <br/> 피드 등록/수정/삭제 <br/> 맛집 지도 <br/> 마이페이지 <br/> 개인정보 설정| 피드 등록 <br/> 지역별 맛집 추천<br/> 설정 및 개인정보 페이지 |피드 목록 <br/> 댓글 작성/삭제<br/> 지역별 식당 추천|
 
 > 🧑‍💻 [백엔드](https://github.com/FoodieLog/foodie-log-server) <br/>
 

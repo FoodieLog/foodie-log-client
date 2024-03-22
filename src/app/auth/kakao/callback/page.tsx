@@ -1,51 +1,71 @@
 "use client";
 import { useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
-import { getKaKaoToken, postKakaoToken, loginKaKaoToken } from "@/src/services/kakao";
-import { useUserStore } from "@/src/store/useUserStore";
-import { initializePushNotifications } from "@/src/components/Notification/PushNotification";
+import { getKaKaoToken, postKakaoToken, loginKaKaoToken } from "@services/kakao";
+import { useUserStore } from "@store/useUserStore";
+import { initializePushNotifications } from "@components/Notification/PushNotification";
+import { expiryTime } from "@utils/date";
+import { useToast } from "@/components/ui/use-toast";
+import { TOAST_MESSAGES } from "@constants";
+import useSignUpStore from "@store/useSignUpStore";
+import KaKaoTerms from "@components/Auth/KaKaoTerms";
+import useLocalStorage from "@hooks/useLocalStorage";
 
 function KaKaoCode() {
   const router = useRouter();
   const params = useSearchParams();
   const code = params.get("code");
-  const setUser = useUserStore((state) => state.setUser);
-  const setTokenExpiry = useUserStore((state) => state.setTokenExpiry);
+  const { setUser, setTokenExpiry } = useUserStore();
+  const { nextComponent, setNextComponent } = useSignUpStore();
+  const { toast } = useToast();
+  const { setItem, removeItem } = useLocalStorage();
 
   useEffect(() => {
-    const checkUserEmail = async () => {
-      if (!code) return;
-      const { data } = await getKaKaoToken(code);
-
-      localStorage.setItem("kakaoRefresh", data.refresh_token);
-      const expiration = new Date();
-      expiration.setHours(expiration.getHours() + 6);
-      localStorage.setItem("expiration", expiration.toISOString());
-
-      await postKakaoToken(data.access_token)
-        .then(async (res) => {
-          if (res.data.response.isExists) {
-            await loginKaKaoToken(res.data.response.kakaoAccessToken)
-              .then((res) => {
-                setUser(res.data.response);
-
-                const minutesInMilliseconds = 1000 * 60 * 29;
-                const expiryTime = Date.now() + minutesInMilliseconds;
-                setTokenExpiry(expiryTime); // 만료 시간 설정
-                initializePushNotifications();
-
-                router.replace("/main/home");
-              })
-              .catch((error) => console.log("로그인에러", error));
-          } else {
-            router.replace("/auth/kakao");
-            localStorage.setItem("kakaoToken", res.data.response.kakaoAccessToken);
-          }
-        })
-        .catch((err) => console.log("카카오 이메일 중복 체크 실패", err));
-    };
+    router.prefetch("/main/home");
     checkUserEmail();
   }, [code]);
+
+  const checkUserEmail = async () => {
+    if (!code) return;
+    try {
+      const { data } = await getKaKaoToken(code);
+      const expiration = new Date();
+
+      expiration.setHours(expiration.getHours() + 6);
+      setItem("expiration", expiration.toISOString());
+      setItem("kakaoRefresh", data.refresh_token);
+
+      const {
+        data: { response: res },
+      } = await postKakaoToken(data.access_token);
+
+      if (res.status === "NORMAL") {
+        const response = await loginKaKaoToken(res.kakaoAccessToken);
+        setUser(response.data.response);
+        setTokenExpiry(expiryTime);
+        initializePushNotifications();
+        router.replace("/main/home");
+      } else if (res.status === null) {
+        setItem("kakaoToken", res.data.response.kakaoAccessToken);
+        setTokenExpiry(expiryTime);
+        setNextComponent("KaKaoTerms");
+      } else {
+        toast(TOAST_MESSAGES.KAKAO_LOGIN_WITHDRAW);
+        removeItem("kakaoRefresh");
+        removeItem("kakaoToken");
+        router.replace("/accounts/login");
+      }
+    } catch (error) {
+      toast(TOAST_MESSAGES.KAKAO_LOGIN_FAILURE);
+      removeItem("kakaoRefresh");
+      removeItem("kakaoToken");
+      router.replace("/accounts/login");
+    }
+  };
+
+  if (nextComponent === "KaKaoTerms") {
+    return <KaKaoTerms />;
+  }
 
   return (
     <div role="status">

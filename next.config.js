@@ -7,12 +7,9 @@ const withPWA = require("next-pwa")({
 });
 
 const nextConfig = {
-  experimental: {
-    appDir: true,
-  },
   images: {
-    // loader : "custom",
-    // loaderFile : "./my/image/loader.js"
+    // loader: "custom",
+    // loaderFile: "./my/image/loader.js",
     // unoptimized: true,
 
     domains: ["https://foodielog-bucket.s3.ap-northeast-2.amazonaws.com"],
@@ -33,11 +30,11 @@ const nextConfig = {
     ],
   },
   webpack: (config) => {
-    config.module.rules.push({
-      test: /\.svg$/i,
-      issuer: /\.[jt]sx?$/,
-      use: ["@svgr/webpack"],
-    });
+    const fileLoaderRule = config.module.rules.find((rule) => rule.test?.test?.(".svg"));
+    config.module.rules.push(
+      { ...fileLoaderRule, test: /\.svg$/, include: /@assets\/icons\//, loader: "file-loader" },
+      { test: /\.svg$/, use: ["@svgr/webpack"] }
+    );
     return config;
   },
   reactStrictMode: true,

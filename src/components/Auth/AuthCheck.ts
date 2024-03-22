@@ -1,12 +1,11 @@
 "use client";
 import React, { useEffect } from "react";
-import { useUserStore } from "@/src/store/useUserStore";
+import { useUserStore } from "@store/useUserStore";
 import { useRouter, usePathname } from "next/navigation";
-import { reissueTokens } from "@/src/services/apiFeed";
-import { tokenLoader } from "@/src/utils/token";
-import Logout from "@/src/services/Logout";
+import { reissueTokens } from "@services/auth";
 import { useToast } from "@/components/ui/use-toast";
-import { getKaKaoRefreshToken } from "@/src/services/kakao";
+import useLogout from "@hooks/useLogout";
+import { expiryTime } from "@utils/date";
 
 const AuthCheck: React.FC = () => {
   const { toast } = useToast();
@@ -17,6 +16,7 @@ const AuthCheck: React.FC = () => {
   }));
   const router = useRouter();
   const pathname = usePathname();
+  const { logout } = useLogout();
 
   // const kakaoRefreshToken = tokenLoader();
 
@@ -24,7 +24,7 @@ const AuthCheck: React.FC = () => {
   useEffect(() => {
     const validateTokens = async () => {
       if (!user.accessToken) {
-        Logout();
+        await logout();
         return;
       }
 
@@ -38,19 +38,16 @@ const AuthCheck: React.FC = () => {
             // 새로 발급받은 accessToken 설정
             setUser({ accessToken: reissueResponse.response.accessToken });
 
-            // 새로 발급받은 accessToken의 만료 시간을 29분 후로 설정
-            const minutesInMilliseconds = 1000 * 60 * 29;
-            const expiryTime = Date.now() + minutesInMilliseconds;
             setTokenExpiry(expiryTime);
           } else {
             console.error(reissueResponse.error.message.accessToken);
             toast({ description: "토큰이 유효하지 않습니다.\n다시 로그인해 주세요!" });
-            Logout();
+            await logout();
           }
         } catch (error) {
           console.error("Error while reissuing tokens:", error);
           toast({ description: "토큰이 유효하지 않습니다.\n다시 로그인해 주세요!" });
-          Logout();
+          await logout();
         }
       } else if (pathname === "/") {
         router.replace("/main/home");

@@ -1,7 +1,7 @@
 "use client";
 
-import BackButtonMain from "@/src/components/Common/Button/BackButtonMain";
-import Feeds from "@/src/components/Feed/Feeds";
+import Header from "@components/Common/Header";
+import Feeds from "@components/Feed/Feeds";
 import { useSearchParams } from "next/navigation";
 
 interface userFeedListProps {
@@ -18,7 +18,7 @@ const UserFeedList = ({ params: { id } }: userFeedListProps) => {
   const startingFeedId = feedId ? Number(feedId) : undefined;
   return (
     <div className="w-full max-w-[640px] mx-auto">
-      <BackButtonMain />
+      <Header title="피드" back="prePage" />
       <Feeds id={userId} startingFeedId={startingFeedId} />
     </div>
   );

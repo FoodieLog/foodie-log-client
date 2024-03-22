@@ -1,5 +1,5 @@
-import { userRequest } from "@/src/services";
-import { useUserStore } from "@/src/store/useUserStore";
+import { userRequest } from "@services";
+import { useUserStore } from "@store/useUserStore";
 
 const accessToken = useUserStore.getState().user.accessToken;
 const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL as string;
@@ -12,19 +12,11 @@ const headers = {
 export const getThumbnailByUserId = async (userId: number, feedId: number) => {
   let res;
   if (feedId === 0) {
-    res = await fetch(`${baseURL}/api/user/${userId}/feed`, {
-      method: "GET",
-      headers,
-    });
+    res = await userRequest.get(`${baseURL}/api/user/${userId}/feed`);
   } else {
-    res = await fetch(`${baseURL}/api/user/${userId}/feed/?feedId=${feedId}`, {
-      method: "GET",
-      headers,
-    });
+    res = await userRequest.get(`${baseURL}/api/user/${userId}/feed/?feedId=${feedId}`);
   }
-
-  const data = await res.json();
-  return data;
+  return res.data;
 };
 
 // 내 프로필 (fetch)
@@ -50,8 +42,8 @@ export const getMyMap = async (userId: number) => {
   return res;
 };
 
-// 팔로우 리스트
-export const getFollowList = async (userId: number) => {
+// 팔로잉 리스트
+export const getFollowingList = async (userId: number) => {
   const res = await userRequest.get(`/api/user/follow/list?userId=${userId}`);
   return res.data;
 };

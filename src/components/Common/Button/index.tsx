@@ -1,17 +1,8 @@
-import React from "react";
-type ButtonProps = {
-  type: "button" | "submit" | "reset" | undefined;
-  variant?: "primary" | "secondary" | "text";
-  size?: string;
-  onClick?: React.MouseEventHandler<HTMLButtonElement>;
-  disabled?: boolean;
-  children: React.ReactNode;
-};
+import { ButtonProps } from "@@types/common";
 
 const Button: React.FC<ButtonProps> = ({
   type = "button",
   variant = "primary",
-  size = "py-2",
   onClick,
   disabled = false,
   children,
@@ -20,20 +11,23 @@ const Button: React.FC<ButtonProps> = ({
 
   switch (variant) {
     case "primary":
-      variantStyles =
-        "w-full py-3.5 text-white bg-mint-sat focus:ring-4 focus:ring-blue-300 font-medium  rounded-xl text-md px-5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800";
+      variantStyles = "redBtn";
       break;
     case "secondary":
-      variantStyles =
-        "w-full bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white px-4 border border-blue-500 hover:border-transparent rounded";
+      variantStyles = "borderGrayBtn";
       break;
     case "text":
-      variantStyles = "underline underline-offset-5";
+      variantStyles = "text-red text-sm";
       break;
   }
 
   return (
-    <button type={type} className={`${variantStyles} ${size}`} onClick={onClick} disabled={disabled}>
+    <button
+      type={type}
+      className={disabled && variant !== "text" ? `grayBtn` : `${variantStyles}`}
+      onClick={onClick}
+      disabled={disabled}
+    >
       {children}
     </button>
   );

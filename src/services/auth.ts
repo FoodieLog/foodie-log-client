@@ -1,9 +1,9 @@
-import { axiosRequest, multipartrequest } from "./index";
-import { LogInBody, ResetPasswordBody } from "../types/apiTypes";
+import { axiosRequest, userRequest } from "@services";
+import { LogInBody, ResetPasswordBody } from "@@types/apiTypes";
 
 //회원가입
 export const signUp = async (body: FormData) => {
-  const res = await multipartrequest.post("/api/auth/signup", body, {
+  const res = await axiosRequest.post("/api/auth/signup", body, {
     headers: {
       "Content-Type": "multipart/form-data",
     },
@@ -53,4 +53,12 @@ export const resetPassword = async ({ email, password }: ResetPasswordBody) => {
 export const duplicateNickNameCheck = async (nickName: string) => {
   const res = await axiosRequest.get(`/api/auth/exists/nickname?input=${nickName}`);
   return res;
+};
+
+// 토큰 재발급 요청
+export const reissueTokens = async () => {
+  const res = await userRequest.get(`/api/auth/reissue`, {
+    withCredentials: true,
+  });
+  return res.data;
 };

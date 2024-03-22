@@ -1,19 +1,14 @@
-import axios, { AxiosRequestConfig } from "axios";
-import { useUserStore } from "@/src/store/useUserStore";
-import { getCookie } from "@/src/utils/token";
+import axios, { AxiosRequestConfig, InternalAxiosRequestConfig } from "axios";
+import { useUserStore } from "@store/useUserStore";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
-// const refreshToken = getCookie("refreshToken");
 
 const axiosConfig: AxiosRequestConfig = {
   baseURL: BASE_URL,
+  withCredentials: true,
   headers: {
     "Content-Type": "application/json",
   },
-};
-
-const multipartConfig: AxiosRequestConfig = {
-  baseURL: BASE_URL,
 };
 
 const kakaoConfig: AxiosRequestConfig = {
@@ -30,28 +25,15 @@ const kakaoLogoutConfig: AxiosRequestConfig = {
   },
 };
 
-// const refreshConfig: AxiosRequestConfig = {
-//   baseURL: BASE_URL,
-//   headers: {
-//     "Content-Type": "application/json",
-//     Cookie: refreshToken,
-//   },
-// };
-
 const axiosRequest = axios.create(axiosConfig);
-const multipartrequest = axios.create(multipartConfig);
 
 const userRequest = axios.create(axiosConfig);
-const formDataRequest = axios.create(axiosConfig);
 
 const kakaoRequest = axios.create(kakaoConfig);
 
 const kakaoLogoutRequest = axios.create(kakaoLogoutConfig);
 
-// const refreshRequest = axios.create(refreshConfig);
-
-// Axios 인터셉터를 사용하여 매 요청 전에 토큰 값을 가져와 `Authorization` 헤더에 설정
-const setAuthTokenInterceptor = (config: any) => {
+const setAuthTokenInterceptor = (config: InternalAxiosRequestConfig) => {
   const accessToken = useUserStore.getState().user.accessToken;
 
   // headers에 기본값 설정
@@ -63,7 +45,7 @@ const setAuthTokenInterceptor = (config: any) => {
   return config;
 };
 
-const setKakaoTokenInterceptor = (config: any) => {
+const setKakaoTokenInterceptor = (config: InternalAxiosRequestConfig) => {
   const kakaoAccessToken = useUserStore.getState().user.kakaoAccessToken;
 
   // headers에 기본값 설정
@@ -77,9 +59,7 @@ const setKakaoTokenInterceptor = (config: any) => {
 
 // 각 axios 인스턴스에 인터셉터 적용
 userRequest.interceptors.request.use(setAuthTokenInterceptor);
-formDataRequest.interceptors.request.use(setAuthTokenInterceptor);
-multipartrequest.interceptors.request.use(setAuthTokenInterceptor);
 kakaoRequest.interceptors.request.use(setAuthTokenInterceptor);
 kakaoLogoutRequest.interceptors.request.use(setKakaoTokenInterceptor);
 
-export { axiosRequest, multipartrequest, userRequest, formDataRequest, kakaoRequest, kakaoLogoutRequest };
+export { axiosRequest, userRequest, kakaoRequest, kakaoLogoutRequest };

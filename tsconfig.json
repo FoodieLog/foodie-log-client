@@ -21,7 +21,18 @@
       }
     ],
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"],
+      "@assets": ["./src/assets"],
+      "@assets/*": ["./src/assets/*"],
+      "@components/*": ["./src/components/*"],
+      "@constants": ["./src/constants"],
+      "@constants/*": ["./src/constants/*"],
+      "@hooks/*": ["./src/hooks/*"],
+      "@services": ["./src/services"],
+      "@services/*": ["./src/services/*"],
+      "@store/*": ["./src/store/*"],
+      "@@types/*": ["./src/types/*"],
+      "@utils/*": ["./src/utils/*"]
     }
   },
   "include": [
@@ -30,7 +41,7 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "public/firebase-messaging-sw.js",
-    "__test__/index.test.js"
+    "__tests__/index.test.js"
   ],
   "exclude": ["node_modules"]
 }
