@@ -11,8 +11,8 @@ function MyProfileTabContent({ userId }: MyFeedTabProps) {
     "w-full py-2.5 bg-white flex items-center justify-center text-base text-semibold leading-none text-gray-4 select-none hover:text-red data-[state=active]:text-red data-[state=active]:border-b-2 data-[state=active]:border-red outline-none cursor-default";
 
   return (
-    <Tabs.Root defaultValue="feed">
-      <Tabs.List className="w-full flex">
+    <Tabs.Root defaultValue="feed" className="px-4">
+      <Tabs.List className="w-full flex mb-1">
         <Tabs.Trigger className={tabTriggerStyles} value="feed">
           피드
         </Tabs.Trigger>
@@ -20,10 +20,10 @@ function MyProfileTabContent({ userId }: MyFeedTabProps) {
           지도
         </Tabs.Trigger>
       </Tabs.List>
-      <Tabs.Content className="mt-1" value="feed">
+      <Tabs.Content className="overflow-y-auto" style={{ height: window.innerHeight - 500 }} value="feed">
         <MyFeedThumbnail userId={userId} />
       </Tabs.Content>
-      <Tabs.Content className="mt-1" value="map">
+      <Tabs.Content value="map">
         <MyMap userId={userId} />
       </Tabs.Content>
     </Tabs.Root>

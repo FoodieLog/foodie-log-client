@@ -7,12 +7,13 @@ interface FollowButtonProps {
   userId: number;
   className: string;
   icon?: boolean;
+  object?: string;
 }
 
-function FollowButton({ isFollowed, userId, className, icon = false }: FollowButtonProps) {
+function FollowButton({ isFollowed, userId, className, icon = false, object }: FollowButtonProps) {
   const params = useParams();
   const restaurantId = typeof params.restaurantId === "string" ? parseInt(params.restaurantId, 10) : undefined;
-  const { followMutation, unfollowMutation } = useFollowMutations(userId, restaurantId);
+  const { followMutation, unfollowMutation } = useFollowMutations(userId, restaurantId, object);
 
   const clickFollowBtnHandler = async () => {
     if (isFollowed) {
