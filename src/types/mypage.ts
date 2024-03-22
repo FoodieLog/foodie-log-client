@@ -75,3 +75,10 @@ export interface MapItem {
     roadAddress: string;
   };
 }
+
+export interface Thumbnail {
+  feed: Feed;
+  followed: boolean;
+  liked: boolean;
+  restaurant: Restaurant;
+}

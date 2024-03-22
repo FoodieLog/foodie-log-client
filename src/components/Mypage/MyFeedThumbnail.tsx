@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Fragment } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { getThumbnailByUserId } from "@services/mypage";
+import { Thumbnail } from "@@types/mypage";
 import InfiniteScroll from "react-infinite-scroller";
 import ImageThumbnail from "@components/Common/Thumbnail/ImageThumbnail";
 
@@ -31,7 +32,7 @@ function MyFeedThumbnail({ userId }: MyFeedThumbnailProps) {
       <ul className="w-full grid grid-cols-3 gap-1">
         {data?.pages.map((page, index) => (
           <Fragment key={index}>
-            {page?.content?.map((thumbnail: any) => (
+            {page?.content?.map((thumbnail: Thumbnail) => (
               <li key={thumbnail.feed.feedId}>
                 <Link
                   href={`/main/feed/${userId}?feedId=${thumbnail.feed.feedId}`}

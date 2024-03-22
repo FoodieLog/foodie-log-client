@@ -7,6 +7,7 @@ import { useUserStore } from "@store/useUserStore";
 import { useToast } from "@/components/ui/use-toast";
 import { Input } from "@/components/ui/input";
 import { TOAST_MESSAGES } from "@constants";
+import axios from "axios";
 import Button from "@components/Common/Button";
 import Haeder from "@components/Common/Header";
 import MyProfileImage from "@components/Mypage/MyProfileImage";
@@ -63,9 +64,11 @@ function MyProfileSettings() {
     try {
       await profileSetting(formData);
       router.replace("/main/mypage");
-    } catch (error: any) {
-      const ERROR_MESSAGE = error.response.data.error.message;
-      toast({ description: ERROR_MESSAGE || TOAST_MESSAGES.PROFILE_EDIT_FAILURE });
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response) {
+        const ERROR_MESSAGE = error.response.data.error.message;
+        toast({ description: ERROR_MESSAGE || TOAST_MESSAGES.PROFILE_EDIT_FAILURE });
+      }
     }
 
     setIsLoading(false);

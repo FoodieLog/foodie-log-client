@@ -1,9 +1,10 @@
 import { Close, SearchIcon } from "@assets/icons";
+import { Dispatch, SetStateAction } from "react";
 
 interface SearchInputProps {
-  query: any;
-  setQuery: any;
-  onChangeInputHandler: any;
+  query: string;
+  setQuery: Dispatch<SetStateAction<string>>;
+  onChangeInputHandler: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onSubmit?: (e: React.FormEvent<HTMLFormElement>) => void;
 }
 
