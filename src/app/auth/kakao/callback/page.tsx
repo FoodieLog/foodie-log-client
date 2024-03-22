@@ -9,6 +9,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { TOAST_MESSAGES } from "@constants";
 import useSignUpStore from "@store/useSignUpStore";
 import KaKaoTerms from "@components/Auth/KaKaoTerms";
+import useLocalStorage from "@hooks/useLocalStorage";
 
 function KaKaoCode() {
   const router = useRouter();
@@ -17,6 +18,7 @@ function KaKaoCode() {
   const { setUser, setTokenExpiry } = useUserStore();
   const { nextComponent, setNextComponent } = useSignUpStore();
   const { toast } = useToast();
+  const { setItem, removeItem } = useLocalStorage();
 
   useEffect(() => {
     router.prefetch("/main/home");
@@ -30,8 +32,8 @@ function KaKaoCode() {
       const expiration = new Date();
 
       expiration.setHours(expiration.getHours() + 6);
-      localStorage.setItem("expiration", expiration.toISOString());
-      localStorage.setItem("kakaoRefresh", data.refresh_token);
+      setItem("expiration", expiration.toISOString());
+      setItem("kakaoRefresh", data.refresh_token);
 
       const {
         data: { response: res },
@@ -44,19 +46,19 @@ function KaKaoCode() {
         initializePushNotifications();
         router.replace("/main/home");
       } else if (res.status === null) {
-        localStorage.setItem("kakaoToken", res.data.response.kakaoAccessToken);
+        setItem("kakaoToken", res.data.response.kakaoAccessToken);
         setTokenExpiry(expiryTime);
         setNextComponent("KaKaoTerms");
       } else {
         toast(TOAST_MESSAGES.KAKAO_LOGIN_WITHDRAW);
-        localStorage.removeItem("kakaoRefresh");
-        localStorage.removeItem("kakaoToken");
+        removeItem("kakaoRefresh");
+        removeItem("kakaoToken");
         router.replace("/accounts/login");
       }
     } catch (error) {
       toast(TOAST_MESSAGES.KAKAO_LOGIN_FAILURE);
-      localStorage.removeItem("kakaoRefresh");
-      localStorage.removeItem("kakaoToken");
+      removeItem("kakaoRefresh");
+      removeItem("kakaoToken");
       router.replace("/accounts/login");
     }
   };

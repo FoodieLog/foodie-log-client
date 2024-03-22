@@ -5,6 +5,7 @@ import Button from "@components/Common/Button";
 import useSignUpStore from "@store/useSignUpStore";
 import AuthHeader from "@components/Common/Header/Auth";
 import CustomModal from "@components/Common/Dialog/CustomModal";
+import useLocalStorage from "@hooks/useLocalStorage";
 import { loginKaKaoToken } from "@services/kakao";
 import { useUserStore } from "@store/useUserStore";
 import { useToast } from "@/components/ui/use-toast";
@@ -19,6 +20,7 @@ function KaKaoSignUpTerms() {
   const setIsChecked = useSignUpStore((state) => state.setIsChecked);
   const setUser = useUserStore((state) => state.setUser);
   const router = useRouter();
+  const { getItem } = useLocalStorage();
 
   const { toast } = useToast();
 
@@ -43,7 +45,7 @@ function KaKaoSignUpTerms() {
       return alert("이용약관 동의는 필수입니다.");
     }
     try {
-      const kakaoToken = localStorage.getItem("kakaoToken");
+      const kakaoToken = getItem("kakaoToken");
       if (!kakaoToken) throw new Error("인증 토큰이 없습니다. 다시 시도해주세요.");
       const res = await loginKaKaoToken(kakaoToken);
       setUser(res.data.response);

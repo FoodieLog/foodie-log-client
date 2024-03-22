@@ -12,6 +12,7 @@ import useSignUpStore from "@store/useSignUpStore";
 import { useToast } from "@/components/ui/use-toast";
 import { TOAST_MESSAGES } from "@constants";
 import { AxiosError } from "axios";
+import useLocalStorage from "@hooks/useLocalStorage";
 
 function SignUpProfile() {
   const [isLoading, setIsLoading] = useState(false);
@@ -22,12 +23,15 @@ function SignUpProfile() {
     nickName: "",
     aboutMe: "",
   });
+  const fileInput = useRef<HTMLInputElement>(null);
   const router = useRouter();
   const { user, clearUser } = useSignUpStore();
-  const fileInput = useRef<HTMLInputElement>(null);
-  const kakaoToken = localStorage.getItem("kakaoToken");
+  const { getItem, removeItem } = useLocalStorage();
+
   const { toast } = useToast();
   const { NICKNAME_ERROR, SIGNUP_FAILURE, SIGNUP_SUCCESS } = TOAST_MESSAGES;
+
+  const kakaoToken = getItem("kakaoToken");
 
   // 회원가입 api
   const SignUpSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -91,7 +95,7 @@ function SignUpProfile() {
 
     try {
       await profileSetting(formData);
-      localStorage.removeItem("kakaoToken");
+      removeItem("kakaoToken");
       router.replace("/main/home");
       toast(SIGNUP_SUCCESS);
       setProfile({
