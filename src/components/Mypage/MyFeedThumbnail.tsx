@@ -16,7 +16,6 @@ function MyFeedThumbnail({ userId }: MyFeedThumbnailProps) {
     async ({ pageParam = 0 }) => {
       if (userId) {
         const response = await getThumbnailByUserId(userId, pageParam);
-        console.log(response);
         return response.response;
       }
       throw new Error("User ID is not provided");
