@@ -1,10 +1,10 @@
 //============ 아이콘 - Common ============
-import CaretDown from "@assets/icons/common/caretdown.svg";
-import ChatCircleText from "@assets/icons/common/chatcircletext.svg";
+import CaretDown from "@assets/icons/common/CaretDown.svg";
+import ChatCircleText from "@assets/icons/common/ChatCircleText.svg";
 import BigCheckCircle from "@assets/icons/common/bigcheckcircle.svg";
-import CheckCircle from "@assets/icons/common/checkcircle.svg";
-import Heart from "@assets/icons/common/heart.svg";
-import FullHeartStraight from "@assets/icons/common/fullheartstraight.svg";
+import CheckCircle from "@assets/icons/common/CheckCircle.svg";
+import Heart from "@assets/icons/common/Heart.svg";
+import FullHeartStraight from "@assets/icons/common/FullHeartStraight.svg";
 import HeartStraight from "@assets/icons/common/heartstraight.svg";
 import Phone_2 from "@assets/icons/common/phone2.svg";
 import Phone from "@assets/icons/common/phone.svg";
