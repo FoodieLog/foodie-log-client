@@ -33,15 +33,11 @@ export const getFeedListByUserId = async (userId: number, feedId: number) => {
 
 /** 피드 목록 요청 */
 export const getFeedList = async (feedId: number, category?: RestaurantCategory) => {
-  let res;
-  if (feedId === 0) {
-    res = await userRequest.get(`api/feed/list`);
-  } else {
-    res = await userRequest.get(`api/feed/list?feedId=${feedId}`);
-    // 추후 카테고리 기능 완성되면 아래 로직으로 사용
-    // res = await userRequest.get(`api/feed/list?category=${category}&last=${feedId}`);
-  }
-  return res;
+  if (feedId !== 0) return await userRequest.get(`api/feed/list?category=${category}&last=${feedId}`);
+
+  return category
+    ? await userRequest.get(`api/feed/list?category=${category}`)
+    : await userRequest.get(`api/feed/list`);
 };
 
 /** 싱글 피드 요청 */
