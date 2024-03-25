@@ -1,8 +1,11 @@
 import { userRequest } from "@services";
 import { RecommendAPIResponse } from "@@types/restaurant";
 
-export const getRestaurantDetail = async (restaurantId: number): Promise<RecommendAPIResponse> => {
-  const res = await userRequest.get(`/api/restaurant/${restaurantId}`);
+export const getRestaurantDetail = async (
+  restaurantId: number,
+  sort?: "latest" | "popular"
+): Promise<RecommendAPIResponse> => {
+  const res = await userRequest.get(`/api/restaurant/${restaurantId}?sort=${sort || "latest"}`);
   return res.data;
 };
 
