@@ -28,7 +28,7 @@ function NotifItem({ ...notification }: Notification) {
     },
     MENTION: {
       href: `/main/reply/${feed?.id}`,
-      // content: `님이 댓글을 남겼습니다:${mention?.content}`,
+      content: `님이 댓글에서 회원님을 멘션했습니다:${reply?.content}`,
     },
   };
 
