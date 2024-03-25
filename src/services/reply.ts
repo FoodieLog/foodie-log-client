@@ -1,15 +1,15 @@
 import { userRequest } from "@services";
-import { APIReplyListResponse } from "@@types/reply";
+import { APIReplyListResponse, PostReplyType } from "@@types/reply";
 
 /** 댓글 내역 요청 */
-export const getReplyList = async (feedId: number, replyId: number = 0): Promise<APIReplyListResponse> => {
-  const { data } = await userRequest.get(`api/reply/${feedId}?replyId=${replyId}`);
+export const getReplyList = async (feedId: number): Promise<APIReplyListResponse> => {
+  const { data } = await userRequest.get(`api/reply/${feedId}?last=0`);
   return data;
 };
 
 /** 댓글 등록 */
-export const saveReply = async (feedId: number, content: string) => {
-  const { data } = await userRequest.post(`api/reply/${feedId}`, { content });
+export const saveReply = async (feedId: number, replyContent: PostReplyType) => {
+  const { data } = await userRequest.post(`api/reply/${feedId}`, replyContent);
   return data;
 };
 

@@ -1,22 +1,25 @@
-import Image, { StaticImageData } from "next/image";
 import React from "react";
+import Image, { StaticImageData } from "next/image";
+import { UserImage } from "@assets/images";
 
 interface IUserThumbImgProps {
-  src: string | StaticImageData;
+  src: string | StaticImageData | undefined | null;
+  alt?: string;
+  customWidth?: number;
+  customHeight?: number;
   style?: string;
 }
 
-const UserThumbImg = (props: IUserThumbImgProps) => {
+const UserThumbImg = ({ src, alt, customWidth, customHeight, style }: IUserThumbImgProps) => {
   const width = 48;
   const height = 48;
   return (
     <Image
-      src={props.src}
-      alt="사용자 썸네일"
-      width={width}
-      height={height}
-      // TODO: REFACTORING 필요
-      className={"border rounded-full cursor-pointer " + props.style}
+      src={src || UserImage}
+      alt={alt || "사용자 썸네일"}
+      width={customWidth || width}
+      height={customHeight || height}
+      className={"border rounded-full cursor-pointer " + style}
     />
   );
 };

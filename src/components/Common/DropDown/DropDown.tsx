@@ -9,19 +9,22 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { DialogProps } from "@@types/common";
 import { deleteFeed } from "@services/feed";
+
 import { useToast } from "@/components/ui/use-toast";
 import { MoreVert } from "@assets/icons";
 import DialogReport from "@components/Common/Dialog/DialogReport";
 import DialogConfirm from "@components/Common/Dialog/DialogConfirm";
 import useSignUpStore from "@store/useSignUpStore";
 import useFeedStore from "@store/useFeedStore";
+import useReplyMutation from "@hooks/mutations/useReplyMutation";
 
-function DropDown({ name, option, id = 0, type = "", content = "", className = "", removeHandler }: DialogProps) {
+function DropDown({ name, option, feedId = 0, replyId = 0, type = "", content = "", className = "" }: DialogProps) {
   const setNextComponent = useSignUpStore((state) => state.setNextComponent);
   const router = useRouter();
   const [showReportDialog, setShowReportDialog] = useState(false);
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
   const setFeed = useFeedStore((state) => state.setFeed);
+  const { deleteReplyMutation } = useReplyMutation(feedId, replyId);
 
   const { toast } = useToast();
 
@@ -45,9 +48,7 @@ function DropDown({ name, option, id = 0, type = "", content = "", className = "
     case "본인댓글":
       items = ["삭제"];
       onClickHandler = () => {
-        if (removeHandler) {
-          removeHandler();
-        }
+        deleteReplyMutation.mutate();
       };
       break;
     case "본인":
@@ -61,7 +62,7 @@ function DropDown({ name, option, id = 0, type = "", content = "", className = "
     e.preventDefault();
     router.push("/main/post");
     setNextComponent("PostContent");
-    setFeed({ id, content });
+    setFeed({ id: feedId, content });
   };
 
   const onClickDelete = async () => {
@@ -70,7 +71,7 @@ function DropDown({ name, option, id = 0, type = "", content = "", className = "
 
   const handleConfirmDelete = async () => {
     try {
-      await deleteFeed(id);
+      await deleteFeed(feedId);
 
       toast({ description: "피드가 정상 삭제 되었습니다👍!" });
       setShowConfirmDialog(false);
@@ -102,7 +103,7 @@ function DropDown({ name, option, id = 0, type = "", content = "", className = "
         </DropdownMenuContent>
       </DropdownMenu>
       <DialogReport
-        id={id}
+        id={feedId}
         name={name}
         type={type}
         isOpened={showReportDialog}
