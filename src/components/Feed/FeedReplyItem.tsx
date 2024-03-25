@@ -1,69 +1,76 @@
 "use client";
-import Image from "next/image";
+import { useState } from "react";
 import Link from "next/link";
-import { Dispatch, SetStateAction, useState } from "react";
-import { deleteReply } from "@services/reply";
-import { APIReplyListResponse, FeedReplyType } from "@@types/reply";
+import { FeedReplyType } from "@@types/reply";
 import { useUserStore } from "@store/useUserStore";
-import { useToast } from "@/components/ui/use-toast";
 import DropDown from "@components/Common/DropDown/DropDown";
-import TimeStamp from "@components/Common/Tag/TimeStamp";
+import ReplyContent from "@components/Feed/ReplyContent";
+import UserThumbImg from "@components/Common/Profile/UserThumbImg";
 
 interface FeedReplyItemProps {
+  feedId: number;
   reply: FeedReplyType;
   userId: number;
-  setReplies: Dispatch<SetStateAction<APIReplyListResponse["response"]["replyList"]>>;
+  setReplyParentNum: React.Dispatch<React.SetStateAction<number | null>>;
 }
 
-function FeedReplyItem({ reply, userId, setReplies }: FeedReplyItemProps) {
-  const [expandedReplies, setExpandedReplies] = useState<number[]>([]);
+function FeedReplyItem({ feedId, reply, userId, setReplyParentNum }: FeedReplyItemProps) {
   const { id, nickName } = useUserStore((state) => state.user);
-  const { id: replyId, nickName: replyNickName, profileImageUrl, content, createdAt } = reply;
+  const { id: replyId, nickName: replyNickName, profileImageUrl, childList } = reply;
+  const [showMore, setShowMore] = useState(false);
 
-  const { toast } = useToast();
-
-  const deleteReplyHandler = async (replyId: number) => {
-    try {
-      await deleteReply(replyId);
-      setReplies((prevReplies) => prevReplies.filter((reply) => reply.id !== replyId));
-    } catch (error) {
-      toast({ title: "삭제 오류 발생", description: "처리 중에 오류가 발생하였습니다." });
-    }
+  const addReplyToReply = () => {
+    setReplyParentNum(replyId);
   };
 
+  const toggleShowMore = () => {
+    setShowMore((prev) => !prev);
+  };
   return (
-    <li className="group flex items-center justify-between py-4 border-b">
-      <div className="flex items-center">
+    <li className="group flex flex-col px-5 py-4 border-b">
+      <div className="flex items-start relative">
         <Link href={userId === id ? `/main/mypage` : `/main/${userId}`} className="flex w-12 h-12 flex-shrink-0 mr-3.5">
-          <Image
-            src={profileImageUrl || "/images/userImage.png"}
-            alt={profileImageUrl ? `${replyNickName} 프로필 사진` : "푸디로그 프로필 기본 이미지"}
-            width={48}
-            height={48}
-            className="w-full h-full rounded-full"
-          />
+          <UserThumbImg src={profileImageUrl} alt={`${replyNickName} 프로필 이미지`} />
         </Link>
-        <div>
-          <div className="flex items-center">
-            <Link href={userId === id ? `/main/mypage` : `/main/${userId}`} className="cursor-pointer mr-1.5">
-              <span className="text-base">{replyNickName}</span>
-            </Link>
-            <TimeStamp createdAt={createdAt} />
-          </div>
-          <p className="text-base text-gray-8 text-regular">{content}</p>
+        <div className="flex flex-col items-start gap-2">
+          <ReplyContent userId={userId} reply={reply} />
+          <button className="text-gray-4 text-sm cursor-pointer" onClick={addReplyToReply}>
+            답글
+          </button>
+          {childList.length !== 0 && (
+            <button className="text-gray-4 text-sm cursor-pointer" onClick={toggleShowMore}>
+              {`- 답글 ${childList.length}개 ${showMore ? "닫기" : "더보기"}`}
+            </button>
+          )}
+        </div>
+        <div className="ml-auto">
+          <DropDown
+            name={replyNickName}
+            option={replyNickName === nickName ? "본인댓글" : "타인"}
+            feedId={feedId}
+            replyId={replyId}
+            type={"댓글"}
+          />
         </div>
       </div>
-      <div className="flex items-center">
-        <DropDown
-          name={replyNickName}
-          option={replyNickName === nickName ? "본인댓글" : "타인"}
-          id={replyId}
-          type={"댓글"}
-          removeHandler={() => {
-            deleteReplyHandler(replyId);
-          }}
-        />
-      </div>
+      {showMore && (
+        <ul className="mt-4 pl-[62px] flex flex-col gap-4">
+          {childList.map((reply) => (
+            <li key={reply.id} className="relative">
+              <ReplyContent userId={reply.userId} reply={reply} />
+              <div className="absolute right-0 top-0">
+                <DropDown
+                  name={replyNickName}
+                  option={replyNickName === nickName ? "본인댓글" : "타인"}
+                  feedId={feedId}
+                  replyId={replyId}
+                  type={"댓글"}
+                />
+              </div>
+            </li>
+          ))}
+        </ul>
+      )}
     </li>
   );
 }
