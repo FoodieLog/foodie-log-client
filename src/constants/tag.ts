@@ -7,7 +7,7 @@ export const categoryTags: { [key: string]: RestaurantCategory } = {
   카페: "cafe",
   디저트: "dessert",
   분식: "snack",
-  아시안: "korean",
+  아시안: "asian",
   일식: "japanese",
   양식: "western",
   주점: "bar",
