@@ -32,4 +32,6 @@ export const TOAST_MESSAGES = {
     title: "탈퇴 계정 가입 불가",
     description: "탈퇴한 계정으로 재가입 불가합니다.\n 로그인 페이지로 이동합니다.",
   },
+  REPLY_POST_ERROR: { title: "댓글 작성 오류 발생", description: "처리 중에 오류가 발생하였습니다." },
+  REPLY_DELETE_ERROR: { title: "삭제 오류 발생", description: "처리 중에 오류가 발생하였습니다." },
 };
