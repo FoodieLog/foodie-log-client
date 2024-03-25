@@ -7,9 +7,14 @@ import useMyMapQuery from "@hooks/queries/useMyMapQuery";
 import ShopCard from "@components/Common/Card/ShopCard";
 import Drawer from "@components/Common/Drawer/Drawer";
 import RestaurantCategorySlider from "@components/Restaurant/RestaurantCategorySlider";
+import { useState } from "react";
 
 function MyMap({ userId, header }: MyMap) {
   const { data, isLoading } = useMyMapQuery(userId);
+  const [selected, setSelected] = useState<string[]>([]);
+  const filteredRestaurant = selected.length
+    ? data?.myMap.filter((data: MapItem) => selected.includes(data.restaurant.category))
+    : data?.myMap;
 
   //TODO: 로딩 UI 추가하기
   if (isLoading) {
@@ -26,10 +31,10 @@ function MyMap({ userId, header }: MyMap) {
           scroller
           closedHeight={250}
           openedHeight={500}
-          fixedComponent={<RestaurantCategorySlider />}
+          fixedComponent={<RestaurantCategorySlider select={{ selected, setSelected }} />}
         >
           <div className="flex flex-col gap-4">
-            {data?.myMap.map((data: MapItem) => (
+            {filteredRestaurant.map((data: MapItem) => (
               <ShopCard
                 key={data?.restaurant.id}
                 id={data?.restaurant.id}

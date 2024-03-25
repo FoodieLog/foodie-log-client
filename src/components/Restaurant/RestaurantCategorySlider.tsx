@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ReactNode, useState } from "react";
+import { Dispatch, ReactNode, SetStateAction } from "react";
 import { tagNames } from "@/src/constants";
 import {
   Asian,
@@ -20,9 +20,14 @@ import {
   WesternSelected,
 } from "@assets/icons";
 
-const RestaurantCategorySlider = () => {
-  const [selected, setSelected] = useState<string[]>([]);
+interface RestaurantCategorySliderProps {
+  select: {
+    selected: string[];
+    setSelected: Dispatch<SetStateAction<string[]>>;
+  };
+}
 
+const RestaurantCategorySlider = ({ select: { selected, setSelected } }: RestaurantCategorySliderProps) => {
   const onSelectToggleHandler = (tagName: string) => {
     if (selected.includes(tagName)) {
       setSelected(selected.filter((selectedTag) => tagName !== selectedTag));
