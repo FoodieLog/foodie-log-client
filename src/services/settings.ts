@@ -1,5 +1,5 @@
 import { userRequest } from "@services";
-import { PasswordType, WithdrawRequestBodyType } from "@@types/settings";
+import { PasswordType, WithdrawRequestBodyType, Notification } from "@@types/settings";
 import { getMessaging, deleteToken } from "firebase/messaging";
 import firebaseApp from "@/firebaseConfig";
 
@@ -33,7 +33,7 @@ export const postWithdraw = async (body: WithdrawRequestBodyType) => {
   return res;
 };
 
-export const putNotification = async (flag: string) => {
-  const res = await userRequest.put("/api/user/setting/notification", { flag });
+export const putNotification = async (flag: Notification) => {
+  const res = await userRequest.put("/api/user/setting/notification", flag);
   return res;
 };
