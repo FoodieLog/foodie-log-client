@@ -20,7 +20,6 @@ function useLocalStorage() {
     }
   }, []);
 
-  // 세 가지 메서드 반환
   return { setItem, getItem, removeItem };
 }
 
