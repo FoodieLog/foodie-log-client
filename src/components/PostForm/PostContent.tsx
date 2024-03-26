@@ -21,7 +21,7 @@ function PostContent() {
   const {
     user: { id: userId },
   } = useUserStore();
-  const { content, files, previews, setContent, setPreviews, resetContent } = usePostStore();
+  const { content, files, previews, setContent, setPreviews } = usePostStore();
   const {
     feed: { id: feedId, content: feedContent },
     setFeed,
