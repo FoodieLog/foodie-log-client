@@ -11,7 +11,7 @@ import useDebounce from "@hooks/useDebounce";
 function PostSearch() {
   const [keyword, setKeyword] = useState("");
   const [isSubmit, setIsSubmit] = useState(false);
-  const nextComponent = useSignUpStore((state) => state.nextComponent);
+  const { nextComponent } = useSignUpStore();
   const debouncedValue = useDebounce(keyword, 500);
 
   const inputKeywordHandler = (e: React.ChangeEvent<HTMLInputElement>) => {

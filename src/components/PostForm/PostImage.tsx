@@ -10,7 +10,7 @@ import PostImageList from "@components/PostForm/PostImageList";
 function PostImage() {
   const fileInput = useRef<HTMLInputElement>(null);
   const { files, previews, setFiles, setPreviews } = usePostStore();
-  const setNextComponent = useSignUpStore((state) => state.setNextComponent);
+  const { setNextComponent } = useSignUpStore();
 
   const clickPickImageHandler = () => {
     if (fileInput.current) {
