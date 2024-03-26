@@ -43,3 +43,5 @@ export type RestaurantCategory =
   | "dessert"
   | "japanese"
   | "snack";
+
+export type RestaurantSortType = "latest" | "popular";
