@@ -21,7 +21,7 @@ function PostContent() {
   const {
     user: { id: userId },
   } = useUserStore();
-  const { content, files, previews, setContent, setPreviews, resetContent } = usePostStore();
+  const { content, files, previews, setContent, setPreviews } = usePostStore();
   const {
     feed: { id: feedId, content: feedContent },
     setFeed,
@@ -47,7 +47,6 @@ function PostContent() {
       }
       await postFeed(formData);
       toast(TOAST_MESSAGES.POST_SUCCESS);
-      resetContent();
       setNextComponent("");
       router.replace("/main/mypage");
     } catch (err) {
@@ -59,7 +58,6 @@ function PostContent() {
     e.preventDefault();
     try {
       await updateFeed(feedId, feedContent);
-      resetContent();
       setNextComponent("");
       router.push(`/main/feed/${userId}?feedId=${feedId}`);
       toast(TOAST_MESSAGES.EDIT_POST_SUCCESS);
@@ -99,6 +97,7 @@ function PostContent() {
     };
     setPreviews(feedImages);
     setContent(newContent);
+    setFeed({ id: feedId, content: feed.content });
   };
 
   useEffect(() => {
