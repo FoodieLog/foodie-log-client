@@ -1,15 +1,22 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Header from "@components/Common/Header";
 import ShopCard from "@components/Common/Card/ShopCard";
 import useRestaurantDetailQuery from "@hooks/queries/useRestaurantDetailQuery";
 import RestaurantFeedList from "@components/Restaurant/RestaurantFeedList";
 import { RestaurantDetailBackground } from "@assets/images";
+import { RestaurantSortType } from "@@types/restaurant";
 
 function RestaurantReviewsPage({ params }: { params: { id: string } }) {
   const { id } = params;
 
-  const { data } = useRestaurantDetailQuery(Number(id));
+  const [sortMethod, setSortMethod] = useState<RestaurantSortType>("latest");
+
+  const { data, refetch } = useRestaurantDetailQuery(Number(id), sortMethod);
+
+  useEffect(() => {
+    refetch();
+  }, [sortMethod]);
 
   if (!data) return;
 
@@ -25,19 +32,36 @@ function RestaurantReviewsPage({ params }: { params: { id: string } }) {
       <div className="mb-4">
         <RestaurantDetailBackground />
       </div>
-      <ShopCard
-        id={Number(id)}
-        name={name}
-        category={category}
-        roadAddress={roadAddress}
-        isLiked={liked}
-        shopUrl={link}
-      />
-      {/* todo: 기능 구현 */}
+      <div className="mx-3">
+        <ShopCard
+          id={Number(id)}
+          name={name}
+          category={category}
+          roadAddress={roadAddress}
+          isLiked={liked}
+          shopUrl={link}
+        />
+      </div>
       {!!feedList.length && (
-        <div className="mt-[30px] mr-5 mb-2.5 text-right text-sm">
-          <button className="border-r px-[6px]">최신순</button>
-          <button className="px-[6px]">인기순</button>
+        <div className="mt-[30px] mr-3.5 mb-2.5 text-right text-sm text-gray-4">
+          <button
+            type="button"
+            className={`border-r px-1.5 ${sortMethod === "latest" && "text-gray-10"}`}
+            onClick={() => {
+              setSortMethod("latest");
+            }}
+          >
+            최신순
+          </button>
+          <button
+            type="button"
+            className={`px-1.5 ${sortMethod === "popular" && "text-gray-10"}`}
+            onClick={() => {
+              setSortMethod("popular");
+            }}
+          >
+            인기순
+          </button>
         </div>
       )}
       <RestaurantFeedList feedList={feedList} restaurantName={name} />
