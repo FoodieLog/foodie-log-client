@@ -29,11 +29,11 @@ function KaKaoCode() {
     if (!code) return;
     try {
       const { data } = await getKaKaoToken(code);
-      const expiration = new Date();
+      setItem("kakaoRefresh", data.refresh_token);
 
+      const expiration = new Date();
       expiration.setHours(expiration.getHours() + 6);
       setItem("expiration", expiration.toISOString());
-      setItem("kakaoRefresh", data.refresh_token);
 
       const {
         data: { response: res },
@@ -45,21 +45,21 @@ function KaKaoCode() {
         setTokenExpiry(expiryTime);
         initializePushNotifications();
         router.replace("/main/home");
-      } else if (res.status === null) {
-        setItem("kakaoToken", res.data.response.kakaoAccessToken);
-        setTokenExpiry(expiryTime);
-        setNextComponent("KaKaoTerms");
-      } else {
-        toast(TOAST_MESSAGES.KAKAO_LOGIN_WITHDRAW);
+      } else if (res.status === "WITHDRAW") {
         removeItem("kakaoRefresh");
         removeItem("kakaoToken");
         router.replace("/accounts/login");
+        toast(TOAST_MESSAGES.KAKAO_LOGIN_WITHDRAW);
+      } else {
+        setItem("kakaoToken", res.data.response.kakaoAccessToken);
+        setTokenExpiry(expiryTime);
+        setNextComponent("KaKaoTerms");
       }
     } catch (error) {
-      toast(TOAST_MESSAGES.KAKAO_LOGIN_FAILURE);
       removeItem("kakaoRefresh");
       removeItem("kakaoToken");
       router.replace("/accounts/login");
+      toast(TOAST_MESSAGES.KAKAO_LOGIN_FAILURE);
     }
   };
 
