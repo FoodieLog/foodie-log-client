@@ -3,12 +3,11 @@ import { useState } from "react";
 import { useUserStore } from "@store/useUserStore";
 import { useRouter } from "next/navigation";
 import { logoutKaKaoToken } from "@services/kakao";
-import useLogout from "@hooks/useLogout";
-import { LockReset, Logout, MilitaryTech, NotificationSmall } from "@assets/icons";
 import WithdrawModal from "@components/Settings/WithdrawModal";
 import Header from "@components/Common/Header";
 import SettingListItem from "@components/Settings/SettingListItem";
-import Toggle from "@components/Common/Toggle";
+import useLogout from "@hooks/useLogout";
+import SettingNotice from "@components/Settings/SettingNotice";
 
 function MySettings() {
   const [showModal, setShowModal] = useState(false);
@@ -46,27 +45,13 @@ function MySettings() {
   };
 
   return (
-    <div>
+    <div className="bg-gray-0 ">
       <Header title="설정 및 개인정보" back="prePage" />
       <ul>
-        <SettingListItem text="알림" icon={NotificationSmall}>
-          <div className="ml-[auto] flex items-center">
-            <Toggle />
-          </div>
-        </SettingListItem>
-        <SettingListItem
-          text="뱃지 신청"
-          icon={MilitaryTech}
-          onClickHandler={onClickBadge}
-          className="cursor-pointer"
-        />
-        <SettingListItem
-          text="비밀번호 변경"
-          icon={LockReset}
-          onClickHandler={onClickPassword}
-          className="cursor-pointer"
-        />
-        <SettingListItem text="로그아웃" icon={Logout} onClickHandler={onClickLogout} className="cursor-pointer" />
+        <SettingNotice />
+        <SettingListItem text="뱃지 신청" onClickHandler={onClickBadge} className="cursor-pointer" />
+        <SettingListItem text="비밀번호 변경" onClickHandler={onClickPassword} className="cursor-pointer" />
+        <SettingListItem text="로그아웃" onClickHandler={onClickLogout} className="cursor-pointer" />
       </ul>
       <div
         data-modal-target="authentication-modal"

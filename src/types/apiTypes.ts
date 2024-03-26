@@ -99,8 +99,6 @@ export type MapItem = {
   };
 };
 
-//Notification
-
 export interface User {
   id: number;
   nickName: string;

@@ -4,4 +4,4 @@ export * from "@constants/terms";
 export * from "@constants/toast";
 export * from "@constants/validation";
 export * from "@constants/tag";
-export * from "@constants/withdraw";
+export * from "@constants/settings";

@@ -3,12 +3,15 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import { PostFeedIcon } from "@assets/icons";
 import useShowPartial from "@hooks/useShowPartial";
+import useSignUpStore from "@store/useSignUpStore";
 
 function PostFeedButton() {
   const { isShow } = useShowPartial();
   const router = useRouter();
+  const { setNextComponent } = useSignUpStore();
 
   const clickPostButtonHandler = () => {
+    setNextComponent("PostSearch");
     router.push("/main/post");
   };
 

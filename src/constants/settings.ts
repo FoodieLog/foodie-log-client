@@ -19,3 +19,9 @@ export const WITHDRAW_REASON_LIST: WithDrawReasonType[] = [
     reason: "기타",
   },
 ];
+
+export const NOTICE_CATEGORY: { [key: string]: string } = {
+  replyFlag: "댓글",
+  likeFlag: "좋아요",
+  followFlag: "팔로우 알림",
+};
