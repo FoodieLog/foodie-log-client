@@ -100,6 +100,7 @@ function FeedReplyInput({ feedId, replyParentNum, setReplyParentNum }: FeedReply
         a11ySuggestionsListLabel="User suggestions"
       >
         <Mention
+          appendSpaceOnAdd
           trigger="@"
           data={searchUserList?.map((user: MentionUserType) => ({ id: user.id, display: user.nickName })) || []}
           renderSuggestion={renderSuggestion}
