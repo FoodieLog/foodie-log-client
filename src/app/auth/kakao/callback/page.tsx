@@ -4,7 +4,7 @@ import { useSearchParams, useRouter } from "next/navigation";
 import { getKaKaoToken, postKakaoToken, loginKaKaoToken } from "@services/kakao";
 import { useUserStore } from "@store/useUserStore";
 import { initializePushNotifications } from "@components/Notification/PushNotification";
-import { expiryTime } from "@utils/date";
+import { minutesInMilliseconds } from "@utils/date";
 import { useToast } from "@/components/ui/use-toast";
 import { TOAST_MESSAGES } from "@constants";
 import useSignUpStore from "@store/useSignUpStore";
@@ -42,7 +42,7 @@ function KaKaoCode() {
       if (res.status === "NORMAL") {
         const response = await loginKaKaoToken(res.kakaoAccessToken);
         setUser(response.data.response);
-        setTokenExpiry(expiryTime);
+        setTokenExpiry(Date.now() + minutesInMilliseconds);
         initializePushNotifications();
         router.replace("/main/home");
       } else if (res.status === "WITHDRAW") {
@@ -52,7 +52,7 @@ function KaKaoCode() {
         toast(TOAST_MESSAGES.KAKAO_LOGIN_WITHDRAW);
       } else {
         setItem("kakaoToken", res.data.response.kakaoAccessToken);
-        setTokenExpiry(expiryTime);
+        setTokenExpiry(Date.now() + minutesInMilliseconds);
         setNextComponent("KaKaoTerms");
       }
     } catch (error) {
