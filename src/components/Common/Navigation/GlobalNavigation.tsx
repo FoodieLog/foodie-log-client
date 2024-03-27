@@ -11,7 +11,7 @@ function GlobalNavigation() {
   return (
     <>
       {isShow && (
-        <nav className="fixed bottom-0 left-0 right-0 z-10 w-full max-w-screen-sm mx-auto h-[80px] border-t-[1px] bg-gray-0 border-solid sm:hidden">
+        <nav className="fixed bottom-0 left-0 right-0 z-10 w-full max-w-screen-sm mx-auto h-20 border-t-[1px] bg-gray-0 border-solid sm:hidden">
           <ul className="h-full flex px-2.5">
             {globalNavigation.map((link) => {
               const isActive = pathname === link.route;
