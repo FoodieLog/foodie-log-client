@@ -6,6 +6,7 @@ import { useUserStore } from "@store/useUserStore";
 import DropDown from "@components/Common/DropDown/DropDown";
 import ReplyContent from "@components/Feed/ReplyContent";
 import UserThumbImg from "@components/Common/Profile/UserThumbImg";
+import NestedReplyItem from "@components/Feed/NestedReplyItem";
 
 interface FeedReplyItemProps {
   feedId: number;
@@ -15,7 +16,9 @@ interface FeedReplyItemProps {
 }
 
 function FeedReplyItem({ feedId, reply, userId, setReplyParentNum }: FeedReplyItemProps) {
-  const { id, nickName } = useUserStore((state) => state.user);
+  const {
+    user: { id, nickName },
+  } = useUserStore();
   const { id: replyId, nickName: replyNickName, profileImageUrl, childList } = reply;
   const [showMore, setShowMore] = useState(false);
 
@@ -53,21 +56,10 @@ function FeedReplyItem({ feedId, reply, userId, setReplyParentNum }: FeedReplyIt
           />
         </div>
       </div>
-      {showMore && (
+      {showMore && childList.length !== 0 && (
         <ul className="mt-4 pl-[62px] flex flex-col gap-4">
           {childList.map((reply) => (
-            <li key={reply.id} className="relative">
-              <ReplyContent userId={reply.userId} reply={reply} />
-              <div className="absolute right-0 top-0">
-                <DropDown
-                  name={replyNickName}
-                  option={replyNickName === nickName ? "본인댓글" : "타인"}
-                  feedId={feedId}
-                  replyId={replyId}
-                  type={"댓글"}
-                />
-              </div>
-            </li>
+            <NestedReplyItem key={reply.id} reply={reply} feedId={feedId} />
           ))}
         </ul>
       )}
