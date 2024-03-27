@@ -1,6 +1,6 @@
 import { RestaurantCategory } from "../types/restaurant";
 
-export const tagNames = ["한식", "카페", "디저트", "분식", "아시안", "일식", "양식", "주점"];
+export const tagNames = ["한식", "카페", "디저트", "분식", "아시안", "일식", "양식", "주점", "기타"];
 
 export const categoryTags: { [key: string]: RestaurantCategory } = {
   한식: "korean",
@@ -11,5 +11,6 @@ export const categoryTags: { [key: string]: RestaurantCategory } = {
   일식: "japanese",
   양식: "western",
   주점: "bar",
+  기타: "etc",
   전체: "",
 };
