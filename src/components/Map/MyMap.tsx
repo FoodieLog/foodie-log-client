@@ -12,6 +12,7 @@ import { useState } from "react";
 function MyMap({ userId, header }: MyMap) {
   const { data, isLoading } = useMyMapQuery(userId);
   const [selected, setSelected] = useState<string[]>([]);
+
   const filteredRestaurant = selected.length
     ? data?.myMap.filter((data: MapItem) => selected.includes(data.restaurant.category))
     : data?.myMap;

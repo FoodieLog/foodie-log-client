@@ -11,7 +11,7 @@ import Button from "@components/Common/Button";
 import Line from "@components/Common/Line";
 import KaKaoLoginBtn from "@components/Common/Button/KaKaoLoginBtn";
 import { TOAST_MESSAGES } from "@constants";
-import { expiryTime } from "@utils/date";
+import { minutesInMilliseconds } from "@utils/date";
 
 function LogInForm() {
   const [logInData, setLogInData] = useState({
@@ -35,7 +35,7 @@ function LogInForm() {
       const body = { email: logInData.email, password: logInData.password };
       const res = await logIn(body);
       setUser(res.data.response);
-      setTokenExpiry(expiryTime); // 만료 시간 설정
+      setTokenExpiry(Date.now() + minutesInMilliseconds); // 만료 시간 설정
       initializePushNotifications();
       router.replace("/main/home");
     } catch (err) {
