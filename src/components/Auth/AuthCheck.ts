@@ -26,7 +26,6 @@ const AuthCheck: React.FC = () => {
         const { accessToken } = JSON.parse(useStorage).state.user;
 
         if (!accessToken) {
-          toast({ description: "로그인이 필요합니다." });
           router.push("/accounts/login");
         } else {
           setUser({ accessToken });
