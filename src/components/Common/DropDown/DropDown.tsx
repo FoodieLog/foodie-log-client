@@ -9,16 +9,16 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { DialogProps } from "@@types/common";
 import { deleteFeed } from "@services/feed";
-
 import { useToast } from "@/components/ui/use-toast";
-import { MoreVert } from "@assets/icons";
+import { MoreVert, SettingsIcon } from "@assets/icons";
+import { TOAST_MESSAGES } from "@constants";
 import DialogReport from "@components/Common/Dialog/DialogReport";
 import DialogConfirm from "@components/Common/Dialog/DialogConfirm";
 import useSignUpStore from "@store/useSignUpStore";
 import useFeedStore from "@store/useFeedStore";
 import useReplyMutation from "@hooks/mutations/useReplyMutation";
 
-function DropDown({ name, option, feedId = 0, replyId = 0, type = "", content = "", className = "" }: DialogProps) {
+function DropDown({ option, feedId = 0, replyId = 0, type = "", content = "", className = "" }: DialogProps) {
   const setNextComponent = useSignUpStore((state) => state.setNextComponent);
   const router = useRouter();
   const [showReportDialog, setShowReportDialog] = useState(false);
@@ -33,12 +33,11 @@ function DropDown({ name, option, feedId = 0, replyId = 0, type = "", content = 
 
   switch (option) {
     case "설정 및 개인정보":
-      items = ["설정 및 개인정보"];
-      onClickHandler = () => {
-        router.push("/main/settings");
-        return;
-      };
-      break;
+      return (
+        <button type="button" onClick={() => router.push("/main/settings")}>
+          <SettingsIcon />
+        </button>
+      );
     case "타인":
       items = ["신고"];
       onClickHandler = () => {
@@ -72,11 +71,10 @@ function DropDown({ name, option, feedId = 0, replyId = 0, type = "", content = 
   const handleConfirmDelete = async () => {
     try {
       await deleteFeed(feedId);
-
-      toast({ description: "피드가 정상 삭제 되었습니다👍!" });
+      toast(TOAST_MESSAGES.FEED_DELETE_SUCCESS);
       setShowConfirmDialog(false);
     } catch (error) {
-      toast({ description: "게시글 삭제 중 에러가 발생했습니다. 다시 시도해주세요!🙄" });
+      toast(TOAST_MESSAGES.FEED_DELETE_FAILURE);
     }
   };
 
@@ -103,8 +101,7 @@ function DropDown({ name, option, feedId = 0, replyId = 0, type = "", content = 
         </DropdownMenuContent>
       </DropdownMenu>
       <DialogReport
-        id={feedId}
-        name={name}
+        id={type === "게시글" ? feedId : replyId}
         type={type}
         isOpened={showReportDialog}
         onClose={() => setShowReportDialog(false)}
