@@ -27,7 +27,6 @@ export interface DialogConfirmProps {
 
 export interface DialogReportProps {
   id: number;
-  name: string;
   type: string;
   isOpened: boolean;
   onClose: () => void;
