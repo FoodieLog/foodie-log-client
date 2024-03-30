@@ -39,6 +39,8 @@ import CheckedCircle from "@assets/icons/common/checkedcircle.svg";
 import UncheckedCircle from "@assets/icons/common/uncheckedcircle.svg";
 import PostFeedIcon from "@assets/icons/common/edit.svg";
 import CaretRight from "@assets/icons/common/CaretRight.svg";
+import SendAble from "@assets/icons/common/send_able.svg";
+import SendDisAble from "@assets/icons/common/send_disabled.svg";
 
 //============ 아이콘 - GNB ============
 
@@ -111,6 +113,8 @@ export {
   UncheckedCircle,
   PostFeedIcon,
   CaretRight,
+  SendAble,
+  SendDisAble,
 
   //GNB
   Person,
