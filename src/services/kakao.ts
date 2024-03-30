@@ -10,13 +10,6 @@ export const kakaoLogin = async () => {
   window.location.href = KAKAO_AUTH_URL;
 };
 
-// 카카오 코드 전송
-export const sendKakaoCode = (code: string) => {
-  const res = axiosRequest.get(`/api/auth/login/kakao?code=${code}`);
-
-  return res;
-};
-
 // 카카오 토큰 발급
 export const getKaKaoToken = async (code: string) => {
   const res = await kakaoRequest.post("https://kauth.kakao.com/oauth/token", {
