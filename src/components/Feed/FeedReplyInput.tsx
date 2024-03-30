@@ -6,6 +6,7 @@ import { MentionsInput, Mention, SuggestionDataItem } from "react-mentions";
 import useSearchUser from "@hooks/queries/useSearchUser";
 import MentionItem from "@components/Feed/MentionItem";
 import { MentionUserType, PostReplyType } from "@@types/reply";
+import { SendAble, SendDisAble } from "@assets/icons";
 
 interface FeedReplyInputProps {
   feedId: number;
@@ -54,6 +55,11 @@ function FeedReplyInput({ feedId, replyParentNum, setReplyParentNum }: FeedReply
     }
   };
 
+  const clickSubmitReplyHandler = () => {
+    submitReply();
+    setReplyParentNum(null);
+  };
+
   const mentionDisplayTransform = (id: string | number, display: string) => {
     return "@" + display;
   };
@@ -75,7 +81,6 @@ function FeedReplyInput({ feedId, replyParentNum, setReplyParentNum }: FeedReply
     if (focusRef.current) {
       focusRef.current.blur();
     }
-    setReplyParentNum(null);
   };
 
   useEffect(() => {
@@ -83,7 +88,7 @@ function FeedReplyInput({ feedId, replyParentNum, setReplyParentNum }: FeedReply
   }, [replyParentNum]);
 
   return (
-    <form className="flex px-2 py-1.5 border-y fixed bottom-0 w-full bg-gray-0 ">
+    <form className="flex px-2 py-1.5 border-y fixed bottom-0 w-full bg-gray-0">
       <div className="w-[42px] h-[42px]">
         <UserThumbImg src={profileImageUrl} alt={`${nickName} 프로필 이미지`} customWidth={42} customHeight={42} />
       </div>
@@ -109,6 +114,14 @@ function FeedReplyInput({ feedId, replyParentNum, setReplyParentNum }: FeedReply
           className="mentions__mention"
         />
       </MentionsInput>
+      <button
+        type="button"
+        disabled={reply.length ? false : true}
+        className="ml-auto"
+        onClick={clickSubmitReplyHandler}
+      >
+        {reply.length ? <SendAble /> : <SendDisAble />}
+      </button>
     </form>
   );
 }
