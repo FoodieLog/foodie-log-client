@@ -25,3 +25,11 @@ export const NOTICE_CATEGORY: { [key: string]: string } = {
   likeFlag: "좋아요",
   followFlag: "팔로우 알림",
 };
+
+export const REPORT_RESEASON: { [key: string]: string } = {
+  광고: "ADVERTISEMENT",
+  욕설: "SWEARING",
+  음란행위: "OBSCENITY",
+  명예훼손: "DEFAMATION",
+  기타: "ETC",
+};
