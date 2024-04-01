@@ -63,6 +63,7 @@ import Korean from "@assets/icons/tag/korean.svg";
 import Snack from "@assets/icons/tag/snack.svg";
 import Western from "@assets/icons/tag/western.svg";
 import Fusion from "@assets/icons/tag/fusion.svg";
+import Etc from "@assets/icons/tag/etc.svg";
 import AsianSelected from "@assets/icons/tag/asian_selected.svg";
 import BarSelected from "@assets/icons/tag/bar_selected.svg";
 import CafeSelected from "@assets/icons/tag/cafe_selected.svg";
@@ -72,6 +73,7 @@ import KoreanSelected from "@assets/icons/tag/korean_selected.svg";
 import SnackSelected from "@assets/icons/tag/snack_selected.svg";
 import WesternSelected from "@assets/icons/tag/western_selected.svg";
 import FusionSelected from "@assets/icons/tag/fusion_selected.svg";
+import EtcSelected from "@assets/icons/tag/etc_selected.svg";
 
 export {
   // Common
@@ -138,6 +140,7 @@ export {
   Snack,
   Western,
   Fusion,
+  Etc,
   AsianSelected,
   BarSelected,
   CafeSelected,
@@ -147,4 +150,5 @@ export {
   SnackSelected,
   WesternSelected,
   FusionSelected,
+  EtcSelected,
 };
