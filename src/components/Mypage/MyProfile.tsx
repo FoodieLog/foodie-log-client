@@ -56,7 +56,7 @@ function Mypage({ userId, option }: Mypage) {
   return (
     <section className="w-full sm:max-w-[640px] mx-auto h-[100vh] overflow-hidden relative">
       <MyFriendList data={myFollowerData} object={object} isOpener={showFriendList} setIsOpener={setShowFriendList} />
-      <Header title="마이" back="prePage" option={option} />
+      <Header title={option === "타인" ? "" : "마이"} back="prePage" option={option} />
       <main className="px-4 py-5 space-y-3">
         <div className="flex justify-between items-center mb-3 gap-6 shrink-0">
           <UserThumbnail profileImgUrl={data?.profileImageUrl} userId={data?.userId} size="w-[90px] h-[90px]" />
