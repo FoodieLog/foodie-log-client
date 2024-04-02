@@ -19,7 +19,6 @@ type UserState = {
   user: User;
   setUser: (user: User) => void;
   setTokenExpiry: (expiry: number) => void;
-  setCheckStatus: (value: Notification) => void;
   clearUser: () => void;
 };
 
@@ -38,11 +37,6 @@ export const useUserStore = create<UserState>()(
         followFlag: "Y",
         likeFlag: "Y",
       },
-      checkStatus: {
-        replyFlag: "Y",
-        likeFlag: "Y",
-        followFlag: "Y",
-      },
       setUser: (user: User) =>
         set((prevState) => ({
           ...prevState,
@@ -59,7 +53,6 @@ export const useUserStore = create<UserState>()(
             tokenExpiry: expiry,
           },
         })),
-      setCheckStatus: (data: Notification) => set((pre) => ({ user: { ...pre.user, ...data } })),
       clearUser: () =>
         set((prevState) => ({
           ...prevState,
