@@ -10,6 +10,10 @@ import {
   CafeSelected,
   Dessert,
   DessertSelected,
+  Etc,
+  EtcSelected,
+  Fusion,
+  FusionSelected,
   Japanese,
   JapaneseSelected,
   Korean,
@@ -50,7 +54,8 @@ const RestaurantCategorySlider = ({ select: { selected, setSelected } }: Restaur
     일식: { unSelected: <Japanese />, selected: <JapaneseSelected /> },
     양식: { unSelected: <Western />, selected: <WesternSelected /> },
     주점: { unSelected: <Bar />, selected: <BarSelected /> },
-    기타: { unSelected: <div />, selected: <div /> },
+    퓨전: { unSelected: <Fusion />, selected: <FusionSelected /> },
+    기타: { unSelected: <Etc />, selected: <EtcSelected /> },
   };
 
   return (
