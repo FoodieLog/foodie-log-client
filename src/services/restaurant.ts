@@ -1,17 +1,17 @@
 import { userRequest } from "@services";
-import { RecommendAPIResponse, RestaurantSortType } from "@@types/restaurant";
+import { RecommendAPIResponse, RecommendListAPIResponse, RestaurantSortType } from "@@types/restaurant";
 
 export const getRestaurantDetail = async (
   restaurantId: number,
   sort?: RestaurantSortType
 ): Promise<RecommendAPIResponse> => {
-  const res = await userRequest.get(`/api/restaurant/${restaurantId}?sort=${sort || "latest"}`);
-  return res.data;
+  const { data } = await userRequest.get(`/api/restaurant/${restaurantId}?sort=${sort || "latest"}`);
+  return data;
 };
 
-export const getRecommendedRestaurant = async (region: string) => {
-  const res = await userRequest.get(`/api/restaurant/recommended?address=${region}`);
-  return res;
+export const getRecommendedRestaurant = async (region: string): Promise<RecommendListAPIResponse> => {
+  const { data } = await userRequest.get(`/api/restaurant/recommended?address=${region}`);
+  return data;
 };
 
 export const getLikedShop = async () => {
