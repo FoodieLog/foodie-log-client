@@ -10,6 +10,7 @@ import { useToast } from "@/components/ui/use-toast";
 import Button from "@components/Common/Button";
 import Line from "@components/Common/Line";
 import KaKaoLoginBtn from "@components/Common/Button/KaKaoLoginBtn";
+import useNotificationStore from "@/src/store/useNotificationStore";
 import { TOAST_MESSAGES } from "@constants";
 import { minutesInMilliseconds } from "@utils/date";
 
@@ -21,6 +22,8 @@ function LogInForm() {
   const { toast } = useToast();
   const router = useRouter();
   const { setUser, setTokenExpiry } = useUserStore();
+  const { setCheckStatus } = useNotificationStore();
+
   const { LOGIN_FAILURE } = TOAST_MESSAGES;
 
   const onClickHandler: React.MouseEventHandler<HTMLButtonElement> = (event) => {
@@ -33,9 +36,14 @@ function LogInForm() {
 
     try {
       const body = { email: logInData.email, password: logInData.password };
-      const res = await logIn(body);
-      setUser(res.data.response);
-      setTokenExpiry(Date.now() + minutesInMilliseconds); // 만료 시간 설정
+      const {
+        data: { response },
+      } = await logIn(body);
+      const { replyFlag, followFlag, likeFlag } = response;
+
+      setUser(response);
+      setCheckStatus({ replyFlag, followFlag, likeFlag });
+      setTokenExpiry(Date.now() + minutesInMilliseconds);
       initializePushNotifications();
       router.replace("/main/home");
     } catch (err) {
