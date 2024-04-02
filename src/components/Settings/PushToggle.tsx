@@ -25,7 +25,7 @@ function Toggle({ type }: ToggleProps) {
     } else {
       setCheckStatus({ [type]: flag });
     }
-    // pushMutation.mutate();
+    pushMutation.mutate();
   };
 
   return (
