@@ -5,7 +5,8 @@
 
 ## 프로젝트 소개
 > 주제: 지도형 맛집 공유 및 추천 SNS 플랫폼 <br/>
-> 기간: 2023.07.05 ~ 2023.10.10 <br/>
+> 기간: 2023.07.05 ~ 2023.10.10 (v1.0.0)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2024.02.14 ~ 2024.04.02 (v2.3.0)<br/>
 > 배포 주소: [푸디로그](https://www.foodielog.shop/) <br/>
 > 테스트용 ID: boo5@gmail.com , PW: abcd1234!
 
@@ -52,16 +53,29 @@
 ## 개발팀
 > 🧑‍💻 [프론트엔드](https://github.com/FoodieLog/foodie-log-client/) <br/>
 
-|<a href="https://github.com/ChoEun-Sang"><img src="https://avatars.githubusercontent.com/u/128155681?v=4" width=150px alt="조은상" />|<a href="https://github.com/iskra17"><img src="https://avatars.githubusercontent.com/u/61578822?v=4" width=150px alt="오소민" />|<a href="https://github.com/iskra17"><img src="https://avatars.githubusercontent.com/u/128365197?v=4" width=150px alt="정재현" />|
+_푸디로그 v1.0.0_ - 기획 / 디자인 / 개발
+
+|<a href="https://github.com/ChoEun-Sang"><img src="https://avatars.githubusercontent.com/u/128155681?v=4" width=150px alt="조은상" />|<a href="https://github.com/iskra17"><img src="https://avatars.githubusercontent.com/u/128365197?v=4" width=150px alt="정재현" />|
+|:---------------------------------------------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------------------------------------------:|
+|                                             **[조은상](https://github.com/ChoEun-Sang)**                                             |                                             **[정재현](https://github.com/iskra17)**                                             |
+|인증/인가 <br/> 피드 등록/수정/삭제 <br/> 맛집 지도 <br/> 유저 페이지 <br/> 설정 및 개인정보 페이지 | 피드 목록 <br/> 댓글 작성/삭제 <br/> 지역별 맛집 추천 <br/> 관리자 페이지|
+
+</br>
+
+_Foodie Log v2.3.0_ - 코드 리팩토링 / 추가 기능 / 디자인 리뉴얼
+
+|<a href="https://github.com/ChoEun-Sang"><img src="https://avatars.githubusercontent.com/u/128155681?v=4" width=150px alt="조은상" />|<a href="https://github.com/iskra17"><img src="https://avatars.githubusercontent.com/u/61578822?v=4" width=150px alt="오소민" />|<a href="https://github.com/iskra17"><img src="https://avatars.githubusercontent.com/u/122417731?v=4" width=150px alt="차동민" />|
 |:---------------------------------------------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------------------------------------------:|
-|                                             **[조은상](https://github.com/ChoEun-Sang)**                                             |                                             **[오소민](https://github.com/somin00)**                                             |                                             **[정재현](https://github.com/iskra17)**                                             |
-|인증/인가 <br/> 피드 등록/수정/삭제 <br/> 맛집 지도 <br/> 마이페이지 <br/> 개인정보 설정| 피드 등록 <br/> 지역별 맛집 추천<br/> 설정 및 개인정보 페이지 |피드 목록 <br/> 댓글 작성/삭제<br/> 지역별 식당 추천|
+|                                             **[조은상](https://github.com/ChoEun-Sang)**                                             |                                             **[오소민](https://github.com/somin00)**                                             |                                             **[차동민](https://github.com/cdm1263)**                                             |
+|피드 목록 <br/> 유저 페이지 <br/> 유저 검색 <br/> 로그인 <br/> 푸시 알림 기능| 피드 작성 및 수정 <br/> 지역별 맛집 추천 <br/> 설정 및 개인 정보 수정 <br/> 대댓글, 멘션 기능| 맛집 지도 <br/> 피드 카테고리 <br/> 식당 상세 <br/> 관리자 페이지 |
+
+<br/>
 
 > 🧑‍💻 [백엔드](https://github.com/FoodieLog/foodie-log-server) <br/>
 
-|<a href="https://github.com/chaewon12"><img src="https://avatars.githubusercontent.com/u/65496092?v=4" width=150px alt="엄채원" />|<a href="https://github.com/sohn919"><img src="https://avatars.githubusercontent.com/u/84082544?v=4" width=150px alt="손영준" />|<a href="[https://github.com/ChoEun-Sang](https://github.com/inyoung0215)"><img src="https://avatars.githubusercontent.com/u/86757234?v=4" width=150px alt="정재현" />|
-|:---------------------------------------------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------------------------------------------:|
 |                                             **[엄채원](https://github.com/chaewon12)**                                             |                                             **[손영준](https://github.com/sohn919)**                                             |                                             **[황인영](https://github.com/inyoung0215)**                                             |
+|:---------------------------------------------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------------------------------------------:|
+
 
 ### clone project
 
