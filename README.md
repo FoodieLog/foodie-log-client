@@ -53,7 +53,7 @@
 ## 개발팀
 > 🧑‍💻 [프론트엔드](https://github.com/FoodieLog/foodie-log-client/) <br/>
 
-_푸디로그 v1.0.0_ - 기획 / 디자인 / 개발
+_Foodie Log v1.0.0_ - 기획 / 디자인 / 개발
 
 |<a href="https://github.com/ChoEun-Sang"><img src="https://avatars.githubusercontent.com/u/128155681?v=4" width=150px alt="조은상" />|<a href="https://github.com/iskra17"><img src="https://avatars.githubusercontent.com/u/128365197?v=4" width=150px alt="정재현" />|
 |:---------------------------------------------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------------------------------------------:|
