@@ -11,11 +11,28 @@ export interface RecommendAPIResponse extends APIResponseType {
   };
 }
 
+export interface RecommendListAPIResponse extends APIResponseType {
+  response: {
+    restaurantList: RecommendRestaurantType[];
+  };
+}
+
 export interface RestaurantType {
   id: number;
   name: string;
   category: string;
   link: string;
+  roadAddress: string;
+}
+
+export interface RecommendRestaurantType {
+  category: string;
+  feedList: {
+    feedId: number;
+    thumbnailUrl: string;
+  }[];
+  name: string;
+  restaurantId: number;
   roadAddress: string;
 }
 

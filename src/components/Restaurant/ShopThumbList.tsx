@@ -11,7 +11,16 @@ function ShopThumbList({ searchQuery }: ShopThumbListProps) {
   const { data } = useRecommendQuery(searchQuery);
 
   if (!data) return;
-  const restaurants: RecommendedRestaurant[] = data.data.response.restaurantList;
+
+  const restaurants: RecommendedRestaurant[] = data.response.restaurantList;
+
+  if (!restaurants.length) {
+    return (
+      <div className="w-full text-center mt-44 text-gray-10">
+        <span className="text-red font-semibold">{`"${searchQuery}"`}</span>에 해당하는 맛집이 없습니다.
+      </div>
+    );
+  }
 
   return (
     <ul className="w-full flex flex-col items-center pt-2.5">
