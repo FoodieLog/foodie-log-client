@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ReactNode, useState } from "react";
+import { Dispatch, ReactNode, SetStateAction } from "react";
 import { tagNames } from "@/src/constants";
 import {
   Asian,
@@ -10,6 +10,10 @@ import {
   CafeSelected,
   Dessert,
   DessertSelected,
+  Etc,
+  EtcSelected,
+  Fusion,
+  FusionSelected,
   Japanese,
   JapaneseSelected,
   Korean,
@@ -20,9 +24,14 @@ import {
   WesternSelected,
 } from "@assets/icons";
 
-const RestaurantCategorySlider = () => {
-  const [selected, setSelected] = useState<string[]>([]);
+interface RestaurantCategorySliderProps {
+  select: {
+    selected: string[];
+    setSelected: Dispatch<SetStateAction<string[]>>;
+  };
+}
 
+const RestaurantCategorySlider = ({ select: { selected, setSelected } }: RestaurantCategorySliderProps) => {
   const onSelectToggleHandler = (tagName: string) => {
     if (selected.includes(tagName)) {
       setSelected(selected.filter((selectedTag) => tagName !== selectedTag));
@@ -45,6 +54,8 @@ const RestaurantCategorySlider = () => {
     일식: { unSelected: <Japanese />, selected: <JapaneseSelected /> },
     양식: { unSelected: <Western />, selected: <WesternSelected /> },
     주점: { unSelected: <Bar />, selected: <BarSelected /> },
+    퓨전: { unSelected: <Fusion />, selected: <FusionSelected /> },
+    기타: { unSelected: <Etc />, selected: <EtcSelected /> },
   };
 
   return (

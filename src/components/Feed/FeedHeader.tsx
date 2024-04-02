@@ -22,7 +22,7 @@ function FeedHeader({ data, isFollowed }: FeedHeaderProps) {
         <DropDown
           name={data.nickName}
           option={data.userId === userId ? "본인" : "타인"}
-          id={data.feedId}
+          feedId={data.feedId}
           type={"게시글"}
           content={data.content}
         />

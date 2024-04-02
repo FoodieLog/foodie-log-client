@@ -38,6 +38,9 @@ import EyeSlash from "@assets/icons/common/EyeSlash.svg";
 import CheckedCircle from "@assets/icons/common/checkedcircle.svg";
 import UncheckedCircle from "@assets/icons/common/uncheckedcircle.svg";
 import PostFeedIcon from "@assets/icons/common/edit.svg";
+import CaretRight from "@assets/icons/common/CaretRight.svg";
+import SendAble from "@assets/icons/common/send_able.svg";
+import SendDisAble from "@assets/icons/common/send_disabled.svg";
 
 //============ 아이콘 - GNB ============
 
@@ -59,6 +62,8 @@ import Japanese from "@assets/icons/tag/japanese.svg";
 import Korean from "@assets/icons/tag/korean.svg";
 import Snack from "@assets/icons/tag/snack.svg";
 import Western from "@assets/icons/tag/western.svg";
+import Fusion from "@assets/icons/tag/fusion.svg";
+import Etc from "@assets/icons/tag/etc.svg";
 import AsianSelected from "@assets/icons/tag/asian_selected.svg";
 import BarSelected from "@assets/icons/tag/bar_selected.svg";
 import CafeSelected from "@assets/icons/tag/cafe_selected.svg";
@@ -67,6 +72,8 @@ import JapaneseSelected from "@assets/icons/tag/japanese_selected.svg";
 import KoreanSelected from "@assets/icons/tag/korean_selected.svg";
 import SnackSelected from "@assets/icons/tag/snack_selected.svg";
 import WesternSelected from "@assets/icons/tag/western_selected.svg";
+import FusionSelected from "@assets/icons/tag/fusion_selected.svg";
+import EtcSelected from "@assets/icons/tag/etc_selected.svg";
 
 export {
   // Common
@@ -109,6 +116,9 @@ export {
   CheckedCircle,
   UncheckedCircle,
   PostFeedIcon,
+  CaretRight,
+  SendAble,
+  SendDisAble,
 
   //GNB
   Person,
@@ -129,6 +139,8 @@ export {
   Korean,
   Snack,
   Western,
+  Fusion,
+  Etc,
   AsianSelected,
   BarSelected,
   CafeSelected,
@@ -137,4 +149,6 @@ export {
   KoreanSelected,
   SnackSelected,
   WesternSelected,
+  FusionSelected,
+  EtcSelected,
 };

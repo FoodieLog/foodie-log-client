@@ -1,46 +1,46 @@
 "use client";
-import { useState, useEffect } from "react";
-import { getReplyList } from "@services/reply";
+import { useState } from "react";
 import { ReplyListProps } from "@@types/feed";
-import { APIReplyListResponse } from "@@types/reply";
 import FeedReplyItem from "@components/Feed/FeedReplyItem";
 import FeedReplyInput from "@components/Feed/FeedReplyInput";
-import FeedReplyContent from "./FeedReplyContent";
+import useReplyList from "@hooks/queries/useReplyList";
+import { CloseSmall } from "@assets/icons";
 
 const FeedReplyList: React.FC<ReplyListProps> = ({ id: feedId }) => {
-  const initialAuthorState: APIReplyListResponse["response"] = {
-    userId: 0,
-    nickName: "",
-    profileImageUrl: null,
-    content: "",
-    createdAt: "",
-    replyList: [],
-  };
-  const [author, setAuthor] = useState<APIReplyListResponse["response"]>(initialAuthorState);
-  const [replies, setReplies] = useState<APIReplyListResponse["response"]["replyList"]>([]);
-
-  useEffect(() => {
-    getReply();
-  }, [feedId]);
-
-  const getReply = async () => {
-    const { response } = await getReplyList(Number(feedId));
-    setAuthor(response);
-    setReplies(response.replyList);
-  };
+  const { data } = useReplyList(Number(feedId));
+  const [replyParentNum, setReplyParentNum] = useState<number | null>(null);
+  const replyParentUser = data?.replyList.find((reply) => reply.id === replyParentNum)?.nickName;
 
   return (
-    <div className="w-full flex flex-col">
-      <div className="px-4">
-        <FeedReplyContent data={author} />
-        <ul>
-          {replies.map((reply) => {
-            return <FeedReplyItem key={reply.id} reply={reply} userId={author.userId} setReplies={setReplies} />;
-          })}
+    <>
+      <div className="w-full h-full flex flex-col justify-between pb-[60px]">
+        <ul className="h-full">
+          {data?.replyList.map((reply) => (
+            <FeedReplyItem
+              key={reply.id}
+              feedId={Number(feedId)}
+              reply={reply}
+              userId={data.author.userId}
+              setReplyParentNum={setReplyParentNum}
+            />
+          ))}
         </ul>
       </div>
-      <FeedReplyInput feedId={feedId} setReplies={setReplies} />
-    </div>
+      {replyParentNum && (
+        <div className="fixed bottom-14 bg-gray-1 w-full flex justify-between px-3 py-2 rounded-t-lg text-gray-10">
+          <span>{replyParentUser}님에게 댓글 작성 중</span>
+          <button
+            type="button"
+            onClick={() => {
+              setReplyParentNum(null);
+            }}
+          >
+            <CloseSmall />
+          </button>
+        </div>
+      )}
+      <FeedReplyInput feedId={Number(feedId)} replyParentNum={replyParentNum} setReplyParentNum={setReplyParentNum} />
+    </>
   );
 };
 

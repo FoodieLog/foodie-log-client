@@ -6,7 +6,7 @@ const useRecommendQuery = (searchQuery: string) => {
     queryKey: ["recommend", searchQuery],
     queryFn: async () => await getRecommendedRestaurant(searchQuery),
     enabled: !!searchQuery,
-    staleTime: 1000 * 60 * 60,
+    staleTime: 1000 * 60 * 3,
   });
 };
 

@@ -17,6 +17,8 @@ export const TOAST_MESSAGES = {
   POST_FAILURE: { description: "게시글 등록 중 오류 발생하였습니다." },
   EDIT_POST_SUCCESS: { description: "게시글 수정되었습니다!" },
   EDIT_POST_FAILURE: { description: "게시글 수정에 오류 발생하였습니다!" },
+  FEED_DELETE_SUCCESS: { description: "피드가 삭제되었습니다!" },
+  FEED_DELETE_FAILURE: { description: "게시글 삭제 중 에러가 발생했습니다. 다시 시도해주세요!" },
   APPLY_BADGE_SUCCESS: { description: "뱃지 신청되었습니다!" },
   APPLY_BADGE_FAILURE: { description: "뱃지 신청을 실패했습니다. 다시 시도해주세요." },
   WITHDRAW_REASON_EMPTY: { description: "🥲 탈퇴 사유를 입력해주세요." },
@@ -32,4 +34,8 @@ export const TOAST_MESSAGES = {
     title: "탈퇴 계정 가입 불가",
     description: "탈퇴한 계정으로 재가입 불가합니다.\n 로그인 페이지로 이동합니다.",
   },
+  REPLY_POST_ERROR: { title: "댓글 작성 오류 발생", description: "처리 중에 오류가 발생하였습니다." },
+  REPLY_DELETE_ERROR: { title: "삭제 오류 발생", description: "처리 중에 오류가 발생하였습니다." },
+  REPORT_SUCCESS: { title: "신고정상 접수", description: "신고가 정상 접수 되었습니다." },
+  REPORT_FAILURE: { title: "오류 발생", description: "신고 처리 중 오류 발생하였습니다." },
 };

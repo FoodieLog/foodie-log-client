@@ -1,45 +1,127 @@
-import { Dispatch, SetStateAction, useState } from "react";
-import { saveReply } from "@services/reply";
-import { APIReplyListResponse } from "@@types/reply";
-import { toast } from "@/components/ui/use-toast";
+import { KeyboardEvent, useEffect, useRef, useState } from "react";
+import useReplyMutation from "@hooks/mutations/useReplyMutation";
+import UserThumbImg from "@components/Common/Profile/UserThumbImg";
+import { useUserStore } from "@store/useUserStore";
+import { MentionsInput, Mention, SuggestionDataItem } from "react-mentions";
+import useSearchUser from "@hooks/queries/useSearchUser";
+import MentionItem from "@components/Feed/MentionItem";
+import { MentionUserType, PostReplyType } from "@@types/reply";
+import { SendAble, SendDisAble } from "@assets/icons";
 
 interface FeedReplyInputProps {
-  feedId: string;
-  setReplies: Dispatch<SetStateAction<APIReplyListResponse["response"]["replyList"]>>;
+  feedId: number;
+  replyParentNum: number | null;
+  setReplyParentNum: React.Dispatch<React.SetStateAction<number | null>>;
 }
 
-function FeedReplyInput({ feedId, setReplies }: FeedReplyInputProps) {
-  const [newReply, setNewReply] = useState<string>("");
+function FeedReplyInput({ feedId, replyParentNum, setReplyParentNum }: FeedReplyInputProps) {
+  const [reply, setReply] = useState("");
+  const focusRef = useRef<HTMLTextAreaElement>(null);
+  const [mentionedIds, setMentionedIds] = useState<number[]>([]);
+  const { postReplyMutation } = useReplyMutation(feedId);
+  const { data: searchUserList } = useSearchUser();
 
-  const submitReplyHandler = async () => {
-    if (!newReply) return;
-    try {
-      const { response } = await saveReply(Number(feedId), newReply);
-      // FIXME : saveReply 응답값에 userId가 없어서 임시로 0으로 설정
-      setReplies((prevReplies) => [...prevReplies, { ...response, userId: 0 }]);
-      setNewReply("");
-    } catch (error) {
-      toast({ title: "에러 발생", description: "댓글 등록 중 에러 발생하였습니다." });
+  const {
+    user: { nickName, profileImageUrl },
+  } = useUserStore();
+
+  const submitReply = () => {
+    if (!reply) return;
+
+    const filteredMentionedIds = mentionedIds.filter(
+      (id, idx) => reply.includes(`(${id})`) && mentionedIds.indexOf(id) === idx
+    );
+    const replyContent: PostReplyType = {
+      content: reply,
+      mentionedIds: filteredMentionedIds,
+      parentId: replyParentNum,
+    };
+
+    postReplyMutation.mutate(replyContent);
+    setReply("");
+  };
+
+  const inputReplyHandler = (event: { target: { value: string } }) => {
+    setReply(event.target.value);
+  };
+
+  const inputKeyDownHandler = (e: KeyboardEvent<HTMLTextAreaElement> | KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      if (!e.shiftKey) {
+        e.preventDefault();
+        submitReply();
+        setReplyParentNum(null);
+      }
     }
   };
 
+  const clickSubmitReplyHandler = () => {
+    submitReply();
+    setReplyParentNum(null);
+  };
+
+  const mentionDisplayTransform = (id: string | number, display: string) => {
+    return "@" + display;
+  };
+
+  const addMentionHandler = (id: string | number) => {
+    setMentionedIds((prevIds) => [...prevIds, Number(id)]);
+  };
+
+  const renderSuggestion = (suggestion: SuggestionDataItem): React.ReactNode => {
+    if (!searchUserList) return;
+    const targetUser: MentionUserType | undefined = searchUserList.find(
+      (user: MentionUserType) => user.id === suggestion.id
+    );
+    if (!targetUser) return;
+    return <MentionItem user={targetUser} />;
+  };
+
+  const blurInputHandler = () => {
+    if (focusRef.current) {
+      focusRef.current.blur();
+    }
+  };
+
+  useEffect(() => {
+    if (replyParentNum && focusRef.current) focusRef.current.focus();
+  }, [replyParentNum]);
+
   return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        submitReplyHandler();
-      }}
-      className="flex items-center"
-    >
-      <input
-        className="flex-1 border-b rounded-l px-4 h-10"
-        type="text"
-        value={newReply}
-        onChange={(e) => setNewReply(e.target.value)}
-        placeholder="댓글을 입력하세요!"
+    <form className="flex px-2 py-1.5 border-y fixed bottom-0 w-full bg-gray-0">
+      <div className="w-[42px] h-[42px]">
+        <UserThumbImg src={profileImageUrl} alt={`${nickName} 프로필 이미지`} customWidth={42} customHeight={42} />
+      </div>
+      <MentionsInput
+        value={reply}
+        inputRef={focusRef}
+        onChange={inputReplyHandler}
+        onKeyPress={inputKeyDownHandler}
+        onBlur={blurInputHandler}
         maxLength={150}
-      />
-      <button type="submit" disabled={!newReply}></button>
+        placeholder="댓글 달기"
+        className="mentions"
+        forceSuggestionsAboveCursor
+        a11ySuggestionsListLabel="User suggestions"
+      >
+        <Mention
+          appendSpaceOnAdd
+          trigger="@"
+          data={searchUserList?.map((user: MentionUserType) => ({ id: user.id, display: user.nickName })) || []}
+          renderSuggestion={renderSuggestion}
+          displayTransform={mentionDisplayTransform}
+          onAdd={addMentionHandler}
+          className="mentions__mention"
+        />
+      </MentionsInput>
+      <button
+        type="button"
+        disabled={reply.length ? false : true}
+        className="ml-auto"
+        onClick={clickSubmitReplyHandler}
+      >
+        {reply.length ? <SendAble /> : <SendDisAble />}
+      </button>
     </form>
   );
 }

@@ -10,18 +10,21 @@ import {
 import { DialogProps } from "@@types/common";
 import { deleteFeed } from "@services/feed";
 import { useToast } from "@/components/ui/use-toast";
-import { MoreVert } from "@assets/icons";
+import { MoreVert, SettingsIcon } from "@assets/icons";
+import { TOAST_MESSAGES } from "@constants";
 import DialogReport from "@components/Common/Dialog/DialogReport";
 import DialogConfirm from "@components/Common/Dialog/DialogConfirm";
 import useSignUpStore from "@store/useSignUpStore";
 import useFeedStore from "@store/useFeedStore";
+import useReplyMutation from "@hooks/mutations/useReplyMutation";
 
-function DropDown({ name, option, id = 0, type = "", content = "", className = "", removeHandler }: DialogProps) {
+function DropDown({ option, feedId = 0, replyId = 0, type = "", content = "", className = "" }: DialogProps) {
   const setNextComponent = useSignUpStore((state) => state.setNextComponent);
   const router = useRouter();
   const [showReportDialog, setShowReportDialog] = useState(false);
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
   const setFeed = useFeedStore((state) => state.setFeed);
+  const { deleteReplyMutation } = useReplyMutation(feedId, replyId);
 
   const { toast } = useToast();
 
@@ -30,12 +33,11 @@ function DropDown({ name, option, id = 0, type = "", content = "", className = "
 
   switch (option) {
     case "설정 및 개인정보":
-      items = ["설정 및 개인정보"];
-      onClickHandler = () => {
-        router.push("/main/settings");
-        return;
-      };
-      break;
+      return (
+        <button type="button" onClick={() => router.push("/main/settings")}>
+          <SettingsIcon />
+        </button>
+      );
     case "타인":
       items = ["신고"];
       onClickHandler = () => {
@@ -45,9 +47,7 @@ function DropDown({ name, option, id = 0, type = "", content = "", className = "
     case "본인댓글":
       items = ["삭제"];
       onClickHandler = () => {
-        if (removeHandler) {
-          removeHandler();
-        }
+        deleteReplyMutation.mutate();
       };
       break;
     case "본인":
@@ -61,7 +61,7 @@ function DropDown({ name, option, id = 0, type = "", content = "", className = "
     e.preventDefault();
     router.push("/main/post");
     setNextComponent("PostContent");
-    setFeed({ id, content });
+    setFeed({ id: feedId, content });
   };
 
   const onClickDelete = async () => {
@@ -70,12 +70,11 @@ function DropDown({ name, option, id = 0, type = "", content = "", className = "
 
   const handleConfirmDelete = async () => {
     try {
-      await deleteFeed(id);
-
-      toast({ description: "피드가 정상 삭제 되었습니다👍!" });
+      await deleteFeed(feedId);
+      toast(TOAST_MESSAGES.FEED_DELETE_SUCCESS);
       setShowConfirmDialog(false);
     } catch (error) {
-      toast({ description: "게시글 삭제 중 에러가 발생했습니다. 다시 시도해주세요!🙄" });
+      toast(TOAST_MESSAGES.FEED_DELETE_FAILURE);
     }
   };
 
@@ -102,8 +101,7 @@ function DropDown({ name, option, id = 0, type = "", content = "", className = "
         </DropdownMenuContent>
       </DropdownMenu>
       <DialogReport
-        id={id}
-        name={name}
+        id={type === "게시글" ? feedId : replyId}
         type={type}
         isOpened={showReportDialog}
         onClose={() => setShowReportDialog(false)}

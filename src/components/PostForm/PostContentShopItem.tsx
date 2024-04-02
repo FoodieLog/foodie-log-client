@@ -23,7 +23,11 @@ function PostContentShopItem({ isShowEdit }: PostContentShopItemProps) {
           <p className="ml-1 text-sm font-normal text-gray-4">{road_address_name}</p>
         </div>
       </div>
-      {!isShowEdit && <AutoreNew className="absolute right-[8px] cursor-pointer" onClick={useOnClickBack} />}
+      {!isShowEdit && (
+        <div className="absolute right-0 cursor-pointer w-6 h-6">
+          <AutoreNew color="#777777" onClick={useOnClickBack} />
+        </div>
+      )}
     </div>
   );
 }

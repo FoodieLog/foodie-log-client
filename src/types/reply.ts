@@ -7,7 +7,10 @@ export type FeedReplyType = {
   profileImageUrl: string | null;
   content: string;
   createdAt: string;
+  childList: FeedReplyType[];
+  mentionList: MentionListItemType[];
 };
+
 export type AuthorType = {
   userId: number;
   nickName: string;
@@ -27,3 +30,10 @@ export type MentionUserType = {
   profileImageUrl: string | null;
   aboutMe: string | null;
 };
+
+export type MentionListItemType = {
+  nickName: string;
+  userId: number;
+};
+
+export type PostReplyType = { content: string; mentionedIds: number[]; parentId: number | null };

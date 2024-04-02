@@ -11,3 +11,7 @@ export interface WithDrawReasonType {
   id: string;
   reason: string;
 }
+
+export type Notification = {
+  [key: string]: "Y" | "N";
+};

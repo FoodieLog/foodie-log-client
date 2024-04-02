@@ -66,6 +66,35 @@
   }
 }
 
+.mentions {
+  width: 70%;
+  margin: 0 10px;
+  padding-top: 9px;
+  padding-left: 12px;
+  font-weight: 400;
+  color: #3b4555;
+}
+
+.mentions--multiLine .mentions__input {
+  resize: none;
+  outline: 0;
+  padding-top: 9px;
+  padding-left: 12px;
+}
+
+.mentions__suggestions__list {
+  min-width: 300px;
+  max-height: 365px;
+  overflow-y: auto;
+  border-radius: 10px;
+  position: relative;
+  z-index: 999;
+}
+
+.mentions__suggestions__item--focused {
+  background-color: #f4f4f4;
+}
+
 @font-face {
   font-family: "Pretendard";
   font-weight: 400;
