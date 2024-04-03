@@ -5,9 +5,9 @@ import FeedThumbnail from "@components/Common/Thumbnail/FeedThumbnail";
 import FollowButton from "@components/Common/Button/FollowButton";
 import { useUserStore } from "@store/useUserStore";
 import { Notification } from "@@types/apiTypes";
+import truncateText from "@/src/utils/truncateText";
 
 function NotifItem({ ...notification }: Notification) {
-  // mention 추가 예정
   const { type, user, feed, reply, isFollowed, createdAt } = notification;
   const {
     user: { id: myId },
@@ -23,14 +23,15 @@ function NotifItem({ ...notification }: Notification) {
       content: "님이 게시글을 좋아합니다.",
     },
     REPLY: {
-      href: `/main/reply/${feed?.id}`,
-      content: `님이 댓글을 남겼습니다:${reply?.content}`,
+      href: `/main/reply/${reply?.feedId}`,
+      content: `님이 댓글을 남겼습니다: "${reply?.content}"`,
     },
     MENTION: {
-      href: `/main/reply/${feed?.id}`,
-      content: `님이 댓글에서 회원님을 멘션했습니다:${reply?.content}`,
+      href: `/main/reply/${reply?.feedId}`,
+      content: `님이 댓글에서 회원님을 멘션했습니다: "${reply?.content}"`,
     },
   };
+  const noticeContent = truncateText(CONTENT_OPTION[type].content);
 
   return (
     <li className="w-full py-3 flex gap-2 items-center">
@@ -38,7 +39,7 @@ function NotifItem({ ...notification }: Notification) {
       <Link href={CONTENT_OPTION[type].href} className="w-full">
         <p className="text-gray-4">
           <strong>{user.nickName} </strong>
-          {CONTENT_OPTION[type].content}
+          {noticeContent}
         </p>
         <TimeStamp createdAt={createdAt} styles="bg-transparent" />
       </Link>
