@@ -53,7 +53,6 @@ const RestaurantDetail = ({ restaurantId }: RestaurantDetailProps) => {
             category={data?.detail.restaurant.category ?? ""}
             roadAddress={data?.detail.restaurant.roadAddress ?? ""}
             isLiked={data?.detail.isLiked.liked}
-            shopUrl={data?.detail.restaurant.link}
           />
           <hr />
           <div className="flex justify-between p-2 font-[600]">
