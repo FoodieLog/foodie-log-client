@@ -148,7 +148,7 @@ function MyProfileSettings() {
               id="aboutMe"
               title="자기소개"
               name="aboutMe"
-              value={profile.aboutMe}
+              value={profile.aboutMe || ""}
               onChange={onChangeHandler}
               maxLength={150}
               className="pt-[24px] pl-[14px] placeholder:text-gray-4 border text-[14px] border-gray-2 rounded-lg"
