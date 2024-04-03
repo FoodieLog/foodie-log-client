@@ -48,7 +48,7 @@ function PostContent() {
       await postFeed(formData);
       toast(TOAST_MESSAGES.POST_SUCCESS);
       setNextComponent("");
-      router.replace("/main/mypage");
+      router.replace(`/main/${userId}`);
     } catch (err) {
       toast(TOAST_MESSAGES.POST_FAILURE);
     }

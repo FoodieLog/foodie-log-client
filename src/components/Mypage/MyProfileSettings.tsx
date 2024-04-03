@@ -63,7 +63,7 @@ function MyProfileSettings() {
 
     try {
       await profileSetting(formData);
-      router.replace("/main/mypage");
+      router.replace(`/main/${user.id}`);
     } catch (error) {
       if (axios.isAxiosError(error) && error.response) {
         const ERROR_MESSAGE = error.response.data.error.message;

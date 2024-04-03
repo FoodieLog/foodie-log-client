@@ -48,10 +48,12 @@ function KaKaoTerms() {
     try {
       const kakaoToken = getItem("kakaoToken");
       if (!kakaoToken) throw new Error("인증 토큰이 없습니다. 다시 시도해주세요.");
-      const res = await loginKaKaoToken(kakaoToken);
-      setUser(res.data.response);
+      const {
+        data: { response },
+      } = await loginKaKaoToken(kakaoToken);
+      setUser(response);
       initializePushNotifications();
-      router.replace("/main/mypage/");
+      router.replace(`/main/${response.id}`);
     } catch (error) {
       router.replace("/accounts/login");
       toast(TOAST_MESSAGES.KAKAO_LOGIN_FAILURE);

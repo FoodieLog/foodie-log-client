@@ -14,10 +14,7 @@ function FeedReplyContent({ data }: FeedReplyContentProps) {
   return (
     <div className="flex items-center justify-between pb-3 border-b">
       <div className="flex items-center">
-        <Link
-          href={data.userId === id ? `/main/mypage` : `/main/${data.userId}`}
-          className="flex w-12 h-12 flex-shrink-0"
-        >
+        <Link href={`/main/${data.userId}`} className="flex w-12 h-12 flex-shrink-0">
           <Image
             src={data.profileImageUrl || "/images/userImage.png"}
             alt="사용자 썸네일"
@@ -28,7 +25,7 @@ function FeedReplyContent({ data }: FeedReplyContentProps) {
         </Link>
         <div className="ml-2">
           <div className="flex justify-start items-center gap-3">
-            <Link href={data.userId === id ? `/main/mypage` : `/main/${data.userId}`}>
+            <Link href={`/main/${data.userId}`}>
               <span className="text-[16px]">{data.nickName}</span>
             </Link>
             <TimeStamp createdAt={data.createdAt} />
