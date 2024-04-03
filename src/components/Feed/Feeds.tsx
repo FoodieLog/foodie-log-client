@@ -62,7 +62,7 @@ const Feeds = ({ id, startingFeedId, singleFeedId }: FeedsProps) => {
     <div className="flex flex-col pt-5 max-w-[640px] w-full mx-auto">
       {/* singleFeedId가 있을 경우 단일 피드 렌더링 */}
       {singleFeedId && singleFeedData ? (
-        <Feed key={singleFeedData.feed.feedId} {...singleFeedData} />
+        <Feed key={singleFeedData.feed.feedId} feedData={singleFeedData} userId={id} />
       ) : (
         <InfiniteScroll pageStart={0} loadMore={loadMore} hasMore={hasNextPage && !isFetchingNextPage}>
           {(data?.pages || []).map((page, index) => {
@@ -86,7 +86,7 @@ const Feeds = ({ id, startingFeedId, singleFeedId }: FeedsProps) => {
                         }
                       }}
                     >
-                      <Feed key={Key} {...feedData} />
+                      <Feed key={Key} feedData={feedData} userId={id} />
                     </div>
                   );
                 })}

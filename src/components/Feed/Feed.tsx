@@ -6,12 +6,17 @@ import FeedImageSlide from "@components/Feed/FeedImageSlide";
 import FeedInteraction from "@components/Feed/FeedInteraction";
 import FeedContent from "@components/Feed/FeedContent";
 
-const Feed = ({ ...feedData }: FeedData) => {
+interface FeedProps {
+  feedData: FeedData;
+  userId: number | undefined;
+}
+
+const Feed = ({ feedData, userId }: FeedProps) => {
   const { feed, restaurant, followed, liked } = feedData;
 
   return (
     <div className="mt-2 w-full max-w-[640px] rounded-sm">
-      <FeedHeader data={feed} isFollowed={followed} />
+      <FeedHeader data={feed} isFollowed={followed} userId={userId} />
       <FeedImageSlide images={feed.feedImages} />
       <div className="flex flex-col gap-3 m-[18px]">
         <FeedInteraction data={feed} isLiked={liked} />

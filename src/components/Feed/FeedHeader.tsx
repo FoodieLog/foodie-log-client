@@ -7,16 +7,17 @@ import FeedUserCard from "@components/Feed/FeedUserCard";
 interface FeedHeaderProps {
   data: FeedData["feed"];
   isFollowed: boolean;
+  userId: number | undefined;
 }
 
-function FeedHeader({ data, isFollowed }: FeedHeaderProps) {
+function FeedHeader({ data, isFollowed, userId: userID }: FeedHeaderProps) {
   const userId = useUserStore((state) => state.user.id);
 
   return (
     <div className="flex justify-between items-center p-3">
       <FeedUserCard data={data} />
       <div className="flex items-center">
-        {userId !== data.userId && (
+        {userId !== data.userId && !!!userID && (
           <FollowButton userId={data.userId} isFollowed={isFollowed} className={"w-[86px]"} icon={true} />
         )}
         <DropDown
