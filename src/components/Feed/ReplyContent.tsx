@@ -1,7 +1,6 @@
 import React from "react";
 import Link from "next/link";
 import TimeStamp from "@components/Common/Tag/TimeStamp";
-import { useUserStore } from "@store/useUserStore";
 import { FeedReplyType } from "@@types/reply";
 
 interface ReplyContentProps {
@@ -11,20 +10,16 @@ interface ReplyContentProps {
 
 function ReplyContent({ userId, reply }: ReplyContentProps) {
   const { nickName, createdAt, content, mentionList } = reply;
-
   const replaceMentionStyle = () => {
     const splitedReply = content.split(" ");
-    mentionList.map(({ userId, nickName }) => {
-      const mentionIdx = splitedReply.indexOf(`@[${nickName}](${userId})`);
-      splitedReply[mentionIdx] = `@${nickName}`;
-    });
 
     const replaceContent = splitedReply.map((reply) => {
       if (reply.includes("@")) {
+        const mentionUserId = mentionList.find((mention) => mention.nickName === reply.slice(1))?.userId;
         return (
-          <span key={reply} className="font-semibold">
+          <Link href={`/main/${mentionUserId}`} key={reply} className="font-semibold">
             {reply}&nbsp;
-          </span>
+          </Link>
         );
       }
       return <span key={reply}>{reply} </span>;

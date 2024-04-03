@@ -1,5 +1,6 @@
 //============ 이미지 - Logo ============
 import UserImage from "@assets/images/logo/userImage.png";
+import MainLogo from "@assets/images/logo/mainLogo.png";
 
 //============ 이미지 - Restaurants ============
 import asian from "@assets/images/restaurants/asian.png";
@@ -21,6 +22,7 @@ import Explorer from "@assets/images/badge/badge.svg";
 export {
   // Logo
   UserImage,
+  MainLogo,
 
   // Restaurants
   asian,
