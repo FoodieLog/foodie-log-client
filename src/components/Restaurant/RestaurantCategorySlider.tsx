@@ -8,8 +8,6 @@ import {
   BarSelected,
   Cafe,
   CafeSelected,
-  Dessert,
-  DessertSelected,
   Etc,
   EtcSelected,
   Fusion,
@@ -48,7 +46,6 @@ const RestaurantCategorySlider = ({ select: { selected, setSelected } }: Restaur
   const tagIcons: { [key: string]: { selected: ReactNode; unSelected: ReactNode } } = {
     한식: { unSelected: <Korean />, selected: <KoreanSelected /> },
     카페: { unSelected: <Cafe />, selected: <CafeSelected /> },
-    디저트: { unSelected: <Dessert />, selected: <DessertSelected /> },
     분식: { unSelected: <Snack />, selected: <SnackSelected /> },
     아시안: { unSelected: <Asian />, selected: <AsianSelected /> },
     일식: { unSelected: <Japanese />, selected: <JapaneseSelected /> },
