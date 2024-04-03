@@ -11,7 +11,6 @@ interface ReplyContentProps {
 
 function ReplyContent({ userId, reply }: ReplyContentProps) {
   const { nickName, createdAt, content, mentionList } = reply;
-  const { id } = useUserStore((state) => state.user);
 
   const replaceMentionStyle = () => {
     const splitedReply = content.split(" ");
