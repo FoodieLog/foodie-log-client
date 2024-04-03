@@ -1,7 +1,10 @@
+import { initializeApp } from "firebase/app";
+import { getMessaging } from "firebase/messaging";
+
 /// <reference lib="webworker" />
 
-importScripts('https://www.gstatic.com/firebasejs/9.14.0/firebase-app-compat.js');
-importScripts('https://www.gstatic.com/firebasejs/9.14.0/firebase-messaging-compat.js');
+importScripts("https://www.gstatic.com/firebasejs/9.14.0/firebase-app-compat.js");
+importScripts("https://www.gstatic.com/firebasejs/9.14.0/firebase-messaging-compat.js");
 
 // Import the functions you need from the SDKs you need
 // import { initializeApp } from "firebase/app";
@@ -19,23 +22,21 @@ const firebaseConfig = {
   storageBucket: "foodi-log-front.appspot.com",
   messagingSenderId: "583295345602",
   appId: "1:583295345602:web:47e961fea7da20e5342c5b",
-  measurementId: "G-2RL84K5FTR"
+  measurementId: "G-2RL84K5FTR",
 };
 
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
 
-const messaging = firebase.messaging();
+const messaging = getMessaging(app);
 
 messaging.onBackgroundMessage((payload) => {
-  console.log('[firebase-messaging-sw.js] Received background message ', payload);
   // Customize notification here
   const notificationTitle = payload.notification.title;
   const notificationOptions = {
-      body: payload.notification.body,
-      icon: '/images/userImage.png' // TODO: Change to your app's icon
+    body: payload.notification.body,
+    icon: "/images/userImage.png",
   };
 
   self.registration.showNotification(notificationTitle, notificationOptions);
 });
-
