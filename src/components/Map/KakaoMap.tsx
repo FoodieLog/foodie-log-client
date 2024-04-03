@@ -35,21 +35,19 @@ const KakaoMap = ({ size = { width: "100%", height: "360px" }, latitude, longitu
 
   return (
     <div>
-      <div className="p-1 bg-slate-300">
-        <Map center={{ lat: parsedLat, lng: parsedLng }} style={size} ref={mapRef} level={level}>
-          <MapMarker
-            position={{ lat: parsedLat, lng: parsedLng }}
-            clickable={true}
-            onClick={() => {
-              router.push(`/main/restaurants/${restaurantId}`);
-            }}
-            image={{
-              src: markerImageSrc, // 마커이미지의 주소입니다
-              size: markerSize, // 마커이미지의 크기입니다
-            }}
-          ></MapMarker>
-        </Map>
-      </div>
+      <Map center={{ lat: parsedLat, lng: parsedLng }} style={size} ref={mapRef} level={level}>
+        <MapMarker
+          position={{ lat: parsedLat, lng: parsedLng }}
+          clickable={true}
+          onClick={() => {
+            router.push(`/main/restaurants/${restaurantId}`);
+          }}
+          image={{
+            src: markerImageSrc, // 마커이미지의 주소입니다
+            size: markerSize, // 마커이미지의 크기입니다
+          }}
+        ></MapMarker>
+      </Map>
     </div>
   );
 };

@@ -13,7 +13,7 @@ function MyListMap({ size = { width: "100%", height: "360px" }, mapData }: MapPr
   const router = useRouter();
 
   return (
-    <div className={`w-full p-1 bg-slate-300`}>
+    <div className="w-full">
       <Map center={{ lat: 36.2683, lng: 127.6358 }} style={size} level={15}>
         {mapData?.map(({ restaurant }) => {
           const lat = parseFloat(restaurant.mapY);
