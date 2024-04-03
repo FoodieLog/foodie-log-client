@@ -15,7 +15,7 @@ const RestaurantFeedsList = ({ restaurantId }: RestaurantFeedsListProps) => {
     <>
       {data?.feedList.map((feedData: FeedData) => (
         <div key={feedData.feed.feedId}>
-          <Feed {...feedData} />
+          <Feed feedData={feedData} />
         </div>
       ))}
     </>

@@ -8,7 +8,7 @@ import FeedContent from "@components/Feed/FeedContent";
 
 interface FeedProps {
   feedData: FeedData;
-  userId: number | undefined;
+  userId?: number | undefined;
 }
 
 const Feed = ({ feedData, userId }: FeedProps) => {
