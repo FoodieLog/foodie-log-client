@@ -1,6 +1,6 @@
 import { axiosRequest, kakaoRequest, userRequest, kakaoLogoutRequest } from "@services";
 
-//카카오 로그인
+//카카오 로그인 - 인가코드 받기
 export const kakaoLogin = async () => {
   const REST_API_KEY = process.env.NEXT_PUBLIC_REST_API_KEY;
   const REDIRECT_URI = process.env.NEXT_PUBLIC_REDIRECT_URI;
@@ -66,23 +66,3 @@ export const getKaKaoRefreshToken = async (token: string) => {
 
   return res;
 };
-
-// 카카오 연결 끊기 (fetch)
-// export const unlinkKaKao = async () => {
-//   const kakaoToken = localStorage.getItem("kakaoToken");
-//   const res = await fetch(
-//     `https://kapi.kakao.com/v1/user/unlink?client_secret=${process.env.NEXT_PUBLIC_KAKAO_CLIENT_SECRE}`,
-//     {
-//       method: "POST",
-//       keepalive: true,
-//       headers: {
-//         "Content-Type": "application/x-www-form-urlencoded;charset=utf-8",
-//         Authorization: `Bearer ${kakaoToken}`,
-//       },
-//     }
-//   );
-//   if (res.status === 200) {
-//     const json = await res.json();
-//     return json;
-//   } else return false;
-// };

@@ -17,9 +17,9 @@ interface FeedReplyItemProps {
 
 function FeedReplyItem({ feedId, reply, userId, setReplyParentNum }: FeedReplyItemProps) {
   const {
-    user: { id, nickName },
+    user: { nickName },
   } = useUserStore();
-  const { id: replyId, nickName: replyNickName, profileImageUrl, childList } = reply;
+  const { id: replyId, userId: replyUserId, nickName: replyNickName, profileImageUrl, childList } = reply;
   const [showMore, setShowMore] = useState(false);
 
   const addReplyToReply = () => {
@@ -32,7 +32,7 @@ function FeedReplyItem({ feedId, reply, userId, setReplyParentNum }: FeedReplyIt
   return (
     <li className="group flex flex-col px-5 py-4 border-b">
       <div className="flex items-start relative">
-        <Link href={userId === id ? `/main/mypage` : `/main/${userId}`} className="flex w-12 h-12 flex-shrink-0 mr-3.5">
+        <Link href={`/main/${replyUserId}`} className="flex w-12 h-12 flex-shrink-0 mr-3.5">
           <UserThumbImg src={profileImageUrl} alt={`${replyNickName} 프로필 이미지`} />
         </Link>
         <div className="flex flex-col items-start gap-2">

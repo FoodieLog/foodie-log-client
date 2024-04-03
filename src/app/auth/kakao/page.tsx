@@ -47,9 +47,11 @@ function KaKaoSignUpTerms() {
     try {
       const kakaoToken = getItem("kakaoToken");
       if (!kakaoToken) throw new Error("인증 토큰이 없습니다. 다시 시도해주세요.");
-      const res = await loginKaKaoToken(kakaoToken);
-      setUser(res.data.response);
-      router.replace("/main/mypage/");
+      const {
+        data: { response },
+      } = await loginKaKaoToken(kakaoToken);
+      setUser(response);
+      router.replace(`/main/${response.id}`);
     } catch (error) {
       toast({ description: "카카오 인증이 만료되었습니다." });
     }

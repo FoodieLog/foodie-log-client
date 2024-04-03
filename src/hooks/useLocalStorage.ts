@@ -3,7 +3,7 @@ import { useCallback } from "react";
 function useLocalStorage() {
   const setItem = useCallback((key: string, value: string) => {
     if (typeof window !== "undefined") {
-      setItem(key, value);
+      return localStorage.setItem(key, value);
     }
   }, []);
 
@@ -16,7 +16,7 @@ function useLocalStorage() {
 
   const removeItem = useCallback((key: string) => {
     if (typeof window !== "undefined") {
-      localStorage.removeItem(key);
+      return localStorage.removeItem(key);
     }
   }, []);
 

@@ -10,6 +10,7 @@ import { TOAST_MESSAGES } from "@constants";
 import useSignUpStore from "@store/useSignUpStore";
 import KaKaoTerms from "@components/Auth/KaKaoTerms";
 import useLocalStorage from "@hooks/useLocalStorage";
+import useNotificationStore from "@store/useNotificationStore";
 
 function KaKaoCode() {
   const router = useRouter();
@@ -17,16 +18,18 @@ function KaKaoCode() {
   const code = params.get("code");
   const { setUser, setTokenExpiry } = useUserStore();
   const { nextComponent, setNextComponent } = useSignUpStore();
+  const { setCheckStatus } = useNotificationStore();
   const { toast } = useToast();
   const { setItem, removeItem } = useLocalStorage();
 
   useEffect(() => {
     router.prefetch("/main/home");
     checkUserEmail();
-  }, [code]);
+  }, []);
 
   const checkUserEmail = async () => {
     if (!code) return;
+
     try {
       const { data } = await getKaKaoToken(code);
       setItem("kakaoRefresh", data.refresh_token);
@@ -38,20 +41,24 @@ function KaKaoCode() {
       const {
         data: { response: res },
       } = await postKakaoToken(data.access_token);
-
       if (res.status === "NORMAL") {
-        const response = await loginKaKaoToken(res.kakaoAccessToken);
-        setUser(response.data.response);
+        const {
+          data: { response: loginData },
+        } = await loginKaKaoToken(res.kakaoAccessToken);
+        const { replyFlag, followFlag, likeFlag } = loginData;
+
+        setUser(loginData);
+        setCheckStatus({ replyFlag, followFlag, likeFlag });
         setTokenExpiry(Date.now() + minutesInMilliseconds);
         initializePushNotifications();
         router.replace("/main/home");
-      } else if (res.status === "WITHDRAW") {
+      } else if (res.status === "BLOCK") {
         removeItem("kakaoRefresh");
         removeItem("kakaoToken");
         router.replace("/accounts/login");
         toast(TOAST_MESSAGES.KAKAO_LOGIN_WITHDRAW);
-      } else {
-        setItem("kakaoToken", res.data.response.kakaoAccessToken);
+      } else if (res.status === null) {
+        setItem("kakaoToken", res.kakaoAccessToken);
         setTokenExpiry(Date.now() + minutesInMilliseconds);
         setNextComponent("KaKaoTerms");
       }
@@ -85,7 +92,6 @@ function KaKaoCode() {
           fill="currentFill"
         />
       </svg>
-      <span className="sr-only">Loading...</span>
     </div>
   );
 }
