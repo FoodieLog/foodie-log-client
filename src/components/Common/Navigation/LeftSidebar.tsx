@@ -1,16 +1,57 @@
 "use client";
 import React from "react";
-import { globalNavigation } from "@constants";
+// import { globalNavigation } from "@constants";
+import {
+  SpaceDashboard,
+  SpaceDashboardCheck,
+  MapIcon,
+  MapIconCheck,
+  ThumbUp,
+  ThumbUpCheck,
+  Person,
+  PersonCheck,
+} from "@assets/icons";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FoodieLogoTP, FoodieLogo } from "@/public/images";
 import Image from "next/image";
 import { TbLogout2 } from "react-icons/tb";
 import useLogout from "@hooks/useLogout";
+import { NavItemType } from "@@types/navigation";
+import { useUserStore } from "@/src/store/useUserStore";
 
 const BottomSideBar = () => {
   const pathname = usePathname();
   const { logout } = useLogout();
+  const { user } = useUserStore();
+
+  const globalNavigation: NavItemType[] = [
+    {
+      icon: SpaceDashboard,
+      icon_checked: SpaceDashboardCheck,
+      label: "피드",
+      route: "/main/home",
+    },
+    {
+      icon: MapIcon,
+      icon_checked: MapIconCheck,
+      label: "내 지도",
+      route: "/main/liked",
+    },
+    {
+      icon: ThumbUp,
+      icon_checked: ThumbUpCheck,
+      label: "지역별",
+      route: "/main/recommend",
+    },
+    {
+      icon: Person,
+      icon_checked: PersonCheck,
+      label: "마이",
+      route: `/main/${user.id}`,
+    },
+  ];
+
   return (
     <section className="flex flex-col h-screen border-r-[1px] border-solid sticky top-0 max-sm:hidden justify-between">
       <div className="flex w-full flex-1 flex-col items-center gap-12 px-6 mt-6">

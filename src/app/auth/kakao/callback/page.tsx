@@ -41,12 +41,10 @@ function KaKaoCode() {
       const {
         data: { response: res },
       } = await postKakaoToken(data.access_token);
-
       if (res.status === "NORMAL") {
         const {
           data: { response: loginData },
         } = await loginKaKaoToken(res.kakaoAccessToken);
-
         const { replyFlag, followFlag, likeFlag } = loginData;
 
         setUser(loginData);
@@ -59,8 +57,8 @@ function KaKaoCode() {
         removeItem("kakaoToken");
         router.replace("/accounts/login");
         toast(TOAST_MESSAGES.KAKAO_LOGIN_WITHDRAW);
-      } else {
-        setItem("kakaoToken", res.data.response.kakaoAccessToken);
+      } else if (res.status === null) {
+        setItem("kakaoToken", res.kakaoAccessToken);
         setTokenExpiry(Date.now() + minutesInMilliseconds);
         setNextComponent("KaKaoTerms");
       }

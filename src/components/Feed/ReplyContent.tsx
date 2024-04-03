@@ -11,7 +11,6 @@ interface ReplyContentProps {
 
 function ReplyContent({ userId, reply }: ReplyContentProps) {
   const { nickName, createdAt, content, mentionList } = reply;
-  const { id } = useUserStore((state) => state.user);
 
   const replaceMentionStyle = () => {
     const splitedReply = content.split(" ");
@@ -37,7 +36,7 @@ function ReplyContent({ userId, reply }: ReplyContentProps) {
   return (
     <div className="flex flex-col items-start gap-[8px]">
       <div className="flex items-center">
-        <Link href={userId === id ? `/main/mypage` : `/main/${userId}`} className="cursor-pointer mr-1.5">
+        <Link href={`/main/${userId}`} className="cursor-pointer mr-1.5">
           <span className="text-base font-semibold">{nickName}</span>
         </Link>
         <TimeStamp createdAt={createdAt} styles="group-hover:text-red group-hover:bg-transparent" />
