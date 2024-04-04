@@ -1,24 +1,21 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import AreaSelector from "@components/Restaurant/AreaSelector";
 import ShopThumbList from "@components/Restaurant/ShopThumbList";
-import { RegionType } from "@@types/recommend";
+import { useRecommendStore } from "@store/useRecommendStore";
 
 function Recommend() {
-  const [selectedRegion, setSelectedRegion] = useState<RegionType>({
-    city: "수도권",
-    doName: "",
-    sigungu: "",
-  });
-  const searchQuery = `${selectedRegion.doName} ${selectedRegion.sigungu || ""}`.trim();
+  const { selectedRegion, setSelectedRegion } = useRecommendStore();
+  const selectAllSigungu = selectedRegion.sigungu === "전체";
+  const searchQuery = `${selectedRegion.doName} ${selectAllSigungu ? "" : selectedRegion.sigungu || ""}`.trim();
 
   const clickRegionHandler = (optionType: string, selectedValue: string) => {
     if (optionType === "city") {
       setSelectedRegion({ city: selectedValue, doName: "", sigungu: "" });
     } else if (optionType === "doName") {
-      setSelectedRegion((prev) => ({ ...prev, doName: selectedValue, sigungu: "" }));
+      setSelectedRegion({ city: selectedRegion.city, doName: selectedValue, sigungu: "전체" });
     } else {
-      setSelectedRegion((prev) => ({ ...prev, [optionType]: selectedValue }));
+      setSelectedRegion({ city: selectedRegion.city, doName: selectedRegion.doName, sigungu: selectedValue });
     }
   };
 
