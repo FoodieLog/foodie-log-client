@@ -29,7 +29,7 @@ function FeedReplyInput({ feedId, replyParentNum, setReplyParentNum }: FeedReply
     const splitedReply = reply.split(" ");
     const nicknameReg = /([A-Za-z가-힣0-9]+)/g;
     const newContent = splitedReply.map((reply) => {
-      if (reply.includes("@")) {
+      if (reply.startsWith("@")) {
         const mentionedNickname = reply.match(nicknameReg)?.[0];
         return `@${mentionedNickname}`;
       }
