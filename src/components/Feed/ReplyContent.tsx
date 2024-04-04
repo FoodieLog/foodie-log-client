@@ -10,11 +10,12 @@ interface ReplyContentProps {
 
 function ReplyContent({ userId, reply }: ReplyContentProps) {
   const { nickName, createdAt, content, mentionList } = reply;
+
   const replaceMentionStyle = () => {
     const splitedReply = content.split(" ");
 
     const replaceContent = splitedReply.map((reply) => {
-      if (reply.includes("@")) {
+      if (reply.startsWith("@")) {
         const mentionUserId = mentionList.find((mention) => mention.nickName === reply.slice(1))?.userId;
         return (
           <Link href={`/main/${mentionUserId}`} key={reply} className="font-semibold">

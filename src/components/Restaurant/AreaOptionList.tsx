@@ -33,6 +33,13 @@ function AreaOptionList({ optionType, optionList, selectedValue, clickRegionHand
             isOpen ? "max-h-[250px]" : "max-h-0"
           }`}
         >
+          {optionType === "sigungu" && (
+            <li className="w-full h-[40px] bg-gray-0 flex itemx-center">
+              <button type="button" onClick={selectOptionHandler} className="w-full bg-gray-0 text-left px-[16px]">
+                전체
+              </button>
+            </li>
+          )}
           {optionList.map((optionItem) => (
             <li key={optionItem} className="w-full h-[40px] bg-gray-0 flex itemx-center">
               <button type="button" onClick={selectOptionHandler} className="w-full bg-gray-0 text-left px-[16px]">

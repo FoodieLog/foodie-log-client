@@ -26,7 +26,11 @@ function ShopFeedList({ restaurantId, feedList, name }: ShopFeedListProps) {
   return (
     <ul className="flex px-0.5 gap-px mt-[8px]">
       {feedListToShow.map((feed) => (
-        <Link href={`/main/restaurants/reviews/${restaurantId}`} key={feed.feedId} className="w-1/3">
+        <Link
+          href={`/main/recommend/reviews/${restaurantId}`}
+          key={feed.feedId}
+          className="w-1/3 rounded-[2px] overflow-hidden"
+        >
           <ShopFeedItem feed={feed} name={name} />
         </Link>
       ))}
