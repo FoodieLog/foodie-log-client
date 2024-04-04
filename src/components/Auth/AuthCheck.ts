@@ -18,6 +18,27 @@ const AuthCheck: React.FC = () => {
 
   const isTokenExpired = user.tokenExpiry ? Date.now() > user.tokenExpiry : true;
 
+  useEffect(() => {
+    const reissue = async () => {
+      try {
+        const reissueResponse = await reissueTokens();
+        setUser({ accessToken: reissueResponse.response.accessToken });
+        setTokenExpiry(Date.now() + minutesInMilliseconds);
+        reissueTimeout = setTimeout(reissue, minutesInMilliseconds);
+      } catch (error) {
+        console.error("Error while reissuing tokens:", error);
+        toast({ description: "토큰이 유효하지 않습니다.\n다시 로그인해 주세요!" });
+        await logout();
+      }
+    };
+
+    let reissueTimeout = setTimeout(reissue, minutesInMilliseconds);
+
+    return () => {
+      clearTimeout(reissueTimeout);
+    };
+  }, [logout, setTokenExpiry, setUser, toast]);
+
   // 일반 로그인
   useEffect(() => {
     const validateTokens = async () => {
@@ -50,6 +71,7 @@ const AuthCheck: React.FC = () => {
     };
 
     validateTokens();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user.accessToken, user.tokenExpiry, router, pathname, isTokenExpired, setUser, setTokenExpiry]);
 
   // 카카오 리프레쉬 토큰 로직
