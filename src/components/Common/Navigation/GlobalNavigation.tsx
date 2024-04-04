@@ -15,11 +15,13 @@ import {
   PersonCheck,
 } from "@assets/icons";
 import { NavItemType } from "@@types/navigation";
-import { useUserStore } from "@/src/store/useUserStore";
+import { useUserStore } from "@store/useUserStore";
+import useResetRecommend from "@hooks/useResetRecommend";
 
 function GlobalNavigation() {
   const { pathname, isShow } = useShowPartial();
   const { user } = useUserStore();
+  useResetRecommend();
 
   const globalNavigation: NavItemType[] = [
     {
