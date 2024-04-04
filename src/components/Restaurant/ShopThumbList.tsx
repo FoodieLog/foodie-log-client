@@ -33,7 +33,7 @@ function ShopThumbList({ searchQuery }: ShopThumbListProps) {
               name={name}
               category={category}
               roadAddress={roadAddress}
-              href={`/main/restaurants/reviews/${restaurantId}`}
+              href={`/main/recommend/reviews/${restaurantId}`}
             />
             <ShopFeedList restaurantId={restaurantId} feedList={feedList} name={name} />
           </li>
