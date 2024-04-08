@@ -1,8 +1,6 @@
-import { StaticImageData } from "next/image";
-
 export interface NavItemType {
-  icon: StaticImageData;
-  icon_checked: StaticImageData;
+  icon: React.FC<React.SVGProps<SVGSVGElement>>;
+  icon_checked: React.FC<React.SVGProps<SVGSVGElement>>;
   label: string;
   route: string;
 }
