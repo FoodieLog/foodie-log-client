@@ -55,8 +55,11 @@ function KaKaoTerms() {
       initializePushNotifications();
       router.replace(`/main/${response.id}`);
     } catch (error) {
-      router.replace("/accounts/login");
       toast(TOAST_MESSAGES.KAKAO_LOGIN_FAILURE);
+
+      setTimeout(() => {
+        router.replace("/accounts/login");
+      }, 2000);
     }
     setIsLoading(false);
   };

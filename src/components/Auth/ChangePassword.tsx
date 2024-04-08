@@ -25,8 +25,11 @@ function ChangePassword({ email }: ChangePassword) {
   const onSubmit = async ({ password }: ChangePassword) => {
     try {
       await resetPassword({ email, password });
-      router.replace("/accounts/login");
       toast(PASSWORD_CHANGE_SUCCESS);
+
+      setTimeout(() => {
+        router.replace("/accounts/login");
+      }, 2000);
     } catch (err) {
       toast(PASSWORD_CHANGE_FAILURE);
     }

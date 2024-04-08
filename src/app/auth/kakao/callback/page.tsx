@@ -59,7 +59,7 @@ function KaKaoCode() {
 
         setTimeout(() => {
           router.replace("/accounts/login");
-        }, 3000);
+        }, 2000);
       } else if (res.status === null) {
         setItem("kakaoToken", res.kakaoAccessToken);
         setTokenExpiry(Date.now() + minutesInMilliseconds);
@@ -73,7 +73,7 @@ function KaKaoCode() {
 
       setTimeout(() => {
         router.replace("/accounts/login");
-      }, 3000);
+      }, 2000);
     }
   };
 
