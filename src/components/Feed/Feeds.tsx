@@ -58,6 +58,25 @@ const Feeds = ({ id, startingFeedId, singleFeedId }: FeedsProps) => {
     }
   }, [data, startingFeedId, hasNextPage, fetchNextPage]);
 
+  useEffect(() => {
+    // 스크롤 위치 복원
+    const savedScrollPosition = sessionStorage.getItem("scrollPosition");
+    if (savedScrollPosition) {
+      window.scrollTo(0, parseInt(savedScrollPosition, 10));
+    }
+
+    // 스크롤 위치 저장
+    const handleScroll = () => {
+      sessionStorage.setItem("scrollPosition", window.scrollY.toString());
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [data]);
+
   return (
     <div className="flex flex-col pt-5 max-w-[640px] w-full mx-auto">
       {/* singleFeedId가 있을 경우 단일 피드 렌더링 */}
