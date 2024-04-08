@@ -1,16 +1,6 @@
 "use client";
 import React from "react";
-// import { globalNavigation } from "@constants";
-import {
-  SpaceDashboard,
-  SpaceDashboardCheck,
-  MapIcon,
-  MapIconCheck,
-  ThumbUp,
-  ThumbUpCheck,
-  Person,
-  PersonCheck,
-} from "@assets/icons";
+import { Dashboard, Map, Space, Person, DashboardCheck, MapCheck, SpaceCheck, PersonCheck } from "@assets/icons";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FoodieLogoTP, FoodieLogo } from "@/public/images";
@@ -27,20 +17,20 @@ const BottomSideBar = () => {
 
   const globalNavigation: NavItemType[] = [
     {
-      icon: SpaceDashboard,
-      icon_checked: SpaceDashboardCheck,
+      icon: Dashboard,
+      icon_checked: DashboardCheck,
       label: "피드",
       route: "/main/home",
     },
     {
-      icon: MapIcon,
-      icon_checked: MapIconCheck,
+      icon: Map,
+      icon_checked: MapCheck,
       label: "내 지도",
       route: "/main/liked",
     },
     {
-      icon: ThumbUp,
-      icon_checked: ThumbUpCheck,
+      icon: Space,
+      icon_checked: SpaceCheck,
       label: "지역별",
       route: "/main/recommend",
     },
@@ -59,12 +49,12 @@ const BottomSideBar = () => {
         <Image src={FoodieLogo} alt="logo" className="w-[70px] h-[70px] lg:hidden ml-2" />
         {globalNavigation.map((link) => {
           const isActive = link.route && pathname.includes(link.route);
+          const Icon = link.icon;
+          const ActiveIcon = link.icon_checked;
           return (
             <Link href={link.route} key={link.route} className="flex items-center">
-              <Image src={isActive ? link.icon_checked : link.icon} alt={link.route} />
-              <p className={`font-semibold mx-2 max-lg:hidden ${isActive ? "text-red" : "text-gray-3"}`}>
-                {link.label}
-              </p>
+              {isActive ? <ActiveIcon /> : <Icon />}
+              <p className={`font-semibold mx-2 ${isActive ? "text-red" : "text-gray-3"}`}>{link.label}</p>
             </Link>
           );
         })}
