@@ -59,7 +59,7 @@ function KaKaoTerms() {
 
       setTimeout(() => {
         router.replace("/accounts/login");
-      }, 2000);
+      }, 3000);
     }
     setIsLoading(false);
   };

@@ -55,7 +55,7 @@ function WithdrawModal({ setShowModal }: WithdrawModalProps) {
 
       setTimeout(() => {
         router.replace("/accounts/login");
-      }, 2000);
+      }, 3000);
     } catch (error) {
       toast(TOAST_MESSAGES.WITHDRAW_FAILURE);
     }

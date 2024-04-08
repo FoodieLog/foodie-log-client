@@ -73,7 +73,7 @@ function KaKaoCode() {
 
       setTimeout(() => {
         router.replace("/accounts/login");
-      }, 2000);
+      }, 3000);
     }
   };
 
