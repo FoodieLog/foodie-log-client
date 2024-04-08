@@ -29,7 +29,7 @@ function ChangePassword({ email }: ChangePassword) {
 
       setTimeout(() => {
         router.replace("/accounts/login");
-      }, 2000);
+      }, 3000);
     } catch (err) {
       toast(PASSWORD_CHANGE_FAILURE);
     }

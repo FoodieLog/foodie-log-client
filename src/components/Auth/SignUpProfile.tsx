@@ -61,7 +61,7 @@ function SignUpProfile() {
 
       setTimeout(() => {
         router.replace("/accounts/login");
-      }, 2000);
+      }, 3000);
 
       clearUser();
       setProfile({
