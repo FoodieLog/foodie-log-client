@@ -52,7 +52,10 @@ function WithdrawModal({ setShowModal }: WithdrawModalProps) {
       await postWithdraw({ withdrawReason });
       clearUser();
       toast(TOAST_MESSAGES.WITHDRAW_SUCCESS);
-      router.replace("/accounts/login");
+
+      setTimeout(() => {
+        router.replace("/accounts/login");
+      }, 2000);
     } catch (error) {
       toast(TOAST_MESSAGES.WITHDRAW_FAILURE);
     }
