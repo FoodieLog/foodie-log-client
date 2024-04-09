@@ -1,10 +1,10 @@
 import { useToast } from "@/components/ui/use-toast";
 import { TOAST_MESSAGES } from "@constants/toast";
 import { likeRestaurant, unlikeRestaurant } from "@services/restaurant";
-import { MyMap } from "@@types/mypage";
+import { MyMapType } from "@@types/mypage";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-const useLikeShopMutations = (restaurantId: number, userId?: MyMap["userId"]) => {
+const useLikeShopMutations = (restaurantId: number, userId?: MyMapType["userId"]) => {
   const queryClient = useQueryClient();
   const { toast } = useToast();
 
