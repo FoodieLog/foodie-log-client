@@ -8,6 +8,7 @@ import useLogout from "@hooks/useLogout";
 import { minutesInMilliseconds } from "@utils/date";
 import { tokenLoader } from "@utils/token";
 import { getKaKaoRefreshToken, logoutKaKaoToken } from "@services/kakao";
+import { TOAST_MESSAGES } from "@/src/constants";
 
 const AuthCheck: React.FC = () => {
   const { toast } = useToast();
@@ -26,8 +27,7 @@ const AuthCheck: React.FC = () => {
         setTokenExpiry(Date.now() + minutesInMilliseconds);
         reissueTimeout = setTimeout(reissue, minutesInMilliseconds);
       } catch (error) {
-        console.error("Error while reissuing tokens:", error);
-        toast({ description: "토큰이 유효하지 않습니다.\n다시 로그인해 주세요!" });
+        toast(TOAST_MESSAGES.TOKEN_ERROR);
         await logout();
       }
     };
@@ -61,8 +61,7 @@ const AuthCheck: React.FC = () => {
           setUser({ accessToken: reissueResponse.response.accessToken });
           setTokenExpiry(Date.now() + minutesInMilliseconds);
         } catch (error) {
-          console.error("Error while reissuing tokens:", error);
-          toast({ description: "토큰이 유효하지 않습니다.\n다시 로그인해 주세요!" });
+          toast(TOAST_MESSAGES.TOKEN_ERROR);
           await logout();
         }
       } else if (pathname === "/") {
@@ -87,7 +86,7 @@ const AuthCheck: React.FC = () => {
           setUser({ accessToken: data.access_token });
           localStorage.setItem("kakaoRefresh", data.refresh_token);
         } catch (err) {
-          toast({ description: "토큰이 유효하지 않습니다.\n다시 로그인해 주세요!" });
+          toast(TOAST_MESSAGES.TOKEN_ERROR);
           await logoutKaKaoToken();
           clearUser();
         }
