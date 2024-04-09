@@ -38,4 +38,5 @@ export const TOAST_MESSAGES = {
   REPLY_DELETE_ERROR: { title: "삭제 오류 발생", description: "처리 중에 오류가 발생하였습니다." },
   REPORT_SUCCESS: { title: "신고정상 접수", description: "신고가 정상 접수 되었습니다." },
   REPORT_FAILURE: { title: "오류 발생", description: "신고 처리 중 오류 발생하였습니다." },
+  TOKEN_ERROR: { description: "토큰이 유효하지 않습니다.\n다시 로그인해 주세요!" },
 };
