@@ -35,7 +35,7 @@ export interface myProfileState {
   userId: number;
 }
 
-export interface MyMap {
+export interface MyMapType {
   userId?: number;
   header: string;
 }
