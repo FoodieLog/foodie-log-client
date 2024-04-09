@@ -2,14 +2,14 @@
 import MyListMap from "@components/Map/MyListMap";
 import Header from "@components/Common/Header";
 import { MapItem } from "@@types/apiTypes";
-import { MyMap } from "@@types/mypage";
+import { MyMapType } from "@@types/mypage";
 import useMyMapQuery from "@hooks/queries/useMyMapQuery";
 import ShopCard from "@components/Common/Card/ShopCard";
 import Drawer from "@components/Common/Drawer/Drawer";
 import RestaurantCategorySlider from "@components/Restaurant/RestaurantCategorySlider";
 import { useState } from "react";
 
-function MyMap({ userId, header }: MyMap) {
+function MyMap({ userId, header }: MyMapType) {
   const { data, isLoading } = useMyMapQuery(userId);
   const [selected, setSelected] = useState<string[]>([]);
 

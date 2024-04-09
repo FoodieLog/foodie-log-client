@@ -52,9 +52,9 @@ const ShopCard: React.FC<ShopCardProps> = ({
           <Image width={50} height={50} src={getIcon(category)} alt="음식점 썸네일" />
         </div>
         <div className="flex flex-col gap-1 items-start ml-3">
-          <div className="flex items-center">
+          <div className="flex items-center gap-x-2.5">
             <span className="font-bold text-[18px]">{name}</span>
-            {/* 카테고리 태그 컴포넌트 추가 예정 */}
+            <span className="block px-1 py-0.5 rounded-[4px] text-sm bg-gray-1">{category}</span>
           </div>
           <div className="flex items-center gap-1">
             <LocationOn />

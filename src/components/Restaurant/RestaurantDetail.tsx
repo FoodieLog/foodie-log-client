@@ -43,6 +43,7 @@ const RestaurantDetail = ({ restaurantId }: RestaurantDetailProps) => {
         latitude={data?.detail.restaurant.mapY ?? ""}
         longitude={data?.detail.restaurant.mapX ?? ""}
         restaurantId={parsedId}
+        isLiked={data?.detail.isLiked.liked ?? false}
       />
 
       <Drawer openedHeight={351} closedHeight={70 + 68} scroller>
@@ -53,7 +54,6 @@ const RestaurantDetail = ({ restaurantId }: RestaurantDetailProps) => {
             category={data?.detail.restaurant.category ?? ""}
             roadAddress={data?.detail.restaurant.roadAddress ?? ""}
             isLiked={data?.detail.isLiked.liked}
-            shopUrl={data?.detail.restaurant.link}
           />
           <hr />
           <div className="flex justify-between p-2 font-[600]">
