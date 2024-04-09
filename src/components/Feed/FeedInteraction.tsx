@@ -1,9 +1,12 @@
+import axios from "axios";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
 import { unlikeFeed, likeFeed } from "@services/feed";
 import { ShareFat, HeartStraight, FullHeartStraight, ChatCircleText } from "@assets/icons";
 import { FeedData } from "@@types/apiTypes";
+import { TOAST_MESSAGES } from "@constants";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface FeedInteractionProps {
   data: FeedData["feed"];
@@ -13,8 +16,11 @@ interface FeedInteractionProps {
 function FeedInteraction({ data, isLiked }: FeedInteractionProps) {
   const [likeCount, setLikeCount] = useState<number>(data.likeCount);
   const [like, setLike] = useState<boolean>(isLiked);
+
   const { toast } = useToast();
   const router = useRouter();
+
+  const queryClient = useQueryClient();
 
   const clickLikeBtnHandler = async () => {
     try {
@@ -27,8 +33,12 @@ function FeedInteraction({ data, isLiked }: FeedInteractionProps) {
         setLike(true);
         setLikeCount((prevCount) => prevCount + 1);
       }
+      queryClient.invalidateQueries(["feedList"]);
     } catch (error) {
-      toast({ title: "좋아요 오류 발생", description: "처리 중에 오류가 발생하였습니다." });
+      if (axios.isAxiosError(error) && error.response) {
+        const ERROR_MESSAGE = error.response.data.error.message;
+        toast({ description: ERROR_MESSAGE || TOAST_MESSAGES.PROFILE_EDIT_FAILURE });
+      }
     }
   };
   const clickReplyBtnHandler = () => {

@@ -57,9 +57,11 @@ function SignUpProfile() {
       formData.append("file", profileImage as File);
 
       await signUp(formData);
-
-      router.replace("/accounts/login");
       toast(SIGNUP_SUCCESS);
+
+      setTimeout(() => {
+        router.replace("/accounts/login");
+      }, 3000);
 
       clearUser();
       setProfile({

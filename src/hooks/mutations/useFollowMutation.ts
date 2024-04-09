@@ -7,7 +7,7 @@ import { Mypage } from "@@types/mypage";
 import { useUserStore } from "@/src/store/useUserStore";
 import { useParams } from "next/navigation";
 
-const useFollowMutations = (userId: Mypage["userId"], restaurantId?: number, object?: string) => {
+const useFollowMutation = (userId: Mypage["userId"], restaurantId?: number, object?: string) => {
   const { user } = useUserStore();
   const params = useParams();
   const refetchUserId = params.id ? Number(params.id) : user.id;
@@ -38,4 +38,4 @@ const useFollowMutations = (userId: Mypage["userId"], restaurantId?: number, obj
   return { followMutation, unfollowMutation };
 };
 
-export default useFollowMutations;
+export default useFollowMutation;
