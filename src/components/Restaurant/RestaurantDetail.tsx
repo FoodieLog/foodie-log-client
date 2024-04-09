@@ -43,6 +43,7 @@ const RestaurantDetail = ({ restaurantId }: RestaurantDetailProps) => {
         latitude={data?.detail.restaurant.mapY ?? ""}
         longitude={data?.detail.restaurant.mapX ?? ""}
         restaurantId={parsedId}
+        isLiked={data?.detail.isLiked.liked ?? false}
       />
 
       <Drawer openedHeight={351} closedHeight={70 + 68} scroller>

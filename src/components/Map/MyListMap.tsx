@@ -2,7 +2,7 @@ import { Map, MapMarker, CustomOverlayMap } from "react-kakao-maps-sdk";
 import { useRouter } from "next/navigation";
 import { Fragment } from "react";
 import { MapItem } from "@@types/apiTypes";
-import { markerSize, markerImageSrc } from "@components/Map/common";
+import { markerSize } from "@components/Map/common";
 
 interface MapProps {
   size?: { width: string; height: string };
@@ -15,7 +15,7 @@ function MyListMap({ size = { width: "100%", height: "360px" }, mapData }: MapPr
   return (
     <div className="w-full">
       <Map center={{ lat: 36.2683, lng: 127.6358 }} style={size} level={15}>
-        {mapData?.map(({ restaurant }) => {
+        {mapData?.map(({ restaurant, isLiked }) => {
           const lat = parseFloat(restaurant.mapY);
           const lng = parseFloat(restaurant.mapX);
           return (
@@ -29,7 +29,7 @@ function MyListMap({ size = { width: "100%", height: "360px" }, mapData }: MapPr
                   router.push(`/main/restaurants/${restaurant.id}`);
                 }}
                 image={{
-                  src: markerImageSrc, // 마커이미지의 주소입니다
+                  src: isLiked ? "/liked.png" : "/restaurant.png", // 마커이미지의 주소입니다
                   size: markerSize, // 마커이미지의 크기입니다
                 }}
               />
