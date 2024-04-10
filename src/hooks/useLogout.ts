@@ -11,8 +11,6 @@ const useLogout = () => {
       await postLogout();
     } catch (error) {
       console.error("로그아웃 요청 실패");
-    } finally {
-      clearUser();
     }
 
     try {
@@ -20,7 +18,7 @@ const useLogout = () => {
     } catch (error) {
       console.error("로그아웃 토큰 삭제 실패");
     }
-
+    clearUser();
     router.replace("/accounts/login");
   };
 
