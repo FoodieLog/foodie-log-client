@@ -6,7 +6,6 @@ import { reissueTokens } from "@services/auth";
 import { useToast } from "@/components/ui/use-toast";
 import useLogout from "@hooks/useLogout";
 import { minutesInMilliseconds } from "@utils/date";
-import { tokenLoader } from "@utils/token";
 import { getKaKaoRefreshToken, logoutKaKaoToken } from "@services/kakao";
 import { TOAST_MESSAGES } from "@/src/constants";
 
@@ -75,19 +74,22 @@ const AuthCheck: React.FC = () => {
 
   // 카카오 리프레쉬 토큰 로직
   useEffect(() => {
-    const kakaoRefreshToken = tokenLoader();
     const token = localStorage.getItem("kakaoRefresh");
 
-    if (token && kakaoRefreshToken === "EXPIRED") {
+    if (token && isTokenExpired) {
       const getKakaoRefresh = async () => {
         try {
           const { data } = await getKaKaoRefreshToken(token);
 
           setUser({ accessToken: data.access_token });
+          setTokenExpiry(Date.now() + minutesInMilliseconds);
           localStorage.setItem("kakaoRefresh", data.refresh_token);
         } catch (err) {
           toast(TOAST_MESSAGES.TOKEN_ERROR);
+
           await logoutKaKaoToken();
+
+          localStorage.removeItem("kakaoRefresh");
           clearUser();
         }
       };
