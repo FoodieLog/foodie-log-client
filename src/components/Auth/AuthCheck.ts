@@ -28,6 +28,11 @@ const AuthCheck: React.FC = () => {
       } catch (error) {
         toast(TOAST_MESSAGES.TOKEN_ERROR);
         await logout();
+
+        clearUser();
+        setTimeout(() => {
+          router.replace("/accounts/login");
+        }, 3000);
       }
     };
 
@@ -62,6 +67,11 @@ const AuthCheck: React.FC = () => {
         } catch (error) {
           toast(TOAST_MESSAGES.TOKEN_ERROR);
           await logout();
+
+          clearUser();
+          setTimeout(() => {
+            router.replace("/accounts/login");
+          }, 3000);
         }
       } else if (pathname === "/") {
         router.replace("/main/home");
@@ -91,6 +101,10 @@ const AuthCheck: React.FC = () => {
 
           localStorage.removeItem("kakaoRefresh");
           clearUser();
+
+          setTimeout(() => {
+            router.replace("/accounts/login");
+          }, 3000);
         }
       };
       getKakaoRefresh();
