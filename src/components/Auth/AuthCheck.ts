@@ -30,6 +30,9 @@ const AuthCheck: React.FC = () => {
         await logout();
 
         clearUser();
+
+        localStorage.removeItem("user-storage");
+
         setTimeout(() => {
           router.replace("/accounts/login");
         }, 3000);
@@ -68,7 +71,8 @@ const AuthCheck: React.FC = () => {
           toast(TOAST_MESSAGES.TOKEN_ERROR);
           await logout();
 
-          clearUser();
+          localStorage.removeItem("user-storage");
+
           setTimeout(() => {
             router.replace("/accounts/login");
           }, 3000);
@@ -100,7 +104,7 @@ const AuthCheck: React.FC = () => {
           await logoutKaKaoToken();
 
           localStorage.removeItem("kakaoRefresh");
-          clearUser();
+          localStorage.removeItem("user-storage");
 
           setTimeout(() => {
             router.replace("/accounts/login");
