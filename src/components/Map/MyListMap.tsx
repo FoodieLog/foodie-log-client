@@ -41,8 +41,9 @@ function MyListMap({ size = { width: "100%", height: "360px" }, mapData }: MapPr
                     router.push(`/main/restaurants/${restaurant.id}`);
                   }}
                   style={{
-                    color: "191919",
-                    backgroundColor: "#F6C443",
+                    color: "#fff",
+                    backgroundColor: "#3B4555",
+                    border: "1px solid #BABABA",
                     padding: "0 5px",
                     borderRadius: "4px",
                     marginBottom: "36px",
