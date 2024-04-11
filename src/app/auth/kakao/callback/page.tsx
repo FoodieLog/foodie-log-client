@@ -1,7 +1,7 @@
 "use client";
 import { useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
-import { getKaKaoToken, postKakaoToken, loginKaKaoToken } from "@services/kakao";
+import { getKaKaoToken, postKakaoToken, loginKaKaoToken, logoutKaKaoToken } from "@services/kakao";
 import { useUserStore } from "@store/useUserStore";
 import { initializePushNotifications } from "@components/Notification/PushNotification";
 import { minutesInMilliseconds } from "@utils/date";
@@ -16,7 +16,7 @@ function KaKaoCode() {
   const router = useRouter();
   const params = useSearchParams();
   const code = params.get("code");
-  const { setUser, setTokenExpiry, clearUser } = useUserStore();
+  const { setUser, setTokenExpiry } = useUserStore();
   const { nextComponent, setNextComponent } = useSignUpStore();
   const { setCheckStatus } = useNotificationStore();
   const { toast } = useToast();
@@ -66,9 +66,11 @@ function KaKaoCode() {
         setNextComponent("KaKaoTerms");
       }
     } catch (error) {
+      await logoutKaKaoToken();
+
       removeItem("kakaoRefresh");
       removeItem("kakaoToken");
-      clearUser();
+      removeItem("user-storage");
 
       toast(TOAST_MESSAGES.KAKAO_LOGIN_FAILURE);
 

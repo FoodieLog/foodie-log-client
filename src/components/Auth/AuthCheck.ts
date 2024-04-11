@@ -99,9 +99,9 @@ const AuthCheck: React.FC = () => {
           setTokenExpiry(Date.now() + minutesInMilliseconds);
           localStorage.setItem("kakaoRefresh", data.refresh_token);
         } catch (err) {
-          toast(TOAST_MESSAGES.TOKEN_ERROR);
-
           await logoutKaKaoToken();
+
+          toast(TOAST_MESSAGES.TOKEN_ERROR);
 
           localStorage.removeItem("kakaoRefresh");
           localStorage.removeItem("user-storage");
