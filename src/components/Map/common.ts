@@ -1,6 +1,6 @@
 // Marker Size
 export const markerSize: { width: number; height: number } = {
-  width: 24,
+  width: 35,
   height: 35,
 };
 

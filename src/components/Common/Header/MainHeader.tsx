@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import useHideOnScroll from "@hooks/useHideOnScroll";
 import { SearchIcon, Notifications } from "@assets/icons";
-import { TextLogo } from "@/public/images";
+import { MainLogo } from "@assets/images";
 
 const MainHeader = () => {
   const isVisible = useHideOnScroll();
@@ -15,9 +15,8 @@ const MainHeader = () => {
       sm:fixed sm:-top-2
     ${isVisible ? "fixed -top-1" : "fixed -top-16"} transition-top duration-300`}
     >
-      <div>
-        <Image src={TextLogo} alt="logo" className="w-[100px] h-9/12 sm:hidden cursor-pointer" />
-      </div>
+      <Image src={MainLogo} alt="logo" className="w-[160px] sm:hidden mt-3" />
+
       <div className="flex items-center sm:hidden">
         <Link href="/main/search">
           <SearchIcon />

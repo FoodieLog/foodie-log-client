@@ -20,7 +20,7 @@ function MyProfileTabContent({ userId }: MyFeedTabProps) {
           지도
         </Tabs.Trigger>
       </Tabs.List>
-      <Tabs.Content className="overflow-y-auto" style={{ height: window.innerHeight - 500 }} value="feed">
+      <Tabs.Content className="overflow-y-auto" style={{ height: window.innerHeight - 370 }} value="feed">
         <MyFeedThumbnail userId={userId} />
       </Tabs.Content>
       <Tabs.Content value="map">

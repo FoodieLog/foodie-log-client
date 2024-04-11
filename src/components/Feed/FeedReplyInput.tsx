@@ -25,14 +25,30 @@ function FeedReplyInput({ feedId, replyParentNum, setReplyParentNum }: FeedReply
     user: { nickName, profileImageUrl },
   } = useUserStore();
 
+  const createFormatReply = () => {
+    const splitedReply = reply.split(" ");
+    const nicknameReg = /([A-Za-z가-힣0-9]+)/g;
+    const newContent = splitedReply.map((reply) => {
+      if (reply.startsWith("@")) {
+        const mentionedNickname = reply.match(nicknameReg)?.[0];
+        return `@${mentionedNickname}`;
+      }
+      return reply;
+    });
+    return newContent.join(" ");
+  };
+
   const submitReply = () => {
     if (!reply) return;
 
     const filteredMentionedIds = mentionedIds.filter(
       (id, idx) => reply.includes(`(${id})`) && mentionedIds.indexOf(id) === idx
     );
+
+    const newContent = createFormatReply();
+
     const replyContent: PostReplyType = {
-      content: reply,
+      content: newContent,
       mentionedIds: filteredMentionedIds,
       parentId: replyParentNum,
     };

@@ -1,4 +1,5 @@
 "use client";
+import axios from "axios";
 import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -21,10 +22,9 @@ function LogInForm() {
   });
   const { toast } = useToast();
   const router = useRouter();
+
   const { setUser, setTokenExpiry } = useUserStore();
   const { setCheckStatus } = useNotificationStore();
-
-  const { LOGIN_FAILURE } = TOAST_MESSAGES;
 
   const onClickHandler: React.MouseEventHandler<HTMLButtonElement> = (event) => {
     event.preventDefault();
@@ -46,8 +46,11 @@ function LogInForm() {
       setTokenExpiry(Date.now() + minutesInMilliseconds);
       initializePushNotifications();
       router.replace("/main/home");
-    } catch (err) {
-      toast(LOGIN_FAILURE);
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response) {
+        const ERROR_MESSAGE = error.response.data.error.message[0];
+        toast({ description: ERROR_MESSAGE || TOAST_MESSAGES.LOGIN_FAILURE });
+      }
     }
   };
 

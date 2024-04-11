@@ -1,42 +1,33 @@
 "use client";
 import React from "react";
 import Link from "next/link";
-import Image from "next/image";
-// import { globalNavigation } from "@constants";
 import useShowPartial from "@hooks/useShowPartial";
-import {
-  SpaceDashboard,
-  SpaceDashboardCheck,
-  MapIcon,
-  MapIconCheck,
-  ThumbUp,
-  ThumbUpCheck,
-  Person,
-  PersonCheck,
-} from "@assets/icons";
+import { Dashboard, Map, Space, Person, DashboardCheck, MapCheck, SpaceCheck, PersonCheck } from "@assets/icons";
 import { NavItemType } from "@@types/navigation";
-import { useUserStore } from "@/src/store/useUserStore";
+import { useUserStore } from "@store/useUserStore";
+import useResetRecommend from "@hooks/useResetRecommend";
 
 function GlobalNavigation() {
   const { pathname, isShow } = useShowPartial();
   const { user } = useUserStore();
+  useResetRecommend();
 
   const globalNavigation: NavItemType[] = [
     {
-      icon: SpaceDashboard,
-      icon_checked: SpaceDashboardCheck,
+      icon: Dashboard,
+      icon_checked: DashboardCheck,
       label: "피드",
       route: "/main/home",
     },
     {
-      icon: MapIcon,
-      icon_checked: MapIconCheck,
+      icon: Map,
+      icon_checked: MapCheck,
       label: "내 지도",
       route: "/main/liked",
     },
     {
-      icon: ThumbUp,
-      icon_checked: ThumbUpCheck,
+      icon: Space,
+      icon_checked: SpaceCheck,
       label: "지역별",
       route: "/main/recommend",
     },
@@ -55,10 +46,12 @@ function GlobalNavigation() {
           <ul className="h-full flex px-2.5">
             {globalNavigation.map((link) => {
               const isActive = pathname === link.route;
+              const Icon = link.icon;
+              const ActiveIcon = link.icon_checked;
               return (
                 <li key={link.route} className="w-full flex justify-center">
                   <Link href={link.route} className="flex flex-col items-center justify-center">
-                    <Image src={isActive ? link.icon_checked : link.icon} alt={link.route} className="mb-[11px]" />
+                    {isActive ? <ActiveIcon className="mb-[11px]" /> : <Icon className="mb-[11px]" />}
                     <p className={`text-xs font-semibold ${isActive ? "text-red" : "text-gray-3"}`}>{link.label}</p>
                   </Link>
                 </li>

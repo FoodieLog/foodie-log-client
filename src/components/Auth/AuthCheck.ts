@@ -6,8 +6,8 @@ import { reissueTokens } from "@services/auth";
 import { useToast } from "@/components/ui/use-toast";
 import useLogout from "@hooks/useLogout";
 import { minutesInMilliseconds } from "@utils/date";
-import { tokenLoader } from "@utils/token";
 import { getKaKaoRefreshToken, logoutKaKaoToken } from "@services/kakao";
+import { TOAST_MESSAGES } from "@/src/constants";
 
 const AuthCheck: React.FC = () => {
   const { toast } = useToast();
@@ -17,6 +17,26 @@ const AuthCheck: React.FC = () => {
   const { logout } = useLogout();
 
   const isTokenExpired = user.tokenExpiry ? Date.now() > user.tokenExpiry : true;
+
+  useEffect(() => {
+    const reissue = async () => {
+      try {
+        const reissueResponse = await reissueTokens();
+        setUser({ accessToken: reissueResponse.response.accessToken });
+        setTokenExpiry(Date.now() + minutesInMilliseconds);
+        reissueTimeout = setTimeout(reissue, minutesInMilliseconds);
+      } catch (error) {
+        toast(TOAST_MESSAGES.TOKEN_ERROR);
+        await logout();
+      }
+    };
+
+    let reissueTimeout = setTimeout(reissue, minutesInMilliseconds);
+
+    return () => {
+      clearTimeout(reissueTimeout);
+    };
+  }, [logout, setTokenExpiry, setUser, toast]);
 
   // 일반 로그인
   useEffect(() => {
@@ -40,8 +60,7 @@ const AuthCheck: React.FC = () => {
           setUser({ accessToken: reissueResponse.response.accessToken });
           setTokenExpiry(Date.now() + minutesInMilliseconds);
         } catch (error) {
-          console.error("Error while reissuing tokens:", error);
-          toast({ description: "토큰이 유효하지 않습니다.\n다시 로그인해 주세요!" });
+          toast(TOAST_MESSAGES.TOKEN_ERROR);
           await logout();
         }
       } else if (pathname === "/") {
@@ -50,23 +69,27 @@ const AuthCheck: React.FC = () => {
     };
 
     validateTokens();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user.accessToken, user.tokenExpiry, router, pathname, isTokenExpired, setUser, setTokenExpiry]);
 
   // 카카오 리프레쉬 토큰 로직
   useEffect(() => {
-    const kakaoRefreshToken = tokenLoader();
     const token = localStorage.getItem("kakaoRefresh");
 
-    if (token && kakaoRefreshToken === "EXPIRED") {
+    if (token && isTokenExpired) {
       const getKakaoRefresh = async () => {
         try {
           const { data } = await getKaKaoRefreshToken(token);
 
           setUser({ accessToken: data.access_token });
+          setTokenExpiry(Date.now() + minutesInMilliseconds);
           localStorage.setItem("kakaoRefresh", data.refresh_token);
         } catch (err) {
-          toast({ description: "토큰이 유효하지 않습니다.\n다시 로그인해 주세요!" });
+          toast(TOAST_MESSAGES.TOKEN_ERROR);
+
           await logoutKaKaoToken();
+
+          localStorage.removeItem("kakaoRefresh");
           clearUser();
         }
       };

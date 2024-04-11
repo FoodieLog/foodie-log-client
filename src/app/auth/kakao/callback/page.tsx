@@ -16,7 +16,7 @@ function KaKaoCode() {
   const router = useRouter();
   const params = useSearchParams();
   const code = params.get("code");
-  const { setUser, setTokenExpiry } = useUserStore();
+  const { setUser, setTokenExpiry, clearUser } = useUserStore();
   const { nextComponent, setNextComponent } = useSignUpStore();
   const { setCheckStatus } = useNotificationStore();
   const { toast } = useToast();
@@ -55,8 +55,11 @@ function KaKaoCode() {
       } else if (res.status === "BLOCK") {
         removeItem("kakaoRefresh");
         removeItem("kakaoToken");
-        router.replace("/accounts/login");
         toast(TOAST_MESSAGES.KAKAO_LOGIN_WITHDRAW);
+
+        setTimeout(() => {
+          router.replace("/accounts/login");
+        }, 3000);
       } else if (res.status === null) {
         setItem("kakaoToken", res.kakaoAccessToken);
         setTokenExpiry(Date.now() + minutesInMilliseconds);
@@ -65,8 +68,13 @@ function KaKaoCode() {
     } catch (error) {
       removeItem("kakaoRefresh");
       removeItem("kakaoToken");
-      router.replace("/accounts/login");
+      clearUser();
+
       toast(TOAST_MESSAGES.KAKAO_LOGIN_FAILURE);
+
+      setTimeout(() => {
+        router.replace("/accounts/login");
+      }, 3000);
     }
   };
 

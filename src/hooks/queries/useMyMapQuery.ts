@@ -2,10 +2,10 @@ import { useToast } from "@/components/ui/use-toast";
 import { TOAST_MESSAGES } from "@constants/toast";
 import { getLikedShop } from "@services/restaurant";
 import { getMyMap } from "@services/mypage";
-import { MyMap } from "@@types/mypage";
+import { MyMapType } from "@@types/mypage";
 import { useQuery } from "@tanstack/react-query";
 
-const useMyMapQuery = (userId: MyMap["userId"]) => {
+const useMyMapQuery = (userId: MyMapType["userId"]) => {
   const { toast } = useToast();
 
   return useQuery(

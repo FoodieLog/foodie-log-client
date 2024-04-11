@@ -43,15 +43,14 @@ import SendAble from "@assets/icons/common/send_able.svg";
 import SendDisAble from "@assets/icons/common/send_disabled.svg";
 
 //============ 아이콘 - GNB ============
-
-import Person from "@assets/icons/gnb/person.png";
-import PersonCheck from "@assets/icons/gnb/person_check.png";
-import SpaceDashboard from "@assets/icons/gnb/space_dashboard.png";
-import SpaceDashboardCheck from "@assets/icons/gnb/space_dashboard_check.png";
-import ThumbUp from "@assets/icons/gnb/thumb_up.png";
-import ThumbUpCheck from "@assets/icons/gnb/thumb_up_check.png";
-import MapIcon from "@assets/icons/gnb/map.png";
-import MapIconCheck from "@assets/icons/gnb/map_check.png";
+import Dashboard from "@assets/icons/gnb/Feed.svg";
+import Map from "@assets/icons/gnb/Map.svg";
+import Space from "@assets/icons/gnb/Space.svg";
+import Person from "@assets/icons/gnb/Person.svg";
+import DashboardCheck from "@assets/icons/gnb/FeedCheck.svg";
+import MapCheck from "@assets/icons/gnb/MapCheck.svg";
+import SpaceCheck from "@assets/icons/gnb/SpaceCheck.svg";
+import PersonCheck from "@assets/icons/gnb/PersonCheck.svg";
 
 //============ 아이콘 - Tag ============
 import Asian from "@assets/icons/tag/asian.svg";
@@ -121,14 +120,14 @@ export {
   SendDisAble,
 
   //GNB
+  Dashboard,
+  Map,
+  Space,
   Person,
+  DashboardCheck,
+  MapCheck,
+  SpaceCheck,
   PersonCheck,
-  SpaceDashboard,
-  SpaceDashboardCheck,
-  ThumbUp,
-  ThumbUpCheck,
-  MapIcon,
-  MapIconCheck,
 
   //Tag
   Asian,

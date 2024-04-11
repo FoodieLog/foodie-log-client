@@ -29,7 +29,7 @@ const useFeedListQuery = ({ userId, singleFeedId, category }: useFeedListQueryPr
         if (lastPage?.response?.content?.length < 15) return undefined;
         return lastFeed?.feed.feedId;
       },
-      enabled: !singleFeedId,
+      enabled: !singleFeedId || !userId,
     }
   );
 };

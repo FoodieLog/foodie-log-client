@@ -5,12 +5,12 @@ import { Mypage } from "@@types/mypage";
 import Button from "@components/Common/Button";
 import Header from "@components/Common/Header";
 import MyFriendList from "@components/Mypage/MyFriendList";
-import MyProfileTabContent from "@/src/components/Mypage/MyProfileTabContent";
-import useMyPageQuery from "@/src/hooks/queries/useMyPageQuery";
+import MyProfileTabContent from "@components/Mypage/MyProfileTabContent";
+import useMyPageQuery from "@hooks/queries/useMyPageQuery";
 import useMyFollowersQuery from "@hooks/queries/useMyFollowersQuery";
-import useFollowMutations from "@hooks/mutations/useFollowMutaton";
+import useFollowMutation from "@/src/hooks/mutations/useFollowMutation";
 import UserThumbnail from "@components/Common/Thumbnail/UserThumbnail";
-import { useUserStore } from "@/src/store/useUserStore";
+import { useUserStore } from "@store/useUserStore";
 
 function Mypage({ userId, option }: Mypage) {
   const [showFriendList, setShowFriendList] = useState(false);
@@ -23,7 +23,7 @@ function Mypage({ userId, option }: Mypage) {
   const { data } = useMyPageQuery(userId);
 
   const { data: myFollowerData, refetch } = useMyFollowersQuery(userId, object);
-  const { followMutation, unfollowMutation } = useFollowMutations(userId, undefined, object);
+  const { followMutation, unfollowMutation } = useFollowMutation(userId, undefined, object);
 
   useEffect(() => {
     setIsClient(true);

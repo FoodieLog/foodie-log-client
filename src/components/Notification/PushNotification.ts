@@ -37,7 +37,7 @@ export const initializePushNotifications = async () => {
 
   try {
     const token = await getToken(messaging, { vapidKey: VAPID_KEY });
-    // TODO: 서버에 토큰을 전송하는 코드 추가
+
     await sendFcmToken(token);
   } catch (error) {
     if (isFirebaseError(error) && error.code !== "messaging/token-unsubscribe-failed") {
