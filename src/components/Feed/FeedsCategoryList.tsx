@@ -8,14 +8,15 @@ import FeedUserCard from "@components/Feed/FeedUserCard";
 import InfiniteScroll from "react-infinite-scroller";
 import { Content } from "@@types/feed";
 import { useState } from "react";
-import { RestaurantCategory } from "@/src/types/restaurant";
+import { RestaurantCategory } from "@@types/restaurant";
+import Skeleton from "@components/Common/Skeleton";
 
 const FeedsCategoryList = () => {
   const [category, setCategory] = useState<RestaurantCategory>("");
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } = useFeedListQuery({ category });
 
   if (isLoading) {
-    <div>Loading...</div>;
+    <Skeleton />;
   }
 
   return (

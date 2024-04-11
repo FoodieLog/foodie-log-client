@@ -8,45 +8,26 @@ import useLogout from "@hooks/useLogout";
 import { minutesInMilliseconds } from "@utils/date";
 import { getKaKaoRefreshToken, logoutKaKaoToken } from "@services/kakao";
 import { TOAST_MESSAGES } from "@/src/constants";
-import useLocalStorage from "@/src/hooks/useLocalStorage";
 
 const AuthCheck: React.FC = () => {
   const { toast } = useToast();
   const { user, setUser, setTokenExpiry, clearUser } = useUserStore();
-  const { getItem, removeItem } = useLocalStorage();
   const router = useRouter();
   const pathname = usePathname();
   const { logout } = useLogout();
 
   const isTokenExpired = user.tokenExpiry ? Date.now() > user.tokenExpiry : true;
 
-  const kakaoRefreshToken = getItem("kakaoRefresh");
-
   useEffect(() => {
     const reissue = async () => {
-      if (kakaoRefreshToken) {
-        try {
-          const { data } = await getKaKaoRefreshToken(kakaoRefreshToken);
-
-          setUser({ accessToken: data.access_token });
-          localStorage.setItem("kakaoRefresh", data.refresh_token);
-          setTokenExpiry(Date.now() + minutesInMilliseconds);
-        } catch (err) {
-          toast(TOAST_MESSAGES.TOKEN_ERROR);
-          await logoutKaKaoToken();
-          clearUser();
-          router.replace("/main/home");
-        }
-      } else {
-        try {
-          const reissueResponse = await reissueTokens();
-          setUser({ accessToken: reissueResponse.response.accessToken });
-          setTokenExpiry(Date.now() + minutesInMilliseconds);
-          reissueTimeout = setTimeout(reissue, minutesInMilliseconds);
-        } catch (error) {
-          toast(TOAST_MESSAGES.TOKEN_ERROR);
-          await logout();
-        }
+      try {
+        const reissueResponse = await reissueTokens();
+        setUser({ accessToken: reissueResponse.response.accessToken });
+        setTokenExpiry(Date.now() + minutesInMilliseconds);
+        reissueTimeout = setTimeout(reissue, minutesInMilliseconds);
+      } catch (error) {
+        toast(TOAST_MESSAGES.TOKEN_ERROR);
+        await logout();
       }
     };
 
@@ -59,8 +40,6 @@ const AuthCheck: React.FC = () => {
 
   // 일반 로그인
   useEffect(() => {
-    if (kakaoRefreshToken) return;
-
     const validateTokens = async () => {
       const useStorage = localStorage.getItem("user-storage");
 
@@ -83,11 +62,6 @@ const AuthCheck: React.FC = () => {
         } catch (error) {
           toast(TOAST_MESSAGES.TOKEN_ERROR);
           await logout();
-          clearUser();
-
-          setTimeout(() => {
-            router.replace("/accounts/login");
-          }, 3000);
         }
       } else if (pathname === "/") {
         router.replace("/main/home");
@@ -100,22 +74,23 @@ const AuthCheck: React.FC = () => {
 
   // 카카오 리프레쉬 토큰 로직
   useEffect(() => {
-    if (kakaoRefreshToken && isTokenExpired) {
+    const token = localStorage.getItem("kakaoRefresh");
+
+    if (token && isTokenExpired) {
       const getKakaoRefresh = async () => {
         try {
-          const { data } = await getKaKaoRefreshToken(kakaoRefreshToken);
+          const { data } = await getKaKaoRefreshToken(token);
 
           setUser({ accessToken: data.access_token });
-          localStorage.setItem("kakaoRefresh", data.refresh_token);
           setTokenExpiry(Date.now() + minutesInMilliseconds);
+          localStorage.setItem("kakaoRefresh", data.refresh_token);
         } catch (err) {
           toast(TOAST_MESSAGES.TOKEN_ERROR);
-          clearUser();
-          removeItem("kakaoRefresh");
 
-          setTimeout(() => {
-            router.replace("/accounts/login");
-          }, 3000);
+          await logoutKaKaoToken();
+
+          localStorage.removeItem("kakaoRefresh");
+          clearUser();
         }
       };
       getKakaoRefresh();

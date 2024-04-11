@@ -8,6 +8,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Content } from "@@types/apiTypes";
 import Link from "next/link";
+import Skeleton from "@components/Common/Skeleton";
 
 interface RestaurantDetailProps {
   restaurantId: string;
@@ -33,7 +34,7 @@ const RestaurantDetail = ({ restaurantId }: RestaurantDetailProps) => {
   }, [data?.feedList]);
 
   // TODO: 로딩 ui 추가하기!
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <Skeleton />;
 
   return (
     <div className="w-full flex flex-col justify-center max-w-screen-sm mx-auto relative">
