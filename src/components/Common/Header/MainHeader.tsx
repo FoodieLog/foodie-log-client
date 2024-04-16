@@ -3,8 +3,9 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import useHideOnScroll from "@hooks/useHideOnScroll";
-import { SearchIcon, Notifications } from "@assets/icons";
-import { MainLogo } from "@assets/images";
+import SearchIcon from "@assets/icons/common/search.svg";
+import Notifications from "@assets/icons/common/notifications.svg";
+import MainLogo from "@assets/images/logo/mainLogo.png";
 
 const MainHeader = () => {
   const isVisible = useHideOnScroll();

@@ -6,7 +6,8 @@ import { MentionsInput, Mention, SuggestionDataItem } from "react-mentions";
 import useSearchUser from "@hooks/queries/useSearchUser";
 import MentionItem from "@components/Feed/MentionItem";
 import { MentionUserType, PostReplyType } from "@@types/reply";
-import { SendAble, SendDisAble } from "@assets/icons";
+import SendAble from "@assets/icons/common/send_able.svg";
+import SendDisAble from "@assets/icons/common/send_disabled.svg";
 
 interface FeedReplyInputProps {
   feedId: number;

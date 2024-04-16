@@ -1,5 +1,5 @@
 import React from "react";
-import { Dissatisfied } from "@assets/icons";
+import Dissatisfied from "@assets/icons/common/dissatisfied.svg";
 
 interface EmptyListProps {
   keyword: string;

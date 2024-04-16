@@ -4,7 +4,7 @@ import Header from "@components/Common/Header";
 import ShopCard from "@components/Common/Card/ShopCard";
 import useRestaurantDetailQuery from "@hooks/queries/useRestaurantDetailQuery";
 import RestaurantFeedList from "@components/Restaurant/RestaurantFeedList";
-import { RestaurantDetailBackground } from "@assets/images";
+import RestaurantDetailBackground from "@assets/images/basic/restaurant_detail_back.svg";
 import { RestaurantSortType } from "@@types/restaurant";
 
 function RestaurantReviewsPage({ params }: { params: { id: string } }) {

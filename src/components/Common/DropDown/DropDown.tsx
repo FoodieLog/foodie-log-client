@@ -10,8 +10,9 @@ import {
 import { DialogProps } from "@@types/common";
 import { deleteFeed } from "@services/feed";
 import { useToast } from "@/components/ui/use-toast";
-import { MoreVert, SettingsIcon } from "@assets/icons";
 import { TOAST_MESSAGES } from "@constants";
+import MoreVert from "@assets/icons/common/more_vert.svg";
+import SettingsIcon from "@assets/icons/common/settings.svg";
 import DialogReport from "@components/Common/Dialog/DialogReport";
 import DialogConfirm from "@components/Common/Dialog/DialogConfirm";
 import useSignUpStore from "@store/useSignUpStore";

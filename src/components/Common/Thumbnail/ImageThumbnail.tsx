@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import { ImagesMode } from "@assets/icons";
+import ImagesMode from "@assets/icons/common/imagesmode.svg";
 import { ImageComponentProps } from "@@types/common";
 
 function ImageThumbnail({ imageSrc, imageAlt }: ImageComponentProps) {

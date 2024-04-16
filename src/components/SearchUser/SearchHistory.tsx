@@ -1,6 +1,6 @@
 import useSearchStore from "@store/useSearchStore";
+import CloseSmall from "@assets/icons/common/close_small.svg";
 import { searchUser } from "@services/feed";
-import { CloseSmall } from "@assets/icons";
 import { Dispatch, SetStateAction } from "react";
 import { APIUserSearchResponse } from "@/src/types/apiTypes";
 

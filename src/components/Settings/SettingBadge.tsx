@@ -1,11 +1,11 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { getApplyBadge, postApplyBadge } from "@services/settings";
-import Header from "@components/Common/Header";
 import { useToast } from "@/components/ui/use-toast";
-import Button from "@components/Common/Button";
-import { Explorer } from "@assets/images";
 import { TOAST_MESSAGES } from "@constants";
+import Header from "@components/Common/Header";
+import Button from "@components/Common/Button";
+import Explorer from "@assets/images/badge/badge.svg";
 
 function SettingBadge() {
   const { toast } = useToast();
