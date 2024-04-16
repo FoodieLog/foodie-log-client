@@ -48,7 +48,7 @@ function SettingPassword() {
   }
 
   return (
-    <section className="w-full h-full sm:max-w-[640px] flex flex-col">
+    <section className="w-full h-full sm:max-w-[640px] mx-auto flex flex-col">
       <Header title="" back="prePage" />
       <div className="h-full relative mx-5">
         <h4 className="text-2xl font-semibold text-center mb-[92px]">새로운 비밀번호 입력</h4>

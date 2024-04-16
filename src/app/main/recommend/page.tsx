@@ -20,7 +20,7 @@ function Recommend() {
   };
 
   return (
-    <div className="flex flex-col pb-[110px]">
+    <div className="flex flex-col pb-[110px] sm:max-w-[640px] mx-auto">
       <div className="px-5">
         <div className="h-[140px] flex flex-col justify-center gap-2.5">
           <h2 className="text-2xl text-gray-10">

@@ -31,7 +31,7 @@ function SettingBadge() {
   }, []);
 
   return (
-    <div className="w-full sm:max-w-[640px] leading-tight flex flex-col items-center text-gray-10 text-center">
+    <div className="w-full sm:max-w-[640px] mx-auto leading-tight flex flex-col items-center text-gray-10 text-center">
       <Header title="" back="prePage" />
       <Explorer />
       <h4 className="mt-[17px] mb-6 text-2xl font-semibold">푸디로그 뱃지 신청</h4>

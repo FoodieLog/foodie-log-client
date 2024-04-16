@@ -45,23 +45,25 @@ function MySettings() {
   };
 
   return (
-    <div className="bg-gray-0 ">
-      <Header title="설정 및 개인정보" back="prePage" />
-      <ul>
-        <SettingNotice />
-        <SettingListItem text="뱃지 신청" onClickHandler={onClickBadge} className="cursor-pointer" />
-        <SettingListItem text="비밀번호 변경" onClickHandler={onClickPassword} className="cursor-pointer" />
-        <SettingListItem text="로그아웃" onClickHandler={onClickLogout} className="cursor-pointer" />
-      </ul>
-      <div
-        data-modal-target="authentication-modal"
-        data-modal-toggle="authentication-modal"
-        onClick={onClickWithdraw}
-        className="h-12 cursor-pointer flex items-center justify-center font-semibold text-sm text-gray-3 hover:text-red hover:bg-gray-2"
-      >
-        회원탈퇴
+    <div className="bg-gray-1 sm:max-w-[640px] mx-auto">
+      <div className="bg-gray-0">
+        <Header title="설정 및 개인정보" back="prePage" />
+        <ul>
+          <SettingNotice />
+          <SettingListItem text="뱃지 신청" onClickHandler={onClickBadge} className="cursor-pointer" />
+          <SettingListItem text="비밀번호 변경" onClickHandler={onClickPassword} className="cursor-pointer" />
+          <SettingListItem text="로그아웃" onClickHandler={onClickLogout} className="cursor-pointer" />
+        </ul>
+        <div
+          data-modal-target="authentication-modal"
+          data-modal-toggle="authentication-modal"
+          onClick={onClickWithdraw}
+          className="h-12 cursor-pointer flex items-center justify-center font-semibold text-sm text-gray-3 hover:text-red hover:bg-gray-2"
+        >
+          회원탈퇴
+        </div>
+        {showModal && <WithdrawModal setShowModal={setShowModal} />}
       </div>
-      {showModal && <WithdrawModal setShowModal={setShowModal} />}
     </div>
   );
 }
