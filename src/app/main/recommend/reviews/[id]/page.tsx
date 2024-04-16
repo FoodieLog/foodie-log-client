@@ -27,9 +27,9 @@ function RestaurantReviewsPage({ params }: { params: { id: string } }) {
   const feedList = data.feedList;
 
   return (
-    <div>
+    <div className="sm:max-w-[640px] mx-auto">
       <Header title={name} back="prePage" />
-      <div className="mb-4">
+      <div className="mb-4 overflow-hidden">
         <RestaurantDetailBackground />
       </div>
       <div className="mx-3">
