@@ -1,6 +1,6 @@
 import React from "react";
 import Image, { StaticImageData } from "next/image";
-import { UserImage } from "@assets/images";
+import UserImage from "@assets/images/logo/userImage.png";
 
 interface IUserThumbImgProps {
   src: string | StaticImageData | undefined | null;

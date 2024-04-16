@@ -1,4 +1,4 @@
-import { UserPlus } from "@assets/icons";
+import UserPlus from "@assets/icons/common/UserPlus.svg";
 import useFollowMutation from "@/src/hooks/mutations/useFollowMutation";
 import { useParams } from "next/navigation";
 

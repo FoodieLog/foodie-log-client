@@ -1,5 +1,5 @@
 import React from "react";
-import { AddIcon } from "@assets/icons";
+import AddIcon from "@assets/icons/common/add.svg";
 import { PostFeedImageProps } from "@@types/post";
 
 const MAX_IMAGE_COUNT = 3;

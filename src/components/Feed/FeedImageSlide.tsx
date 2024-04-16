@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { RxDotFilled } from "react-icons/rx";
-import { ArrowBack_IOS } from "@assets/icons";
+import ArrowBack_IOS from "@assets/icons/common/arrow_back_ios.svg";
 
 interface FeedImageSlideProps {
   images: { imageUrl: string }[];

@@ -3,10 +3,13 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
 import { unlikeFeed, likeFeed } from "@services/feed";
-import { ShareFat, HeartStraight, FullHeartStraight, ChatCircleText } from "@assets/icons";
 import { FeedData } from "@@types/apiTypes";
 import { TOAST_MESSAGES } from "@constants";
 import { useQueryClient } from "@tanstack/react-query";
+import ShareFat from "@assets/icons/common/ShareFat.svg";
+import FullHeartStraight from "@assets/icons/common/FullHeartStraight.svg";
+import HeartStraight from "@assets/icons/common/HeartStraight.svg";
+import ChatCircleText from "@assets/icons/common/ChatCircleText.svg";
 
 interface FeedInteractionProps {
   data: FeedData["feed"];

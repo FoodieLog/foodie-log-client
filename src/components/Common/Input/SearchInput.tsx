@@ -1,4 +1,5 @@
-import { Close, SearchIcon } from "@assets/icons";
+import Close from "@assets/icons/common/close.svg";
+import SearchIcon from "@assets/icons/common/search.svg";
 import { Dispatch, SetStateAction } from "react";
 
 interface SearchInputProps {

@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { useRouter } from "next/navigation";
-import { PostFeedIcon } from "@assets/icons";
+import PostFeedIcon from "@assets/icons/common/edit.svg";
 import useShowPartial from "@hooks/useShowPartial";
 import useSignUpStore from "@store/useSignUpStore";
 

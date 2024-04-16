@@ -11,7 +11,8 @@ import SignUpProfile from "@components/Auth/SignUpProfile";
 import useSignUpStore from "@store/useSignUpStore";
 import { TOAST_MESSAGES } from "@constants/toast";
 import Header from "@components/Common/Header";
-import { Eye, EyeSlash } from "@assets/icons";
+import Eye from "@assets/icons/common/Eye.svg";
+import EyeSlash from "@assets/icons/common/EyeSlash.svg";
 import useToggleShowPassword from "@hooks/useToggleShowPassword";
 import SignUpTermsDrawer from "./SignUpTermsDrawer";
 

@@ -1,8 +1,8 @@
 import React from "react";
-import { useRouter } from "next/navigation";
-import { BigCheckCircle } from "@assets/icons";
 import Button from "@components/Common/Button";
 import useSignUpStore from "@store/useSignUpStore";
+import BigCheckCircle from "@assets/icons/common/Big_CheckCircle.svg";
+import { useRouter } from "next/navigation";
 
 function CompleteChangePassword() {
   const router = useRouter();

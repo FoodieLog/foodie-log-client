@@ -2,7 +2,14 @@
 import React from "react";
 import Link from "next/link";
 import useShowPartial from "@hooks/useShowPartial";
-import { Dashboard, Map, Space, Person, DashboardCheck, MapCheck, SpaceCheck, PersonCheck } from "@assets/icons";
+import Dashboard from "@assets/icons/gnb/Feed.svg";
+import Map from "@assets/icons/gnb/Map.svg";
+import Space from "@assets/icons/gnb/Space.svg";
+import Person from "@assets/icons/gnb/Person.svg";
+import DashboardCheck from "@assets/icons/gnb/FeedCheck.svg";
+import MapCheck from "@assets/icons/gnb/MapCheck.svg";
+import SpaceCheck from "@assets/icons/gnb/SpaceCheck.svg";
+import PersonCheck from "@assets/icons/gnb/PersonCheck.svg";
 import { NavItemType } from "@@types/navigation";
 import { useUserStore } from "@store/useUserStore";
 import useResetRecommend from "@hooks/useResetRecommend";

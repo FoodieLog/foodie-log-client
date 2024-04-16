@@ -2,7 +2,7 @@
 import DropDown from "@components/Common/DropDown/DropDown";
 import useSignUpStore from "@store/useSignUpStore";
 import usePostStore from "@/src/store/usePostStore";
-import { ArrowBack_IOS } from "@assets/icons";
+import ArrowBack_IOS from "@assets/icons/common/arrow_back_ios.svg";
 import { useRouter } from "next/navigation";
 import { HeaderProps } from "@/src/types/common";
 
