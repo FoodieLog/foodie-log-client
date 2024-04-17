@@ -9,14 +9,25 @@ import Drawer from "@components/Common/Drawer/Drawer";
 import RestaurantCategorySlider from "@components/Restaurant/RestaurantCategorySlider";
 import { useState } from "react";
 import Skeleton from "@components/Common/Skeleton";
+import { useUserStore } from "@/src/store/useUserStore";
+import { usePathname } from "next/navigation";
 
 function MyMap({ userId, header }: MyMapType) {
   const { data, isLoading } = useMyMapQuery(userId);
   const [selected, setSelected] = useState<string[]>([]);
+  const { user } = useUserStore();
+  const pathname = usePathname();
 
   const filteredRestaurant = selected.length
     ? data?.myMap.filter((data: MapItem) => selected.includes(data.restaurant.category))
     : data?.myMap;
+
+  const headerString =
+    header === "내가 리뷰한 맛집"
+      ? header
+      : pathname === "/main/liked"
+      ? `${user.nickName}${header}`
+      : `${data?.nickName}${header}`;
 
   //TODO: 로딩 UI 추가하기
   if (isLoading) {
@@ -25,7 +36,7 @@ function MyMap({ userId, header }: MyMapType) {
 
   return (
     <section className="w-full sm:max-w-[640px] mx-auto h-[100vh] overflow-hidden relative">
-      <Header title={header === "내가 리뷰한 맛집" ? header : `${data?.nickName}${header}`} back="prePage" />
+      <Header title={headerString} back="prePage" />
       <div className="flex flex-col items-center">
         <MyListMap mapData={data?.myMap} size={{ width: "100%", height: "calc(100vh - 56px - 56px)" }} />
         <Drawer
