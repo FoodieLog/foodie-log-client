@@ -4,7 +4,7 @@ import MyMap from "@components/Map/MyMap";
 function Map() {
   return (
     <div className="w-full">
-      <MyMap header="나의 맛집 리스트" />
+      <MyMap header="님의 맛집 지도" />
     </div>
   );
 }
