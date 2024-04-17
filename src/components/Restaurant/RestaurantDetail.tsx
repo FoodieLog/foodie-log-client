@@ -37,8 +37,6 @@ const RestaurantDetail = ({ restaurantId }: RestaurantDetailProps) => {
   // TODO: 로딩 ui 추가하기!
   if (isLoading) return <Skeleton />;
 
-  console.log(3 - images.length);
-
   return (
     <div className="w-full flex flex-col justify-center max-w-screen-sm mx-auto relative">
       <Header title={data?.detail.restaurant.name ?? ""} back="prePage" />
