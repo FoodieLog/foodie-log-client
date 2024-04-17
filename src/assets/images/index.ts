@@ -14,6 +14,7 @@ import western from "@assets/images/restaurants/western.png";
 
 //============ 이미지 - basic ============
 import BasicThumbnail from "@assets/images/basic/basic_thumb.png";
+import NoImage from "@assets/images/basic/no_img.png";
 import RestaurantDetailBackground from "@assets/images/basic/restaurant_detail_back.svg";
 
 //============ 이미지 - badge ============
@@ -37,6 +38,7 @@ export {
   //basic
   BasicThumbnail,
   RestaurantDetailBackground,
+  NoImage,
 
   //badge
   Explorer,
