@@ -59,6 +59,7 @@ function FeedReplyInput({ feedId, replyParentNum, setReplyParentNum }: FeedReply
   };
 
   const inputReplyHandler = (event: { target: { value: string } }) => {
+    if (event.target.value.length > 150) return;
     setReply(event.target.value);
   };
 
@@ -105,8 +106,8 @@ function FeedReplyInput({ feedId, replyParentNum, setReplyParentNum }: FeedReply
   }, [replyParentNum]);
 
   return (
-    <form className="flex px-2 py-1.5 border-y fixed bottom-0 w-full bg-gray-0">
-      <div className="w-[42px] h-[42px]">
+    <form className="flex px-2 py-1.5 border-y fixed bottom-0 w-full bg-gray-0 sm:max-w-[640px] mx-auto">
+      <div className="w-[42px] h-[42px] rounded-full overflow-hidden">
         <UserThumbImg src={profileImageUrl} alt={`${nickName} 프로필 이미지`} customWidth={42} customHeight={42} />
       </div>
       <MentionsInput
