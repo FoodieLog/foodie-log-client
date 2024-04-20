@@ -34,7 +34,7 @@ function FollowButton({ isFollowed, userId, className, icon = false, object }: F
       ) : (
         <p className="flex gap-1 justify-center items-center">
           {icon && <UserPlus />}
-          <p>팔로우</p>
+          <span>팔로우</span>
         </p>
       )}
     </button>
