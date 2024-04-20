@@ -2,7 +2,6 @@ import Link from "next/link";
 import Image from "next/image";
 import TimeStamp from "@components/Common/Tag/TimeStamp";
 import { FeedData } from "@@types/apiTypes";
-import { useUserStore } from "@store/useUserStore";
 
 interface FeedUserCardProps {
   data: FeedData["feed"];
@@ -10,8 +9,6 @@ interface FeedUserCardProps {
   small?: boolean;
 }
 function FeedUserCard({ data, timeStamp = true, small = false }: FeedUserCardProps) {
-  const { id } = useUserStore((state) => state.user);
-
   return (
     <div className={`flex items-center gap-${small ? 2 : 3}`}>
       <Link href={`/main/${data.userId}`} className={`relative w-${small ? 6 : 12} h-${small ? 6 : 12}`}>
