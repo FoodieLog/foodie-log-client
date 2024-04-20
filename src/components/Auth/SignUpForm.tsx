@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useToast } from "@/components/ui/use-toast";
 import { duplicateCheck, sendEmailCode } from "@services/auth";
-import { SignUpForm } from "@@types/apiTypes";
+import { SignUpForm as SignUpFormType } from "@@types/apiTypes";
 import { EMAIL_VALIDATION, PASSWORD_VALIDATION } from "@constants";
 import Button from "@components/Common/Button";
 import SignUpCode from "@components/Auth/SignUpCode";
@@ -36,7 +36,7 @@ function SignUpForm() {
     handleSubmit,
     watch,
     formState: { errors, isValid },
-  } = useForm<SignUpForm>({
+  } = useForm<SignUpFormType>({
     mode: "onChange",
   });
 
