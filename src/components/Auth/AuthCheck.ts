@@ -88,7 +88,7 @@ const AuthCheck: React.FC = () => {
 
   // 카카오 리프레쉬 토큰 로직
   useEffect(() => {
-    const token = localStorage.getItem("kakaoRefresh");
+    const token = user.kakaoAccessToken;
 
     if (token && isTokenExpired) {
       const getKakaoRefresh = async () => {
@@ -99,12 +99,15 @@ const AuthCheck: React.FC = () => {
           setTokenExpiry(Date.now() + minutesInMilliseconds);
           localStorage.setItem("kakaoRefresh", data.refresh_token);
         } catch (err) {
-          await logoutKaKaoToken();
-
           toast(TOAST_MESSAGES.TOKEN_ERROR);
 
-          localStorage.removeItem("kakaoRefresh");
-          localStorage.removeItem("user-storage");
+          try {
+            await logoutKaKaoToken();
+          } catch (logoutError) {
+            clearUser();
+            localStorage.removeItem("kakaoRefresh");
+            localStorage.removeItem("user-storage");
+          }
 
           setTimeout(() => {
             router.replace("/accounts/login");
