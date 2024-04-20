@@ -12,7 +12,7 @@ export const kakaoLogin = async () => {
 
 // 카카오 토큰 발급
 export const getKaKaoToken = async (code: string) => {
-  const res = await kakaoRequest.post("https://kauth.kakao.com/oauth/token", {
+  const res = await kakaoRequest.post("", {
     grant_type: "authorization_code",
     client_id: process.env.NEXT_PUBLIC_REST_API_KEY, // REST_API_KEY 변수를 사용하세요.
     redirect_uri: process.env.NEXT_PUBLIC_REDIRECT_URI, // REDIRECT_URI 변수를 사용하세요.
@@ -58,7 +58,7 @@ export const unlinkKaKaoToken = async () => {
 
 // 카카오 토큰 발급
 export const getKaKaoRefreshToken = async (token: string) => {
-  const res = await kakaoRequest.post("https://kauth.kakao.com/oauth/token", {
+  const res = await kakaoRequest.post("", {
     grant_type: "refresh_token",
     client_id: process.env.NEXT_PUBLIC_REST_API_KEY, // REST_API_KEY 변수를 사용하세요.
     refresh_token: token,
