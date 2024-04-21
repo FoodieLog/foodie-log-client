@@ -7,20 +7,22 @@ import { logIn } from "@services/auth";
 import { kakaoLogin } from "@services/kakao";
 import { initializePushNotifications } from "@components/Notification/PushNotification";
 import { useUserStore } from "@store/useUserStore";
-import { useToast } from "@/components/ui/use-toast";
+import { minutesInMilliseconds } from "@utils/date";
 import Button from "@components/Common/Button";
 import Line from "@components/Common/Line";
 import KaKaoLoginBtn from "@components/Common/Button/KaKaoLoginBtn";
 import useNotificationStore from "@/src/store/useNotificationStore";
-import { TOAST_MESSAGES } from "@constants";
-import { minutesInMilliseconds } from "@utils/date";
+
+interface LoginError {
+  field: string;
+  message: string;
+}
 
 function LogInForm() {
   const [logInData, setLogInData] = useState({
     email: "",
     password: "",
   });
-  const { toast } = useToast();
   const router = useRouter();
 
   const { setUser, setTokenExpiry } = useUserStore();
@@ -48,8 +50,7 @@ function LogInForm() {
       router.replace("/main/home");
     } catch (error) {
       if (axios.isAxiosError(error) && error.response) {
-        const ERROR_MESSAGE = error.response.data.error.message[0];
-        toast({ description: ERROR_MESSAGE || TOAST_MESSAGES.LOGIN_FAILURE });
+        error.response.data.error.message.map((value: LoginError) => alert(value.message));
       }
     }
   };
