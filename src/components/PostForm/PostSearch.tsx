@@ -32,11 +32,12 @@ function PostSearch() {
   }
 
   return (
-    <section className="w-full sm:max-w-[640px]  mx-auto">
-      <Header title="맛집 검색" back="prePage" />
+    <section className="w-full sm:max-w-[640px] mx-auto">
+      <Header title="맛집 선택" back="prePage" />
       <div className="mt-3 mx-3">
         <SearchInput
           query={keyword}
+          placeholder={"방문하신 맛집을 검색해주세요!"}
           setQuery={setKeyword}
           onChangeInputHandler={inputKeywordHandler}
           onSubmit={onSubmit}

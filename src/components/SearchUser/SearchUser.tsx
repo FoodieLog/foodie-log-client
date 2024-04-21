@@ -45,7 +45,12 @@ const SearchUser: React.FC = () => {
 
   return (
     <div className="w-full flex flex-col items-center justify-between px-4 mt-3">
-      <SearchInput query={query} setQuery={setQuery} onChangeInputHandler={onChangeInputHandler} />
+      <SearchInput
+        query={query}
+        placeholder={"검색 내용을 입력하세요!"}
+        setQuery={setQuery}
+        onChangeInputHandler={onChangeInputHandler}
+      />
       {searchResults.length ? (
         <ul className="w-full mt-[16px]">
           {searchResults.map((user) => (

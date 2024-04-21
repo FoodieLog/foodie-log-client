@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { CaretDown } from "@assets/icons";
+import CaretDown from "@assets/icons/common/CaretDown.svg";
 
 interface FeedContentProps {
   content: string;

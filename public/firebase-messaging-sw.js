@@ -1,6 +1,3 @@
-import { initializeApp } from "firebase/app";
-import { getMessaging } from "firebase/messaging";
-
 /// <reference lib="webworker" />
 
 importScripts("https://www.gstatic.com/firebasejs/9.14.0/firebase-app-compat.js");
@@ -26,16 +23,16 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+firebase.initializeApp(firebaseConfig);
 
-const messaging = getMessaging(app);
+const messaging = firebase.messaging();
 
 messaging.onBackgroundMessage((payload) => {
   // Customize notification here
   const notificationTitle = payload.notification.title;
   const notificationOptions = {
     body: payload.notification.body,
-    icon: "/images/userImage.png",
+    icon: "/images/userImage.png", // TODO: Change to your app's icon
   };
 
   self.registration.showNotification(notificationTitle, notificationOptions);

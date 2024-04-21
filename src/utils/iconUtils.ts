@@ -1,5 +1,13 @@
 import { StaticImageData } from "next/image";
-import { asian, bar, cafe, dessert, japanese, korean, snack, western, BasicThumbnail } from "@assets/images";
+import asian from "@assets/images/restaurants/asian.png";
+import bar from "@assets/images/restaurants/bar.png";
+import cafe from "@assets/images/restaurants/cafe.png";
+import dessert from "@assets/images/restaurants/dessert.png";
+import japanese from "@assets/images/restaurants/japanese.png";
+import korean from "@assets/images/restaurants/korean.png";
+import snack from "@assets/images/restaurants/snack.png";
+import western from "@assets/images/restaurants/western.png";
+import BasicThumbnail from "@assets/images/basic/basic_thumb.png";
 
 export function getIcon(category: string): StaticImageData {
   const RESTAURANT_CATEGORY: { [key: string]: StaticImageData } = {

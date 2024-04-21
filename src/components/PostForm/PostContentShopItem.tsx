@@ -1,8 +1,9 @@
 import Image from "next/image";
-import { AutoreNew, LocationOn } from "@assets/icons";
-import { BasicThumbnail } from "@assets/images";
+import LocationOn from "@assets/icons/common/location_on.svg";
+import AutoreNew from "@assets/icons/common/autorenew.svg";
 import usePostStore from "@store/usePostStore";
 import useOnClickBack from "@hooks/useOnClickBack";
+import BasicThumbnail from "@assets/images/basic/basic_thumb.png";
 
 interface PostContentShopItemProps {
   isShowEdit: boolean;

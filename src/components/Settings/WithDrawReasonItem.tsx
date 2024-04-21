@@ -1,6 +1,7 @@
 import React from "react";
+import CheckedCircle from "@assets/icons/common/checkedcircle.svg";
+import UncheckedCircle from "@assets/icons/common/uncheckedcircle.svg";
 import { Input } from "@/components/ui/input";
-import { CheckedCircle, UncheckedCircle } from "@assets/icons";
 
 interface WithDrawReasonItemProps {
   id: string;

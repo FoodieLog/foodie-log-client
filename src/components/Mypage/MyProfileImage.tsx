@@ -1,7 +1,8 @@
 import Image from "next/image";
 import React from "react";
 import { ImageComponentProps } from "@@types/common";
-import { PhotoCamera, AutoreNew } from "@assets/icons";
+import PhotoCamera from "@assets/icons/common/photo_camera.svg";
+import AutoreNew from "@assets/icons/common/autorenew.svg";
 
 function MyProfileImage({ imageSrc, imageAlt, className }: ImageComponentProps) {
   if (!imageSrc) {

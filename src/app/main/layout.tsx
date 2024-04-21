@@ -27,7 +27,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
         <Toaster />
         <LeftSidebar />
         <div className="flex flex-col flex-1 overflow-hidden">
-          <div className="flex-1 w-full overflow-y-auto">
+          <div className="flex-1 w-full overflow-y-auto overflow-x-hidden">
             <ReactQueryProvider>{children}</ReactQueryProvider>
             <PostFeedButton />
           </div>

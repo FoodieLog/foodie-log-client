@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import { useToast } from "@/components/ui/use-toast";
 import { useForm } from "react-hook-form";
 import { putChangePassword } from "@services/settings";
 import { ChangePassword } from "@@types/apiTypes";
@@ -7,11 +8,11 @@ import { PASSWORD_VALIDATION, TOAST_MESSAGES } from "@constants";
 import { useUserStore } from "@store/useUserStore";
 import Button from "@components/Common/Button";
 import Header from "@components/Common/Header";
-import { useToast } from "@/components/ui/use-toast";
 import useSignUpStore from "@store/useSignUpStore";
 import CompleteChangePassword from "@components/Settings/CompleteChangePassword";
 import ErrorText from "@components/Common/Error";
-import { Eye, EyeSlash } from "@assets/icons";
+import Eye from "@assets/icons/common/Eye.svg";
+import EyeSlash from "@assets/icons/common/EyeSlash.svg";
 import useToggelShowPassword from "@hooks/useToggleShowPassword";
 
 function SettingPassword() {
@@ -47,7 +48,7 @@ function SettingPassword() {
   }
 
   return (
-    <section className="w-full h-full sm:max-w-[640px] flex flex-col">
+    <section className="w-full h-full sm:max-w-[640px] mx-auto flex flex-col">
       <Header title="" back="prePage" />
       <div className="h-full relative mx-5">
         <h4 className="text-2xl font-semibold text-center mb-[92px]">새로운 비밀번호 입력</h4>

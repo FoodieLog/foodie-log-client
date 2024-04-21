@@ -1,6 +1,8 @@
 import { TERMS } from "@constants";
 import Button from "@components/Common/Button";
-import { ArrowBack_IOS, CheckedCircle, UncheckedCircle } from "@assets/icons";
+import ArrowBack_IOS from "@assets/icons/common/arrow_back_ios.svg";
+import CheckedCircle from "@assets/icons/common/checkedcircle.svg";
+import UncheckedCircle from "@assets/icons/common/uncheckedcircle.svg";
 import Drawer from "@components/Common/Drawer/Drawer";
 import { motion } from "framer-motion";
 import { useState } from "react";

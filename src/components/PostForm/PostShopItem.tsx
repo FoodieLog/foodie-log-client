@@ -1,8 +1,8 @@
 import React from "react";
 import usePostStore from "@store/usePostStore";
 import useSignUpStore from "@store/useSignUpStore";
+import LocationOn from "@assets/icons/common/location_on.svg";
 import { ShopItem } from "@@types/post";
-import { LocationOn } from "@assets/icons";
 
 interface PostShopItemProps {
   item: ShopItem;

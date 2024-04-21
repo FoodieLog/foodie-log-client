@@ -1,4 +1,4 @@
-import { CaretRight } from "@assets/icons";
+import CaretRight from "@assets/icons/common/CaretRight.svg";
 
 interface SettingListItemProps {
   text: string;

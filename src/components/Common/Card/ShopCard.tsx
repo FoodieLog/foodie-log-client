@@ -1,7 +1,10 @@
 import Link from "next/link";
 import Image from "next/image";
 import { getIcon } from "@utils/iconUtils";
-import { LocationOn, FullHeartStraight, HeartStraight, OpenInNew } from "@assets/icons";
+import LocationOn from "@assets/icons/common/location_on.svg";
+import FullHeartStraight from "@assets/icons/common/FullHeartStraight.svg";
+import HeartStraight from "@assets/icons/common/HeartStraight.svg";
+import OpenInNew from "@assets/icons/common/open_in_new.svg";
 import useLikeShopMutations from "@hooks/mutations/useLikeShopMutations";
 
 interface ShopCardProps {

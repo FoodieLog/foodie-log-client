@@ -1,7 +1,7 @@
 import React from "react";
 import { PostImageItemProps } from "@@types/post";
 import ImageThumbnail from "@components/Common/Thumbnail/ImageThumbnail";
-import { CloseSmall } from "@assets/icons";
+import CloseSmall from "@assets/icons/common/close_small.svg";
 
 function PostImageItem({ preview, idx, deleteImageHandler }: PostImageItemProps) {
   return (

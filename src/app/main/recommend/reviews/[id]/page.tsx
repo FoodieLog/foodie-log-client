@@ -4,7 +4,7 @@ import Header from "@components/Common/Header";
 import ShopCard from "@components/Common/Card/ShopCard";
 import useRestaurantDetailQuery from "@hooks/queries/useRestaurantDetailQuery";
 import RestaurantFeedList from "@components/Restaurant/RestaurantFeedList";
-import { RestaurantDetailBackground } from "@assets/images";
+import RestaurantDetailBackground from "@assets/images/basic/restaurant_detail_back.svg";
 import { RestaurantSortType } from "@@types/restaurant";
 
 function RestaurantReviewsPage({ params }: { params: { id: string } }) {
@@ -27,9 +27,9 @@ function RestaurantReviewsPage({ params }: { params: { id: string } }) {
   const feedList = data.feedList;
 
   return (
-    <div>
+    <div className="sm:max-w-[640px] mx-auto">
       <Header title={name} back="prePage" />
-      <div className="mb-4">
+      <div className="mb-4 overflow-hidden">
         <RestaurantDetailBackground />
       </div>
       <div className="mx-3">

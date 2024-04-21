@@ -1,14 +1,16 @@
-import { Close, SearchIcon } from "@assets/icons";
+import Close from "@assets/icons/common/close.svg";
+import SearchIcon from "@assets/icons/common/search.svg";
 import { Dispatch, SetStateAction } from "react";
 
 interface SearchInputProps {
   query: string;
+  placeholder: string;
   setQuery: Dispatch<SetStateAction<string>>;
   onChangeInputHandler: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onSubmit?: (e: React.FormEvent<HTMLFormElement>) => void;
 }
 
-function SearchInput({ query, setQuery, onChangeInputHandler, onSubmit }: SearchInputProps) {
+function SearchInput({ query, placeholder, setQuery, onChangeInputHandler, onSubmit }: SearchInputProps) {
   const clearInput = () => {
     setQuery("");
   };
@@ -25,7 +27,7 @@ function SearchInput({ query, setQuery, onChangeInputHandler, onSubmit }: Search
       <input
         className="group flex-grow"
         type="text"
-        placeholder="검색 내용을 입력하세요!"
+        placeholder={placeholder}
         onChange={onChangeInputHandler}
         value={query}
       />

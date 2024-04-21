@@ -4,7 +4,7 @@ import { ReplyListProps } from "@@types/feed";
 import FeedReplyItem from "@components/Feed/FeedReplyItem";
 import FeedReplyInput from "@components/Feed/FeedReplyInput";
 import useReplyList from "@hooks/queries/useReplyList";
-import { CloseSmall } from "@assets/icons";
+import CloseSmall from "@assets/icons/common/close_small.svg";
 
 const FeedReplyList: React.FC<ReplyListProps> = ({ id: feedId }) => {
   const { data } = useReplyList(Number(feedId));
