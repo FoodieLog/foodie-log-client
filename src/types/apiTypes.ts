@@ -35,7 +35,7 @@ export interface ChangePassword {
 // FEED
 export interface FeedData {
   feed: {
-    badgeFlag: "N" | "Y" | undefined;
+    badgeFlag?: "N" | "Y" | undefined;
     feedId: number;
     userId: number;
     nickName: string;
