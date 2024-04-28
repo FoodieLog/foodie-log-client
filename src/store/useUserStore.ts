@@ -1,6 +1,5 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
-import { Notification } from "@@types/settings";
 
 type User = {
   id?: number;
@@ -10,6 +9,7 @@ type User = {
   accessToken?: string;
   kakaoAccessToken?: string;
   tokenExpiry?: number; // 유닉스 타임스탬프로 만료 시간 저장
+  badgeFlag?: "Y" | "N" | undefined;
   replyFlag?: "Y" | "N";
   followFlag?: "Y" | "N";
   likeFlag?: "Y" | "N";
@@ -33,6 +33,7 @@ export const useUserStore = create<UserState>()(
         accessToken: undefined,
         kakaoAccessToken: undefined,
         tokenExpiry: undefined, // 초기 만료 시간은 undefined로 설정
+        badgeFlag: undefined,
         replyFlag: "Y",
         followFlag: "Y",
         likeFlag: "Y",
@@ -64,6 +65,7 @@ export const useUserStore = create<UserState>()(
             accessToken: undefined,
             kakaoAccessToken: undefined,
             tokenExpiry: undefined,
+            badgeFlag: undefined,
             replyFlag: "Y",
             followFlag: "Y",
             likeFlag: "Y",
