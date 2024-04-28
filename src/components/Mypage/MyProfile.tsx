@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { Mypage } from "@@types/mypage";
+import { Mypage as MypageTypes } from "@@types/mypage";
 import Button from "@components/Common/Button";
 import Header from "@components/Common/Header";
 import MyFriendList from "@components/Mypage/MyFriendList";
@@ -10,9 +10,10 @@ import useMyPageQuery from "@hooks/queries/useMyPageQuery";
 import useMyFollowersQuery from "@hooks/queries/useMyFollowersQuery";
 import useFollowMutation from "@/src/hooks/mutations/useFollowMutation";
 import UserThumbnail from "@components/Common/Thumbnail/UserThumbnail";
+import Badge from "@assets/icons/common/Badge.svg";
 import { useUserStore } from "@store/useUserStore";
 
-function Mypage({ userId, option }: Mypage) {
+function Mypage({ userId, option }: MypageTypes) {
   const [showFriendList, setShowFriendList] = useState(false);
   const [isClient, setIsClient] = useState(false);
   const [object, setObject] = useState("");
@@ -67,7 +68,10 @@ function Mypage({ userId, option }: Mypage) {
         <div className="flex justify-between items-center mb-3 gap-6 shrink-0">
           <UserThumbnail profileImgUrl={data?.profileImageUrl} userId={data?.userId} size="w-[90px] h-[90px]" />
           <div className="w-full flex flex-col gap-3 text-gray-10">
-            <p className="text-[18px] font-semibold">{data.nickName}</p>
+            <div className="flex items-center gap-1">
+              {data.badgeFlag === "Y" && <Badge />}
+              <p className="text-[18px] font-semibold">{data.nickName}</p>
+            </div>
             <div className="flex gap-2 text-sm">
               <div className="flex items-center gap-1">
                 <p className="text-gray-4">게시물</p>
