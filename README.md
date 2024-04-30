@@ -6,9 +6,9 @@
 ## 프로젝트 소개
 > 주제: 지도형 맛집 공유 및 추천 SNS 플랫폼 <br/>
 > 기간: 2023.07.05 ~ 2023.10.10 (v1.0.0)<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2024.02.14 ~ 2024.04.02 (v2.3.0)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2024.02.14 ~ 2024.04.17 (v2.0.3)<br/>
 > 배포 주소: [푸디로그](https://www.foodielog.shop/) <br/>
-> 테스트용 ID: boo5@gmail.com , PW: abcd1234!
+> 테스트용 ID: boo2@gmail.com , PW: boo1234!
 
 
 ## 사용 기술
@@ -62,7 +62,7 @@ _Foodie Log v1.0.0_ - 기획 / 디자인 / 개발
 
 </br>
 
-_Foodie Log v2.3.0_ - 코드 리팩토링 / 추가 기능 / 디자인 리뉴얼
+_Foodie Log v2.0.3_ - 코드 리팩토링 / 추가 기능 / 디자인 리뉴얼
 
 |<a href="https://github.com/ChoEun-Sang"><img src="https://avatars.githubusercontent.com/u/128155681?v=4" width=150px alt="조은상" />|<a href="https://github.com/iskra17"><img src="https://avatars.githubusercontent.com/u/61578822?v=4" width=150px alt="오소민" />|<a href="https://github.com/iskra17"><img src="https://avatars.githubusercontent.com/u/122417731?v=4" width=150px alt="차동민" />|
 |:---------------------------------------------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------------------------------------------:|
