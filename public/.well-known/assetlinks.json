@@ -1,0 +1,14 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.foodielog.app",
+      "sha256_cert_fingerprints": [
+        "F2:C6:60:3F:73:AD:5D:BC:63:91:65:CF:31:A5:94:1B:28:47:90:16:93:BA:B2:1B:A4:09:8C:EA:BF:05:FB:C2"
+      ]
+    }
+  }
+]
