@@ -8,7 +8,7 @@ const withPWA = require("next-pwa")({
 
 const nextConfig = {
   env: {
-    KAKAO_MAP_API_KEY: process.env.KAKAO_MAP_API_KEY,
+    KAKAO_MAP_API_KEY: process.env.NEXT_PUBLIC_KAKAO_MAP_API_KEY,
   },
   images: {
     // loader: "custom",
