@@ -33,7 +33,7 @@ jobs:
       # 프로젝트 빌드
       - name: Build next app
         env:
-          KAKAO_MAP_API_KEY: ${{ secrets.KAKAO_MAP_API_KEY }}
+          NEXT_PUBLIC_KAKAO_MAP_API_KEY: ${{ secrets.NEXT_PUBLIC_KAKAO_MAP_API_KEY }}
         run: npm run build
 
       # 프로젝트 압축
