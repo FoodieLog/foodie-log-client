@@ -10,7 +10,7 @@ env:
   S3_BUCKET_NAME: foodie-log-server
   CODE_DEPLOY_APPLICATION_NAME: foodie-log
   CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: foodie-log
-
+  KAKAO_MAP_API_KEY: ${{ secrets.KAKAO_MAP_API_KEY }}
 jobs:
   build:
     runs-on: ubuntu-latest
